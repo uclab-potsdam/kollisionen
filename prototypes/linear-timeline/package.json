@@ -1,0 +1,14 @@
+{
+  "name": "@arrran/timeline-eisenstein-1898-1974-categories",
+  "main": "6fc4bc83accd03e0@306.js",
+  "version": "306.0.0",
+  "homepage": "https://observablehq.com/@arrran/timeline-eisenstein-1898-1974-categories",
+  "author": {
+    "name": "Arran Ridley",
+    "url": "https://observablehq.com/@arrran"
+  },
+  "type": "module",
+  "peerDependencies": {
+    "@observablehq/runtime": "4"
+  }
+}
