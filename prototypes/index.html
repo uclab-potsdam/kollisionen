@@ -14,29 +14,59 @@
     <meta property="og:description" content="Biographical data visualisation of Sergei M. Eisenstein.">
     <meta property="og:image" content="">
     <meta property="og:url" content="">
+    <link rel="stylesheet" href="standard-style.css">
     <link rel="stylesheet" href="index.css">
     <link rel="preload" as="" href="">
-    <style>
+    <link rel="stylesheet" type="text/css" href="./linear-timeline/inspector.css">
 
-    </style>
 </head>
 <body>
     <div id="prototype" class="en">
+
         <section class="introduction">
-            <div>
-                <img src="images/K_logo.png" alt="Kollisionen logo" height="200px">
-                <p>
-                    <strong>This space is for linear timeline </strong>
-                </p>
-                <p></p>
+            <div class="image">
+                <img src="images/K_logo.png" alt="Kollisionen logo" height="150px">
+            </div>
+            <div class="intro-text">
+                <p style="font-weight: 600;">The biographical data is based on the book <em>Sergej M. Eisenstein. Materialien zu Leben und Werk</em> by Werner Sudendorf, Hanser, 1980.</p>
+                <p> This is work in progress as part of the research project <a href="https://collisions-eisensteinshouse.projekte-filmuni.de">KOLLISIONEN</a> at Fachhochschule Potsdam and Filmuniversität Babelsberg.</p></p>
             </div>
         </section>
-        <section class="linear timeline">
 
+        <div id="timelines">    
+            <p style="font-weight: 600;">Timeline representing Eisenstein's life </p>    
+        <section class="linear-timeline">
+            <div>
+                <a href="linear-timeline/index.html">Linear Timeline</a>
+            </div> 
         </section>
 
-        
-        <div id="observablehq-viewof-labelSeparation-f57a348c"></div>
+        <section class="spiral-timeline">
+            <div>
+                <a href="spiral/index.html">Spiral Timeline</a>
+            </div> 
+        </section>
+        </div>
+        <!-- <section class="linear timeline">
+            <script type="module">
+
+                import define from "./linear-timeline/index.js";
+                import {Runtime, Library, Inspector} from "./linear-timeline/runtime.js";
+                
+                const runtime = new Runtime();
+                const main = runtime.module(define, Inspector.into(document.body));
+                
+            </script>
+        </section> -->
+    
+</div>
+</body>
+
+
+</html>
+
+
+<!-- <div id="observablehq-viewof-labelSeparation-f57a348c"></div>
 <div id="observablehq-viewof-eventsSelection-f57a348c"></div>
 <div id="observablehq-viewof-search-f57a348c"></div>
 <div id="observablehq-DiDoesDigital2020Timeline-f57a348c"></div>
@@ -58,8 +88,4 @@ new Runtime().module(define, name => {
   if (name === "chartStyles") return new Inspector(document.querySelector("#observablehq-chartStyles-f57a348c"));
   return ["data","accessibleDataTable","y","params","axis"].includes(name);
 });
-</script>
-    
-</div>
-</body>
-</html>
+</script> -->
