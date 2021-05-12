@@ -1,0 +1,39 @@
+#prototype {
+    position: relative;
+    width: 100%;
+    min-width: 1080px;
+    height: 100%;
+    font-family: 'Inconsolata', monospace;
+    font-size: 16px;
+    line-height: 1.25;
+    background: #fdf5e6;
+  }
+
+.spirals {
+    float: right;
+}
+
+.cinema {
+    border: 2px red solid;
+    padding-right: 30px;
+}
+
+.biography {
+    border: 2px red solid;
+    padding-right: 30px;
+}
+
+.writing  {
+    border: 2px red solid;
+    padding-right: 30px;
+}
+
+.graphic {
+    border: 2px red solid;
+    padding-right: 30px;
+}
+
+.apartment {
+    border: 2px red solid;
+    padding-right: 30px;
+}
