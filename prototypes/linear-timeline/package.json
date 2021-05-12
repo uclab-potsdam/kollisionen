@@ -1,11 +1,11 @@
 {
-  "name": "@arrran/timeline-eisenstein-1898-1974-categories",
-  "main": "6fc4bc83accd03e0@306.js",
-  "version": "306.0.0",
-  "homepage": "https://observablehq.com/@arrran/timeline-eisenstein-1898-1974-categories",
+  "name": "e6d04f70d2b18338",
+  "main": "e6d04f70d2b18338@307.js",
+  "version": "307.0.0",
+  "homepage": "https://observablehq.com/d/e6d04f70d2b18338",
   "author": {
-    "name": "Arran Ridley",
-    "url": "https://observablehq.com/@arrran"
+    "name": "Sara Akhlaq",
+    "url": "https://observablehq.com/@alltheakhlaq"
   },
   "type": "module",
   "peerDependencies": {
