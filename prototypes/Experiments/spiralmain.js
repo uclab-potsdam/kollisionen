@@ -116,35 +116,6 @@ var width = 2000,
       .attr("startOffset", function(d){
         return ((d.linePer / spiralLength) * 100) + "%";
       })
-
-    
-  //add select company label
-   svg.selectAll(null)
-      .data(someData)
-      .enter()
-      .append("text")
-      .attr("x", function(d,i){
-        
-        var linePer = timeScale(d.idx),
-            posOnLine = path.node().getPointAtLength(linePer),
-            angleOnLine = path.node().getPointAtLength(linePer - barWidth);
-      
-        d.linePer = linePer; // % distance are on the spiral
-        d.x = posOnLine.x; // x postion on the spiral
-        d.y = posOnLine.y; // y position on the spiral
-        
-        d.a = (Math.atan2(angleOnLine.y, angleOnLine.x) * 180 / Math.PI) - 90; //angle at the spiral position
-
-        return d.x-yScale(d.number)*0.6;
-      })
-      .attr("y", function(d){
-        return d.y+6;
-      })
-      .text(d=>(d.entity==='Fb'&&d.year==2014)||(d.number>200000000 &&
-            (d.data_sensitivity==20||d.data_sensitivity==300||d.data_sensitivity==4000||
-            d.data_sensitivity==50000))?d.entity:'')
-   .attr('fill','white')
-     .style('font-size', function(d) { return Math.min(2 * yScale(d.num_records_stolen), (2 * yScale(d.num_records_stolen) - 40) / this.getComputedTextLength() * 20) + "px"; })
    
   //tooltip
    var tooltip = d3.select("#chart")
