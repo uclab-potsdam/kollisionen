@@ -2,7 +2,7 @@ var width = 1000,
       height = 1000,
       start = 0,
       end = 2.25,
-      numSpirals = 45
+      numSpirals = 78
       margin = {top:50,bottom:50,left:50,right:50};
 
     var theta = function(r) {
@@ -26,7 +26,7 @@ var width = 1000,
       .append("g")
       .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
-    var points = d3.range(start, end + 0.001, (end - start) / 1000);
+    var points = d3.range(start, end + 0.02, (end - start) / 2000);
 
     var spiral = d3.radialLine()
       .curve(d3.curveCardinal)
@@ -43,11 +43,13 @@ var width = 1000,
       .style("opacity",0.5);
 
     var spiralLength = path.node().getTotalLength(),
-        N = 902,
+        N = 905,
         barWidth = (spiralLength / N) - 1;
     var formatNum=d3.format(".2s")
 
     var parseDate = d3.timeParse("%Y-%m-%d");
+    var formatTime = d3.timeFormat("%e %B %Y");
+
 
 //define data
  d3.csv('timeline.csv', function(error, someData) {
@@ -56,7 +58,6 @@ var width = 1000,
         // format the data
         someData.forEach(function(d) {
             d.idx = +d.idx;
-            d.type = +d.type;
             d.number = +d.number;
             d.number1 = +d.number1;
             d.date = +parseDate(d.date);
@@ -72,7 +73,7 @@ var width = 1000,
     
     // yScale for the bar height
     var yScale = d3.scalePow().exponent(0.5)
-      .domain(d3.extent(someData, d=> d.number))
+      .domain(d3.extent(someData, d=> d.number1))
       .range([0, (r / numSpirals)-10 ]);
 
     svg.selectAll("circle")
@@ -142,7 +143,7 @@ var width = 1000,
               .style('display', 'inline-block')
               .style('opacity', '0.9')
               .html(`
-                <span><b>${d.date}</b></span>
+                <span><b>${formatTime(d.date)}</b></span>
                 <br> <b>${d.info}</b> </span>
                 <br><span> Description ${d.hover}
                 <span>Category  <b>${d.type}</b> <br><br>
