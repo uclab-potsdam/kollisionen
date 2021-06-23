@@ -96,7 +96,7 @@ var width = 1000,
       .attr("cy", function(d){
         return d.cy;
       })
-      .attr("r", d=>yScale(d.number1))
+      .attr("r", "5")
       .attr("opacity", 0.85)
       .style("fill", "#238A8D")
       .style("stroke", "#238A8D");
