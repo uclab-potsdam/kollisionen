@@ -38,7 +38,7 @@ var width = 1000,
       .attr("id", "spiral")
       .attr("d", spiral)
       .style("fill", "none")
-      .style("stroke", "black")
+      .style("stroke", "#002FA7")
       .style("stroke", ("6, 5"))
       .style("opacity",0.5);
 
@@ -99,8 +99,8 @@ var width = 1000,
       })
       .attr("r", "5")
       .attr("opacity", 0.85)
-      .style("fill", "#238A8D")
-      .style("stroke", "#238A8D");
+      .style("fill", "#002FA7")
+      .style("stroke", "#002FA7");
     //.style("stroke-dasharray", ("1, 2"))
     //.style("stroke-width", 1.2);
    
@@ -112,7 +112,7 @@ var width = 1000,
       .append("text")
       .attr("dy", 10)
       .style("text-anchor", "start")
-      .style("font", "10px arial")
+      .style("font", "10px inconsolata")
       .append("textPath")
       // only add for the first of each month
       .filter(d=>d.first==1)
@@ -127,7 +127,8 @@ var width = 1000,
   //tooltip
    var tooltip = d3.select("#chart")
     .append('div')
-    .attr('class', 'tooltip');
+    .attr('class', 'tooltip')
+    .style("font", "10px inconsolata");
 
     tooltip.append('div')
     .attr('class', 'date');
