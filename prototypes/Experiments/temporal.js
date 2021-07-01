@@ -9,11 +9,6 @@ var width = 1000,
       return numSpirals * Math.PI * r;
     };
 
-    // used to assign nodes color by group
-    var color = d3.scaleOrdinal() // D3 Version 4
-  .domain(1,20,300,4000,50000)
-  .range(["#B8DE29","#238A8D","#55C667", '#A7226E','#440154']);;
-
     var r = d3.min([width, height]) / 2-20 ;
 
     var radius = d3.scaleLinear()
@@ -38,7 +33,7 @@ var width = 1000,
       .attr("id", "spiral")
       .attr("d", spiral)
       .style("fill", "none")
-      .style("stroke", "#002FA7")
+      .style("stroke", "black")
       .style("stroke", ("6, 5"))
       .style("opacity",0.5);
 
@@ -52,29 +47,39 @@ var width = 1000,
 
 
 //define data
- d3.csv('timeline.csv', function(error, someData) {
+ d3.csv('minimal.csv', function(error, someData) {
         if (error) throw error;
 
         // format the data
         someData.forEach(function(d) {
-            d.idx = +d.idx;
-            d.number = +d.number;
-            d.number1 = +d.number1;
-            d.date = +parseDate(d.date);
+            d.date = +parseDate(d.start, d.end);
+            d.start = +parseDate(d.start);
+            d.end = +parseDate(d.end);
           });
 
+// var uncertainDay = someData.filter(d => d.date)
 
+
+// uncertainty == 2 => YYYY-01-01
+// uncertainty == 1 => YYYY-MM-01
+
+// uncertainty == 2 => YYYY-12-31
+// uncertainty == 1 => YYYY-MM-28
+
+
+// var uncertainMonth = someData.filter(d => {
+// if (d.date === ("%Y-00-%d")) (return d.date == ("%Y--%d") )
+
+
+
+
+// })
 
     var timeScale = d3.scaleLinear()
       .domain(d3.extent(someData, function(d){
         return d.date;
       }))
       .range([0, spiralLength]);
-    
-    // yScale for the bar height
-    var yScale = d3.scalePow().exponent(0.5)
-      .domain(d3.extent(someData, d=> d.number1))
-      .range([0, (r / numSpirals)-10 ]);
 
     svg.selectAll("circle")
       .data(someData)
@@ -90,7 +95,7 @@ var width = 1000,
         d.cx = posOnLine.x; // x postion on the spiral
         d.cy = posOnLine.y; // y position on the spiral
         
-        d.a = (Math.atan2(angleOnLine.y, angleOnLine.x) * 180 / Math.PI) - 90; //angle at the spiral position
+        d.a = (Math.atan2(angleOnLine.y, angleOnLine.x) * 360 / Math.PI) - 90; //angle at the spiral position
 
         return d.cx;
       })
@@ -99,8 +104,8 @@ var width = 1000,
       })
       .attr("r", "5")
       .attr("opacity", 0.85)
-      .style("fill", "#002FA7")
-      .style("stroke", "#002FA7");
+      .style("fill", "#238A8D")
+      .style("stroke", "#238A8D");
     //.style("stroke-dasharray", ("1, 2"))
     //.style("stroke-width", 1.2);
    
@@ -112,7 +117,7 @@ var width = 1000,
       .append("text")
       .attr("dy", 10)
       .style("text-anchor", "start")
-      .style("font", "10px inconsolata")
+      .style("font", "10px arial")
       .append("textPath")
       // only add for the first of each month
       .filter(d=>d.first==1)
@@ -127,8 +132,7 @@ var width = 1000,
   //tooltip
    var tooltip = d3.select("#chart")
     .append('div')
-    .attr('class', 'tooltip')
-    .style("font", "10px inconsolata");
+    .attr('class', 'tooltip');
 
     tooltip.append('div')
     .attr('class', 'date');
@@ -145,10 +149,9 @@ var width = 1000,
               .style('opacity', '0.9')
               .html(`
                 <span><b>${formatTime(d.date)}</b></span>
-                <br> <b>${d.info}</b> </span>
-                <br><span> Description ${d.hover}
-                <span>Category  <b>${d.type}</b> <br><br>
-</span>`);
+                <br> <b>${d.title}</b> </span>
+                <br><span> ${d.description}
+                <span><b>${d.category}</b> <br><br></span>`);
           })
     .on('mouseout', function(d) {
         d3.selectAll("rect")
