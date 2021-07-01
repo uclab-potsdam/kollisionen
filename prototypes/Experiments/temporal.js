@@ -42,7 +42,7 @@ var width = 1000,
         barWidth = (spiralLength / N) - 1;
     var formatNum=d3.format(".2s")
 
-    var parseDate = d3.timeParse("%Y-%m-%d");
+    var parseDate = d3.timeParse("%Y-%m-%d"); // further format to correctly position dates ()
     var formatTime = d3.timeFormat("%e %B %Y");
 
 
@@ -50,30 +50,40 @@ var width = 1000,
  d3.csv('minimal.csv', function(error, someData) {
         if (error) throw error;
 
+        console.log(someData);
+
+        // 1. add properties 'vstart' and 'vend' for inferred dates
+        //    and uncertainty property
+        for (let i = 0; i < someData.length; i++) {
+          someData[i]["vstart"] = null;
+          someData[i]["vend"] = null;
+          someData[i]["uncertainty"] = 0;
+        }
+        
+        /* 2. add 'uncertainty' levels:
+          0: no uncertainty, e.g. 1898-01-23
+          1: uncertainty in days, e.g. 1914-07-00
+          2: uncertainty in months e.g. 1906-00-00
+        */
+
+
+        /* 3. populate vstart and vend
+            start
+              uncertainty == 2 → YYYY-01-01
+              uncertainty == 1 → YYYY-MM-01
+            end
+              uncertainty == 2 → YYYY-12-31
+              uncertainty == 1 → YYYY-MM-28
+        */
+        
+
+
         // format the data
         someData.forEach(function(d) {
             d.date = +parseDate(d.start, d.end);
             d.start = +parseDate(d.start);
             d.end = +parseDate(d.end);
           });
-
-// var uncertainDay = someData.filter(d => d.date)
-
-
-// uncertainty == 2 => YYYY-01-01
-// uncertainty == 1 => YYYY-MM-01
-
-// uncertainty == 2 => YYYY-12-31
-// uncertainty == 1 => YYYY-MM-28
-
-
-// var uncertainMonth = someData.filter(d => {
-// if (d.date === ("%Y-00-%d")) (return d.date == ("%Y--%d") )
-
-
-
-
-// })
 
     var timeScale = d3.scaleLinear()
       .domain(d3.extent(someData, function(d){
