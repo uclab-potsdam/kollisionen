@@ -57,7 +57,7 @@ var width = 1000,
         for (let i = 0; i < someData.length; i++) {
           someData[i]["vstart"] = null;
           someData[i]["vend"] = null;
-          someData[i]["uncertainty"] = '0';
+          someData[i]["uncertainty"] = 0;
         };
         
         /* 2. add 'uncertainty' levels:
@@ -66,56 +66,31 @@ var width = 1000,
           2: uncertainty in months e.g. 1906-00-00
         */
 
-        for (let i = 0; i < someData.length; i++) {
 
-          const regex = /[0-9]+-([0-9]+)-([0-9]+)/gm;
-          let m;
-          
-          while ((match = regex.exec(someData[i]["start"])) !== null) {
-              // This is necessary to avoid infinite loops with zero-width matches
-              if (match.index === regex.lastIndex) {
-                  regex.lastIndex++;
-              }
-              
-              // month
-              if  (match[1] === "00") {
-                someData[i]["uncertainty"] = someData[i]["uncertainty"].replace(/0/i, '1');
-                console.log('month', match[0])
-              }
-            
-              else if (match[2] === "00") {
-                someData[i]["uncertainty"] = someData[i]["uncertainty"].replace(/0/i, '2');
-                console.log('day', match[0])
-              }
-          }
+          //console.log(someData.indexOf("00") === 5 );      
+
+//   console.log(someData.forEach(function() {
+//   if (someData.indexOf("00") === 5 ) { 
+
+//     //uncertainty = 1;
 
 
+//   }
 
-          };
+//   else if (someData.indexOf("00") === 8 ) { 
+    
+//     //uncertainty = 2;
 
+//   }
 
-          
-          // someData.forEach(function(d) {
-          //   if (d.start.indexOf("00") === 5 ) { 
-          
-          //     uncertainty = 2;
-          
-          
-          //   }
-          
-          //   else if (someData.indexOf("00") === 8 ) { 
-              
-          //     uncertainty = 1;
-          
-          //   }
-          
-          //   else if (someData.indexOf("00") === -1 ) {
-          
-          //     uncertainty = 0;
-          
-          //   }
-          
-          // });
+//   else if (someData.indexOf("00") === -1 ) {
+
+//     //uncertainty = 0;
+
+//   }
+
+// }));
+
 
 
 
