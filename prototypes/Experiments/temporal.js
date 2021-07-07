@@ -33,7 +33,7 @@ var width = 1000,
       .attr("id", "spiral")
       .attr("d", spiral)
       .style("fill", "none")
-      .style("stroke", "black")
+      .style("stroke", "bnone")
       .style("stroke", ("6, 5"))
       .style("opacity",0.5);
 
@@ -57,7 +57,8 @@ var width = 1000,
         for (let i = 0; i < someData.length; i++) {
           someData[i]["vstart"] = null;
           someData[i]["vend"] = null;
-          someData[i]["uncertainty"] = '0';
+          someData[i]["uncertaintystart"] = 0;
+          someData[i]["uncertaintyend"] = 0;
         };
         
         /* 2. add 'uncertainty' levels:
@@ -79,46 +80,43 @@ var width = 1000,
               
               // month
               if  (match[1] === "00") {
-                someData[i]["uncertainty"] = someData[i]["uncertainty"].replace(/0/i, '1');
+                someData[i]["uncertaintystart"] = 1;
                 console.log('month', match[0])
               }
-            
+            //day
               else if (match[2] === "00") {
-                someData[i]["uncertainty"] = someData[i]["uncertainty"].replace(/0/i, '2');
+                someData[i]["uncertaintystart"] = 2;
                 console.log('day', match[0])
               }
           }
 
-
-
           };
 
+          for (let i = 0; i < someData.length; i++) {
 
-          
-          // someData.forEach(function(d) {
-          //   if (d.start.indexOf("00") === 5 ) { 
-          
-          //     uncertainty = 2;
-          
-          
-          //   }
-          
-          //   else if (someData.indexOf("00") === 8 ) { 
+            const regex = /[0-9]+-([0-9]+)-([0-9]+)/gm;
+            let m;
+            
+            while ((match = regex.exec(someData[i]["end"])) !== null) {
+                // This is necessary to avoid infinite loops with zero-width matches
+                if (match.index === regex.lastIndex) {
+                    regex.lastIndex++;
+                }
+                
+                // month
+                if  (match[1] === "00") {
+                  someData[i]["uncertaintyend"] = 1;
+                  console.log('month', match[0])
+                }
               
-          //     uncertainty = 1;
-          
-          //   }
-          
-          //   else if (someData.indexOf("00") === -1 ) {
-          
-          //     uncertainty = 0;
-          
-          //   }
-          
-          // });
-
-
-
+                //day
+                else if (match[2] === "00") {
+                  someData[i]["uncertaintyend"] = 2;
+                  console.log('day', match[0])
+                }
+            }
+  
+            };
 
         /* 3. populate vstart and vend
             start
@@ -129,13 +127,28 @@ var width = 1000,
               uncertainty == 1 → YYYY-MM-28
         */
         
+            for (let i = 0; i < someData.length; i++) {
 
+if (someData[i]["uncertaintystart"] === 1) {
+  someData[i]["vstart"] = 'YYYY-01-01';
+  console.log(["vstart"])
+}
+else if 
+
+ (someData[i]["uncertaintystart"] === 1) {
+  someData[i]["vstart"] = 'YYYY-MM-01';
+
+
+
+            }};
 
         // format the data
         someData.forEach(function(d) {
             d.date = +parseDate(d.start, d.end);
             d.start = +parseDate(d.start);
             d.end = +parseDate(d.end);
+            d.vstart = +parseDate(d.vstart);
+            d.vend = +parseDate(d.vend);
           });
 
     var timeScale = d3.scaleLinear()
@@ -212,9 +225,7 @@ var width = 1000,
               .style('opacity', '0.9')
               .html(`
                 <span><b>${formatTime(d.date)}</b></span>
-                <br> <b>${d.title}</b> </span>
-                <br><span> ${d.description}
-                <span><b>${d.category}</b> <br><br></span>`);
+                <br> <b>${d.title}</b> </span>`);
           })
     .on('mouseout', function(d) {
         d3.selectAll("rect")
