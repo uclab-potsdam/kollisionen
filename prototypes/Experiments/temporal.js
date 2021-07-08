@@ -38,7 +38,7 @@ var width = 1000,
       .style("opacity",0.5);
 
     var spiralLength = path.node().getTotalLength(),
-        N = 905, //will be dynamic later
+        N = 905, //will be dynamic later according to number of data points 
         barWidth = (spiralLength / N) - 1;
     //var formatNum=d3.format(".2s")
 
@@ -62,99 +62,64 @@ var width = 1000,
           spiralData[i]["uncertaintyend"] = 0;
         };
         
-        /* 2. add 'uncertainty' levels:
+       
+        for (let i = 0; i < spiralData.length; i++) {
+          var startA = spiralData[i]["start"].split("-");
+          var endA = spiralData[i]["end"].split("-");
+
+          /* 2. add 'uncertainty' levels:
           0: no uncertainty, e.g. 1898-01-23
           1: uncertainty in days, e.g. 1914-07-00
           2: uncertainty in months e.g. 1906-00-00
-        */
-
-        for (let i = 0; i < spiralData.length; i++) {
-
-          const regex = /[0-9]+-([0-9]+)-([0-9]+)/gm;
-          let m;
+          */
+          if (startA[1]=="00") spiralData[i]["uncertaintystart"] = 2;
+          else if (startA[2]=="00") spiralData[i]["uncertaintystart"] = 1;
+          if (endA[1]=="00") spiralData[i]["uncertaintyend"] = 2;
+          else if (endA[2]=="00") spiralData[i]["uncertaintyend"] = 1;
           
-          while ((match = regex.exec(spiralData[i]["start"])) !== null) {
-              // This is necessary to avoid infinite loops with zero-width matches
-              if (match.index === regex.lastIndex) {
-                  regex.lastIndex++;
-              }
-              
-              // month
-              if  (match[1] === "00") {
-                spiralData[i]["uncertaintystart"] = 1;
-                console.log('month', match[0])
-              }
-            //day
-              else if (match[2] === "00") {
-                spiralData[i]["uncertaintystart"] = 2;
-                console.log('day', match[0])
-              }
+           /* 3. populate vstart and vend. assign proper dates to events that automatically fall on 30th November 
+          start
+            uncertainty == 2 → YYYY-01-01
+            uncertainty == 1 → YYYY-MM-01
+          end
+            uncertainty == 2 → YYYY-12-31
+            uncertainty == 1 → YYYY-MM-28
+          */
+          
+          if (spiralData[i]["uncertaintystart"]==2) startA[0]+"-01-01";
+          
+
+          if (uncertainty==2) {
+            spiralData[i]["vstart"] = 
+            spiralData[i]["vend"] = endA[0]+"-12-31";
           }
-
-          };
-
-          for (let i = 0; i < spiralData.length; i++) {
-
-            const regex = /[0-9]+-([0-9]+)-([0-9]+)/gm;
-            let m;
-            
-            while ((match = regex.exec(spiralData[i]["end"])) !== null) {
-                // This is necessary to avoid infinite loops with zero-width matches
-                if (match.index === regex.lastIndex) {
-                    regex.lastIndex++;
-                }
-                
-                // month
-                if  (match[1] === "00") {
-                  spiralData[i]["uncertaintyend"] = 1;
-                  console.log('month', match[0])
-                }
-              
-                //day
-                else if (match[2] === "00") {
-                  spiralData[i]["uncertaintyend"] = 2;
-                  console.log('day', match[0])
-                }
-            }
-  
-            };
-
-        /* 3. populate vstart and vend
-            start
-              uncertainty == 2 → YYYY-01-01
-              uncertainty == 1 → YYYY-MM-01
-            end
-              uncertainty == 2 → YYYY-12-31
-              uncertainty == 1 → YYYY-MM-28
-        */
+          else if (uncertainty==1) {
+            spiralData[i]["vstart"] = startA[0]+"-"+startA[1]+"-01";
+            spiralData[i]["vend"] = endA[0]+"-"+endA[1]+"-28";
+          }
+          else if (uncertainty==0) {
+            spiralData[i]["vstart"] = spiralData[i]["start"];
+            spiralData[i]["vend"] = spiralData[i]["end"];
+          } 
         
-            for (let i = 0; i < spiral.length; i++) {
+        };
 
-if (spiralData[i]["uncertaintystart"] === 1) {
-  spiralData[i]["vstart"] = 'YYYY-01-01';
-  console.log(["vstart"])
-}
-else if 
-
- (spiralData[i]["uncertaintystart"] === 1) {
-  spiralData[i]["vstart"] = 'YYYY-MM-01';
-
-
-
-            }};
+        
+        console.log(spiralData);
 
         // format the data
         spiralData.forEach(function(d) {
-            // d.start needs to be just the exact single dates, and needs to filter out the uncertain dates
-            d.start = +parseDate(d.start);
-            d.end = +parseDate(d.end);
+            // d.start needs to be just the certain single dates (0), and needs to filter out the uncertain dates (1 or 2). There are also 'ranges' that contain 
+            
+            // d.start = +parseDate(d.start);
+            // d.end = +parseDate(d.end);
             d.vstart = +parseDate(d.vstart);
             d.vend = +parseDate(d.vend);
           });
 
     var timeScale = d3.scaleLinear()
       .domain(d3.extent(spiralData, function(d){
-        return d.start;
+        return d.vstart;
       }))
       .range([0, spiralLength]);
 
@@ -164,7 +129,7 @@ else if
       .append("circle")
       .attr("cx", function(d,i){
         
-        var linePer = timeScale(d.start),
+        var linePer = timeScale(d.vstart),
             posOnLine = path.node().getPointAtLength(linePer),
             angleOnLine = path.node().getPointAtLength(linePer - barWidth);
       
