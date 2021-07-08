@@ -86,21 +86,19 @@ var width = 1000,
             uncertainty == 1 → YYYY-MM-28
           */
           
-          if (spiralData[i]["uncertaintystart"]==2) startA[0]+"-01-01";
-          
-
-          if (uncertainty==2) {
-            spiralData[i]["vstart"] = 
-            spiralData[i]["vend"] = endA[0]+"-12-31";
+          if (spiralData[i]["uncertaintystart"]==2) {
+            spiralData[i]["vstart"] = startA[0]+"-01-01";
+            spiralData[i]["vend"] = startA[0]+"-12-31";
           }
-          else if (uncertainty==1) {
+          else if (spiralData[i]["uncertaintystart"]==1) {
             spiralData[i]["vstart"] = startA[0]+"-"+startA[1]+"-01";
-            spiralData[i]["vend"] = endA[0]+"-"+endA[1]+"-28";
+            spiralData[i]["vend"] = startA[0]+"-"+startA[1]+"-28";
           }
-          else if (uncertainty==0) {
-            spiralData[i]["vstart"] = spiralData[i]["start"];
-            spiralData[i]["vend"] = spiralData[i]["end"];
-          } 
+          else spiralData[i]["vstart"] = spiralData[i]["start"];
+
+          if (spiralData[i]["uncertaintyend"]==2) spiralData[i]["vend"] = endA[0]+"-12-31";
+          else if (spiralData[i]["uncertaintyend"]==1) spiralData[i]["vend"] = endA[0]+"-"+endA[1]+"-28";
+          else spiralData[i]["vend"] = spiralData[i]["end"];
         
         };
 
@@ -190,7 +188,7 @@ var width = 1000,
               .style('display', 'inline-block')
               .style('opacity', '0.9')
               .html(`
-                <span><b>${formatTime(d.start)}</b></span>
+                <span><b>${d.start} - ${d.end}</b></span>
                 <br> <b>${d.title}</b> </span>`);
           })
     .on('mouseout', function(d) {
