@@ -145,17 +145,16 @@ else if
 
         // format the data
         spiralData.forEach(function(d) {
-            // d.date needs to be just the exact single dates, and needs to filter out the uncertain dates
-            d.date = +parseDate(d.start);
-            // d.start = +parseDate(d.start);
-            // d.end = +parseDate(d.end);
+            // d.start needs to be just the exact single dates, and needs to filter out the uncertain dates
+            d.start = +parseDate(d.start);
+            d.end = +parseDate(d.end);
             d.vstart = +parseDate(d.vstart);
             d.vend = +parseDate(d.vend);
           });
 
     var timeScale = d3.scaleLinear()
       .domain(d3.extent(spiralData, function(d){
-        return d.date;
+        return d.start;
       }))
       .range([0, spiralLength]);
 
@@ -165,7 +164,7 @@ else if
       .append("circle")
       .attr("cx", function(d,i){
         
-        var linePer = timeScale(d.date),
+        var linePer = timeScale(d.start),
             posOnLine = path.node().getPointAtLength(linePer),
             angleOnLine = path.node().getPointAtLength(linePer - barWidth);
       
@@ -189,23 +188,23 @@ else if
    
        // add date labels
 
-    svg.selectAll("text")
-      .data(spiralData)
-      .enter()
-      .append("text")
-      .attr("dy", 10)
-      .style("text-anchor", "start")
-      .style("font", "10px arial")
-      .append("textPath")
-      // only add for the first of each month
-      .filter(d=>d.first==1)
-      .text(d=>d.year)
-      // place text along spiral
-      .attr("xlink:href", "#spiral")
-      .style("fill", "grey")
-      .attr("startOffset", function(d){
-        return ((d.linePer / spiralLength) * 100) + "%";
-      });
+    // svg.selectAll("text")
+    //   .data(spiralData)
+    //   .enter()
+    //   .append("text")
+    //   .attr("dy", 10)
+    //   .style("text-anchor", "start")
+    //   .style("font", "10px arial")
+    //   .append("textPath")
+    //   // only add for the first of each month
+    //   .filter(d=>d.first==1)
+    //   .text(d=>d.year)
+    //   // place text along spiral
+    //   .attr("xlink:href", "#spiral")
+    //   .style("fill", "grey")
+    //   .attr("startOffset", function(d){
+    //     return ((d.linePer / spiralLength) * 100) + "%";
+    //   });
    
   //tooltip
    var tooltip = d3.select("#chart")
@@ -226,7 +225,7 @@ else if
               .style('display', 'inline-block')
               .style('opacity', '0.9')
               .html(`
-                <span><b>${formatTime(d.date)}</b></span>
+                <span><b>${formatTime(d.start)}</b></span>
                 <br> <b>${d.title}</b> </span>`);
           })
     .on('mouseout', function(d) {
