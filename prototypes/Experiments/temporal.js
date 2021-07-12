@@ -109,7 +109,7 @@ var width = 1000,
         spiralData.forEach(function(d) {
             // d.start needs to be just the certain single dates (0), and needs to filter out the uncertain dates (1 or 2). There are also 'ranges' that contain 
             
-            // d.start = +parseDate(d.start);
+            d.start = +parseDate(d.start);
             // d.end = +parseDate(d.end);
             d.vstart = +parseDate(d.vstart);
             d.vend = +parseDate(d.vend);
@@ -117,17 +117,32 @@ var width = 1000,
 
     var timeScale = d3.scaleLinear()
       .domain(d3.extent(spiralData, function(d){
-        return d.vstart;
+        return d.start;
       }))
       .range([0, spiralLength]);
 
     svg.selectAll("circle")
-      .data(spiralData)
+      //.data(spiralData)
+                  .data(function(d) {
+                    for (let i = 0; i < spiralData.length; i++) {
+                    
+                 if (spiralData[i]["uncertaintystart"]==1) spiralData.filter(function(v) 
+                  { return v != 1; })
+
+                  else if (spiralData[i]["uncertaintystart"]==2)
+
+                 return spiralData.filter(function(v) 
+                  { return v != 2; });
+
+                  }})
+                
+
+
       .enter()
       .append("circle")
       .attr("cx", function(d,i){
         
-        var linePer = timeScale(d.vstart),
+        var linePer = timeScale(d.start),
             posOnLine = path.node().getPointAtLength(linePer),
             angleOnLine = path.node().getPointAtLength(linePer - barWidth);
       
@@ -149,6 +164,59 @@ var width = 1000,
     //.style("stroke-dasharray", ("1, 2"))
     //.style("stroke-width", 1.2);
    
+    //adding visual elements for vstart and vend: range of uncertain dates
+    svg.selectAll("line")
+      .data(spiralData, )
+      //.data(function(d) {
+       // return d.vstart.filter(function(v) { return v != 0; });
+    //})
+       //.data(function(d) {
+       // return d.vend.filter(function(v) { return v != 0; });
+    //})   
+      .enter()
+      .append("line")
+      //start of line
+      .attr("x1", function(d,i){
+        
+        var linePer = timeScale(d.vstart),
+        posOnLine = path.node().getPointAtLength(linePer),
+        angleOnLine = path.node().getPointAtLength(linePer - barWidth);
+  
+    d.linePer = linePer; // % distance are on the spiral
+    d.x1 = posOnLine.x; // x postion on the spiral
+    d.y1 = posOnLine.y; // y position on the spiral
+    
+    d.a = (Math.atan2(angleOnLine.y, angleOnLine.x) * 360 / Math.PI) - 90; //angle at the spiral position
+
+    return d.x1;
+
+      })
+      .attr("y1", function(d){
+        return d.y1
+      })
+      // end of line
+      .attr("x2", function(d,i){
+        
+        var linePer = timeScale(d.vend),
+        posOnLine = path.node().getPointAtLength(linePer),
+        angleOnLine = path.node().getPointAtLength(linePer - barWidth);
+  
+    d.linePer = linePer; // % distance are on the spiral
+    d.x2 = posOnLine.x; // x postion on the spiral
+    d.y2 = posOnLine.y; // y position on the spiral
+    
+    d.a = (Math.atan2(angleOnLine.y, angleOnLine.x) * 360 / Math.PI) - 90; //angle at the spiral position
+
+    return d.x2;
+
+      })
+      .attr("y2", function(d){
+        return d.y2
+      })
+      .style("stroke", "#238A8D");  
+
+
+
        // add date labels
 
     // svg.selectAll("text")
@@ -188,7 +256,7 @@ var width = 1000,
               .style('display', 'inline-block')
               .style('opacity', '0.9')
               .html(`
-                <span><b>${d.start} - ${d.end}</b></span>
+                <span><b>${formatTime(d.start)}</b></span>
                 <br> <b>${d.title}</b> </span>`);
           })
     .on('mouseout', function(d) {
