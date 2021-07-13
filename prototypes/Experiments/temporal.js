@@ -121,23 +121,16 @@ var width = 1000,
       }))
       .range([0, spiralLength]);
 
+
+// The mapping of visual variables starts here
+
+//certain events
+
     svg.selectAll("circle")
-      //.data(spiralData)
-                  .data(function(d) {
-                    for (let i = 0; i < spiralData.length; i++) {
-                    
-                 if (spiralData[i]["uncertaintystart"]==1) spiralData.filter(function(v) 
-                  { return v != 1; })
-
-                  else if (spiralData[i]["uncertaintystart"]==2)
-
-                 return spiralData.filter(function(v) 
-                  { return v != 2; });
-
-                  }})
-                
-
-
+     // .data(spiralData)
+      .data(function(d) {
+       return spiralData.filter(function(d) { return d.uncertaintystart == 0; });
+        })
       .enter()
       .append("circle")
       .attr("cx", function(d,i){
@@ -161,18 +154,14 @@ var width = 1000,
       .attr("opacity", 0.85)
       .style("fill", "#238A8D")
       .style("stroke", "#238A8D");
-    //.style("stroke-dasharray", ("1, 2"))
-    //.style("stroke-width", 1.2);
    
     //adding visual elements for vstart and vend: range of uncertain dates
+
     svg.selectAll("line")
-      .data(spiralData, )
-      //.data(function(d) {
-       // return d.vstart.filter(function(v) { return v != 0; });
-    //})
-       //.data(function(d) {
-       // return d.vend.filter(function(v) { return v != 0; });
-    //})   
+      //.data(spiralData)
+      .data(function(d) {
+       return spiralData.filter(function(d) { return (d.vstart != 0) && (d.vend != 0); });
+    })   
       .enter()
       .append("line")
       //start of line
@@ -215,7 +204,52 @@ var width = 1000,
       })
       .style("stroke", "#238A8D");  
 
+  //   //adding visual elements for vstart and vend: range of uncertain dates
 
+var line = d3.line()
+              .curve(d3.curveCardinal)
+              // .angle(theta)
+              // .radius(radius)
+              .x(function(d,i){ 
+        
+                var linePer = timeScale(d.vstart),
+                posOnLine = path.node().getPointAtLength(linePer),
+                angleOnLine = path.node().getPointAtLength(linePer - barWidth);
+          
+            d.linePer = linePer; // % distance are on the spiral
+            d.x = posOnLine.x; // x postion on the spiral
+            d.y = posOnLine.y; // y position on the spiral
+            
+            d.a = (Math.atan2(angleOnLine.y, angleOnLine.x) * 360 / Math.PI) - 90; //angle at the spiral position
+        
+            return d.x;
+        
+              })
+              .y(function(d){
+        
+                var linePer = timeScale(d.vend),
+                posOnLine = path.node().getPointAtLength(linePer),
+                angleOnLine = path.node().getPointAtLength(linePer - barWidth);
+          
+            d.linePer = linePer; // % distance are on the spiral
+            d.x = posOnLine.x; // x postion on the spiral
+            d.y = posOnLine.y; // y position on the spiral
+            
+            d.a = (Math.atan2(angleOnLine.y, angleOnLine.x) * 360 / Math.PI) - 90; //angle at the spiral position
+        
+            return d.y;
+          })
+          //.curve(d3.curveCardinal)
+
+    svg.selectAll("path")
+    .data(function(d) {
+      return spiralData.filter(function(d) { return (d.vstart != 0) && (d.vend != 0); });
+      })  
+      .enter()
+      .append("path")
+      //start of line
+      .attr("d",line(spiralData))
+      .style("stroke", "#238A8D")
 
        // add date labels
 
