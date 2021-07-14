@@ -5,15 +5,23 @@ var width = 1000,
     numSpirals = 78
     margin = {top:50,bottom:50,left:50,right:50};
 
+    // 
+
     var theta = function(r) {
       return numSpirals * Math.PI * r;
     };
 
+    // 
+
     var r = d3.min([width, height]) / 2-20 ;
+
+    // The radius of the spiral
 
     var radius = d3.scaleLinear()
       .domain([start, end])
       .range([30, r]);
+
+    // 
 
     var svg = d3.select("#chart").append("svg")
       .attr("width", width + margin.right + margin.left)
@@ -21,12 +29,18 @@ var width = 1000,
       .append("g")
       .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")"); // will become dynamic later 
 
+    // 
+
     var points = d3.range(start, end + 0.02, (end - start) / 2000);
+
+    // 
 
     var spiral = d3.radialLine()
       .curve(d3.curveCardinal)
       .angle(theta)
       .radius(radius);
+
+    //
 
     var path = svg.append("path")
       .datum(points)
@@ -37,10 +51,14 @@ var width = 1000,
       .style("stroke", ("6, 5"))
       .style("opacity",0.5);
 
+    //
+
     var spiralLength = path.node().getTotalLength(),
         N = 905, //will be dynamic later according to number of data points 
         barWidth = (spiralLength / N) - 1;
     //var formatNum=d3.format(".2s")
+
+    // 
 
     var parseDate = d3.timeParse("%Y-%m-%d"); // further format to correctly position dates ()
     var formatTime = d3.timeFormat("%e %B %Y");
@@ -56,8 +74,8 @@ var width = 1000,
         // 1. add properties 'vstart' and 'vend' for inferred dates
         //    and uncertainty property
         for (let i = 0; i < spiralData.length; i++) {
-          spiralData[i]["vstart"] = null;
-          spiralData[i]["vend"] = null;
+          spiralData[i]["vstart"] = spiralData[i]["start"];
+          spiralData[i]["vend"] = spiralData[i]["end"];
           spiralData[i]["uncertaintystart"] = 0;
           spiralData[i]["uncertaintyend"] = 0;
         };
@@ -103,23 +121,24 @@ var width = 1000,
         };
 
         
-        console.log(spiralData);
-
         // format the data
         spiralData.forEach(function(d) {
-            // d.start needs to be just the certain single dates (0), and needs to filter out the uncertain dates (1 or 2). There are also 'ranges' that contain 
-            
-            d.start = +parseDate(d.start);
-            // d.end = +parseDate(d.end);
-            d.vstart = +parseDate(d.vstart);
-            d.vend = +parseDate(d.vend);
-          });
+          // d.start needs to be just the certain single dates (0), and needs to filter out the uncertain dates (1 or 2). There are also 'ranges' that contain 
+          
+          // d.start = +parseDate(d.start);
+          // d.end = +parseDate(d.end);
+          d.vstart = +parseDate(d.vstart);
+          d.vend = +parseDate(d.vend);
+        });
 
-    var timeScale = d3.scaleLinear()
-      .domain(d3.extent(spiralData, function(d){
-        return d.start;
-      }))
-      .range([0, spiralLength]);
+        var timeScale = d3.scaleLinear()
+          .domain(d3.extent(spiralData, function(d){
+          return d.vstart;
+        }))
+        .range([0, spiralLength]);
+
+        console.log(spiralData);
+
 
 
 // The mapping of visual variables starts here
@@ -129,13 +148,13 @@ var width = 1000,
     svg.selectAll("circle")
      // .data(spiralData)
       .data(function(d) {
-       return spiralData.filter(function(d) { return d.uncertaintystart == 0; });
-        })
+        return spiralData.filter(function(d) { return d.uncertaintystart == 0 && d.uncertaintyend == 0; });
+      })
       .enter()
       .append("circle")
       .attr("cx", function(d,i){
         
-        var linePer = timeScale(d.start),
+        var linePer = timeScale(d.vstart),
             posOnLine = path.node().getPointAtLength(linePer),
             angleOnLine = path.node().getPointAtLength(linePer - barWidth);
       
@@ -155,8 +174,10 @@ var width = 1000,
       .style("fill", "#238A8D")
       .style("stroke", "#238A8D");
    
+
     //adding visual elements for vstart and vend: range of uncertain dates
 
+    /*
     svg.selectAll("line")
       //.data(spiralData)
       .data(function(d) {
@@ -216,13 +237,13 @@ var line = d3.line()
                 posOnLine = path.node().getPointAtLength(linePer),
                 angleOnLine = path.node().getPointAtLength(linePer - barWidth);
           
-            d.linePer = linePer; // % distance are on the spiral
-            d.x = posOnLine.x; // x postion on the spiral
-            d.y = posOnLine.y; // y position on the spiral
+                d.linePer = linePer; // % distance are on the spiral
+                d.x = posOnLine.x; // x postion on the spiral
+                d.y = posOnLine.y; // y position on the spiral
+                
+                d.a = (Math.atan2(angleOnLine.y, angleOnLine.x) * 360 / Math.PI) - 90; //angle at the spiral position
             
-            d.a = (Math.atan2(angleOnLine.y, angleOnLine.x) * 360 / Math.PI) - 90; //angle at the spiral position
-        
-            return d.x;
+                return d.x;
         
               })
               .y(function(d){
@@ -239,14 +260,14 @@ var line = d3.line()
         
             return d.y;
           })
-          .defined
+          //.defined
           //.curve(d3.curveCardinal)
 
     svg.selectAll("path")
     .data(function(d) {
-      return spiralData.filter(function(d) { return (d.vstart != 0) && (d.vyend != 0); });
+      return spiralData.filter(function(d) { return (d.vstart != 0) && (d.vend != 0); });
       })
-      .data(spiralData)
+      //.data(spiralData)
       .enter()
       .append("path")
       //start of line
@@ -257,6 +278,9 @@ var line = d3.line()
       .style("stroke", "#238A8D")
 
        // add date labels
+
+*/
+
 
     // svg.selectAll("text")
     //   .data(spiralData)
@@ -295,7 +319,7 @@ var line = d3.line()
               .style('display', 'inline-block')
               .style('opacity', '0.9')
               .html(`
-                <span><b>${formatTime(d.start)}</b></span>
+                <span><b>${formatTime(d.vstart)}</b></span>
                 <br> <b>${d.title}</b> </span>`);
           })
     .on('mouseout', function(d) {
