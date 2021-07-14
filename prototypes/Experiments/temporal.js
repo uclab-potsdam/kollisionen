@@ -239,16 +239,21 @@ var line = d3.line()
         
             return d.y;
           })
+          .defined
           //.curve(d3.curveCardinal)
 
     svg.selectAll("path")
     .data(function(d) {
-      return spiralData.filter(function(d) { return (d.vstart != 0) && (d.vend != 0); });
-      })  
+      return spiralData.filter(function(d) { return (d.vstart != 0) && (d.vyend != 0); });
+      })
+      .data(spiralData)
       .enter()
       .append("path")
       //start of line
-      .attr("d",line(spiralData))
+      // .attr("d",line(function(d) {
+      //   return spiralData.filter(function(d) { return (d.uncertaintystart != 0) && (d.uncertaintyend != 0); });
+      //   }))
+      .attr("d", line(spiralData))
       .style("stroke", "#238A8D")
 
        // add date labels
