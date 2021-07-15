@@ -2,45 +2,47 @@ var width = 1000,
     height = 1000,
     start = 0,
     end = 2.25,
-    numSpirals = 78
+    numSpirals = 78,
     margin = {top:50,bottom:50,left:50,right:50};
 
-    // 
+    // Constructing the spiral: 
+
+    // theta for the spiral
 
     var theta = function(r) {
       return numSpirals * Math.PI * r;
     };
 
-    // 
+    // the r works out the space within which the spiral can take shape - the width and height is set above
 
-    var r = d3.min([width, height]) / 2-20 ;
+    var r = d3.min([width, height]) / 2 - 40 ;
 
     // The radius of the spiral
 
     var radius = d3.scaleLinear()
       .domain([start, end])
-      .range([30, r]);
+      .range([40, r]);
 
-    // 
+    // inserts svg into the DOM
 
     var svg = d3.select("#chart").append("svg")
       .attr("width", width + margin.right + margin.left)
       .attr("height", height + margin.left + margin.right)
       .append("g")
-      .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")"); // will become dynamic later 
+      .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")"); 
 
-    // 
+    // The path to draw the spiral needs data to inform it, points generates this, and is used in .datum(points) below
 
     var points = d3.range(start, end + 0.02, (end - start) / 2000);
 
-    // 
+    // this is the spiral, utilising the theta and radius generated above
 
     var spiral = d3.radialLine()
       .curve(d3.curveCardinal)
       .angle(theta)
       .radius(radius);
 
-    //
+    // and then the path drawing the spiral according to the specifications above
 
     var path = svg.append("path")
       .datum(points)
@@ -51,21 +53,17 @@ var width = 1000,
       .style("stroke", ("6, 5"))
       .style("opacity",0.5);
 
-    //
+    //  computed value for the total length of the path in user units, this is important for mapping the data later
 
-    var spiralLength = path.node().getTotalLength(),
-        N = 905, //will be dynamic later according to number of data points 
-        barWidth = (spiralLength / N) - 1;
-    //var formatNum=d3.format(".2s")
+    var spiralLength = path.node().getTotalLength();
 
-    // 
+    // for turning strings into dates
 
     var parseDate = d3.timeParse("%Y-%m-%d"); // further format to correctly position dates ()
-    var formatTime = d3.timeFormat("%e %B %Y");
-
+    var formatTime = d3.timeFormat("%e %B %Y"); //
 
 //define data
-// will be upated to have google sheet 
+// will need to be upated to have google sheet in future
  d3.csv('minimal.csv', function(error, spiralData) {
         if (error) throw error;
 
@@ -156,7 +154,7 @@ var width = 1000,
         
         var linePer = timeScale(d.vstart),
             posOnLine = path.node().getPointAtLength(linePer),
-            angleOnLine = path.node().getPointAtLength(linePer - barWidth);
+            angleOnLine = path.node().getPointAtLength(linePer);
       
         d.linePer = linePer; // % distance are on the spiral
         d.cx = posOnLine.x; // x postion on the spiral
