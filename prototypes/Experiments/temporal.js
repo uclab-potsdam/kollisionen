@@ -1,3 +1,6 @@
+
+    // specifying SVG
+
 var width = 1000,
     height = 1000,
     start = 0,
@@ -41,6 +44,16 @@ var width = 1000,
       .curve(d3.curveCardinal)
       .angle(theta)
       .radius(radius);
+
+    // var spiralOne = function(d) { 
+    //     const length = 569,
+    //       spiral1 = d3
+    //         .lineRadial()
+    //         .angle((d, i) => (Math.PI / 10) * i) // d is empty (and ignored), i is the index // the higher the number the smoother the spiral, but this will also reduce the amount of spirals
+    //         .radius((d, i) => (length - i) * 1); //should also be '1' but then it is too large for observable
+      
+    //     return spiral1 ({ length });
+    //   }
 
     // and then the path drawing the spiral according to the specifications above
 
@@ -102,6 +115,7 @@ var width = 1000,
             uncertainty == 1 → YYYY-MM-28
           */
           
+           // gives all uncertain events actual dates values rather than placing it on 30th November 
           if (spiralData[i]["uncertaintystart"]==2) {
             spiralData[i]["vstart"] = startA[0]+"-01-01";
             spiralData[i]["vend"] = startA[0]+"-12-31";
@@ -151,16 +165,20 @@ var width = 1000,
       .enter()
       .append("circle")
       .attr("cx", function(d,i){
+
+        // linePer is the position of cirlce/data on spiral
         
         var linePer = timeScale(d.vstart),
-            posOnLine = path.node().getPointAtLength(linePer),
-            angleOnLine = path.node().getPointAtLength(linePer);
+            posOnLine = path.node().getPointAtLength(linePer);
+          //  angleOnLine = path.node().getPointAtLength(linePer);
       
         d.linePer = linePer; // % distance are on the spiral
         d.cx = posOnLine.x; // x postion on the spiral
         d.cy = posOnLine.y; // y position on the spiral
         
-        d.a = (Math.atan2(angleOnLine.y, angleOnLine.x) * 360 / Math.PI) - 90; //angle at the spiral position
+        // d.a not currently used, this is used for positioning date labels around the spiral
+
+        // d.a = (Math.atan2(angleOnLine.y, angleOnLine.x) * 360 / Math.PI) - 90; //angle at the spiral position
 
         return d.cx;
       })
@@ -170,115 +188,65 @@ var width = 1000,
       .attr("r", "5")
       .attr("opacity", 0.85)
       .style("fill", "#238A8D")
-      .style("stroke", "#238A8D");
+      //.style("stroke", "#238A8D");
    
-
-    //adding visual elements for vstart and vend: range of uncertain dates
-
-    /*
-    svg.selectAll("line")
-      //.data(spiralData)
-      .data(function(d) {
-       return spiralData.filter(function(d) { return (d.vstart != 0) && (d.vend != 0); });
-    })   
-      .enter()
-      .append("line")
-      //start of line
-      .attr("x1", function(d,i){
-        
-        var linePer = timeScale(d.vstart),
-        posOnLine = path.node().getPointAtLength(linePer),
-        angleOnLine = path.node().getPointAtLength(linePer - barWidth);
-  
-    d.linePer = linePer; // % distance are on the spiral
-    d.x1 = posOnLine.x; // x postion on the spiral
-    d.y1 = posOnLine.y; // y position on the spiral
-    
-    d.a = (Math.atan2(angleOnLine.y, angleOnLine.x) * 360 / Math.PI) - 90; //angle at the spiral position
-
-    return d.x1;
-
-      })
-      .attr("y1", function(d){
-        return d.y1
-      })
-      // end of line
-      .attr("x2", function(d,i){
-        
-        var linePer = timeScale(d.vend),
-        posOnLine = path.node().getPointAtLength(linePer),
-        angleOnLine = path.node().getPointAtLength(linePer - barWidth);
-  
-    d.linePer = linePer; // % distance are on the spiral
-    d.x2 = posOnLine.x; // x postion on the spiral
-    d.y2 = posOnLine.y; // y position on the spiral
-    
-    d.a = (Math.atan2(angleOnLine.y, angleOnLine.x) * 360 / Math.PI) - 90; //angle at the spiral position
-
-    return d.x2;
-
-      })
-      .attr("y2", function(d){
-        return d.y2
-      })
-      .style("stroke", "#238A8D");  
-
-  //   //adding visual elements for vstart and vend: range of uncertain dates
+//adding visual elements for vstart and vend: range of uncertain dates
 
 var line = d3.line()
               .curve(d3.curveCardinal)
-              // .angle(theta)
-              // .radius(radius)
-              .x(function(d,i){ 
-        
+              .x(function(d,i){
+
+                // linePer is the position of cirlce/data on spiral
+                
                 var linePer = timeScale(d.vstart),
-                posOnLine = path.node().getPointAtLength(linePer),
-                angleOnLine = path.node().getPointAtLength(linePer - barWidth);
-          
+                    posOnLine = path.node().getPointAtLength(linePer);
+                  //  angleOnLine = path.node().getPointAtLength(linePer);
+              
                 d.linePer = linePer; // % distance are on the spiral
                 d.x = posOnLine.x; // x postion on the spiral
                 d.y = posOnLine.y; // y position on the spiral
                 
-                d.a = (Math.atan2(angleOnLine.y, angleOnLine.x) * 360 / Math.PI) - 90; //angle at the spiral position
-            
+                // d.a not currently used, this is used for positioning date labels around the spiral
+        
+                // d.a = (Math.atan2(angleOnLine.y, angleOnLine.x) * 360 / Math.PI) - 90; //angle at the spiral position
+        
                 return d.x;
-        
               })
-              .y(function(d){
+              .y(function(d,i){
+
+                // linePer is the position of cirlce/data on spiral
+                
+                var linePer = timeScale(d.vstart),
+                    posOnLine = path.node().getPointAtLength(linePer);
+                  //  angleOnLine = path.node().getPointAtLength(linePer);
+              
+                d.linePer = linePer; // % distance are on the spiral
+                d.x = posOnLine.x; // x postion on the spiral
+                d.y = posOnLine.y; // y position on the spiral
+                
+                // d.a not currently used, this is used for positioning date labels around the spiral
         
-                var linePer = timeScale(d.vend),
-                posOnLine = path.node().getPointAtLength(linePer),
-                angleOnLine = path.node().getPointAtLength(linePer - barWidth);
-          
-            d.linePer = linePer; // % distance are on the spiral
-            d.x = posOnLine.x; // x postion on the spiral
-            d.y = posOnLine.y; // y position on the spiral
-            
-            d.a = (Math.atan2(angleOnLine.y, angleOnLine.x) * 360 / Math.PI) - 90; //angle at the spiral position
+                // d.a = (Math.atan2(angleOnLine.y, angleOnLine.x) * 360 / Math.PI) - 90; //angle at the spiral position
         
-            return d.y;
-          })
-          //.defined
-          //.curve(d3.curveCardinal)
+                return d.y;
+              })
+              .defined(d => d.vend !== 0);
 
     svg.selectAll("path")
+    // .data(function(d) {
+    //   return spiralData.filter(function(d) { return (d.vstart != 0) && (d.vend != 0); });
+    //   })
     .data(function(d) {
-      return spiralData.filter(function(d) { return (d.vstart != 0) && (d.vend != 0); });
-      })
-      //.data(spiralData)
+      return spiralData.filter(function(d) { return d.uncertaintystart == 0 && d.uncertaintyend == 0; });
+    })
       .enter()
       .append("path")
-      //start of line
-      // .attr("d",line(function(d) {
-      //   return spiralData.filter(function(d) { return (d.uncertaintystart != 0) && (d.uncertaintyend != 0); });
-      //   }))
       .attr("d", line(spiralData))
       .style("stroke", "#238A8D")
+      .attr("stroke-width", 2)
+      .attr("fill", "none");
 
-       // add date labels
-
-*/
-
+    // add date labels
 
     // svg.selectAll("text")
     //   .data(spiralData)
