@@ -145,7 +145,7 @@ var width = 1000,
 
         var timeScale = d3.scaleLinear()
           .domain(d3.extent(spiralData, function(d){
-          return d.vstart;
+          return d.vstart && d.vend;
         }))
         .range([0, spiralLength]);
 
