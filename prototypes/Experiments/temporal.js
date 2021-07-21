@@ -4,7 +4,7 @@
 var width = 1000,
     height = 1000,
     start = 0,
-    end = 2.25,
+    end = 78,
     numSpirals = 78,
     margin = {top:50,bottom:50,left:50,right:50};
 
@@ -18,13 +18,14 @@ var width = 1000,
 
     // the r works out the space within which the spiral can take shape - the width and height is set above
 
-    var r = d3.min([width, height]) / 2 - 40 ;
+    var r = d3.min([width, height]) / 2 - 40 
+    console.log(r);;
 
     // The radius of the spiral
 
     var radius = d3.scaleLinear()
-      .domain([start, end])
-      .range([40, r]);
+                .domain([start, end])
+                .range([40, r]);
 
     // inserts svg into the DOM
 
@@ -36,14 +37,15 @@ var width = 1000,
 
     // The path to draw the spiral needs data to inform it, points generates this, and is used in .datum(points) below
 
-    var points = d3.range(start, end + 0.02, (end - start) / 2000);
+    var points = d3.range(start, end + 0.001, (end - start) / 779)
+    console.log(points);
 
     // this is the spiral, utilising the theta and radius generated above
 
     var spiral = d3.radialLine()
-      .curve(d3.curveCardinal)
-      .angle(theta)
-      .radius(radius);
+                .curve(d3.curveCardinal)
+                .angle(theta)
+                .radius(radius);
 
     // var spiralOne = function(d) { 
     //     const length = 569,
@@ -51,7 +53,8 @@ var width = 1000,
     //         .lineRadial()
     //         .angle((d, i) => (Math.PI / 10) * i) // d is empty (and ignored), i is the index // the higher the number the smoother the spiral, but this will also reduce the amount of spirals
     //         .radius((d, i) => (length - i) * 1); //should also be '1' but then it is too large for observable
-      
+
+
     //     return spiral1 ({ length });
     //   }
 
@@ -68,7 +71,8 @@ var width = 1000,
 
     //  computed value for the total length of the path in user units, this is important for mapping the data later
 
-    var spiralLength = path.node().getTotalLength();
+    var spiralLength = path.node().getTotalLength()
+    console.log(spiralLength);
 
     // for turning strings into dates
 
