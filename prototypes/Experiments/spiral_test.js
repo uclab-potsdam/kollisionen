@@ -1,7 +1,7 @@
 
     // specifying SVG
 
-var width = 1000,
+    var width = 1000,
     height = 1000,
     start = 0,
     end = 78,
@@ -13,18 +13,18 @@ var width = 1000,
     // theta for the spiral
 
     var theta = function(r) {
-      return numSpirals * Math.PI * r;
-    };
-    console.log(theta);
+      return numSpirals * Math.PI * r;      
+                            };
 
     // the r works out the space within which the spiral can take shape - the width and height is set above
 
-    var r = d3.min([width, height]) / 2 - 40;
+    var r = d3.min([width, height]) / 2 - 40 
+    console.log(r);
 
     // The radius of the spiral
 
     var radius = d3.scaleLinear()
-                .domain([start, end]) 
+                .domain([start, end])
                 .range([40, r]);
 
     // inserts svg into the DOM
@@ -69,21 +69,20 @@ var width = 1000,
       .style("stroke", ("6, 5"))
       .style("opacity",0.5);
 
-      console.log(path)
-
     //  computed value for the total length of the path in user units, this is important for mapping the data later
 
     var spiralLength = path.node().getTotalLength()
+    console.log(spiralLength);
 
     // for turning strings into dates
 
     var parseDate = d3.timeParse("%Y-%m-%d"); // further format to correctly position dates ()
     var formatTime = d3.timeFormat("%e %B %Y"); //
 
-//define data
+    var url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvSLkjHvHlPjWLy3ec4UT9AsFsyTy2rbsjKquZgmhCqbsTZ4TLAnWv28Y3PnR/pub?gid=1387341329&single=true&output=csv'
 
-var url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvSLkjHvHlPjWLy3ec4UT9AsFsyTy2rbsjKquZgmhCqbsTZ4TLAnWv28Y3PnR/pub?gid=1387341329&single=true&output=csv'
-
+    //define data
+// will need to be upated to have google sheet in future
  d3.csv(url, function(error, spiralData) {
         if (error) throw error;
 
@@ -156,18 +155,8 @@ var url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvS
         }))
           .range([0, spiralLength]);
 
-        var angleStart = function(someData){
-                  
-          var linePerS = timeScale(d.vstart)
-              angleOnLineS = path.node().getPointAtLength(linePerS);
+        console.log(timeScale);
 
-              d.linePerS = linePerS;
-              d.x = angleOnLineS.x;
-              d.y = angleOnLineS.y;
-              d.a = (Math.atan2(angleOnLineS.y, angleOnLineS.x) * 360 / Math.PI) - 90;
-console.log(d.a)
-return d.a
-        };
 // The mapping of visual variables starts here
 
 //certain events
@@ -190,13 +179,10 @@ return d.a
         d.linePer = linePer; // % distance are on the spiral
         d.cx = posOnLine.x; // x postion on the spiral
         d.cy = posOnLine.y; // y position on the spiral
-        d.x = angleOnLine.x;
-        d.y = angleOnLine.y;
-
+        
         // d.a not currently used, this is used for positioning date labels around the spiral
 
- d.a = (Math.atan2(angleOnLine.y, angleOnLine.x) * 360 / Math.PI) - 90; //angle at the spiral position
- //console.log(d.a)
+        // d.a = (Math.atan2(angleOnLine.y, angleOnLine.x) * 360 / Math.PI) - 90; //angle at the spiral position
 
         return d.cx;
       })
@@ -215,32 +201,6 @@ var arcUn = function(d,i) { [
             [{"x": d.vstart, "y": d.vstart},
             {"x": d.vend, "y": d.vend}]
 ]}
-
-var arcs = d3.radialLine()
-                .curve(d3.curveCardinal)
-                .angle(function(d,i){
-                  
-                  var linePerS = timeScale(d.vstart)
-                      angleOnLineS = path.node().getPointAtLength(linePerS);
-        
-                      d.linePerS = linePerS;
-                      d.x = angleOnLineS.x;
-                      d.y = angleOnLineS.y;
-                      d.a = (Math.atan2(angleOnLineS.y, angleOnLineS.x) * 360 / Math.PI) - 90;
-    //console.log(d.a)
-    return d.a;
-      })
-                .radius(radius);
-
-d3.select("path")                
-  .append("path")
-      .datum(spiralData)
-      .attr("id", "arcs")
-      .attr("d", arcs)
-      .style("fill", "none")
-      .style("stroke", "blue")
-      .style("stroke", ("6, 5"))
-      .style("opacity",0.5);
 
 
 
