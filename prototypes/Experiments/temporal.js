@@ -5,8 +5,8 @@ var width = 1000,
     height = 1000,
     start = 0,
     end = 2,
-    numSpirals = 78,
-    numAxis = 1,
+    numSpirals = 78, // needs to dynamic
+    numAxis = 1, // not currently used
     margin = {top:50,bottom:50,left:50,right:50};
 
     // Constructing the spiral: 
@@ -39,6 +39,8 @@ var width = 1000,
 
     var points = d3.range(start, end + 0.001, (end - start) / 1000)
     console.log(points);
+
+    // var points = d3.range(start, end + 0.001, (end - start) / 1000) // copy for reference
 
     // this is the spiral, utilising the theta and radius generated above
 
@@ -159,11 +161,11 @@ var url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvS
         }))
           .range([0, spiralLength]);
 
-        var timeScaleEnd = d3.scaleLinear()
-          .domain(d3.extent(spiralData, function(d){
-          return d.vend;
-        }))
-          .range([6013.212967521903, spiralLength]);
+        // var timeScaleEnd = d3.scaleLinear()
+        //   .domain(d3.extent(spiralData, function(d){
+        //   return d.vend;
+        // }))
+        //   .range([6013.212967521903, spiralLength]);
 
 
 // The mapping of visual variables starts here
@@ -214,15 +216,16 @@ var url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvS
       .style("fill", "#238A8D")
       //.style("stroke", "#238A8D");
    
-//adding visual elements for vstart and vend: range of uncertain dates
+//adding visual elements for vstart and vend: range of uncertain dates aka the  uncertain date range arcs
+//Aim - to draw a portion of the spiral for uncertainty 1-1, 1-2, 2-1, 2-2 between vstart and vend
 
       var radiusArc = d3.scaleLinear()
       .domain([start, end]) 
-      .range([98.40509014656868,111.57685462765289]);
+      .range([98.40509014656868,111.57685462765289]); // manually taken from a datapoint, not dynamic, would need to reference 'rStart' and 'rEnd'
 
       var theta1 = function(r) {
         return 2 * Math.PI * r;
-      };      
+      }; // works with 2 instead of 'numSpirals', but how and why? 
 
       var spiralArcs = d3.radialLine()
       .curve(d3.curveCardinal)
