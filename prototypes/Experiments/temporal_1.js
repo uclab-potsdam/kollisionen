@@ -1,12 +1,12 @@
 
     // specifying SVG
 
-var width = 1000,
+    var width = 1000,
     height = 1000,
     start = 0,
     end = 2,
-    numSpirals = 78, // needs to dynamic?
-    numAxis = 1, // not currently used
+    numSpirals = 78,
+    numAxis = 1,
     margin = {top:50,bottom:50,left:50,right:50};
 
     // Constructing the spiral: 
@@ -39,8 +39,6 @@ var width = 1000,
 
     var points = d3.range(start, end + 0.001, (end - start) / 1000)
     console.log(points);
-
-    // var points = d3.range(start, end + 0.001, (end - start) / 1000) // copy for reference
 
     // this is the spiral, utilising the theta and radius generated above
 
@@ -83,7 +81,7 @@ var width = 1000,
 //define data
 
 var url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvSLkjHvHlPjWLy3ec4UT9AsFsyTy2rbsjKquZgmhCqbsTZ4TLAnWv28Y3PnR/pub?gid=1387341329&single=true&output=csv'
-
+url = './minimal.csv'
  d3.csv(url, function(error, spiralData) {
         if (error) throw error;
 
@@ -172,29 +170,63 @@ var url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvS
 
 //certain events
 
+// scale to get relative position in the year from month and day
+const startYearForRelativeScale = 1900
+const relativeInYearScale = d3
+  .scaleTime()
+  .domain([new Date(startYearForRelativeScale, 0, 1), new Date(startYearForRelativeScale + 1, 0, 1)])
+  .range([0, 1])
+
+// scale to get absolute radius without center and outer margins from year
+const firstYear = 1898
+const lastYear = firstYear + numSpirals
+const absoluteRadiusScale = d3
+  .scaleLinear()
+  .domain([firstYear, lastYear])
+  .range([0, r-40])
+
+var getRelativePositionInTheYear = function(month, day) {
+  const date = new Date(startYearForRelativeScale, Math.max(month-1, 0), Math.max(1, day))
+  return relativeInYearScale(date)
+}
+
+var getEventCoordinate = function(year, month, day) {
+  const relativePositionInTheYear = getRelativePositionInTheYear(month, day)
+  const absoluteRadius = absoluteRadiusScale(year)
+
+  const emptyCenterRadius = 40
+  const radius = emptyCenterRadius + absoluteRadius
+  const topBasedAngle = 2 * Math.PI * relativePositionInTheYear
+  return {
+    'cx': radius * Math.sin(topBasedAngle),
+    'cy': -radius * Math.cos(topBasedAngle)
+  }
+}
+
     svg.selectAll("circle")
      // .data(spiralData)
-      // .data(function(d) {
-      //   return spiralData.filter(function(d) { return d.uncertaintystart == 0 && d.uncertaintyend == 0; });
-      // })
-      .data(spiralData)
+      .data(function(d) {
+        return spiralData.filter(function(d) { return d.uncertaintystart == 0 && d.uncertaintyend == 0; });
+      })
       .enter()
       .append("circle")
       .attr("cx", function(d,i){
+        var [year, month, day] = d.start.split('-', 3)
+        var eventCoordinate = getEventCoordinate(year, month, day)
 
         // linePer is the position of cirlce/data on spiral
         
-        var linePerStart = timeScaleStart(d.vstart),
-            posOnLineStart = path.node().getPointAtLength(linePerStart);
-            angleOnLineStart = path.node().getPointAtLength(linePerStart);
+        // var linePerStart = timeScaleStart(d.vstart),
+        //     posOnLineStart = path.node().getPointAtLength(linePerStart);
+        //     angleOnLineStart = path.node().getPointAtLength(linePerStart);
       
-            d.linePerStart = linePerStart; // % distance are on the spiral
-            d.cx = posOnLineStart.x; // x postion on the spiral for vstart
-            d.cy = posOnLineStart.y; // y position on the spiral for vstart
-            d.xStart = angleOnLineStart.x; // x position on spiral for calculating angle of vstart
-            d.yStart = angleOnLineStart.y; // y position on spiral for calculating angle of vstart
-            d.aStart = (Math.atan2(angleOnLineStart.y, angleOnLineStart.x) * 180 / Math.PI); //angle at the spiral position
-            d.rStart = Math.hypot(angleOnLineStart.x, angleOnLineStart.y); // radius at vstart spiral position
+        //     d.linePerStart = linePerStart; // % distance are on the spiral
+        //     d.cx = posOnLineStart.x; // x postion on the spiral for vstart
+        //     d.cy = posOnLineStart.y; // y position on the spiral for vstart
+        //     d.xStart = angleOnLineStart.x; // x position on spiral for calculating angle of vstart
+        //     d.yStart = angleOnLineStart.y; // y position on spiral for calculating angle of vstart
+            d.aStart = Math.atan2(eventCoordinate.cx, -eventCoordinate.cy); //angle at the spiral position
+            d.rStart = Math.hypot(eventCoordinate.cx, eventCoordinate.cy); // radius at vstart spiral position
   
         var linePerEnd = timeScaleStart(d.vend),
             posOnLineEnd = path.node().getPointAtLength(linePerEnd);
@@ -203,12 +235,15 @@ var url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvS
             d.linePerEnd = linePerEnd;
             d.xEnd = posOnLineEnd.x;
             d.yEnd = posOnLineEnd.y;
-            d.aEnd = (Math.atan2(angleOnLineEnd.y, angleOnLineEnd.x) * 180 / Math.PI);
+            d.aEnd = Math.atan2(angleOnLineEnd.y, angleOnLineEnd.x) / Math.PI;
             d.rEnd = Math.hypot(angleOnLineEnd.x, angleOnLineEnd.y);
-        return d.cx;
+
+        return eventCoordinate.cx
       })
       .attr("cy", function(d){
-        return d.cy;
+        var [year, month, day] = d.start.split('-', 3)
+        var eventCoordinate = getEventCoordinate(year, month, day)
+        return eventCoordinate.cy
       })
       
       .attr("r", "5")
@@ -216,21 +251,26 @@ var url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvS
       .style("fill", "#238A8D")
       //.style("stroke", "#238A8D");
    
-//adding visual elements for vstart and vend: range of uncertain dates aka the  uncertain date range arcs
-//Aim - to draw a portion of the spiral for uncertainty 0-1, 1-0, 0-2, 1-1, 1-2, 2-0, 2-1, 2-2 between vstart and vend
+//adding visual elements for vstart and vend: range of uncertain dates
 
       var radiusArc = d3.scaleLinear()
       .domain([start, end]) 
-      .range([98.40509014656868,111.57685462765289]); // manually taken from a datapoint, not dynamic, would need to reference 'rStart' and 'rEnd'
+      .range([250,447.81049792568126]);
 
       var theta1 = function(r) {
-        return 2 * Math.PI * r;
-      }; // works with 2 instead of 'numSpirals', but how and why? 
+        return 33 * Math.PI * r;
+      };      
 
       var spiralArcs = d3.radialLine()
       .curve(d3.curveCardinal)
       .angle(theta1)
       .radius(radiusArc);
+
+      59.37235317928952
+
+      154.2989142357353
+
+
 
       svg.append("path")
             .datum(points)
@@ -241,6 +281,11 @@ var url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvS
             .style("stroke", ("8, 5"))
             .style("opacity",0.5);
 
+
+      var addSubSpiral = function() {
+        
+
+      }
 
     // add date labels
 
