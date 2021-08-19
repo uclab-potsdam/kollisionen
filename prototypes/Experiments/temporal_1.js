@@ -94,11 +94,11 @@ var url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvS
           spiralData[i]["vend"] = spiralData[i]["end"];
           spiralData[i]["uncertaintystart"] = 0;
           spiralData[i]["uncertaintyend"] = 0;
-          spiralData[i]["category1"] = 0;
-          spiralData[i]["category2"] = 0;
-          spiralData[i]["category3"] = 0;
-          spiralData[i]["category4"] = 0;
-          spiralData[i]["category5"] = 0;
+          spiralData[i]["category1"] = false;
+          spiralData[i]["category2"] = false;
+          spiralData[i]["category3"] = false;
+          spiralData[i]["category4"] = false;
+          spiralData[i]["category5"] = false;
         };
         
        
@@ -143,46 +143,16 @@ var url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvS
         };
 
         for (let i = 0; i < spiralData.length; i++) {
-          var catSort = spiralData[i]["category"].split(";");
-
-          // category 1=cinema and Theatre, category 2=Biography and Personality, category 3=Writing and Teaching, category 4=Graphic Art, category 5=Apartment
+          
+          // category 1=Cinema and Theatre, category 2=Biography and Personality, category 3=Writing and Teaching, category 4=Graphic Art, category 5=Apartment
           //categories sorted into separate categories to aid with styling later
-
-          //catSort[0]
-          if (catSort[0]=="Cinema and Theatre") spiralData[i]["category1"] = 1;
-          else if (catSort[0]=="Biography and Personality") spiralData[i]["category2"] = 1;
-          else if (catSort[0]=="Writing and Teaching") spiralData[i]["category3"] = 1;
-          else if (catSort[0]=="Graphic Art") spiralData[i]["category4"] = 1;
-          else if (catSort[0]=="Apartment") spiralData[i]["category5"] = 1;
-
-          //catSort[1]
-          if (catSort[1]=="Cinema and Theatre") spiralData[i]["category1"] = 1;
-          else if (catSort[1]=="Biography and Personality") spiralData[i]["category2"] = 1;
-          else if (catSort[1]=="Writing and Teaching") spiralData[i]["category3"] = 1;
-          else if (catSort[1]=="Graphic Art") spiralData[i]["category4"] = 1;
-          else if (catSort[1]=="Apartment") spiralData[i]["category5"] = 1;
-
-          //catSort[2]
-          if (catSort[2]=="Cinema and Theatre") spiralData[i]["category1"] = 1;
-          else if (catSort[2]=="Biography and Personality") spiralData[i]["category2"] = 1;
-          else if (catSort[2]=="Writing and Teaching") spiralData[i]["category3"] = 1;
-          else if (catSort[2]=="Graphic Art") spiralData[i]["category4"] = 1;
-          else if (catSort[2]=="Apartment") spiralData[i]["category5"] = 1;
-
-          //catSort[3]
-          if (catSort[3]=="Cinema and Theatre") spiralData[i]["category1"] = 1;
-          else if (catSort[3]=="Biography and Personality") spiralData[i]["category2"] = 1;
-          else if (catSort[3]=="Writing and Teaching") spiralData[i]["category3"] = 1;
-          else if (catSort[3]=="Graphic Art") spiralData[i]["category4"] = 1;
-          else if (catSort[3]=="Apartment") spiralData[i]["category5"] = 1;
-
-          //catSort[4]
-          if (catSort[4]=="Cinema and Theatre") spiralData[i]["category1"] = 1;
-          else if (catSort[4]=="Biography and Personality") spiralData[i]["category2"] = 1;
-          else if (catSort[4]=="Writing and Teaching") spiralData[i]["category3"] = 1;
-          else if (catSort[4]=="Graphic Art") spiralData[i]["category4"] = 1;
-          else if (catSort[4]=="Apartment") spiralData[i]["category5"] = 1;
-
+					
+					if (spiralData[i]["category"].includes("Cinema and Theatre")) 				spiralData[i]["category1"]=true;
+					if (spiralData[i]["category"].includes("Biography and Personality")) 	spiralData[i]["category2"]=true;
+					if (spiralData[i]["category"].includes("Writing and Teaching")) 			spiralData[i]["category3"]=true;
+					if (spiralData[i]["category"].includes("Graphic Art")) 								spiralData[i]["category4"]=true;
+					if (spiralData[i]["category"].includes("Apartment")) 									spiralData[i]["category5"]=true;
+					
         };
 
 
@@ -243,6 +213,11 @@ var getEventCoordinate = function(year, month, day) {
       .enter()
       .append("circle")
       .attr("class","start")
+			.classed("category1", function(d){return d.category1;})
+			.classed("category2", function(d){return d.category2;})
+			.classed("category3", function(d){return d.category3;})
+			.classed("category4", function(d){return d.category4;})
+			.classed("category5", function(d){return d.category5;})			
       .attr("cx", function(d,i){
         var [year, month, day] = d.vstart.split('-', 3)
         var eventCoordinate = getEventCoordinate(year, month, day)
@@ -268,6 +243,11 @@ var getEventCoordinate = function(year, month, day) {
       .enter()
       .append("circle")
       .attr("class","end")
+			.classed("category1", function(d){return d.category1;})
+			.classed("category2", function(d){return d.category2;})
+			.classed("category3", function(d){return d.category3;})
+			.classed("category4", function(d){return d.category4;})
+			.classed("category5", function(d){return d.category5;})
       .attr("cx", function(d,i){
         var [year, month, day] = d.vend.split('-', 3)
         var eventCoordinateEnd = getEventCoordinate(year, month, day)
