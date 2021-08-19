@@ -5,7 +5,7 @@
     height = 1000,
     start = 0,
     end = 2,
-    numSpirals = 78,
+    numSpirals = 77,
     numAxis = 1,
     margin = {top:50,bottom:50,left:50,right:50};
 
@@ -64,7 +64,7 @@
       .datum(points)
       .attr("id", "spiral")
       .attr("d", spiral)
-      .style("fill", "none")
+      .style("fill", "none") // do all style in css
       .style("stroke", "grey")
       .style("stroke", ("6, 5"))
       .style("opacity",0.5);
@@ -81,7 +81,7 @@
 //define data
 
 var url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvSLkjHvHlPjWLy3ec4UT9AsFsyTy2rbsjKquZgmhCqbsTZ4TLAnWv28Y3PnR/pub?gid=1387341329&single=true&output=csv'
-url = './minimal.csv'
+// url = './minimal.csv'
  d3.csv(url, function(error, spiralData) {
         if (error) throw error;
 
@@ -94,11 +94,11 @@ url = './minimal.csv'
           spiralData[i]["vend"] = spiralData[i]["end"];
           spiralData[i]["uncertaintystart"] = 0;
           spiralData[i]["uncertaintyend"] = 0;
-          spiralData[i]["category1"] = "";
-          spiralData[i]["category2"] = "";
-          spiralData[i]["category3"] = "";
-          spiralData[i]["category4"] = "";
-          spiralData[i]["category5"] = "";
+          spiralData[i]["category1"] = 0;
+          spiralData[i]["category2"] = 0;
+          spiralData[i]["category3"] = 0;
+          spiralData[i]["category4"] = 0;
+          spiralData[i]["category5"] = 0;
         };
         
        
@@ -142,6 +142,51 @@ url = './minimal.csv'
         
         };
 
+        for (let i = 0; i < spiralData.length; i++) {
+          var catSort = spiralData[i]["category"].split(";");
+
+          // category 1=cinema and Theatre, category 2=Biography and Personality, category 3=Writing and Teaching, category 4=Graphic Art, category 5=Apartment
+          //categories sorted into separate categories to aid with styling later
+
+          //catSort[0]
+          if (catSort[0]=="Cinema and Theatre") spiralData[i]["category1"] = 1;
+          else if (catSort[0]=="Biography and Personality") spiralData[i]["category2"] = 1;
+          else if (catSort[0]=="Writing and Teaching") spiralData[i]["category3"] = 1;
+          else if (catSort[0]=="Graphic Art") spiralData[i]["category4"] = 1;
+          else if (catSort[0]=="Apartment") spiralData[i]["category5"] = 1;
+
+          //catSort[1]
+          if (catSort[1]=="Cinema and Theatre") spiralData[i]["category1"] = 1;
+          else if (catSort[1]=="Biography and Personality") spiralData[i]["category2"] = 1;
+          else if (catSort[1]=="Writing and Teaching") spiralData[i]["category3"] = 1;
+          else if (catSort[1]=="Graphic Art") spiralData[i]["category4"] = 1;
+          else if (catSort[1]=="Apartment") spiralData[i]["category5"] = 1;
+
+          //catSort[2]
+          if (catSort[2]=="Cinema and Theatre") spiralData[i]["category1"] = 1;
+          else if (catSort[2]=="Biography and Personality") spiralData[i]["category2"] = 1;
+          else if (catSort[2]=="Writing and Teaching") spiralData[i]["category3"] = 1;
+          else if (catSort[2]=="Graphic Art") spiralData[i]["category4"] = 1;
+          else if (catSort[2]=="Apartment") spiralData[i]["category5"] = 1;
+
+          //catSort[3]
+          if (catSort[3]=="Cinema and Theatre") spiralData[i]["category1"] = 1;
+          else if (catSort[3]=="Biography and Personality") spiralData[i]["category2"] = 1;
+          else if (catSort[3]=="Writing and Teaching") spiralData[i]["category3"] = 1;
+          else if (catSort[3]=="Graphic Art") spiralData[i]["category4"] = 1;
+          else if (catSort[3]=="Apartment") spiralData[i]["category5"] = 1;
+
+          //catSort[4]
+          if (catSort[4]=="Cinema and Theatre") spiralData[i]["category1"] = 1;
+          else if (catSort[4]=="Biography and Personality") spiralData[i]["category2"] = 1;
+          else if (catSort[4]=="Writing and Teaching") spiralData[i]["category3"] = 1;
+          else if (catSort[4]=="Graphic Art") spiralData[i]["category4"] = 1;
+          else if (catSort[4]=="Apartment") spiralData[i]["category5"] = 1;
+
+        };
+
+
+
         
         // format the data
         spiralData.forEach(function(d) {
@@ -149,21 +194,9 @@ url = './minimal.csv'
           
           // d.start = +parseDate(d.start);
           // d.end = +parseDate(d.end);
-          d.vstart = +parseDate(d.vstart);
-          d.vend = +parseDate(d.vend);
+          // d.vstart = +parseDate(d.vstart);
+          // d.vend = +parseDate(d.vend);
         });
-
-        var timeScaleStart = d3.scaleLinear()
-          .domain(d3.extent(spiralData, function(d){
-          return d.vstart;
-        }))
-          .range([0, spiralLength]);
-
-        // var timeScaleEnd = d3.scaleLinear()
-        //   .domain(d3.extent(spiralData, function(d){
-        //   return d.vend;
-        // }))
-        //   .range([6013.212967521903, spiralLength]);
 
 
 // The mapping of visual variables starts here
@@ -202,81 +235,98 @@ var getEventCoordinate = function(year, month, day) {
     'cy': -radius * Math.cos(topBasedAngle)
   }
 }
-
-    svg.selectAll("circle")
-     // .data(spiralData)
-      .data(function(d) {
-        return spiralData.filter(function(d) { return d.uncertaintystart == 0 && d.uncertaintyend == 0; });
-      })
+    svg.selectAll("circle.start")
+      .data(spiralData)
+      // .data(function(d) {
+      //   return spiralData.filter(function(d) { return d.uncertaintystart == 0 && d.uncertaintyend == 0; });
+      // })
       .enter()
       .append("circle")
+      .attr("class","start")
       .attr("cx", function(d,i){
-        var [year, month, day] = d.start.split('-', 3)
+        var [year, month, day] = d.vstart.split('-', 3)
         var eventCoordinate = getEventCoordinate(year, month, day)
-
-        // linePer is the position of cirlce/data on spiral
-        
-        // var linePerStart = timeScaleStart(d.vstart),
-        //     posOnLineStart = path.node().getPointAtLength(linePerStart);
-        //     angleOnLineStart = path.node().getPointAtLength(linePerStart);
-      
-        //     d.linePerStart = linePerStart; // % distance are on the spiral
-        //     d.cx = posOnLineStart.x; // x postion on the spiral for vstart
-        //     d.cy = posOnLineStart.y; // y position on the spiral for vstart
-        //     d.xStart = angleOnLineStart.x; // x position on spiral for calculating angle of vstart
-        //     d.yStart = angleOnLineStart.y; // y position on spiral for calculating angle of vstart
-            d.aStart = Math.atan2(eventCoordinate.cx, -eventCoordinate.cy); //angle at the spiral position
-            d.rStart = Math.hypot(eventCoordinate.cx, eventCoordinate.cy); // radius at vstart spiral position
-  
-        var linePerEnd = timeScaleStart(d.vend),
-            posOnLineEnd = path.node().getPointAtLength(linePerEnd);
-            angleOnLineEnd = path.node().getPointAtLength(linePerEnd);
-  
-            d.linePerEnd = linePerEnd;
-            d.xEnd = posOnLineEnd.x;
-            d.yEnd = posOnLineEnd.y;
-            d.aEnd = Math.atan2(angleOnLineEnd.y, angleOnLineEnd.x) / Math.PI;
-            d.rEnd = Math.hypot(angleOnLineEnd.x, angleOnLineEnd.y);
-
         return eventCoordinate.cx
       })
       .attr("cy", function(d){
-        var [year, month, day] = d.start.split('-', 3)
+        var [year, month, day] = d.vstart.split('-', 3)
         var eventCoordinate = getEventCoordinate(year, month, day)
         return eventCoordinate.cy
       })
-      
-      .attr("r", "5")
+      .attr("r", "3") // radius of circle 
+      .attr("opacity", 0.85)
+      .style("fill", "#238A8D")
+      .style("stroke", "#000000")
+
+      //delete later, for checking end points for date ranges
+
+      svg.selectAll("circle.end")
+      .data(spiralData)
+      // .data(function(d) {
+      //   return spiralData.filter(function(d) { return d.uncertaintystart == 0 && d.uncertaintyend == 0; });
+      // })
+      .enter()
+      .append("circle")
+      .attr("class","end")
+      .attr("cx", function(d,i){
+        var [year, month, day] = d.vend.split('-', 3)
+        var eventCoordinateEnd = getEventCoordinate(year, month, day)
+        return eventCoordinateEnd.cx
+      })
+      .attr("cy", function(d){
+        var [year, month, day] = d.vend.split('-', 3)
+        var eventCoordinateEnd = getEventCoordinate(year, month, day)
+        return eventCoordinateEnd.cy
+      })
+      .attr("r", "3")
       // .attr("opacity", 0.85)
       .style("fill", "#238A8D")
-      //.style("stroke", "#238A8D");
-   
+      // .style("stroke", "#000000")
+
 //adding visual elements for vstart and vend: range of uncertain dates
+
+spiralData.forEach(function(d) {
+
+  var [year, month, day] = d.vstart.split('-', 3)
+  var eventCoordinate = getEventCoordinate(year, month, day)
+
+  d.aStart = Math.atan2(eventCoordinate.cx, -eventCoordinate.cy);
+  d.rStart = Math.hypot(eventCoordinate.cx, eventCoordinate.cy);
+});
+
+spiralData.forEach(function(d) {
+
+  var [year, month, day] = d.vend.split('-', 3)
+  var eventCoordinateEnd = getEventCoordinate(year, month, day)
+
+  d.aEnd = Math.atan2(eventCoordinateEnd.cx, -eventCoordinateEnd.cy);
+  d.rEnd = Math.hypot(eventCoordinateEnd.cx, eventCoordinateEnd.cy);
+});
+
 
       var radiusArc = d3.scaleLinear()
       .domain([start, end]) 
-      .range([250,447.81049792568126]);
+      .range([132.72727272727272, 149.09090909090907]);
+      // .range([rStart,rEnd])
 
       var theta1 = function(r) {
-        return 33 * Math.PI * r;
-      };      
+        return 3 * Math.PI * r;
+      };      //theta still needs to be used to guide the spiral but it needs to have a defined starting point for the spiral
+
+      // var test = d3.scaleLinear()
+      //           .domain([aStart, aEnd])
+      //           .range([0, numSpirals])
 
       var spiralArcs = d3.radialLine()
       .curve(d3.curveCardinal)
       .angle(theta1)
       .radius(radiusArc);
 
-      59.37235317928952
-
-      154.2989142357353
-
-
-
       svg.append("path")
             .datum(points)
             .attr("id", "spiralArcs")
             .attr("d", spiralArcs)
-            .style("fill", "none")
+            .style("fill", "none") // do all style in css
             .style("stroke", "blue")
             .style("stroke", ("8, 5"))
             .style("opacity",0.5);
@@ -326,7 +376,7 @@ var getEventCoordinate = function(year, month, day) {
               .style('display', 'inline-block')
               .style('opacity', '0.9')
               .html(`
-                <span><b>${formatTime(d.vstart)}</b></span>
+                <span><b>${d.vstart}</b></span>
                 <br> <b>${d.title}</b> </span>`);
           })
     .on('mouseout', function(d) {
