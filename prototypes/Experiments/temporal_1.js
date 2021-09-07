@@ -81,7 +81,7 @@
 //define data
 
 var url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvSLkjHvHlPjWLy3ec4UT9AsFsyTy2rbsjKquZgmhCqbsTZ4TLAnWv28Y3PnR/pub?gid=1387341329&single=true&output=csv'
-// url = './minimal.csv'
+    url = './minimal.csv'
  d3.csv(url, function(error, spiralData) {
         if (error) throw error;
 
@@ -228,10 +228,10 @@ var getEventCoordinate = function(year, month, day) {
         var eventCoordinate = getEventCoordinate(year, month, day)
         return eventCoordinate.cy
       })
-      .attr("r", "3") // radius of circle 
+      .attr("r", "5") // radius of circle 
       .attr("opacity", 0.85)
       .style("fill", "#238A8D")
-      .style("stroke", "#000000")
+      // .style("stroke", "#000000")
 
       //delete later, for checking end points for date ranges
 
