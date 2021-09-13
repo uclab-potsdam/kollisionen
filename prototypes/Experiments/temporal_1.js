@@ -92,7 +92,7 @@ var url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvS
         //    and uncertainty property
         for (let i = 0; i < spiralData.length; i++) {
           spiralData[i]["vstart"] = spiralData[i]["start"];
-          spiralData[i]["vend"] = spiralData[i]["end"];
+          spiralData[i]["vend"] = spiralData[i]["_end"];
           spiralData[i]["uncertaintystart"] = 0;
           spiralData[i]["uncertaintyend"] = 0;
           spiralData[i]["category1"] = false;
@@ -105,7 +105,7 @@ var url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvS
        
         for (let i = 0; i < spiralData.length; i++) {
           var startA = spiralData[i]["start"].split("-");
-          var endA = spiralData[i]["end"].split("-");
+          var endA = spiralData[i]["_end"].split("-");
 
           /* 2. add 'uncertainty' levels:
           0: no uncertainty, e.g. 1898-01-23
@@ -139,7 +139,7 @@ var url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvS
 
           if (spiralData[i]["uncertaintyend"]==2) spiralData[i]["vend"] = endA[0]+"-12-31";
           else if (spiralData[i]["uncertaintyend"]==1) spiralData[i]["vend"] = endA[0]+"-"+endA[1]+"-28";
-          else spiralData[i]["vend"] = spiralData[i]["end"];
+          else spiralData[i]["vend"] = spiralData[i]["_end"];
         
         };
 
@@ -155,10 +155,7 @@ var url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvS
 					if (spiralData[i]["category"].includes("Apartment")) 									spiralData[i]["category5"]=true;
 					
         };
-
-
-
-        
+  
         // format the data
         spiralData.forEach(function(d) {
           // d.start needs to be just the certain single dates (0), and needs to filter out the uncertain dates (1 or 2). There are also 'ranges' that contain 
@@ -206,19 +203,19 @@ var getEventCoordinate = function(year, month, day) {
     'cy': -radius * Math.cos(topBasedAngle)
   }
 }
-    svg.selectAll("circle.start")
-      .data(spiralData)
-      // .data(function(d) {
-      //   return spiralData.filter(function(d) { return d.uncertaintystart == 0 && d.uncertaintyend == 0; });
-      // })
+    svg.selectAll("circle.cat1")
+      //.data(spiralData)
+      .data(function(d) {
+        return spiralData.filter(function(d) { return d.uncertaintystart === 0 && d.category1 == true});
+      })
       .enter()
       .append("circle")
-      .attr("class","start")
-			.classed("category1", function(d){return d.category1;})
-			.classed("category2", function(d){return d.category2;})
-			.classed("category3", function(d){return d.category3;})
-			.classed("category4", function(d){return d.category4;})
-			.classed("category5", function(d){return d.category5;})			
+      // .attr("class","start")
+			// .classed("category1", function(d){return d.category1;})
+			// .classed("category2", function(d){return d.category2;})
+			// .classed("category3", function(d){return d.category3;})
+			// .classed("category4", function(d){return d.category4;})
+			// .classed("category5", function(d){return d.category5;})			
       .attr("cx", function(d,i){
         var [year, month, day] = d.vstart.split('-', 3)
         var eventCoordinate = getEventCoordinate(year, month, day)
@@ -229,40 +226,127 @@ var getEventCoordinate = function(year, month, day) {
         var eventCoordinate = getEventCoordinate(year, month, day)
         return eventCoordinate.cy
       })
-      .attr("r", "5") // radius of circle 
+      .attr("r", "8") // radius of circle 
       .attr("opacity", 0.85)
-      .style("fill", "#238A8D")
+      .style("fill", "blue")
       // .style("stroke", "#000000")
+      .exit();
 
-      //delete later, for checking end points for date ranges
-
-      svg.selectAll("circle.end")
-      .data(spiralData)
-      // .data(function(d) {
-      //   return spiralData.filter(function(d) { return d.uncertaintystart == 0 && d.uncertaintyend == 0; });
-      // })
+      svg.selectAll("circle.cat2")
+      //.data(spiralData)
+      .data(function(d) {
+        return spiralData.filter(function(d) { return d.uncertaintystart == 0 && d.category2 == true; });
+      })
       .enter()
       .append("circle")
-      .attr("class","end")
-			.classed("category1", function(d){return d.category1;})
-			.classed("category2", function(d){return d.category2;})
-			.classed("category3", function(d){return d.category3;})
-			.classed("category4", function(d){return d.category4;})
-			.classed("category5", function(d){return d.category5;})
+      // .attr("class","start")
+			// .classed("category1", function(d){return d.category1;})
+			// .classed("category2", function(d){return d.category2;})
+			// .classed("category3", function(d){return d.category3;})
+			// .classed("category4", function(d){return d.category4;})
+			// .classed("category5", function(d){return d.category5;})			
       .attr("cx", function(d,i){
-        var [year, month, day] = d.vend.split('-', 3)
-        var eventCoordinateEnd = getEventCoordinate(year, month, day)
-        return eventCoordinateEnd.cx
+        var [year, month, day] = d.vstart.split('-', 3)
+        var eventCoordinate = getEventCoordinate(year, month, day)
+        return eventCoordinate.cx
       })
       .attr("cy", function(d){
-        var [year, month, day] = d.vend.split('-', 3)
-        var eventCoordinateEnd = getEventCoordinate(year, month, day)
-        return eventCoordinateEnd.cy
+        var [year, month, day] = d.vstart.split('-', 3)
+        var eventCoordinate = getEventCoordinate(year, month, day)
+        return eventCoordinate.cy
       })
-      .attr("r", "3")
-      // .attr("opacity", 0.85)
-      .style("fill", "#238A8D")
+      .attr("r", "6") // radius of circle 
+      .attr("opacity", 0.85)
+      .style("fill", "yellow")
       // .style("stroke", "#000000")
+      .exit();
+
+      svg.selectAll("circle.cat3")
+      //.data(spiralData)
+      .data(function(d) {
+        return spiralData.filter(function(d) { return d.uncertaintystart == 0 && d.category3 == true; });
+      })
+      .enter()
+      .append("circle")
+      // .attr("class","start")
+			// .classed("category1", function(d){return d.category1;})
+			// .classed("category2", function(d){return d.category2;})
+			// .classed("category3", function(d){return d.category3;})
+			// .classed("category4", function(d){return d.category4;})
+			// .classed("category5", function(d){return d.category5;})			
+      .attr("cx", function(d,i){
+        var [year, month, day] = d.vstart.split('-', 3)
+        var eventCoordinate = getEventCoordinate(year, month, day)
+        return eventCoordinate.cx
+      })
+      .attr("cy", function(d){
+        var [year, month, day] = d.vstart.split('-', 3)
+        var eventCoordinate = getEventCoordinate(year, month, day)
+        return eventCoordinate.cy
+      })
+      .attr("r", "4") // radius of circle 
+      .attr("opacity", 0.85)
+      .style("fill", "red")
+      // .style("stroke", "#000000")
+      .exit();
+
+      svg.selectAll("circle.cat4")
+      //.data(spiralData)
+      .data(function(d) {
+        return spiralData.filter(function(d) { return d.uncertaintystart == 0 && d.category4 == true; });
+      })
+      .enter()
+      .append("circle")
+      // .attr("class","start")
+			// .classed("category1", function(d){return d.category1;})
+			// .classed("category2", function(d){return d.category2;})
+			// .classed("category3", function(d){return d.category3;})
+			// .classed("category4", function(d){return d.category4;})
+			// .classed("category5", function(d){return d.category5;})			
+      .attr("cx", function(d,i){
+        var [year, month, day] = d.vstart.split('-', 3)
+        var eventCoordinate = getEventCoordinate(year, month, day)
+        return eventCoordinate.cx
+      })
+      .attr("cy", function(d){
+        var [year, month, day] = d.vstart.split('-', 3)
+        var eventCoordinate = getEventCoordinate(year, month, day)
+        return eventCoordinate.cy
+      })
+      .attr("r", "2") // radius of circle 
+      .attr("opacity", 0.85)
+      .style("fill", "green")
+      // .style("stroke", "#000000")
+      .exit();
+
+      svg.selectAll("circle.cat5")
+      //.data(spiralData)
+      .data(function(d) {
+        return spiralData.filter(function(d) { return d.uncertaintystart == 0 && d.category5 == true; });
+      })
+      .enter()
+      .append("circle")
+      // .attr("class","start")
+			// .classed("category1", function(d){return d.category1;})
+			// .classed("category2", function(d){return d.category2;})
+			// .classed("category3", function(d){return d.category3;})
+			// .classed("category4", function(d){return d.category4;})
+			// .classed("category5", function(d){return d.category5;})			
+      .attr("cx", function(d,i){
+        var [year, month, day] = d.vstart.split('-', 3)
+        var eventCoordinate = getEventCoordinate(year, month, day)
+        return eventCoordinate.cx
+      })
+      .attr("cy", function(d){
+        var [year, month, day] = d.vstart.split('-', 3)
+        var eventCoordinate = getEventCoordinate(year, month, day)
+        return eventCoordinate.cy
+      })
+      .attr("r", "1") // radius of circle 
+      .attr("opacity", 0.85)
+      .style("fill", "purple")
+      // .style("stroke", "#000000")
+      .exit();
 
 //adding visual elements for vstart and vend: range of uncertain dates
 
