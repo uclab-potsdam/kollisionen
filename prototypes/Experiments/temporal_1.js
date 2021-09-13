@@ -82,7 +82,8 @@
 
 var url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvSLkjHvHlPjWLy3ec4UT9AsFsyTy2rbsjKquZgmhCqbsTZ4TLAnWv28Y3PnR/pub?gid=1387341329&single=true&output=csv'
     url = './minimal.csv'
- d3.csv(url, function(error, spiralData) {
+
+    d3.csv(url, function(error, spiralData) {
         if (error) throw error;
 
         console.log(spiralData);
