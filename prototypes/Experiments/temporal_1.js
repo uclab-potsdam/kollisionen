@@ -184,7 +184,7 @@ const lastYear = firstYear + numSpirals
 const absoluteRadiusScale = d3
   .scaleLinear()
   .domain([firstYear, lastYear])
-  .range([0, r-40])
+  .range([0, r-40]) 
 
 var getRelativePositionInTheYear = function(month, day) {
   const date = new Date(startYearForRelativeScale, Math.max(month-1, 0), Math.max(1, day))
@@ -226,7 +226,7 @@ var getEventCoordinate = function(year, month, day) {
         var eventCoordinate = getEventCoordinate(year, month, day)
         return eventCoordinate.cy
       })
-      .attr("r", "8") // radius of circle 
+      .attr("r", "5") // radius of circle 
       .attr("opacity", 0.85)
       .style("fill", "blue")
       // .style("stroke", "#000000")
@@ -255,7 +255,7 @@ var getEventCoordinate = function(year, month, day) {
         var eventCoordinate = getEventCoordinate(year, month, day)
         return eventCoordinate.cy
       })
-      .attr("r", "6") // radius of circle 
+      .attr("r", "4") // radius of circle 
       .attr("opacity", 0.85)
       .style("fill", "yellow")
       // .style("stroke", "#000000")
@@ -284,7 +284,7 @@ var getEventCoordinate = function(year, month, day) {
         var eventCoordinate = getEventCoordinate(year, month, day)
         return eventCoordinate.cy
       })
-      .attr("r", "4") // radius of circle 
+      .attr("r", "3") // radius of circle 
       .attr("opacity", 0.85)
       .style("fill", "red")
       // .style("stroke", "#000000")
@@ -368,39 +368,53 @@ spiralData.forEach(function(d) {
   d.rEnd = Math.hypot(eventCoordinateEnd.cx, eventCoordinateEnd.cy);
 });
 
+// Making arcs
+
+      var numSpiralsTheta =  d3.scaleTime()
+      .domain([[d.vstart],[d.vend]])
+      .range([0, numSpirals]);
+
+
 
       var radiusArc = d3.scaleLinear()
       .domain([start, end]) 
       .range([132.72727272727272, 149.09090909090907]);
-      // .range([rStart,rEnd])
+      // .range([d.rStart,d.rEnd])
 
-      var theta1 = function(r) {
-        return 3 * Math.PI * r;
+      var thetaArc = function(r) {
+        return numSpiralsTheta * Math.PI * r;
       };      //theta still needs to be used to guide the spiral but it needs to have a defined starting point for the spiral
 
-      // var test = d3.scaleLinear()
-      //           .domain([aStart, aEnd])
-      //           .range([0, numSpirals])
+              //the numSpirals needs to be dynamic - based on a scale - to ascrtain how much of a spiral is needs to draw between two points
+              //there also needs to be a way of adjusting the start point, 
+
+
+
+
 
       var spiralArcs = d3.radialLine()
       .curve(d3.curveCardinal)
-      .angle(theta1)
+      .angle(thetaArc)
       .radius(radiusArc);
+
+
+
+
 
       svg.append("path")
             .datum(points)
             .attr("id", "spiralArcs")
-            .attr("d", spiralArcs)
-            .style("fill", "none") // do all style in css
+            .attr("d", spiralArcs(spiralData))
+            .style("fill", "none") // do all style in css?
             .style("stroke", "blue")
             .style("stroke", ("8, 5"))
             .style("opacity",0.5);
 
 
-      var addSubSpiral = function() {
+      // var addSubSpiral = function() {
         
 
-      }
+      // }
 
     // add date labels
 
