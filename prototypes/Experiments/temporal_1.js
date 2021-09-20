@@ -156,15 +156,15 @@ var url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvS
 					
         };
   
-        // format the data
-        spiralData.forEach(function(d) {
-          // d.start needs to be just the certain single dates (0), and needs to filter out the uncertain dates (1 or 2). There are also 'ranges' that contain 
+        // // format the data
+        // spiralData.forEach(function(d) {
+        //   // d.start needs to be just the certain single dates (0), and needs to filter out the uncertain dates (1 or 2). There are also 'ranges' that contain 
           
-          // d.start = +parseDate(d.start);
-          // d.end = +parseDate(d.end);
-          // d.vstart = +parseDate(d.vstart);
-          // d.vend = +parseDate(d.vend);
-        });
+        //   // d.start = +parseDate(d.start);
+        //   // d.end = +parseDate(d.end);
+        //   // d.vstart = +parseDate(d.vstart);
+        //   // d.vend = +parseDate(d.vend);
+        // });
 
 
 // The mapping of visual variables starts here
@@ -370,51 +370,95 @@ spiralData.forEach(function(d) {
 
 // Making arcs
 
-      var numSpiralsTheta =  d3.scaleTime()
-      .domain([[d.vstart],[d.vend]])
-      .range([0, numSpirals]);
+
+// var addSubSpiral = 
 
 
+      var numSpiralsThetaScale =  d3.scaleLinear() // the data - 'spiralData' needs to be called up? so that d. can be referenced?
+      .domain([d3.min(spiralData, function(d) { return parseDate(d.vstart)}), d3.max(spiralData, function(d) { return parseDate(d.vend)})]) //these need to be usable numbers - they are currently in 0000-00-00 format - the - needs to be removed?
+      .range([0, numSpirals]); //Should return a partial spiral length
+
+      console.log(numSpiralsThetaScale(-1260316080000))
+
+      //-2270159280000
+
+      //using this scale numSpiralsThetaScale(d.vend) - numSpiralsThetaScale(d.vstart) -> number of spirals needed
+  
+        // var numSpiralsTheta = spiralData.forEach(function(d) { 
+        // return (numSpiralsThetaScale(parseDate(d.vend))) - (numSpiralsThetaScale(parseDate(d.vstart)));
+
+        // });
+
+        var numSpiralsTheta = numSpiralsThetaScale(spiralData, function(d) { return parseDate(d.vend)})-numSpiralsThetaScale(spiralData, function(d) { return parseDate(d.vstart)});
+
+
+      //Scale returns a value between 0 and 77: see manual test above for 24 Jan 1930 - returns '36.27049731995325' which would be from 1906 - 1930
+      //min because vstart contains ealiest date and max because vend contains latest date
+      //There needs be another step here: This works out this scale but it needs to then work it out for each line between vstart and vend and return a number
+      //e.g. 1906-01-01 -> 1908-12-31 = 3 numSpiralsTheta (roughly) as it equals 3 years
 
       var radiusArc = d3.scaleLinear()
       .domain([start, end]) 
-      .range([132.72727272727272, 149.09090909090907]);
-      // .range([d.rStart,d.rEnd])
+      // .range([132.72727272727272, 149.09090909090907]); This manual one worked, can the below return the same?
+      .range([d3.min(spiralData, function(d) { return d.rStart}), d3.max(spiralData, function(d) { return d.rEnd})])
+      // min and max added to test scaling - but does it need this?
+
+      console.log(radiusArc(start))
+
+
 
       var thetaArc = function(r) {
         return numSpiralsTheta * Math.PI * r;
       };      //theta still needs to be used to guide the spiral but it needs to have a defined starting point for the spiral
-
               //the numSpirals needs to be dynamic - based on a scale - to ascrtain how much of a spiral is needs to draw between two points
-              //there also needs to be a way of adjusting the start point, 
+              //there also needs to be a way of adjusting the start point,
 
-
-
-
+      for (let i = 0; i < spiralData.length; i++) { 
 
       var spiralArcs = d3.radialLine()
       .curve(d3.curveCardinal)
       .angle(thetaArc)
-      .radius(radiusArc);
-
-
-
-
-
+      .radius(radiusArc)
+      
       svg.append("path")
             .datum(points)
             .attr("id", "spiralArcs")
-            .attr("d", spiralArcs(spiralData))
+            .attr("d", spiralArcs)
             .style("fill", "none") // do all style in css?
             .style("stroke", "blue")
             .style("stroke", ("8, 5"))
             .style("opacity",0.5);
 
+    };
 
-      // var addSubSpiral = function() {
-        
+    // Manual arc that works
 
-      // }
+    var radiusArc1 = d3.scaleLinear()
+      .domain([start, end]) 
+      .range([132.72727272727272, 149.09090909090907]);
+
+      var thetaArc1 = function(r) {
+        return 3 * Math.PI * r;
+      };
+
+      var spiralArcs1 = d3.radialLine()
+      .curve(d3.curveCardinal)
+      .angle(thetaArc1)
+      .radius(radiusArc1)
+
+      svg.append("path")
+      .datum(points)
+      .attr("id", "spiralArcs1")
+      .attr("d", spiralArcs1)
+      .style("fill", "none") // do all style in css?
+      .style("stroke", "blue")
+      .style("stroke", ("8, 5"))
+      .style("opacity",0.5); 
+
+
+// var addSubSpiral = function() { 
+
+// };
 
     // add date labels
 
