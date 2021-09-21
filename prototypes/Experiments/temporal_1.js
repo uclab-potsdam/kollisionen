@@ -373,6 +373,7 @@ spiralData.forEach(function(d) {
 
 // var addSubSpiral = 
 
+      //This scale maps out the earliest date and latest dates in the data against the number of spirals - 1898 = 0 & 1974 = 77(numSpirals)
 
       var numSpiralsThetaScale =  d3.scaleLinear() // the data - 'spiralData' needs to be called up? so that d. can be referenced?
       .domain([d3.min(spiralData, function(d) { return parseDate(d.vstart)}), d3.max(spiralData, function(d) { return parseDate(d.vend)})]) //these need to be usable numbers - they are currently in 0000-00-00 format - the - needs to be removed?
@@ -382,20 +383,14 @@ spiralData.forEach(function(d) {
 
       //-2270159280000
 
-      //using this scale numSpiralsThetaScale(d.vend) - numSpiralsThetaScale(d.vstart) -> number of spirals needed
-  
-        // var numSpiralsTheta = spiralData.forEach(function(d) { 
-        // return (numSpiralsThetaScale(parseDate(d.vend))) - (numSpiralsThetaScale(parseDate(d.vstart)));
-
-        // });
-
-        var numSpiralsTheta = numSpiralsThetaScale(spiralData, function(d) { return parseDate(d.vend)})-numSpiralsThetaScale(spiralData, function(d) { return parseDate(d.vstart)});
-
-
       //Scale returns a value between 0 and 77: see manual test above for 24 Jan 1930 - returns '36.27049731995325' which would be from 1906 - 1930
       //min because vstart contains ealiest date and max because vend contains latest date
       //There needs be another step here: This works out this scale but it needs to then work it out for each line between vstart and vend and return a number
       //e.g. 1906-01-01 -> 1908-12-31 = 3 numSpiralsTheta (roughly) as it equals 3 years
+
+       //using this scale numSpiralsThetaScale(d.vend) - numSpiralsThetaScale(d.vstart) -> number of spirals needed
+
+       var numSpiralsTheta = numSpiralsThetaScale(spiralData, function(d) { return parseDate(d.vend)})-numSpiralsThetaScale(spiralData, function(d) { return parseDate(d.vstart)});
 
       var radiusArc = d3.scaleLinear()
       .domain([start, end]) 
