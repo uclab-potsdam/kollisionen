@@ -47,19 +47,6 @@
                 .angle(theta)
                 .radius(radius);
 
-    // var spiralOne = function(d) { 
-    //     const length = 569,
-    //       spiral1 = d3
-    //         .lineRadial()
-    //         .angle((d, i) => (Math.PI / 10) * i) // d is empty (and ignored), i is the index // the higher the number the smoother the spiral, but this will also reduce the amount of spirals
-    //         .radius((d, i) => (length - i) * 1); //should also be '1' but then it is too large for observable
-
-
-    //     return spiral1 ({ length });
-    //   }
-
-    // and then the path drawing the spiral according to the specifications above
-
     var path = svg.append("path")
       .datum(points)
       .attr("id", "spiral")
@@ -169,7 +156,7 @@ var url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvS
 
 // The mapping of visual variables starts here
 
-//certain events
+//certain one day events
 
 // scale to get relative position in the year from month and day
 const startYearForRelativeScale = 1900
@@ -373,30 +360,43 @@ spiralData.forEach(function(d) {
 
 // var addSubSpiral = 
 
-      //This scale maps out the earliest date and latest dates in the data against the number of spirals - 1898 = 0 & 1974 = 77(numSpirals)
+      //This scale maps out the earliest date and latest dates in the data against the number of spirals - 1898 = 0 spirals & 1974 = 77 spirals (numSpirals)
 
-      var numSpiralsThetaScale =  d3.scaleLinear() // the data - 'spiralData' needs to be called up? so that d. can be referenced?
-      .domain([d3.min(spiralData, function(d) { return parseDate(d.vstart)}), d3.max(spiralData, function(d) { return parseDate(d.vend)})]) //these need to be usable numbers - they are currently in 0000-00-00 format - the - needs to be removed?
-      .range([0, numSpirals]); //Should return a partial spiral length
+      var numSpiralsThetaScale =  d3.scaleLinear()
+      .domain([d3.min(spiralData, function(d) { return parseDate(d.vstart)}), d3.max(spiralData, function(d) { return parseDate(d.vend)})])
+      .range([0, numSpirals]);
 
+      //To test the scale works
       console.log(numSpiralsThetaScale(-1260316080000))
 
       //-2270159280000
 
-      //Scale returns a value between 0 and 77: see manual test above for 24 Jan 1930 - returns '36.27049731995325' which would be from 1906 - 1930
+      //Scale returns a value between 0 and 77: see manual test above for 24 Jan 1930 - returns '36.27049731995325' which would be from 1896 - 1930
       //min because vstart contains ealiest date and max because vend contains latest date
       //There needs be another step here: This works out this scale but it needs to then work it out for each line between vstart and vend and return a number
       //e.g. 1906-01-01 -> 1908-12-31 = 3 numSpiralsTheta (roughly) as it equals 3 years
 
        //using this scale numSpiralsThetaScale(d.vend) - numSpiralsThetaScale(d.vstart) -> number of spirals needed
 
-       var numSpiralsTheta = numSpiralsThetaScale(spiralData, function(d) { return parseDate(d.vend)})-numSpiralsThetaScale(spiralData, function(d) { return parseDate(d.vstart)});
+      var numSpiralsTheta = function() {
+      
+          var endSpiralTheta = numSpiralsThetaScale(spiralData, function(d) { return parseDate(d.vend)})
+          var startSpiralTheta = numSpiralsThetaScale(spiralData, function(d) { return parseDate(d.vstart)})
+
+      return  endSpiralTheta - startSpiralTheta
+      };
 
       var radiusArc = d3.scaleLinear()
       .domain([start, end]) 
       // .range([132.72727272727272, 149.09090909090907]); This manual one worked, can the below return the same?
       .range([d3.min(spiralData, function(d) { return d.rStart}), d3.max(spiralData, function(d) { return d.rEnd})])
       // min and max added to test scaling - but does it need this?
+
+      var radiusArc1 = d3.scaleLinear()
+      .domain([start, end]) 
+      // .range([132.72727272727272, 149.09090909090907]); This manual one worked, can the below return the same?
+      .range([spiralData, function(d) { return d.rStart}, spiralData, function(d) { return d.rEnd}])
+
 
       console.log(radiusArc(start))
 
@@ -413,7 +413,7 @@ spiralData.forEach(function(d) {
       var spiralArcs = d3.radialLine()
       .curve(d3.curveCardinal)
       .angle(thetaArc)
-      .radius(radiusArc)
+      .radius(radiusArc1)
       
       svg.append("path")
             .datum(points)
