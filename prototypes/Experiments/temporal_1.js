@@ -397,16 +397,13 @@ spiralData.forEach(function(d) {
       // .range([132.72727272727272, 149.09090909090907]); This manual one worked, can the below return the same?
       .range([spiralData, function(d) { return d.rStart}, spiralData, function(d) { return d.rEnd}])
 
-
       console.log(radiusArc(start))
-
-
 
       var thetaArc = function(r) {
         return numSpiralsTheta * Math.PI * r;
       };      //theta still needs to be used to guide the spiral but it needs to have a defined starting point for the spiral
               //the numSpirals needs to be dynamic - based on a scale - to ascrtain how much of a spiral is needs to draw between two points
-              //there also needs to be a way of adjusting the start point,
+              //there also needs to be a way of adjusting the start point (the starting angle)
 
       for (let i = 0; i < spiralData.length; i++) { 
 
