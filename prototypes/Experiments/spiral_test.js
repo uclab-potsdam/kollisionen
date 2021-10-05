@@ -244,15 +244,15 @@ var line = d3.line()
     //   .attr("stroke-width", 2)
     //   .attr("fill", "none");
 
-      for (var i=0; i < arcUn.length; i++) {
+
         svg.append("path")
           .attr("class", "arc")
-          .datum(arcUn[i])
+          // .datum(arcUn[i])
           .attr("d", line(spiralData))
           .style("stroke", "#238A8D")
           .attr("stroke-width", 2)
           .attr("fill", "none");
-    }
+    
 
     // add date labels
 

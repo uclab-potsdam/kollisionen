@@ -68,7 +68,7 @@
 //define data
 
 var url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvSLkjHvHlPjWLy3ec4UT9AsFsyTy2rbsjKquZgmhCqbsTZ4TLAnWv28Y3PnR/pub?gid=1387341329&single=true&output=csv'
-    url = './minimal.csv'
+    // url = './minimal.csv'
 
     d3.csv(url, function(error, spiralData) {
         if (error) throw error;
@@ -79,7 +79,7 @@ var url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvS
         //    and uncertainty property
         for (let i = 0; i < spiralData.length; i++) {
           spiralData[i]["vstart"] = spiralData[i]["start"];
-          spiralData[i]["vend"] = spiralData[i]["_end"];
+          spiralData[i]["vend"] = spiralData[i]["end"];
           spiralData[i]["uncertaintystart"] = 0;
           spiralData[i]["uncertaintyend"] = 0;
           spiralData[i]["category1"] = false;
@@ -91,8 +91,11 @@ var url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvS
         
        
         for (let i = 0; i < spiralData.length; i++) {
+          
+          if (spiralData[i]["start"].includes("00")) 				spiralData[i]["end"]=spiralData[i]["start"]; //duplicates columns with -00- to create ranges later
+
           var startA = spiralData[i]["start"].split("-");
-          var endA = spiralData[i]["_end"].split("-");
+          var endA = spiralData[i]["end"].split("-");
 
           /* 2. add 'uncertainty' levels:
           0: no uncertainty, e.g. 1898-01-23
@@ -126,8 +129,8 @@ var url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvS
 
           if (spiralData[i]["uncertaintyend"]==2) spiralData[i]["vend"] = endA[0]+"-12-31";
           else if (spiralData[i]["uncertaintyend"]==1) spiralData[i]["vend"] = endA[0]+"-"+endA[1]+"-28";
-          else spiralData[i]["vend"] = spiralData[i]["_end"];
-        
+          else spiralData[i]["vend"] = spiralData[i]["end"];
+
         };
 
         for (let i = 0; i < spiralData.length; i++) {
@@ -357,6 +360,22 @@ spiralData.forEach(function(d) {
 
 // Making arcs
 
+/* Arcs are to be split into several category types: 
+                                                  For those with a date value in both 'start/vstart' and 'end/vend'
+                                                  0 -> 0 = no uncertainty, a date range
+                                                  1 -> 1 = an uncertain range for months
+                                                  2 -> 2 = an uncertain range for years
+                                                  0 -> 1 = certain date start, uncertain end over a period of a month
+                                                  0 -> 2 = certain date start, uncertain end over a period of a year
+                                                  1 -> 0 = uncertain day in month start, certain date end
+                                                  1 -> 2 = uncertain day in month start, uncertain end over a period of a year
+                                                  2 -> 0 = uncertain date start over a period of a year, certain end date
+                                                  2 -> 1 = uncertain start date over a period of a year, uncertain end over a period of a month
+                                                  And, for those with only a value in 'start/vstart'
+                                                  1 = range from 1st of month to 28th of month
+                                                  2 = range from 1st January to 31st December */
+
+
 
 // var addSubSpiral = 
 
@@ -371,12 +390,12 @@ spiralData.forEach(function(d) {
 
       //-2270159280000
 
-      //Scale returns a value between 0 and 77: see manual test above for 24 Jan 1930 - returns '36.27049731995325' which would be from 1896 - 1930
-      //min because vstart contains ealiest date and max because vend contains latest date
-      //There needs be another step here: This works out this scale but it needs to then work it out for each line between vstart and vend and return a number
-      //e.g. 1906-01-01 -> 1908-12-31 = 3 numSpiralsTheta (roughly) as it equals 3 years
+      /*Scale returns a value between 0 and 77: see manual test above for 24 Jan 1930 - returns '36.27049731995325' which would be from 1896 - 1930
+      min because vstart contains ealiest date and max because vend contains latest date
+      There needs be another step here: This works out this scale but it needs to then work it out for each line between vstart and vend and return a number
+      e.g. 1906-01-01 -> 1908-12-31 = 3 numSpiralsTheta (roughly) as it equals 3 years
 
-       //using this scale numSpiralsThetaScale(d.vend) - numSpiralsThetaScale(d.vstart) -> number of spirals needed
+      Using this scale numSpiralsThetaScale(d.vend) - numSpiralsThetaScale(d.vstart) -> number of spirals needed*/
 
       var numSpiralsTheta = function() {
       
@@ -386,26 +405,26 @@ spiralData.forEach(function(d) {
       return  endSpiralTheta - startSpiralTheta
       };
 
+     
+
       var radiusArc = d3.scaleLinear()
       .domain([start, end]) 
       // .range([132.72727272727272, 149.09090909090907]); This manual one worked, can the below return the same?
       .range([d3.min(spiralData, function(d) { return d.rStart}), d3.max(spiralData, function(d) { return d.rEnd})])
       // min and max added to test scaling - but does it need this?
 
+      for (let i = 0; i < spiralData.length; i++) { 
+
       var radiusArc1 = d3.scaleLinear()
       .domain([start, end]) 
       // .range([132.72727272727272, 149.09090909090907]); This manual one worked, can the below return the same?
       .range([spiralData, function(d) { return d.rStart}, spiralData, function(d) { return d.rEnd}])
-
-      console.log(radiusArc(start))
 
       var thetaArc = function(r) {
         return numSpiralsTheta * Math.PI * r;
       };      //theta still needs to be used to guide the spiral but it needs to have a defined starting point for the spiral
               //the numSpirals needs to be dynamic - based on a scale - to ascrtain how much of a spiral is needs to draw between two points
               //there also needs to be a way of adjusting the start point (the starting angle)
-
-      for (let i = 0; i < spiralData.length; i++) { 
 
       var spiralArcs = d3.radialLine()
       .curve(d3.curveCardinal)
@@ -423,11 +442,16 @@ spiralData.forEach(function(d) {
 
     };
 
-    // Manual arc that works
+    /* Manual arc that works
+    For
+    'Starts living in Petrograd'
+    vstart: "1915-05-30"
+    vend: "1918-12-31"
+*/
 
     var radiusArc1 = d3.scaleLinear()
       .domain([start, end]) 
-      .range([132.72727272727272, 149.09090909090907]);
+      .range([132.72727272727272, 149.09090909090907]); // these are the radial values for the start and end - rStart and rEnd
 
       var thetaArc1 = function(r) {
         return 3 * Math.PI * r;
