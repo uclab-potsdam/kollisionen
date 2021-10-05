@@ -381,6 +381,8 @@ spiralData.forEach(function(d) {
 
       //This scale maps out the earliest date and latest dates in the data against the number of spirals - 1898 = 0 spirals & 1974 = 77 spirals (numSpirals)
 
+      
+
       var numSpiralsThetaScale =  d3.scaleLinear()
       .domain([d3.min(spiralData, function(d) { return parseDate(d.vstart)}), d3.max(spiralData, function(d) { return parseDate(d.vend)})])
       .range([0, numSpirals]);
@@ -397,33 +399,27 @@ spiralData.forEach(function(d) {
 
       Using this scale numSpiralsThetaScale(d.vend) - numSpiralsThetaScale(d.vstart) -> number of spirals needed*/
 
-      var numSpiralsTheta = function() {
-      
-          var endSpiralTheta = numSpiralsThetaScale(spiralData, function(d) { return parseDate(d.vend)})
-          var startSpiralTheta = numSpiralsThetaScale(spiralData, function(d) { return parseDate(d.vstart)})
+    for (let i = 0; i < spiralData.length; i++) {
 
-      return  endSpiralTheta - startSpiralTheta
-      };
+      var endSpiralTheta = numSpiralsThetaScale(parseDate(spiralData[i].vend));
+      var startSpiralTheta = numSpiralsThetaScale(parseDate(spiralData[i].vstart))
 
-     
+      var numSpiralsTheta = endSpiralTheta - startSpiralTheta;
 
-      var radiusArc = d3.scaleLinear()
-      .domain([start, end]) 
-      // .range([132.72727272727272, 149.09090909090907]); This manual one worked, can the below return the same?
-      .range([d3.min(spiralData, function(d) { return d.rStart}), d3.max(spiralData, function(d) { return d.rEnd})])
-      // min and max added to test scaling - but does it need this?
-
-      for (let i = 0; i < spiralData.length; i++) { 
+      console.log(numSpiralsTheta);
 
       var radiusArc1 = d3.scaleLinear()
       .domain([start, end]) 
       // .range([132.72727272727272, 149.09090909090907]); This manual one worked, can the below return the same?
-      .range([spiralData, function(d) { return d.rStart}, spiralData, function(d) { return d.rEnd}])
+      // .range([spiralData, function(d) { return d.rStart}, spiralData, function(d) { return d.rEnd}])
+      .range([spiralData[i].rStart, spiralData[i].rEnd])
+      
+      console.log(radiusArc1(2))
 
       var thetaArc = function(r) {
         return numSpiralsTheta * Math.PI * r;
       };      //theta still needs to be used to guide the spiral but it needs to have a defined starting point for the spiral
-              //the numSpirals needs to be dynamic - based on a scale - to ascrtain how much of a spiral is needs to draw between two points
+              //the numSpirals needs to be dynamic - based on a scale - to ascertain how much of a spiral is needs to draw between two points
               //there also needs to be a way of adjusting the start point (the starting angle)
 
       var spiralArcs = d3.radialLine()
@@ -449,27 +445,27 @@ spiralData.forEach(function(d) {
     vend: "1918-12-31"
 */
 
-    var radiusArc1 = d3.scaleLinear()
-      .domain([start, end]) 
-      .range([132.72727272727272, 149.09090909090907]); // these are the radial values for the start and end - rStart and rEnd
+    // var radiusArc1 = d3.scaleLinear()
+    //   .domain([start, end]) 
+    //   .range([132.72727272727272, 149.09090909090907]); // these are the radial values for the start and end - rStart and rEnd
 
-      var thetaArc1 = function(r) {
-        return 3 * Math.PI * r;
-      };
+    //   var thetaArc1 = function(r) {
+    //     return 3 * Math.PI * r;
+    //   };
 
-      var spiralArcs1 = d3.radialLine()
-      .curve(d3.curveCardinal)
-      .angle(thetaArc1)
-      .radius(radiusArc1)
+    //   var spiralArcs1 = d3.radialLine()
+    //   .curve(d3.curveCardinal)
+    //   .angle(thetaArc1)
+    //   .radius(radiusArc1)
 
-      svg.append("path")
-      .datum(points)
-      .attr("id", "spiralArcs1")
-      .attr("d", spiralArcs1)
-      .style("fill", "none") // do all style in css?
-      .style("stroke", "blue")
-      .style("stroke", ("8, 5"))
-      .style("opacity",0.5); 
+    //   svg.append("path")
+    //   .datum(points)
+    //   .attr("id", "spiralArcs1")
+    //   .attr("d", spiralArcs1)
+    //   .style("fill", "none") // do all style in css?
+    //   .style("stroke", "blue")
+    //   .style("stroke", ("8, 5"))
+    //   .style("opacity",0.5); 
 
 
 // var addSubSpiral = function() { 
