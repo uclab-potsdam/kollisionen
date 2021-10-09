@@ -47,6 +47,8 @@
                 .angle(theta)
                 .radius(radius);
 
+
+
     var path = svg.append("path")
       .datum(points)
       .attr("id", "spiral")
@@ -54,11 +56,11 @@
       .style("fill", "none") // do all style in css
       .style("stroke", "grey")
       .style("stroke", ("6, 5"))
-      .style("opacity",0.5);
+      .style("opacity",0.2);
 
     //  computed value for the total length of the path in user units, this is important for mapping the data later
 
-    var spiralLength = path.node().getTotalLength()
+    // var spiralLength = path.node().getTotalLength()
 
     // for turning strings into dates
 
@@ -92,7 +94,7 @@ var url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvS
        
         for (let i = 0; i < spiralData.length; i++) {
           
-          if (spiralData[i]["start"].includes("00")) 				spiralData[i]["end"]=spiralData[i]["start"]; //duplicates columns with -00- to create ranges later
+          if (spiralData[i]["start"].includes("00") && spiralData[i]["end"].includes(" ")) 				spiralData[i]["end"]=spiralData[i]["start"]; //duplicates columns with -00- to create ranges later
 
           var startA = spiralData[i]["start"].split("-");
           var endA = spiralData[i]["end"].split("-");
@@ -377,53 +379,52 @@ spiralData.forEach(function(d) {
 
 
 
-// var addSubSpiral = 
 
       //This scale maps out the earliest date and latest dates in the data against the number of spirals - 1898 = 0 spirals & 1974 = 77 spirals (numSpirals)
 
-      
 
       var numSpiralsThetaScale =  d3.scaleLinear()
       .domain([d3.min(spiralData, function(d) { return parseDate(d.vstart)}), d3.max(spiralData, function(d) { return parseDate(d.vend)})])
       .range([0, numSpirals]);
 
       //To test the scale works
-      console.log(numSpiralsThetaScale(-1260316080000))
+      //console.log(numSpiralsThetaScale(-1260316080000))
 
       //-2270159280000
 
-      /*Scale returns a value between 0 and 77: see manual test above for 24 Jan 1930 - returns '36.27049731995325' which would be from 1896 - 1930
+      /*
+      Scale returns a value between 0 and 77: see manual test above for 24 Jan 1930 - returns '36.27049731995325' which would be from 1896 - 1930
       min because vstart contains ealiest date and max because vend contains latest date
       There needs be another step here: This works out this scale but it needs to then work it out for each line between vstart and vend and return a number
       e.g. 1906-01-01 -> 1908-12-31 = 3 numSpiralsTheta (roughly) as it equals 3 years
 
-      Using this scale numSpiralsThetaScale(d.vend) - numSpiralsThetaScale(d.vstart) -> number of spirals needed*/
+      Using this scale numSpiralsThetaScale(d.vend) - numSpiralsThetaScale(d.vstart) -> number of spirals needed
+      */
 
     for (let i = 0; i < spiralData.length; i++) {
 
       var endSpiralTheta = numSpiralsThetaScale(parseDate(spiralData[i].vend));
       var startSpiralTheta = numSpiralsThetaScale(parseDate(spiralData[i].vstart))
-
       var numSpiralsTheta = endSpiralTheta - startSpiralTheta;
 
-      console.log(numSpiralsTheta);
+      //console.log(numSpiralsTheta);
 
       var radiusArc1 = d3.scaleLinear()
       .domain([start, end]) 
-      // .range([132.72727272727272, 149.09090909090907]); This manual one worked, can the below return the same?
-      // .range([spiralData, function(d) { return d.rStart}, spiralData, function(d) { return d.rEnd}])
       .range([spiralData[i].rStart, spiralData[i].rEnd])
       
-      console.log(radiusArc1(2))
+      //console.log(radiusArc1(2))
 
       var thetaArc = function(r) {
         return numSpiralsTheta * Math.PI * r;
-      };      //theta still needs to be used to guide the spiral but it needs to have a defined starting point for the spiral
-              //the numSpirals needs to be dynamic - based on a scale - to ascertain how much of a spiral is needs to draw between two points
-              //there also needs to be a way of adjusting the start point (the starting angle)
+      };      /*
+              theta still needs to be used to guide the spiral but it needs to have a defined starting point for the spiral
+              the numSpirals needs to be dynamic - based on a scale - to ascertain how much of a spiral is needs to draw between two points
+              there also needs to be a way of adjusting the start point (the starting angle) - this is captured in 'aStart'
+              */
 
       var spiralArcs = d3.radialLine()
-      .curve(d3.curveCardinal)
+      // .curve(d3.curveCardinal) 
       .angle(thetaArc)
       .radius(radiusArc1)
       
@@ -434,43 +435,9 @@ spiralData.forEach(function(d) {
             .style("fill", "none") // do all style in css?
             .style("stroke", "blue")
             .style("stroke", ("8, 5"))
-            .style("opacity",0.5);
+            .style("opacity",1);
 
     };
-
-    /* Manual arc that works
-    For
-    'Starts living in Petrograd'
-    vstart: "1915-05-30"
-    vend: "1918-12-31"
-*/
-
-    // var radiusArc1 = d3.scaleLinear()
-    //   .domain([start, end]) 
-    //   .range([132.72727272727272, 149.09090909090907]); // these are the radial values for the start and end - rStart and rEnd
-
-    //   var thetaArc1 = function(r) {
-    //     return 3 * Math.PI * r;
-    //   };
-
-    //   var spiralArcs1 = d3.radialLine()
-    //   .curve(d3.curveCardinal)
-    //   .angle(thetaArc1)
-    //   .radius(radiusArc1)
-
-    //   svg.append("path")
-    //   .datum(points)
-    //   .attr("id", "spiralArcs1")
-    //   .attr("d", spiralArcs1)
-    //   .style("fill", "none") // do all style in css?
-    //   .style("stroke", "blue")
-    //   .style("stroke", ("8, 5"))
-    //   .style("opacity",0.5); 
-
-
-// var addSubSpiral = function() { 
-
-// };
 
     // add date labels
 
@@ -514,6 +481,18 @@ spiralData.forEach(function(d) {
                 <span><b>${d.vstart}</b></span>
                 <br> <b>${d.title}</b> </span>`);
           })
+          svg.selectAll("path")
+          .on('mouseover', function(d) {
+              tooltip
+                    .style('position', 'absolute')
+                    .style('left', `${d3.event.pageX + 10}px`)
+                    .style('top', `${d3.event.pageY + 20}px`)
+                    .style('display', 'inline-block')
+                    .style('opacity', '0.9')
+                    .html(`
+                      <span><b>${d.vstart}</b></span>
+                      <br> <b>${d.title}</b> </span>`);
+                })    
     .on('mouseout', function(d) {
         d3.selectAll("rect")
         .style("fill", function(d){return color(d.number1);})
