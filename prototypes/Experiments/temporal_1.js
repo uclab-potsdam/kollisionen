@@ -56,7 +56,7 @@
       .style("fill", "none") // do all style in css
       .style("stroke", "grey")
       .style("stroke", ("6, 5"))
-      .style("opacity",0.2);
+      .style("opacity",0);
 
     //  computed value for the total length of the path in user units, this is important for mapping the data later
 
@@ -424,6 +424,8 @@ spiralData.forEach(function(d) {
       .angle(thetaArc)
       .radius(radiusArc1)
       
+      var angleStart = spiralData[i].aStart * (180 / Math.PI)
+
       svg.append("path")
             .datum(points)
             .attr("id", "spiralArcs")
@@ -431,7 +433,8 @@ spiralData.forEach(function(d) {
             .style("fill", "none") // do all style in css?
             .style("stroke", "blue")
             .style("stroke", ("8, 5"))
-            .style("opacity",1);
+            .style("opacity",1)
+            .attr("transform", "rotate("+angleStart+")");
 
     };
 
