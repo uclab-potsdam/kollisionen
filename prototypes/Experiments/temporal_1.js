@@ -3,10 +3,10 @@
 
     var width = 1000,
     height = 1000,
-    start = 0,
-    end = 2,
-    numSpirals = 77,
-    numAxis = 1,
+    start = 0, //centre point
+    end = 2, //outer of the spiral
+    numSpirals = 77, //number of years in dataset
+    // numAxis = 1,
     margin = {top:50,bottom:50,left:50,right:50};
 
     // Constructing the spiral: 
@@ -377,11 +377,7 @@ spiralData.forEach(function(d) {
                                                   1 = range from 1st of month to 28th of month
                                                   2 = range from 1st January to 31st December */
 
-
-
-
       //This scale maps out the earliest date and latest dates in the data against the number of spirals - 1898 = 0 spirals & 1974 = 77 spirals (numSpirals)
-
 
       var numSpiralsThetaScale =  d3.scaleLinear()
       .domain([d3.min(spiralData, function(d) { return parseDate(d.vstart)}), d3.max(spiralData, function(d) { return parseDate(d.vend)})])
@@ -424,7 +420,7 @@ spiralData.forEach(function(d) {
               */
 
       var spiralArcs = d3.radialLine()
-      // .curve(d3.curveCardinal) 
+      .curve(d3.curveCardinal) 
       .angle(thetaArc)
       .radius(radiusArc1)
       
