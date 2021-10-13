@@ -5,7 +5,7 @@
     height = 1000,
     start = 0, //centre point
     end = 2, //outer of the spiral
-    numSpirals = 77, //number of years in dataset
+    numSpirals = 77, //number of years in dataset - could be made dynamic to respond to the dataset - first year in data and last year
     // numAxis = 1,
     margin = {top:50,bottom:50,left:50,right:50};
 
@@ -70,7 +70,7 @@
 //define data
 
 var url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvSLkjHvHlPjWLy3ec4UT9AsFsyTy2rbsjKquZgmhCqbsTZ4TLAnWv28Y3PnR/pub?gid=1387341329&single=true&output=csv'
-    // url = './minimal.csv'
+    // url = './minimal.csv' //local backup
 
     d3.csv(url, function(error, spiralData) {
         if (error) throw error;
@@ -94,7 +94,7 @@ var url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvS
        
         for (let i = 0; i < spiralData.length; i++) {
           
-          if (spiralData[i]["start"].includes("00") && spiralData[i]["end"].includes(" ")) 				spiralData[i]["end"]=spiralData[i]["start"]; //duplicates columns with -00- to create ranges later
+          if (spiralData[i]["start"].includes("00") && spiralData[i]["end"] == "") 			spiralData[i]["end"]=spiralData[i]["start"]; //duplicates columns with -00- to create ranges later
 
           var startA = spiralData[i]["start"].split("-");
           var endA = spiralData[i]["end"].split("-");
@@ -161,7 +161,7 @@ var url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvS
 
 // The mapping of visual variables starts here
 
-//certain one day events
+//certain one day events - circles
 
 // scale to get relative position in the year from month and day
 const startYearForRelativeScale = 1900
