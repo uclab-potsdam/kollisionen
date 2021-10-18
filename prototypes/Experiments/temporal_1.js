@@ -334,7 +334,7 @@ Promise.all([
     let circles = circleG.selectAll("g")
       .data(function(d) {
         return spiralData.filter(function(d) {
-          return d.uncertaintystart === 0 && d.end === ""
+          return d.uncertaintystart === 0 && d.end === "" && d.start.includes("/") == false && d.start.includes(",") == false && d.start != "" //took out some data points that create errors for now
         });
       })
       .join("g")
