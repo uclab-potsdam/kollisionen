@@ -48,10 +48,11 @@
                 .radius(radius);
 
 
+    const backgroundSpiralG = svg.append("g").classed("backgroundSpiralG", true)
 
-    var path = svg.append("path")
+    var path = backgroundSpiralG.append("path")
       .datum(points)
-      .attr("id", "spiral")
+      .attr("class", "backgroundspiral")
       .attr("d", spiral)
       .style("fill", "none") // do all style in css
       .style("stroke", "grey")
@@ -257,6 +258,8 @@ spiralData.forEach(function(d) {
 
     //this is the code for the arcs
 
+    const pathG = svg.append("g").classed("pathG", true)
+
     for (let i = 0; i < spiralData.length; i++) {
 
       var endSpiralTheta = numSpiralsThetaScale(parseDate(spiralData[i].vend));
@@ -286,12 +289,19 @@ spiralData.forEach(function(d) {
 
       var angleStart = spiralData[i].aStart * (180 / Math.PI)
 
-      svg.append("path")
+console.log(spiralData[i].category1)
+
+      pathG.append("path")
             .datum(points)
-            .attr("id", "spiralArcs")
+            .attr("class", "spiralArcs")
             .attr("d", spiralArcs)
             .style("fill", "none") // do all style in css?
-            .style("stroke", "#002fa7")
+          //  .classed()
+            .classed("cinemaP", spiralData[i].category1==true ? true : false)
+            .classed("biographyP", spiralData[i].category2==true ? true : false)
+            .classed("writingP", spiralData[i].category3==true ? true : false)
+            .classed("graphicP", spiralData[i].category4==true ? true : false)
+            .classed("apartmentP", spiralData[i].category5==true ? true : false)
             .style("opacity", function(d) {
                               if (spiralData[i]["uncertaintystart"] == 0 && spiralData[i]["uncertaintyend"] == 0)
                               {
@@ -309,10 +319,18 @@ spiralData.forEach(function(d) {
 
             })
             .style("stroke", ("8, 5"))
-            // .style("opacity",1)
             .attr("transform", "rotate("+angleStart+")");
 
     };
+
+    const circleG = svg.append("g").classed("circleG", true)
+
+    circleG.selectAll("g")
+    .data(function(d) {
+      return spiralData.filter(function(d) { return d.uncertaintystart === 0});
+    })
+    .join("g")
+    .classed("circles", true)
 
     svg.selectAll("circle.cat1")
       //.data(spiralData)

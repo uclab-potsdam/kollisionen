@@ -60,10 +60,15 @@ margin-right:20px;
 }
 
 .cinema { background: #002fa7;}
+.cinemaP{ stroke: #002fa7;}
 .biography { background: #fdd55c;}
+.biographyP{ stroke: #fdd55c;}
 .writing { background: #ed563b;}
+.writingP{ stroke: #ed563b;}
 .graphic { background: #3caea3;}
+.graphicP{ stroke: #3caea3;}
 .apartment { background: #922598;}
+.apartmentP{ stroke: #922598;}
 
 
 
