@@ -3,92 +3,119 @@
   --biography: #fdd55c;
   --writing: #ed563b;
   --graphic: #3caea3;
-  --apartment:#922598;
+  --apartment: #922598;
 }
 
-
 body {
-    font-family: 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva', 'Verdana', sans-serif;
-    margin: 40px;
-  }
-  .axis path {
-    fill: none;
-    stroke: #999;
-    stroke-dasharray: 2 3;
-  }
-  .axis text {
-    font-size: 13px;
-    stroke: #222;
-  }
-  text.title {
-    font-size: 24px;
-  }
-  circle.tick {
-    fill: #f3f3f3;
-    stroke: #999;
-    stroke-dasharray: 2 3;
-  }
-  path.spiral {
-    fill: none;
-    stroke: #ee8d18;
-    stroke-width: 3px;
-  }
-
+  font-family: "Lucida Grande", "Lucida Sans Unicode", "Geneva", "Verdana",
+    sans-serif;
+  margin: 40px;
+}
+.axis path {
+  fill: none;
+  stroke: #999;
+  stroke-dasharray: 2 3;
+}
+.axis text {
+  font-size: 13px;
+  stroke: #222;
+}
+text.title {
+  font-size: 24px;
+}
+circle.tick {
+  fill: #f3f3f3;
+  stroke: #999;
+  stroke-dasharray: 2 3;
+}
+path.spiral {
+  fill: none;
+  stroke: #ee8d18;
+  stroke-width: 3px;
+}
 
 .tooltip {
-background: white;
-border-radius: 4px;
-width: 200px;
-box-shadow: 0 0 1px #999999;
-color: #333;
-font-size: 12px;
-left: 130px;
-padding: 10px;
-position: absolute;
-text-align: left;
-top: 95px;
-z-index: 10;
-display: block;
-opacity: 0;
+  background: white;
+  border-radius: 4px;
+  width: 200px;
+  box-shadow: 0 0 1px #999999;
+  color: #333;
+  font-size: 12px;
+  left: 130px;
+  padding: 10px;
+  position: absolute;
+  text-align: left;
+  top: 95px;
+  z-index: 10;
+  display: block;
+  opacity: 0;
 }
 
 h3 {
-margin-top: 15px;
+  margin-top: 15px;
 }
 
-
 .key-dot {
-display: inline-block;
-height: 10px;
-margin-right: .5em;
-width: 10px;
+  display: inline-block;
+  height: 10px;
+  margin-right: 0.5em;
+  width: 10px;
 }
 
 .legend {
-margin-right:20px;
+  margin-right: 20px;
 }
 
-.cinema { background: var(--cinema);}
-path.cinema{ stroke: var(--cinema);}
-circle.cinema{ fill: var(--cinema);}
-.biography { background: var(--biography);}
-path.biography{ stroke: var(--biography);}
-circle.biography{ fill: var(--biography);}
-.writing { background: var(--writing);}
-path.writing{ stroke: var(--writing);}
-circle.writing{ fill: var(--writing);}
-.graphic { background: var(--graphic);}
-path.graphic{ stroke: var(--graphic);}
-circle.graphic{ fill: var(--graphic);}
-.apartment { background: var(--apartment);}
-path.apartment{ stroke: var(--apartment);}
-circle.apartment{ fill: var(--apartment);}
+.cinema {
+  background: var(--cinema);
+}
+path.cinema {
+  stroke: var(--cinema);
+}
+circle.cinema {
+  fill: var(--cinema);
+}
+.biography {
+  background: var(--biography);
+}
+path.biography {
+  stroke: var(--biography);
+}
+circle.biography {
+  fill: var(--biography);
+}
+.writing {
+  background: var(--writing);
+}
+path.writing {
+  stroke: var(--writing);
+}
+circle.writing {
+  fill: var(--writing);
+}
+.graphic {
+  background: var(--graphic);
+}
+path.graphic {
+  stroke: var(--graphic);
+}
+circle.graphic {
+  fill: var(--graphic);
+}
+.apartment {
+  background: var(--apartment);
+}
+path.apartment {
+  stroke: var(--apartment);
+}
+circle.apartment {
+  fill: var(--apartment);
+}
 
-.spiralArcs{
+.spiralArcs {
   stroke-width: 2;
   fill: none;
 }
-
 
 /* HTML Horizonal Legend
 .country-name {
@@ -101,16 +128,13 @@ margin-right: .5em;
 width: 10px;
 } */
 
-
-#legend1{
-overflow:hidden;
-
+#legend1 {
+  overflow: hidden;
 }
 .legend1 {
-float:left;
-margin-right: 1em;
-
+  float: left;
+  margin-right: 1em;
 }
 .key-dot {
-border-radius: 50%;
+  border-radius: 50%;
 }

@@ -61,7 +61,7 @@ var path = backgroundSpiralG.append("path")
   .style("fill", "none") // do all style in css
   .style("stroke", "grey")
   .style("stroke", ("6, 5"))
-  .style("opacity", 0);
+  .style("opacity", 0.05);
 
 //  computed value for the total length of the path in user units, this is important for mapping the data later
 
@@ -96,15 +96,16 @@ Promise.all([
       spiralData[i]["category3"] = false;
       spiralData[i]["category4"] = false;
       spiralData[i]["category5"] = false;
-
     };
 
     for (let i = 0; i < spiralData.length; i++) {
 
       var startA = spiralData[i]["start"].split("-");
+      
+      if (startA[1] && startA[2] === "00" && spiralData[i]["end"] === "") spiralData[i]["end"] = spiralData[i]["start"];
+      
       var endA = spiralData[i]["end"].split("-");
-
-      if (startA[1] && startA[2] == "00" && spiralData[i]["end"] == "") spiralData[i]["end"] = +startA[0] + 1 + "-01-01"; //duplicates where 'start' has a "-00-"" value to 'end' to create ranges
+      // if (startA[1] && startA[2] == "00" && spiralData[i]["end"] == "") spiralData[i]["end"] = +startA[0] + 1 + "-01-01"; //duplicates where 'start' has a "-00-"" value to 'end' to create ranges
 
       /* 2. add 'uncertainty' levels:
       0: no uncertainty, e.g. 1898-01-23
@@ -126,17 +127,20 @@ Promise.all([
           */
 
       // gives all uncertain events actual dates values rather than placing it on 1st January
+      
       if (spiralData[i]["uncertaintystart"] == 2) {
         spiralData[i]["vstart"] = startA[0] + "-01-01";
-        spiralData[i]["vend"] = startA[0] + "-11-01";
       } else if (spiralData[i]["uncertaintystart"] == 1) {
         spiralData[i]["vstart"] = startA[0] + "-" + startA[1] + "-01";
         spiralData[i]["vend"] = startA[0] + "-" + startA[1] + "-28";
       } else spiralData[i]["vstart"] = spiralData[i]["start"];
 
-      if (spiralData[i]["uncertaintyend"] == 2) spiralData[i]["vend"] = endA[0] + "-11-01";
-      else if (spiralData[i]["uncertaintyend"] == 1) spiralData[i]["vend"] = endA[0] + "-" + endA[1] + "-28";
-      else spiralData[i]["vend"] = spiralData[i]["end"];
+      if (spiralData[i]["uncertaintyend"] == 2) { spiralData[i]["vend"] = +endA[0] + 1 + "-01-01";
+      // else if (spiralData[i]["uncertaintyend"] == 2) spiralData[i]["vend"] = +endA[0] + 1 + "-01-01";
+    }
+      else if (spiralData[i]["uncertaintyend"] == 1) { 
+        spiralData[i]["vend"] = endA[0] + "-" + endA[1] + "-28";
+      } else spiralData[i]["vend"] = spiralData[i]["end"];
 
     };
 
@@ -326,7 +330,7 @@ Promise.all([
     let circles = circleG.selectAll("g")
       .data(function(d) {
         return spiralData.filter(function(d) {
-          return d.uncertaintystart === 0
+          return d.uncertaintystart === 0 && d.end === ""
         });
       })
       .join("g")
