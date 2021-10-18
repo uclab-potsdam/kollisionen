@@ -289,20 +289,17 @@ spiralData.forEach(function(d) {
 
       var angleStart = spiralData[i].aStart * (180 / Math.PI)
 
-console.log(spiralData[i].category1)
 
       pathG.append("path")
             .datum(points)
-            .attr("class", "spiralArcs")
+            .classed("spiralArcs", true)
             .attr("d", spiralArcs)
-            .style("fill", "none") // do all style in css?
-          //  .classed()
-            .classed("cinemaP", spiralData[i].category1==true ? true : false)
-            .classed("biographyP", spiralData[i].category2==true ? true : false)
-            .classed("writingP", spiralData[i].category3==true ? true : false)
-            .classed("graphicP", spiralData[i].category4==true ? true : false)
-            .classed("apartmentP", spiralData[i].category5==true ? true : false)
-            .style("opacity", function(d) {
+            .classed("cinema", spiralData[i].category1==true ? true : false)
+            .classed("biography", spiralData[i].category2==true ? true : false)
+            .classed("writing", spiralData[i].category3==true ? true : false)
+            .classed("graphic", spiralData[i].category4==true ? true : false)
+            .classed("apartment", spiralData[i].category5==true ? true : false)
+            .style("opacity", function() {
                               if (spiralData[i]["uncertaintystart"] == 0 && spiralData[i]["uncertaintyend"] == 0)
                               {
                                 return 1
@@ -318,164 +315,53 @@ console.log(spiralData[i].category1)
                                 }
 
             })
-            .style("stroke", ("8, 5"))
             .attr("transform", "rotate("+angleStart+")");
 
     };
 
     const circleG = svg.append("g").classed("circleG", true)
 
-    circleG.selectAll("g")
+    let circles = circleG.selectAll("g")
     .data(function(d) {
       return spiralData.filter(function(d) { return d.uncertaintystart === 0});
     })
     .join("g")
     .classed("circles", true)
+      .each(function(d,i){ //for each group create circles
+        ///create an array of all categories to iterate over this an use the nubmer of iterations for the circle radius
+        let localCategories = []
+        if(d.category1 == true){localCategories.push("cinema")}
+        if(d.category2 == true){localCategories.push("biography")}
+        if(d.category3 == true){localCategories.push("writing")}
+        if(d.category4 == true){localCategories.push("graphic")}
+        if(d.category5 == true){localCategories.push("apartment")}
 
-    svg.selectAll("circle.cat1")
-      //.data(spiralData)
-      .data(function(d) {
-        return spiralData.filter(function(d) { return d.uncertaintystart === 0 && d.category1 == true});
+        //use the array to create the circles
+        d3.select(this).selectAll("circle")
+        .data(localCategories)
+        .join("circle")
+        .classed("circle", true)
+        .classed("cinema", function(D){return D == "cinema" ? true : false})
+        .classed("biography", function(D){return D == "biography" ? true : false})
+        .classed("writing", function(D){return D == "writing" ? true : false})
+        .classed("graphic", function(D){return D == "graphic" ? true : false})
+        .classed("apartment", function(D){return D == "apartment" ? true : false})
+        .attr("cx", function(){
+          let [year, month, day] = d.vstart.split('-', 3)
+          let eventCoordinate = getEventCoordinate(year, month, day)
+          return eventCoordinate.cx
+        })
+        .attr("cy", function(){
+          let [year, month, day] = d.vstart.split('-', 3)
+          let eventCoordinate = getEventCoordinate(year, month, day)
+          return eventCoordinate.cy
+        })
+        .attr("r", function(D,I){return 5-2*I}) // radius of circle
+        .attr("opacity", 1)
       })
-      .enter()
-      .append("circle")
-      // .attr("class","start")
-			// .classed("category1", function(d){return d.category1;})
-			// .classed("category2", function(d){return d.category2;})
-			// .classed("category3", function(d){return d.category3;})
-			// .classed("category4", function(d){return d.category4;})
-			// .classed("category5", function(d){return d.category5;})
-      .attr("cx", function(d,i){
-        var [year, month, day] = d.vstart.split('-', 3)
-        var eventCoordinate = getEventCoordinate(year, month, day)
-        return eventCoordinate.cx
-      })
-      .attr("cy", function(d){
-        var [year, month, day] = d.vstart.split('-', 3)
-        var eventCoordinate = getEventCoordinate(year, month, day)
-        return eventCoordinate.cy
-      })
-      .attr("r", "5") // radius of circle
-      .attr("opacity", 1)
-      .style("fill", "#002fa7") //category: Cinema and Theatre: blue
-      // .style("stroke", "#000000")
-      .exit();
 
-      svg.selectAll("circle.cat2")
-      //.data(spiralData)
-      .data(function(d) {
-        return spiralData.filter(function(d) { return d.uncertaintystart == 0 && d.category2 == true; });
-      })
-      .enter()
-      .append("circle")
-      // .attr("class","start")
-			// .classed("category1", function(d){return d.category1;})
-			// .classed("category2", function(d){return d.category2;})
-			// .classed("category3", function(d){return d.category3;})
-			// .classed("category4", function(d){return d.category4;})
-			// .classed("category5", function(d){return d.category5;})
-      .attr("cx", function(d,i){
-        var [year, month, day] = d.vstart.split('-', 3)
-        var eventCoordinate = getEventCoordinate(year, month, day)
-        return eventCoordinate.cx
-      })
-      .attr("cy", function(d){
-        var [year, month, day] = d.vstart.split('-', 3)
-        var eventCoordinate = getEventCoordinate(year, month, day)
-        return eventCoordinate.cy
-      })
-      .attr("r", "4") // radius of circle
-      .attr("opacity", 1)
-      .style("fill", "#fdd55c") //category: Biography and Personality: yellow
-      // .style("stroke", "#000000")
-      .exit();
 
-      svg.selectAll("circle.cat3")
-      //.data(spiralData)
-      .data(function(d) {
-        return spiralData.filter(function(d) { return d.uncertaintystart == 0 && d.category3 == true; });
-      })
-      .enter()
-      .append("circle")
-      // .attr("class","start")
-			// .classed("category1", function(d){return d.category1;})
-			// .classed("category2", function(d){return d.category2;})
-			// .classed("category3", function(d){return d.category3;})
-			// .classed("category4", function(d){return d.category4;})
-			// .classed("category5", function(d){return d.category5;})
-      .attr("cx", function(d,i){
-        var [year, month, day] = d.vstart.split('-', 3)
-        var eventCoordinate = getEventCoordinate(year, month, day)
-        return eventCoordinate.cx
-      })
-      .attr("cy", function(d){
-        var [year, month, day] = d.vstart.split('-', 3)
-        var eventCoordinate = getEventCoordinate(year, month, day)
-        return eventCoordinate.cy
-      })
-      .attr("r", "3") // radius of circle
-      .attr("opacity", 1)
-      .style("fill", "#ed563b") //category: Writing and Teaching: red
-      // .style("stroke", "#000000")
-      .exit();
 
-      svg.selectAll("circle.cat4")
-      //.data(spiralData)
-      .data(function(d) {
-        return spiralData.filter(function(d) { return d.uncertaintystart == 0 && d.category4 == true; });
-      })
-      .enter()
-      .append("circle")
-      // .attr("class","start")
-			// .classed("category1", function(d){return d.category1;})
-			// .classed("category2", function(d){return d.category2;})
-			// .classed("category3", function(d){return d.category3;})
-			// .classed("category4", function(d){return d.category4;})
-			// .classed("category5", function(d){return d.category5;})
-      .attr("cx", function(d,i){
-        var [year, month, day] = d.vstart.split('-', 3)
-        var eventCoordinate = getEventCoordinate(year, month, day)
-        return eventCoordinate.cx
-      })
-      .attr("cy", function(d){
-        var [year, month, day] = d.vstart.split('-', 3)
-        var eventCoordinate = getEventCoordinate(year, month, day)
-        return eventCoordinate.cy
-      })
-      .attr("r", "2") // radius of circle
-      .attr("opacity", 1)
-      .style("fill", "#3caea3") //catefory: Graphic Art: green
-      // .style("stroke", "#000000")
-      .exit();
-
-      svg.selectAll("circle.cat5")
-      //.data(spiralData)
-      .data(function(d) {
-        return spiralData.filter(function(d) { return d.uncertaintystart == 0 && d.category5 == true; });
-      })
-      .enter()
-      .append("circle")
-      // .attr("class","start")
-			// .classed("category1", function(d){return d.category1;})
-			// .classed("category2", function(d){return d.category2;})
-			// .classed("category3", function(d){return d.category3;})
-			// .classed("category4", function(d){return d.category4;})
-			// .classed("category5", function(d){return d.category5;})
-      .attr("cx", function(d,i){
-        var [year, month, day] = d.vstart.split('-', 3)
-        var eventCoordinate = getEventCoordinate(year, month, day)
-        return eventCoordinate.cx
-      })
-      .attr("cy", function(d){
-        var [year, month, day] = d.vstart.split('-', 3)
-        var eventCoordinate = getEventCoordinate(year, month, day)
-        return eventCoordinate.cy
-      })
-      .attr("r", "1") // radius of circle
-      .attr("opacity", 1)
-      .style("fill", "#922598") //category: Apartment: Purple
-      // .style("stroke", "#000000")
-      .exit();
 
     // add date labels
 
@@ -519,6 +405,12 @@ console.log(spiralData[i].category1)
                 <span><b>${d.vstart}</b></span>
                 <br> <b>${d.title}</b> </span>`);
           })
+          .on('mouseout', function(d) {
+              tooltip.style('display', 'none');
+              tooltip.style('opacity',0);
+          });
+
+
           svg.select("#spiralArcs")
           .on('mousemove', function(event, d) {
               tooltip
