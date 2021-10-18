@@ -101,9 +101,9 @@ Promise.all([
     for (let i = 0; i < spiralData.length; i++) {
 
       var startA = spiralData[i]["start"].split("-");
-      
+
       if (startA[1] && startA[2] === "00" && spiralData[i]["end"] === "") spiralData[i]["end"] = spiralData[i]["start"];
-      
+
       var endA = spiralData[i]["end"].split("-");
       // if (startA[1] && startA[2] == "00" && spiralData[i]["end"] == "") spiralData[i]["end"] = +startA[0] + 1 + "-01-01"; //duplicates where 'start' has a "-00-"" value to 'end' to create ranges
 
@@ -127,7 +127,7 @@ Promise.all([
           */
 
       // gives all uncertain events actual dates values rather than placing it on 1st January
-      
+
       if (spiralData[i]["uncertaintystart"] == 2) {
         spiralData[i]["vstart"] = startA[0] + "-01-01";
       } else if (spiralData[i]["uncertaintystart"] == 1) {
@@ -138,7 +138,7 @@ Promise.all([
       if (spiralData[i]["uncertaintyend"] == 2) { spiralData[i]["vend"] = +endA[0] + 1 + "-01-01";
       // else if (spiralData[i]["uncertaintyend"] == 2) spiralData[i]["vend"] = +endA[0] + 1 + "-01-01";
     }
-      else if (spiralData[i]["uncertaintyend"] == 1) { 
+      else if (spiralData[i]["uncertaintyend"] == 1) {
         spiralData[i]["vend"] = endA[0] + "-" + endA[1] + "-28";
       } else spiralData[i]["vend"] = spiralData[i]["end"];
 
@@ -300,28 +300,32 @@ Promise.all([
 
       var angleStart = spiralData[i].aStart * (180 / Math.PI)
 
-      d3.select(".pathG").append("g").classed("pathGs", true)
-      .datum(function(){return spiralData[i]})
-      .append("path")
-        .datum(points)
-        .classed("spiralArcs", true)
-        .attr("d", spiralArcs)
-        .classed("cinema", spiralData[i].category1 == true ? true : false)
-        .classed("biography", spiralData[i].category2 == true ? true : false)
-        .classed("writing", spiralData[i].category3 == true ? true : false)
-        .classed("graphic", spiralData[i].category4 == true ? true : false)
-        .classed("apartment", spiralData[i].category5 == true ? true : false)
-        .style("opacity", function() {
-          if (spiralData[i]["uncertaintystart"] == 0 && spiralData[i]["uncertaintyend"] == 0) {
-            return 1
-          } else if (spiralData[i]["uncertaintystart"] == 1 && spiralData[i]["uncertaintyend"] == 1) {
-            return 0.66
-          } else if (spiralData[i]["uncertaintystart"] == 2 && spiralData[i]["uncertaintyend"] == 2) {
-            return 0.33
-          }
 
-        })
-        .attr("transform", "rotate(" + angleStart + ")");
+      if(spiralData[i].vend != ""){
+        d3.select(".pathG").append("g").classed("pathGs", true)
+        .datum(function(){return spiralData[i]})
+        .append("path")
+          .datum(points)
+          .classed("spiralArcs", true)
+          .attr("d", spiralArcs)
+          .classed("cinema", spiralData[i].category1 == true ? true : false)
+          .classed("biography", spiralData[i].category2 == true ? true : false)
+          .classed("writing", spiralData[i].category3 == true ? true : false)
+          .classed("graphic", spiralData[i].category4 == true ? true : false)
+          .classed("apartment", spiralData[i].category5 == true ? true : false)
+          .style("opacity", function() {
+            if (spiralData[i]["uncertaintystart"] == 0 && spiralData[i]["uncertaintyend"] == 0) {
+              return 1
+            } else if (spiralData[i]["uncertaintystart"] == 1 && spiralData[i]["uncertaintyend"] == 1) {
+              return 0.66
+            } else if (spiralData[i]["uncertaintystart"] == 2 && spiralData[i]["uncertaintyend"] == 2) {
+              return 0.33
+            }
+
+          })
+          .attr("transform", "rotate(" + angleStart + ")");
+}
+
 
     };
 
