@@ -490,11 +490,11 @@ spiralData.forEach(function(d) {
     .attr('class', 'value');
 
     svg.selectAll("circle")
-    .on('mousemove', function(d) {
+    .on('mousemove', function(event, d) {
         tooltip
               .style('position', 'absolute')
-              .style('left', `${d3.event.pageX + 10}px`)
-              .style('top', `${d3.event.pageY + 20}px`)
+              .style('left', `${event.pageX + 10}px`)
+              .style('top', `${event.pageY + 20}px`)
               .style('display', 'inline-block')
               .style('opacity', '0.9')
               .html(`
@@ -502,11 +502,11 @@ spiralData.forEach(function(d) {
                 <br> <b>${d.title}</b> </span>`);
           })
           svg.select("#spiralArcs")
-          .on('mousemove', function(d) {
+          .on('mousemove', function(event, d) {
               tooltip
                     .style('position', 'absolute')
-                    .style('left', `${d3.event.pageX + 10}px`)
-                    .style('top', `${d3.event.pageY + 20}px`)
+                    .style('left', `${event.pageX + 10}px`)
+                    .style('top', `${event.pageY + 20}px`)
                     .style('display', 'inline-block')
                     .style('opacity', '0.9')
                     .html(`
