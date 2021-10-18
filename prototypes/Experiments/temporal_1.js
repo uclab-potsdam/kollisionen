@@ -9,7 +9,7 @@
     // numAxis = 1,
     margin = {top:50,bottom:50,left:50,right:50};
 
-    // Constructing the spiral: 
+    // Constructing the spiral:
 
     // theta for the spiral
 
@@ -24,7 +24,7 @@
     // The radius of the spiral
 
     var radius = d3.scaleLinear()
-                .domain([start, end]) 
+                .domain([start, end])
                 .range([40, r]);
 
     // inserts svg into the DOM
@@ -33,7 +33,7 @@
       .attr("width", width + margin.right + margin.left)
       .attr("height", height + margin.left + margin.right)
       .append("g")
-      .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")"); 
+      .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
     // The path to draw the spiral needs data to inform it, points generates this, and is used in .datum(points) below
 
@@ -72,9 +72,11 @@
 var url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvSLkjHvHlPjWLy3ec4UT9AsFsyTy2rbsjKquZgmhCqbsTZ4TLAnWv28Y3PnR/pub?gid=1387341329&single=true&output=csv'
     // url = './minimal.csv' //local backup
 
-    d3.csv(url, function(error, spiralData) {
-        if (error) throw error;
-
+    ///load data
+    Promise.all([
+        d3.csv(url), //data
+      ])
+      .then(([spiralData]) => {
         console.log(spiralData);
 
         // 1. add properties 'vstart' and 'vend' for inferred dates
@@ -90,10 +92,10 @@ var url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvS
           spiralData[i]["category4"] = false;
           spiralData[i]["category5"] = false;
 
-        };   
-       
+        };
+
         for (let i = 0; i < spiralData.length; i++) {
-        
+
           var startA = spiralData[i]["start"].split("-");
           var endA = spiralData[i]["end"].split("-");
 
@@ -108,8 +110,8 @@ var url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvS
           else if (startA[2]=="00") spiralData[i]["uncertaintystart"] = 1;
           if (endA[1]=="00") spiralData[i]["uncertaintyend"] = 2;
           else if (endA[2]=="00") spiralData[i]["uncertaintyend"] = 1;
-          
-           /* 3. populate vstart and vend. assign proper dates to events that automatically fall on 1st January 
+
+           /* 3. populate vstart and vend. assign proper dates to events that automatically fall on 1st January
           start
             uncertainty == 2 → YYYY-01-01
             uncertainty == 1 → YYYY-MM-01
@@ -117,7 +119,7 @@ var url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvS
             uncertainty == 2 → YYYY-12-31
             uncertainty == 1 → YYYY-MM-28
           */
-          
+
            // gives all uncertain events actual dates values rather than placing it on 1st January
           if (spiralData[i]["uncertaintystart"]==2) {
             spiralData[i]["vstart"] = startA[0]+"-01-01";
@@ -136,22 +138,22 @@ var url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvS
         };
 
         for (let i = 0; i < spiralData.length; i++) {
-          
+
           // category 1=Cinema and Theatre, category 2=Biography and Personality, category 3=Writing and Teaching, category 4=Graphic Art, category 5=Apartment
           //categories sorted into separate categories to aid with styling later
-					
+
 					if (spiralData[i]["category"].includes("Cinema and Theatre")) 				spiralData[i]["category1"]=true;
 					if (spiralData[i]["category"].includes("Biography and Personality")) 	spiralData[i]["category2"]=true;
 					if (spiralData[i]["category"].includes("Writing and Teaching")) 			spiralData[i]["category3"]=true;
 					if (spiralData[i]["category"].includes("Graphic Art")) 								spiralData[i]["category4"]=true;
 					if (spiralData[i]["category"].includes("Apartment")) 									spiralData[i]["category5"]=true;
-					
+
         };
-  
+
         // // format the data
         // spiralData.forEach(function(d) {
-        //   // d.start needs to be just the certain single dates (0), and needs to filter out the uncertain dates (1 or 2). There are also 'ranges' that contain 
-          
+        //   // d.start needs to be just the certain single dates (0), and needs to filter out the uncertain dates (1 or 2). There are also 'ranges' that contain
+
         //   // d.start = +parseDate(d.start);
         //   // d.end = +parseDate(d.end);
         //   // d.vstart = +parseDate(d.vstart);
@@ -176,7 +178,7 @@ const lastYear = firstYear + numSpirals
 const absoluteRadiusScale = d3
   .scaleLinear()
   .domain([firstYear, lastYear])
-  .range([0, r-40]) 
+  .range([0, r-40])
 
 var getRelativePositionInTheYear = function(month, day) {
   const date = new Date(startYearForRelativeScale, Math.max(month-1, 0), Math.max(1, day))
@@ -223,7 +225,7 @@ spiralData.forEach(function(d) {
 
 // Making arcs
 
-/* Arcs are to be split into several category types: 
+/* Arcs are to be split into several category types:
                                                   For those with a date value in both 'start/vstart' and 'end/vend'
                                                   0 -> 0 = no uncertainty, a date range
                                                   1 -> 1 = an uncertain range for months
@@ -243,7 +245,7 @@ spiralData.forEach(function(d) {
       var numSpiralsThetaScale =  d3.scaleLinear()
       .domain([d3.min(spiralData, function(d) { return parseDate(d.vstart)}), d3.max(spiralData, function(d) { return parseDate(d.vend)})])
       .range([0, numSpirals]);
-      
+
       /*
       Scale returns a value between 0 and 77: see manual test above for 24 Jan 1930 - returns '36.27049731995325' which would be from 1896 - 1930
       min because vstart contains ealiest date and max because vend contains latest date
@@ -264,9 +266,9 @@ spiralData.forEach(function(d) {
       //console.log(numSpiralsTheta);
 
       var radiusArc1 = d3.scaleLinear()
-      .domain([start, end]) 
+      .domain([start, end])
       .range([spiralData[i].rStart, spiralData[i].rEnd])
-      
+
       //console.log(radiusArc1(2))
 
       var thetaArc = function(r) {
@@ -278,10 +280,10 @@ spiralData.forEach(function(d) {
               */
 
       var spiralArcs = d3.radialLine()
-      .curve(d3.curveCardinal) 
+      .curve(d3.curveCardinal)
       .angle(thetaArc)
       .radius(radiusArc1)
-      
+
       var angleStart = spiralData[i].aStart * (180 / Math.PI)
 
       svg.append("path")
@@ -291,27 +293,27 @@ spiralData.forEach(function(d) {
             .style("fill", "none") // do all style in css?
             .style("stroke", "#002fa7")
             .style("opacity", function(d) {
-                              if (spiralData[i]["uncertaintystart"] == 0 && spiralData[i]["uncertaintyend"] == 0) 
+                              if (spiralData[i]["uncertaintystart"] == 0 && spiralData[i]["uncertaintyend"] == 0)
                               {
                                 return 1
-            } else if 
+            } else if
                                  (spiralData[i]["uncertaintystart"] == 1 && spiralData[i]["uncertaintyend"] == 1)
-                              {       
-                                return 0.66 
-                              
-             } else             (spiralData[i]["uncertaintystart"] == 2 && spiralData[i]["uncertaintyend"] == 2)      
                               {
-                                return 0.33 
+                                return 0.66
+
+             } else             (spiralData[i]["uncertaintystart"] == 2 && spiralData[i]["uncertaintyend"] == 2)
+                              {
+                                return 0.33
 
                                 }
-                              
+
             })
             .style("stroke", ("8, 5"))
             // .style("opacity",1)
             .attr("transform", "rotate("+angleStart+")");
 
     };
-    
+
     svg.selectAll("circle.cat1")
       //.data(spiralData)
       .data(function(d) {
@@ -324,7 +326,7 @@ spiralData.forEach(function(d) {
 			// .classed("category2", function(d){return d.category2;})
 			// .classed("category3", function(d){return d.category3;})
 			// .classed("category4", function(d){return d.category4;})
-			// .classed("category5", function(d){return d.category5;})			
+			// .classed("category5", function(d){return d.category5;})
       .attr("cx", function(d,i){
         var [year, month, day] = d.vstart.split('-', 3)
         var eventCoordinate = getEventCoordinate(year, month, day)
@@ -335,7 +337,7 @@ spiralData.forEach(function(d) {
         var eventCoordinate = getEventCoordinate(year, month, day)
         return eventCoordinate.cy
       })
-      .attr("r", "5") // radius of circle 
+      .attr("r", "5") // radius of circle
       .attr("opacity", 1)
       .style("fill", "#002fa7") //category: Cinema and Theatre: blue
       // .style("stroke", "#000000")
@@ -353,7 +355,7 @@ spiralData.forEach(function(d) {
 			// .classed("category2", function(d){return d.category2;})
 			// .classed("category3", function(d){return d.category3;})
 			// .classed("category4", function(d){return d.category4;})
-			// .classed("category5", function(d){return d.category5;})			
+			// .classed("category5", function(d){return d.category5;})
       .attr("cx", function(d,i){
         var [year, month, day] = d.vstart.split('-', 3)
         var eventCoordinate = getEventCoordinate(year, month, day)
@@ -364,7 +366,7 @@ spiralData.forEach(function(d) {
         var eventCoordinate = getEventCoordinate(year, month, day)
         return eventCoordinate.cy
       })
-      .attr("r", "4") // radius of circle 
+      .attr("r", "4") // radius of circle
       .attr("opacity", 1)
       .style("fill", "#fdd55c") //category: Biography and Personality: yellow
       // .style("stroke", "#000000")
@@ -382,7 +384,7 @@ spiralData.forEach(function(d) {
 			// .classed("category2", function(d){return d.category2;})
 			// .classed("category3", function(d){return d.category3;})
 			// .classed("category4", function(d){return d.category4;})
-			// .classed("category5", function(d){return d.category5;})			
+			// .classed("category5", function(d){return d.category5;})
       .attr("cx", function(d,i){
         var [year, month, day] = d.vstart.split('-', 3)
         var eventCoordinate = getEventCoordinate(year, month, day)
@@ -393,7 +395,7 @@ spiralData.forEach(function(d) {
         var eventCoordinate = getEventCoordinate(year, month, day)
         return eventCoordinate.cy
       })
-      .attr("r", "3") // radius of circle 
+      .attr("r", "3") // radius of circle
       .attr("opacity", 1)
       .style("fill", "#ed563b") //category: Writing and Teaching: red
       // .style("stroke", "#000000")
@@ -411,7 +413,7 @@ spiralData.forEach(function(d) {
 			// .classed("category2", function(d){return d.category2;})
 			// .classed("category3", function(d){return d.category3;})
 			// .classed("category4", function(d){return d.category4;})
-			// .classed("category5", function(d){return d.category5;})			
+			// .classed("category5", function(d){return d.category5;})
       .attr("cx", function(d,i){
         var [year, month, day] = d.vstart.split('-', 3)
         var eventCoordinate = getEventCoordinate(year, month, day)
@@ -422,7 +424,7 @@ spiralData.forEach(function(d) {
         var eventCoordinate = getEventCoordinate(year, month, day)
         return eventCoordinate.cy
       })
-      .attr("r", "2") // radius of circle 
+      .attr("r", "2") // radius of circle
       .attr("opacity", 1)
       .style("fill", "#3caea3") //catefory: Graphic Art: green
       // .style("stroke", "#000000")
@@ -440,7 +442,7 @@ spiralData.forEach(function(d) {
 			// .classed("category2", function(d){return d.category2;})
 			// .classed("category3", function(d){return d.category3;})
 			// .classed("category4", function(d){return d.category4;})
-			// .classed("category5", function(d){return d.category5;})			
+			// .classed("category5", function(d){return d.category5;})
       .attr("cx", function(d,i){
         var [year, month, day] = d.vstart.split('-', 3)
         var eventCoordinate = getEventCoordinate(year, month, day)
@@ -451,7 +453,7 @@ spiralData.forEach(function(d) {
         var eventCoordinate = getEventCoordinate(year, month, day)
         return eventCoordinate.cy
       })
-      .attr("r", "1") // radius of circle 
+      .attr("r", "1") // radius of circle
       .attr("opacity", 1)
       .style("fill", "#922598") //category: Apartment: Purple
       // .style("stroke", "#000000")
@@ -476,7 +478,7 @@ spiralData.forEach(function(d) {
     //   .attr("startOffset", function(d){
     //     return ((d.linePer / spiralLength) * 100) + "%";
     //   });
-   
+
   //tooltip
    var tooltip = d3.select("#chart")
     .append('div')
@@ -488,7 +490,7 @@ spiralData.forEach(function(d) {
     .attr('class', 'value');
 
     svg.selectAll("circle")
-    .on('mouseover', function(d) {
+    .on('mousemove', function(d) {
         tooltip
               .style('position', 'absolute')
               .style('left', `${d3.event.pageX + 10}px`)
@@ -500,7 +502,7 @@ spiralData.forEach(function(d) {
                 <br> <b>${d.title}</b> </span>`);
           })
           svg.select("#spiralArcs")
-          .on('mouseover', function(d) {
+          .on('mousemove', function(d) {
               tooltip
                     .style('position', 'absolute')
                     .style('left', `${d3.event.pageX + 10}px`)
@@ -510,7 +512,7 @@ spiralData.forEach(function(d) {
                     .html(`
                       <span><b>${d.vstart}</b></span>
                       <br> <b>${d.title}</b> </span>`);
-                })    
+                })
     .on('mouseout', function(d) {
         d3.selectAll("rect")
         .style("fill", function(d){return color(d.number1);})

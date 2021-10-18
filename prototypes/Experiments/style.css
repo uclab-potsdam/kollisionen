@@ -29,7 +29,7 @@ body {
 .tooltip {
 background: white;
 border-radius: 4px;
-width: 200px;   
+width: 200px;
 box-shadow: 0 0 1px #999999;
 color: #333;
 font-size: 12px;
@@ -59,14 +59,13 @@ width: 10px;
 margin-right:20px;
 }
 
-.cinema { background: #DCE319;}
-.biography { background: #55C667;}
-.writing { background: #238A8D;}
-.graphic { background: #A7226E;}
-.apartment { background: #440154;}
+.cinema { background: #002fa7;}
+.biography { background: #fdd55c;}
+.writing { background: #ed563b;}
+.graphic { background: #3caea3;}
+.apartment { background: #922598;}
 
 
-//"#DCE319","#55C667","#238A8D", '#A7226E','#440154']);;
 
 /* HTML Horizonal Legend
 .country-name {
