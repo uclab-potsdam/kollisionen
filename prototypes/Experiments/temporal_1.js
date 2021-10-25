@@ -439,6 +439,33 @@ Promise.all([
                 <span><b>${d.vstart}</b></span>
                 <br> <b>${d.title}</b> </span>`);
       })
+      .on('click', function(event, d) {
+        tooltip
+          .style('position', 'absolute')
+          .style('left', `${event.pageX + 50}px`)
+          .style('top', `${event.pageY + 50}px`)
+          .style('display', 'inline-block')
+          .style('opacity', '0.9')
+          .html(`
+                <b>Title:</b>
+                <br>${d.title}
+                <br>
+                <br><b>Date:</b>
+                <br>${d.vstart}
+                <br>
+                <br><b>Description:</b>
+                <br>${d.description}
+                <br>
+                <br><b>Related Objects:</b>
+                <br>
+                <br><b>Keywords:</b>
+                <br>${d.keyword}
+                
+                
+                
+                `)
+
+      })
       .on('mouseout', function(d) {
         tooltip.style('display', 'none');
         tooltip.style('opacity', 0);
@@ -467,6 +494,7 @@ Promise.all([
         tooltip.style('opacity', 0);
       });
 
+    
 
 
   })
