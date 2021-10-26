@@ -13,6 +13,8 @@ var width = 1000,
     right: 50
   };
 
+  let detailview = false;
+
 // Constructing the spiral:
 
 // theta for the spiral
@@ -50,7 +52,6 @@ var spiral = d3.radialLine()
   .curve(d3.curveCardinal)
   .angle(theta)
   .radius(radius);
-
 
 const backgroundSpiralG = svg.append("g").classed("backgroundSpiralG", true)
 
@@ -158,14 +159,14 @@ Promise.all([
     };
 
     // // format the data
-    // spiralData.forEach(function(d) {
+    spiralData.forEach(function(d) {
     //   // d.start needs to be just the certain single dates (0), and needs to filter out the uncertain dates (1 or 2). There are also 'ranges' that contain
 
     //   // d.start = +parseDate(d.start);
     //   // d.end = +parseDate(d.end);
-    //   // d.vstart = +parseDate(d.vstart);
+      d.vdate = +parseDate(d.vstart);
     //   // d.vend = +parseDate(d.vend);
-    // });
+    });
 
 
     // The mapping of visual variables starts here
@@ -300,7 +301,6 @@ Promise.all([
 
       var angleStart = spiralData[i].aStart * (180 / Math.PI)
 
-
       if(spiralData[i].vend != ""){
         d3.select(".pathG").append("g").classed("pathGs", true)
         .datum(function(){return spiralData[i]})
@@ -394,33 +394,14 @@ Promise.all([
           .attr("opacity", 1)
       })
 
-
-
-
-    // add date labels
-
-    // svg.selectAll("text")
-    //   .data(spiralData)
-    //   .enter()
-    //   .append("text")
-    //   .attr("dy", 10)
-    //   .style("text-anchor", "start")
-    //   .style("font", "10px arial")
-    //   .append("textPath")
-    //   // only add for the first of each month
-    //   .filter(d=>d.first==1)
-    //   .text(d=>d.year)
-    //   // place text along spiral
-    //   .attr("xlink:href", "#spiral")
-    //   .style("fill", "grey")
-    //   .attr("startOffset", function(d){
-    //     return ((d.linePer / spiralLength) * 100) + "%";
-    //   });
-
     //tooltip
     var tooltip = d3.select("#chart")
       .append('div')
       .attr('class', 'tooltip');
+
+    var sidebar = d3.select("#sidebar")
+      .append('div')
+      .attr('class', 'sidebar');
 
     tooltip.append('div')
       .attr('class', 'date');
@@ -441,26 +422,32 @@ Promise.all([
       })
       .on('click', function(event, d) {
         tooltip
-          .style('position', 'absolute')
-          .style('left', `${event.pageX + 50}px`)
-          .style('top', `${event.pageY + 50}px`)
-          .style('display', 'inline-block')
+          .style('position', 'fixed')
           .style('opacity', '0.9')
           .html(`
-                <b>Title:</b>
+                ${formatTime(d.vdate)}
+                <br>    
+                
                 <br>${d.title}
                 <br>
-                <br><b>Date:</b>
-                <br>${d.vstart}
-                <br>
-                <br><b>Description:</b>
+                
                 <br>${d.description}
                 <br>
                 <br><b>Related Objects:</b>
                 <br>
-                <br><b>Keywords:</b>
-                <br>${d.keyword}
-                
+                <br><b>People:</b>
+                ${d.people}<br>
+                <br><b>Places:</b>
+                ${d.places}<br>
+                <br><b>Works:</b>
+                ${d.works}<br>
+                <br><b>Artistic concepts:</b>
+                ${d.artistic}<br>
+                <br><b>Misc:</b>
+                ${d.additional}
+                <br>
+
+                <br><span class="key-dot cinema"></span>Cinema and Theatre
                 
                 
                 `)

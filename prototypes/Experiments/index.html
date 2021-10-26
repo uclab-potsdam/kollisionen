@@ -8,7 +8,7 @@
 
   <!-- <link rel="stylesheet" href="../standard-style.css"> -->
   <link rel="stylesheet" href="../index.css">
-  <link rel="stylesheet" type="text/css" href="style.css" />
+  <link rel="stylesheet" href="style.css" />
   <script src="https://d3js.org/d3.v6.js"></script>
 
 </head>
@@ -26,19 +26,35 @@
     </p>
   </div>
   <div id="legend1">
-    <div class="legend1"> <span class="key-dot cinema"></span>Cinema and Theatre </div>
-    <div class="legend1"> <span class="key-dot biography"></span>Biography and Personality </div>
-    <div class="legend1"> <span class="key-dot writing"></span>Writing and Teaching</div>
-    <div class="legend1"> <span class="key-dot graphic"></span>Graphic Art </div>
-    <div class="legend1"> <span class="key-dot apartment"></span>Apartment </div>
+
+    <table>
+      <tr>
+        <th>Categories</th>
+      </tr>
+      <tr>
+        <td><div class="legend1"> <span class="key-dot cinema"></span>Cinema and Theatre </div></td>
+      </tr>
+      <tr>
+        <td><div class="legend1"> <span class="key-dot biography"></span>Biography and Personality </div></td>
+      </tr>
+      <tr>
+        <td><div class="legend1"> <span class="key-dot writing"></span>Writing and Teaching</div></td>
+      </tr>
+      <tr>
+        <td><div class="legend1"> <span class="key-dot graphic"></span>Graphic Art </div></td>
+      </tr>
+      <tr>
+        <td><div class="legend1"> <span class="key-dot apartment"></span>Apartment </div></td>
+      </tr>
   </div>
   <div id="chart">  
     <script type="text/javascript" src="temporal_1.js"></script>
   </div>
 
-  <div id="sidebar">
-    
-  </div>
+  <div id="sidebar"></div>
+
+  <p id="closesidebar">X</p>
+
 
 </body>
 
