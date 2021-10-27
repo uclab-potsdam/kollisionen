@@ -28,6 +28,7 @@ circle.tick {
   stroke: #999;
   stroke-dasharray: 2 3;
 } */
+
 path.backgroundspiral {
   fill: none;
   stroke: #ee8d18;
@@ -52,20 +53,19 @@ path.backgroundspiral {
 }
 
 .sidebar {
-  background: white;
-  border-radius: 4px;
-  width: 200px;
-  box-shadow: 0 0 1px #999999;
-  color: #333;
-  font-size: 12px;
-  left: 130px;
-  padding: 10px;
-  position: absolute;
+  background-color: rgba(50, 50, 50, 0.63);
+  margin: 0px;
+  font-size: 0.8em;
+  position: fixed;
+  overflow-y: auto;
+  top: 0;
+  right: 0;
+  width: 400px;
+  height: 100%;
+  display: none;
   text-align: left;
-  top: 95px;
+  padding: 20px;
   z-index: 10;
-  display: block;
-  opacity: 0;
 }
 
 h3 {
@@ -134,18 +134,13 @@ circle.apartment {
   fill: none;
 }
 
-/* HTML Horizonal Legend
-.country-name {
-margin: 0 !important;
-}
-.key-dot {
+/* .key-dot {
 display: inline-block;
 height: 10px;
 margin-right: .5em;
 width: 10px;
 } */
-
-#legend1 {
+*/ #legend1 {
   overflow: hidden;
 }
 .legend1 {
@@ -166,7 +161,7 @@ width: 10px;
   z-index: 20;
 }
 
-#sidebar {
+/* #sidebar {
   background-color: rgba(50, 50, 50, 0.63);
   margin: 0px;
   font-size: 0.8em;
@@ -180,7 +175,7 @@ width: 10px;
   text-align: left;
   padding: 20px;
   z-index: 10;
-}
+} */
 
 /* #closesidebar {
   position: fixed;

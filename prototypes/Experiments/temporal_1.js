@@ -422,34 +422,39 @@ Promise.all([
       })
       .on('click', function(event, d) {
         sidebar
-        console.log('click', d)
-          // .html(`
-          //       ${formatTime(d.vdate)}
-          //       <br>    
+        // console.log('click', d)
+          .style('position', 'absolute')
+          // .style('left', `${event.pageX + 10}px`)
+          // .style('top', `${event.pageY + 20}px`)
+          .style('display', 'inline-block')
+          .style('opacity', '0.9')
+          .html(`
+                ${formatTime(d.vdate)}
+                <br>    
                 
-          //       <br>${d.title}
-          //       <br>
+                <br>${d.title}
+                <br>
                 
-          //       <br>${d.description}
-          //       <br>
-          //       <br><b>Related Objects:</b>
-          //       <br>
-          //       <br><b>People:</b>
-          //       ${d.people}<br>
-          //       <br><b>Places:</b>
-          //       ${d.places}<br>
-          //       <br><b>Works:</b>
-          //       ${d.works}<br>
-          //       <br><b>Artistic concepts:</b>
-          //       ${d.artistic}<br>
-          //       <br><b>Misc:</b>
-          //       ${d.additional}
-          //       <br>
+                <br>${d.description}
+                <br>
+                <br><b>Related Objects:</b>
+                <br>
+                <br><b>People:</b>
+                ${d.people}<br>
+                <br><b>Places:</b>
+                ${d.places}<br>
+                <br><b>Works:</b>
+                ${d.works}<br>
+                <br><b>Artistic concepts:</b>
+                ${d.artistic}<br>
+                <br><b>Misc:</b>
+                ${d.additional}
+                <br>
 
-          //       <br><span class="key-dot cinema"></span>Cinema and Theatre
+                <br><span class="key-dot cinema"></span>Cinema and Theatre
                 
                 
-          //       `)
+                `)
 
       })
       .on('mouseout', function(d) {
