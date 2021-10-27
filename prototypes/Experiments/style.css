@@ -51,6 +51,23 @@ path.backgroundspiral {
   opacity: 0;
 }
 
+.sidebar {
+  background: white;
+  border-radius: 4px;
+  width: 200px;
+  box-shadow: 0 0 1px #999999;
+  color: #333;
+  font-size: 12px;
+  left: 130px;
+  padding: 10px;
+  position: absolute;
+  text-align: left;
+  top: 95px;
+  z-index: 10;
+  display: block;
+  opacity: 0;
+}
+
 h3 {
   margin-top: 15px;
 }

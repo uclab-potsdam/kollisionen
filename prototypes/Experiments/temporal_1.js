@@ -403,17 +403,11 @@ Promise.all([
       .append('div')
       .attr('class', 'sidebar');
 
-    tooltip.append('div')
-      .attr('class', 'date');
-    tooltip.append('div')
-      .attr('class', 'value');
+    // tooltip.append('div')
+    //   .attr('class', 'date');
 
-    sidebar.append('div')
-      .attr('class','dunno')
-
-    sidebar.append('div')
-      .attr('class','dunno_1')
-    
+    // tooltip.append('div')
+    //   .attr('class', 'value');
 
     svg.selectAll(".circles")
       .on('mousemove', function(event, d) {
@@ -429,9 +423,6 @@ Promise.all([
       })
       .on('click', function(event, d) {
         sidebar
-          .style('position', 'absolute')
-          .style('display', 'inline-block')
-          .style('opacity', '0.9')
           .html(`
                 ${formatTime(d.vdate)}
                 <br>    
@@ -464,6 +455,8 @@ Promise.all([
       .on('mouseout', function(d) {
         tooltip.style('display', 'none');
         tooltip.style('opacity', 0);
+        sidebar.style('display', 'none');
+        sidebar.style('display', 0);
       });
 
     svg.selectAll(".pathGs")
