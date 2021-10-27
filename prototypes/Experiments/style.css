@@ -146,13 +146,14 @@ width: 10px;
 #legend1 {
   position: absolute;
   overflow: hidden;
+  font-size: 30;
   left: 10px;
   bottom: 10px;
   cursor: pointer;
 }
 
 .legend1 {
-  z-index: 30;
+  z-index: 10;
 }
 
 .key-dot {

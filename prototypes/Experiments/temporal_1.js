@@ -181,7 +181,8 @@ Promise.all([
 
       //   // d.start = +parseDate(d.start);
       //   // d.end = +parseDate(d.end);
-      d.vdate = +parseDate(d.vstart);
+      d.vdateStart = +parseDate(d.vstart);
+      d.vdateEnd = +parseDate(d.vend)
       //   // d.vend = +parseDate(d.vend);
     });
 
@@ -438,14 +439,14 @@ Promise.all([
           .style('display', 'inline-block')
           .style('opacity', '0.9')
           .html(`
-                <span><b>${d.vstart}</b></span>
+                <span><b>${formatTime(d.vdateStart)}</b></span>
                 <br> <b>${d.title}</b> </span>`);
       })
       .on('click', function (event, d) {
         sidebar
           .style('display', 'block')
           .html(`
-                ${formatTime(d.vdate)}
+                ${formatTime(d.vdateStart)}
                 <br>
 
                 <br>${d.title}
@@ -484,14 +485,14 @@ Promise.all([
           .style('display', 'inline-block')
           .style('opacity', '0.9')
           .html(`
-                      <span><b>${d.vstart}</b></span>
+                      <span><b>${formatTime(d.vdateStart)}</b> to<b>${formatTime(d.vdateEnd)}</b></span>
                       <br> <b>${d.title}</b> </span>`);
       })
       .on('click', function (event, d) {
         sidebar
           .style('display', 'block')
           .html(`
-                ${formatTime(d.vdate)}
+                ${formatTime(d.vdateStart)} to ${formatTime(d.vdateEnd)}
                 <br>
 
                 <br>${d.title}
