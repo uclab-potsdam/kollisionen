@@ -425,9 +425,9 @@ Promise.all([
     // tooltip.append('div')
     //   .attr('class', 'value');
 
-    sidebar.append('circle')
-      .attr('class', 'sidebar_circle')
-      .attr('r', 5)
+    // sidebar.append('circle')
+    //   .attr('class', 'sidebar_circle')
+    //   .attr('r', 5)
 
     svg.selectAll(".circles")
       .on('mousemove', function (event, d) {
@@ -475,14 +475,6 @@ Promise.all([
         tooltip.style('opacity', 0);
       })
 
-      d3.selectAll("p")
-        .on('click', function (d) {
-
-          d3.select(".sidebar")
-            .style("display", "none")
-
-        })
-
     svg.selectAll(".pathGs")
       .on('mousemove', function (event, d) {
         tooltip
@@ -495,9 +487,48 @@ Promise.all([
                       <span><b>${d.vstart}</b></span>
                       <br> <b>${d.title}</b> </span>`);
       })
+      .on('click', function (event, d) {
+        sidebar
+          .style('display', 'block')
+          .html(`
+                ${formatTime(d.vdate)}
+                <br>
+
+                <br>${d.title}
+                <br>
+
+                <br>${d.description}
+                <br>
+                <br><b>Related Objects:</b>
+                <br>
+                <br><b>People:</b>
+                ${d.people}<br>
+                <br><b>Places:</b>
+                ${d.places}<br>
+                <br><b>Works:</b>
+                ${d.works}<br>
+                <br><b>Artistic concepts:</b>
+                ${d.artistic}<br>
+                <br><b>Misc:</b>
+                ${d.additional}
+                <br>
+                <br><span class="key-dot cinema"></span>Cinema and Theatre
+                `)
+
+      })
       .on('mouseout', function (d) {
         tooltip.style('display', 'none');
         tooltip.style('opacity', 0);
       });
+
+      //closes sidebar using 'x'
+
+      d3.selectAll("p")
+        .on('click', function (d) {
+
+          d3.select(".sidebar")
+            .style("display", "none")
+
+        });
 
   })

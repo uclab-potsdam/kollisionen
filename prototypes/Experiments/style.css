@@ -147,9 +147,13 @@ width: 10px;
   overflow: hidden;
   left: 10px;
   bottom: 10px;
+  cursor: pointer;
 }
+
 .legend1 {
+  z-index: 30;
 }
+
 .key-dot {
   border-radius: 50%;
 }
