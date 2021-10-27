@@ -67,6 +67,7 @@ path.backgroundspiral {
   text-align: left;
   padding: 20px;
   z-index: 10;
+  backdrop-filter: blur(8px);
 }
 
 h3 {
