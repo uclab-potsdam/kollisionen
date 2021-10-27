@@ -139,15 +139,7 @@ width: 10px;
   border-radius: 50%;
 }
 
-/* #chart {
-  position: relative;
-} */
-
-/* .chart {
-  hide for now
-} */
-
-.sidebar {
+#sidebar {
   background-color: rgba(50, 50, 50, 0.63);
   margin: 0px;
   font-size: 0.8em;
@@ -162,10 +154,6 @@ width: 10px;
   padding: 20px;
   z-index: 10;
 }
-
-/* .sidebar {
-
-} */
 
 /* #closesidebar {
   position: fixed;
@@ -183,7 +171,7 @@ width: 10px;
   left: 0;
   top: 0;
   height: 100%;
-  width: 0%;
+  width: 100%;
   cursor: move;
   z-index: 1;
 }

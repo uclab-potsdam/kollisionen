@@ -408,6 +408,13 @@ Promise.all([
     tooltip.append('div')
       .attr('class', 'value');
 
+    sidebar.append('div')
+      .attr('class','dunno')
+
+    sidebar.append('div')
+      .attr('class','dunno_1')
+    
+
     svg.selectAll(".circles")
       .on('mousemove', function(event, d) {
         tooltip
@@ -421,8 +428,9 @@ Promise.all([
                 <br> <b>${d.title}</b> </span>`);
       })
       .on('click', function(event, d) {
-        tooltip
-          .style('position', 'fixed')
+        sidebar
+          .style('position', 'absolute')
+          .style('display', 'inline-block')
           .style('opacity', '0.9')
           .html(`
                 ${formatTime(d.vdate)}
