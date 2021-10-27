@@ -1,34 +1,32 @@
-@import './standard-style.css';
-@import './fonts.css';
-
+@import "./standard-style.css";
+/* @import './fonts.css'; */
 
 #prototype {
   position: relative;
   width: 100%;
   min-width: 1080px;
   height: 100%;
-  font-family: 'Inconsolata', monospace;
+  font-family: "Inconsolata", monospace;
   font-size: 16px;
   line-height: 1.25;
   background: #fdf5e6;
 }
 
 .introduction {
-    float: left;
-    overflow: hidden;
-    width: 27%;
-
+  float: left;
+  overflow: hidden;
+  width: 27%;
 }
 
 .intro-text {
-    padding-top: 20px;
-    text-align: right;
-    padding-right: 20px;
-} 
+  padding-top: 20px;
+  text-align: right;
+  padding-right: 20px;
+}
 
 .timelines {
-    float: left;
-    padding: 50px;
+  float: left;
+  padding: 50px;
 }
 
 /* .linear-timeline {
