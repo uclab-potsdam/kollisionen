@@ -35,11 +35,27 @@ var radius = d3.scaleLinear()
 
 // inserts svg into the DOM
 
+let zoom = d3.zoom()
+  .scaleExtent([1 / 3, 8])
+  .on("zoom", zoomed)
+
 var svg = d3.select("#chart").append("svg")
-  .attr("width", width + margin.right + margin.left)
-  .attr("height", height + margin.left + margin.right)
+  .attr("width", "100%")
+  .attr("height", "100%")
+  .attr("preserveAspectRatio", "xMidYMid")
+  .attr("viewBox", "0 0 " + (width + margin.right) + " " + (height + margin.left + margin.right))
   .append("g")
-  .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+  .classed("zoomG", true)
+  .append("g")
+  .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")")
+
+d3.select("#chart").call(zoom);
+
+
+  function zoomed(event, d){
+      d3.select(".zoomG").attr("transform", event.transform);
+  }
+
 
 // The path to draw the spiral needs data to inform it, points generates this, and is used in .datum(points) below
 
@@ -425,11 +441,11 @@ Promise.all([
           .style('display', 'block')
           .html(`
                 ${formatTime(d.vdate)}
-                <br>    
-                
+                <br>
+
                 <br>${d.title}
                 <br>
-                
+
                 <br>${d.description}
                 <br>
                 <br><b>Related Objects:</b>
@@ -445,7 +461,7 @@ Promise.all([
                 <br><b>Misc:</b>
                 ${d.additional}
                 <br>
-                <br><span class="key-dot cinema"></span>Cinema and Theatre       
+                <br><span class="key-dot cinema"></span>Cinema and Theatre
                 `)
 
       })
@@ -454,7 +470,7 @@ Promise.all([
         tooltip.style('opacity', 0);
       })
       .on('mouseout', function(d) {
- 
+
       });
 
     svg.selectAll(".pathGs")

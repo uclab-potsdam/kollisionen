@@ -53,7 +53,7 @@ path.backgroundspiral {
 }
 
 .sidebar {
-  background-color: #fdf5e6;
+  background-color: rgba(252, 245, 230, 0.75);
   outline: 5px dotted grey;
   margin: 0px;
   font-size: 0.8em;
@@ -141,35 +141,39 @@ height: 10px;
 margin-right: .5em;
 width: 10px;
 } */
-*/ #legend1 {
+
+#legend1 {
+  position: absolute;
   overflow: hidden;
+  left: 10px;
+  bottom:10px;
 }
 .legend1 {
-  float: left;
-  margin-right: 1em;
+
 }
 .key-dot {
   border-radius: 50%;
 }
 
 #legend2 {
+  left:10px;
+  top:10px;
   position: absolute;
 }
 
 .legend2 {
-  position: relative;
   left: 25px;
   z-index: 20;
 }
 
-.closedsidebar {
+#closedsidebar {
   position: fixed;
-  right: 10;
+  right: 10px;
   top: 0;
   font-size: 30;
-  color: white;
+  color: black;
   cursor: pointer;
-  display: none;
+  display: block;
   z-index: 30;
 }
 
