@@ -422,12 +422,7 @@ Promise.all([
       })
       .on('click', function(event, d) {
         sidebar
-        // console.log('click', d)
-          .style('position', 'absolute')
-          // .style('left', `${event.pageX + 10}px`)
-          // .style('top', `${event.pageY + 20}px`)
-          .style('display', 'inline-block')
-          .style('opacity', '0.9')
+          .style('display', 'block')
           .html(`
                 ${formatTime(d.vdate)}
                 <br>    
@@ -450,18 +445,16 @@ Promise.all([
                 <br><b>Misc:</b>
                 ${d.additional}
                 <br>
-
-                <br><span class="key-dot cinema"></span>Cinema and Theatre
-                
-                
+                <br><span class="key-dot cinema"></span>Cinema and Theatre       
                 `)
 
       })
       .on('mouseout', function(d) {
         tooltip.style('display', 'none');
         tooltip.style('opacity', 0);
-        sidebar.style('display', 'none');
-        sidebar.style('display', 0);
+      })
+      .on('mouseout', function(d) {
+ 
       });
 
     svg.selectAll(".pathGs")
@@ -477,17 +470,8 @@ Promise.all([
                       <br> <b>${d.title}</b> </span>`);
       })
       .on('mouseout', function(d) {
-        d3.selectAll("rect")
-          .style("fill", function(d) {
-            return color(d.number1);
-          })
-          .style("stroke", "none")
-
         tooltip.style('display', 'none');
         tooltip.style('opacity', 0);
       });
-
-    
-
 
   })
