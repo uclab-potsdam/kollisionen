@@ -13,13 +13,13 @@ var width = 1000,
     right: 50
   };
 
-  let detailview = false;
+let detailview = false;
 
 // Constructing the spiral:
 
 // theta for the spiral
 
-var theta = function(r) {
+var theta = function (r) {
   return numSpirals * Math.PI * r;
 };
 
@@ -52,9 +52,9 @@ var svg = d3.select("#chart").append("svg")
 d3.select("#chart").call(zoom);
 
 
-  function zoomed(event, d){
-      d3.select(".zoomG").attr("transform", event.transform);
-  }
+function zoomed(event, d) {
+  d3.select(".zoomG").attr("transform", event.transform);
+}
 
 
 // The path to draw the spiral needs data to inform it, points generates this, and is used in .datum(points) below
@@ -96,8 +96,8 @@ var url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvS
 
 ///load data
 Promise.all([
-    d3.csv(url), //data
-  ])
+  d3.csv(url), //data
+])
   .then(([spiralData]) => {
     console.log(spiralData);
 
@@ -152,9 +152,10 @@ Promise.all([
         spiralData[i]["vend"] = startA[0] + "-" + startA[1] + "-28";
       } else spiralData[i]["vstart"] = spiralData[i]["start"];
 
-      if (spiralData[i]["uncertaintyend"] == 2) { spiralData[i]["vend"] = +endA[0] + 1 + "-01-01";
-      // else if (spiralData[i]["uncertaintyend"] == 2) spiralData[i]["vend"] = +endA[0] + 1 + "-01-01";
-    }
+      if (spiralData[i]["uncertaintyend"] == 2) {
+        spiralData[i]["vend"] = +endA[0] + 1 + "-01-01";
+        // else if (spiralData[i]["uncertaintyend"] == 2) spiralData[i]["vend"] = +endA[0] + 1 + "-01-01";
+      }
       else if (spiralData[i]["uncertaintyend"] == 1) {
         spiralData[i]["vend"] = endA[0] + "-" + endA[1] + "-28";
       } else spiralData[i]["vend"] = spiralData[i]["end"];
@@ -175,13 +176,13 @@ Promise.all([
     };
 
     // // format the data
-    spiralData.forEach(function(d) {
-    //   // d.start needs to be just the certain single dates (0), and needs to filter out the uncertain dates (1 or 2). There are also 'ranges' that contain
+    spiralData.forEach(function (d) {
+      //   // d.start needs to be just the certain single dates (0), and needs to filter out the uncertain dates (1 or 2). There are also 'ranges' that contain
 
-    //   // d.start = +parseDate(d.start);
-    //   // d.end = +parseDate(d.end);
+      //   // d.start = +parseDate(d.start);
+      //   // d.end = +parseDate(d.end);
       d.vdate = +parseDate(d.vstart);
-    //   // d.vend = +parseDate(d.vend);
+      //   // d.vend = +parseDate(d.vend);
     });
 
 
@@ -204,12 +205,12 @@ Promise.all([
       .domain([firstYear, lastYear])
       .range([0, r - 40])
 
-    var getRelativePositionInTheYear = function(month, day) {
+    var getRelativePositionInTheYear = function (month, day) {
       const date = new Date(startYearForRelativeScale, Math.max(month - 1, 0), Math.max(1, day))
       return relativeInYearScale(date)
     }
 
-    var getEventCoordinate = function(year, month, day) {
+    var getEventCoordinate = function (year, month, day) {
       const relativePositionInTheYear = getRelativePositionInTheYear(month, day)
       const absoluteRadius = absoluteRadiusScale(year)
 
@@ -229,7 +230,7 @@ Promise.all([
     rStart & rEnd are the radius start and end for the arcs
     */
 
-    spiralData.forEach(function(d) {
+    spiralData.forEach(function (d) {
 
       var [year, month, day] = d.vstart.split('-', 3)
       var eventCoordinate = getEventCoordinate(year, month, day)
@@ -238,7 +239,7 @@ Promise.all([
       d.rStart = Math.hypot(eventCoordinate.cx, eventCoordinate.cy);
     });
 
-    spiralData.forEach(function(d) {
+    spiralData.forEach(function (d) {
 
       var [year, month, day] = d.vend.split('-', 3)
       var eventCoordinateEnd = getEventCoordinate(year, month, day)
@@ -267,9 +268,9 @@ Promise.all([
     //This scale maps out the earliest date and latest dates in the data against the number of spirals - 1898 = 0 spirals & 1974 = 77 spirals (numSpirals)
 
     var numSpiralsThetaScale = d3.scaleLinear()
-      .domain([d3.min(spiralData, function(d) {
+      .domain([d3.min(spiralData, function (d) {
         return parseDate(d.vstart)
-      }), d3.max(spiralData, function(d) {
+      }), d3.max(spiralData, function (d) {
         return parseDate(d.vend)
       })])
       .range([0, numSpirals]);
@@ -301,7 +302,7 @@ Promise.all([
 
       //console.log(radiusArc1(2))
 
-      var thetaArc = function(r) {
+      var thetaArc = function (r) {
         return numSpiralsTheta * Math.PI * r;
       };
       /*
@@ -317,10 +318,10 @@ Promise.all([
 
       var angleStart = spiralData[i].aStart * (180 / Math.PI)
 
-      if(spiralData[i].vend != ""){
+      if (spiralData[i].vend != "") {
         d3.select(".pathG").append("g").classed("pathGs", true)
-        .datum(function(){return spiralData[i]})
-        .append("path")
+          .datum(function () { return spiralData[i] })
+          .append("path")
           .datum(points)
           .classed("spiralArcs", true)
           .attr("d", spiralArcs)
@@ -329,7 +330,7 @@ Promise.all([
           .classed("writing", spiralData[i].category3 == true ? true : false)
           .classed("graphic", spiralData[i].category4 == true ? true : false)
           .classed("apartment", spiralData[i].category5 == true ? true : false)
-          .style("opacity", function() {
+          .style("opacity", function () {
             if (spiralData[i]["uncertaintystart"] == 0 && spiralData[i]["uncertaintyend"] == 0) {
               return 1
             } else if (spiralData[i]["uncertaintystart"] == 1 && spiralData[i]["uncertaintyend"] == 1) {
@@ -340,21 +341,21 @@ Promise.all([
 
           })
           .attr("transform", "rotate(" + angleStart + ")");
-}
+      }
 
     };
 
     const circleG = svg.append("g").classed("circleG", true)
 
     let circles = circleG.selectAll("g")
-      .data(function(d) {
-        return spiralData.filter(function(d) {
+      .data(function (d) {
+        return spiralData.filter(function (d) {
           return d.uncertaintystart === 0 && d.end === "" && d.start.includes("/") == false && d.start.includes(",") == false && d.start != "" //took out some data points that create errors for now
         });
       })
       .join("g")
       .classed("circles", true)
-      .each(function(d, i) { //for each group create circles
+      .each(function (d, i) { //for each group create circles
         ///create an array of all categories to iterate over this an use the nubmer of iterations for the circle radius
         let localCategories = []
         if (d.category1 == true) {
@@ -378,32 +379,32 @@ Promise.all([
           .data(localCategories)
           .join("circle")
           .classed("circle", true)
-          .classed("cinema", function(D) {
+          .classed("cinema", function (D) {
             return D == "cinema" ? true : false
           })
-          .classed("biography", function(D) {
+          .classed("biography", function (D) {
             return D == "biography" ? true : false
           })
-          .classed("writing", function(D) {
+          .classed("writing", function (D) {
             return D == "writing" ? true : false
           })
-          .classed("graphic", function(D) {
+          .classed("graphic", function (D) {
             return D == "graphic" ? true : false
           })
-          .classed("apartment", function(D) {
+          .classed("apartment", function (D) {
             return D == "apartment" ? true : false
           })
-          .attr("cx", function() {
+          .attr("cx", function () {
             let [year, month, day] = d.vstart.split('-', 3)
             let eventCoordinate = getEventCoordinate(year, month, day)
             return eventCoordinate.cx
           })
-          .attr("cy", function() {
+          .attr("cy", function () {
             let [year, month, day] = d.vstart.split('-', 3)
             let eventCoordinate = getEventCoordinate(year, month, day)
             return eventCoordinate.cy
           })
-          .attr("r", function(D, I) {
+          .attr("r", function (D, I) {
             return 5 - 2 * I
           }) // radius of circle
           .attr("opacity", 1)
@@ -424,8 +425,12 @@ Promise.all([
     // tooltip.append('div')
     //   .attr('class', 'value');
 
+    sidebar.append('circle')
+      .attr('class', 'sidebar_circle')
+      .attr('r', 5)
+
     svg.selectAll(".circles")
-      .on('mousemove', function(event, d) {
+      .on('mousemove', function (event, d) {
         tooltip
           .style('position', 'absolute')
           .style('left', `${event.pageX + 10}px`)
@@ -436,7 +441,7 @@ Promise.all([
                 <span><b>${d.vstart}</b></span>
                 <br> <b>${d.title}</b> </span>`);
       })
-      .on('click', function(event, d) {
+      .on('click', function (event, d) {
         sidebar
           .style('display', 'block')
           .html(`
@@ -465,16 +470,21 @@ Promise.all([
                 `)
 
       })
-      .on('mouseout', function(d) {
+      .on('mouseout', function (d) {
         tooltip.style('display', 'none');
         tooltip.style('opacity', 0);
       })
-      .on('mouseout', function(d) {
 
-      });
+      d3.selectAll("p")
+        .on('click', function (d) {
+
+          d3.select(".sidebar")
+            .style("display", "none")
+
+        })
 
     svg.selectAll(".pathGs")
-      .on('mousemove', function(event, d) {
+      .on('mousemove', function (event, d) {
         tooltip
           .style('position', 'absolute')
           .style('left', `${event.pageX + 10}px`)
@@ -485,7 +495,7 @@ Promise.all([
                       <span><b>${d.vstart}</b></span>
                       <br> <b>${d.title}</b> </span>`);
       })
-      .on('mouseout', function(d) {
+      .on('mouseout', function (d) {
         tooltip.style('display', 'none');
         tooltip.style('opacity', 0);
       });
