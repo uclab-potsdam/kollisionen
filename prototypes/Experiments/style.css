@@ -183,7 +183,7 @@ width: 10px;
   left: 0;
   top: 0;
   height: 100%;
-  width: 100%;
+  width: 0%;
   cursor: move;
   z-index: 1;
 }
