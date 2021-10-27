@@ -146,18 +146,17 @@ width: 10px;
   position: absolute;
   overflow: hidden;
   left: 10px;
-  bottom:10px;
+  bottom: 10px;
 }
 .legend1 {
-
 }
 .key-dot {
   border-radius: 50%;
 }
 
 #legend2 {
-  left:10px;
-  top:10px;
+  left: 10px;
+  top: 10px;
   position: absolute;
 }
 
@@ -173,7 +172,6 @@ width: 10px;
   font-size: 30;
   color: black;
   cursor: pointer;
-  display: block;
   z-index: 30;
 }
 
