@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@300;400;700;900&display=swap');
+
 :root {
   --cinema: #002fa7;
   --biography: #fdd55c;
@@ -7,8 +9,7 @@
 }
 
 body {
-  font-family: "Lucida Grande", "Lucida Sans Unicode", "Geneva", "Verdana",
-    sans-serif;
+  font-family: "Inconsolata", monospace;
   margin: 40px;
 }
 /* .axis path {
