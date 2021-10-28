@@ -171,6 +171,10 @@ width: 10px;
   z-index: 20;
 }
 
+.f_c {
+  cursor: pointer;
+}
+
 #closedsidebar {
   position: fixed;
   right: 10px;
