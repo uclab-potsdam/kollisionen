@@ -470,28 +470,17 @@ Promise.all([
         sidebar
           .style('display', 'block')
           .html(`
-                ${formatTime(d.vdateStart)}
-                <br>
-
-                <br>${d.title}
-                <br>
-
-                <br>${d.description}
-                <br>
-                <br><b>Related Objects:</b>
-                <br>
-                <br><b>People:</b>
-                ${d.people}<br>
-                <br><b>Places:</b>
-                ${d.places}<br>
-                <br><b>Works:</b>
-                ${d.works}<br>
-                <br><b>Artistic concepts:</b>
-                ${d.artistic}<br>
-                <br><b>Misc:</b>
-                ${d.additional}
-                <br>
-                <br><span class="key-dot cinema"></span>Cinema and Theatre
+                <p class="date">${formatTime(d.vdateStart)}</p>
+                <p class="title">${d.title}</p>
+                <p class="description"><b>Description: </b>${d.description}</p>
+                <p> <b>Related Objects: </b></p>
+                <p class="people"><b>People: </b>${d.people}</p>
+                <p class="places"><b>Places: </b>${d.places}</p>
+                <p class="works"<b>Works: </b>${d.works}</p>
+                <p class="artistic"><b>Artistic concepts:</b>${d.artistic}</p>
+                <p class="misc"><b>Misc:</b>${d.additional}</p>
+                <br/>
+                <span class="key-dot cinema"></span>Cinema and Theatre
                 `)
 
       })
@@ -518,28 +507,17 @@ Promise.all([
         sidebar
           .style('display', 'block')
           .html(`
-                ${formatTime(d.vdateStart)} to ${formatTime(d.vdateEnd)}
-                <br>
-
-                <br>${d.title}
-                <br>
-
-                <br>${d.description}
-                <br>
-                <br><b>Related Objects:</b>
-                <br>
-                <br><b>People:</b>
-                ${d.people}<br>
-                <br><b>Places:</b>
-                ${d.places}<br>
-                <br><b>Works:</b>
-                ${d.works}<br>
-                <br><b>Artistic concepts:</b>
-                ${d.artistic}<br>
-                <br><b>Misc:</b>
-                ${d.additional}
-                <br>
-                <br><span class="key-dot cinema"></span>Cinema and Theatre
+                <p class="description"><b>Description: </b>${d.description}</p>
+                <p class="title">${d.title}</p>
+                <p class="date">${formatTime(d.vdateStart)} - ${formatTime(d.vdateEnd)}</p>
+                <p> <b>Related Objects: </b></p>
+                <p class="people"><b>People: </b>${d.people}</p>
+                <p class="places"><b>Places: </b>${d.places}</p>
+                <p class="works"<b>Works: </b>${d.works}</p>
+                <p class="artistic"><b>Artistic concepts:</b>${d.artistic}</p>
+                <p class="misc"><b>Misc:</b>${d.additional}</p>
+                <br/>
+                <span class="key-dot cinema"></span>Cinema and Theatre
                 `)
 
       })

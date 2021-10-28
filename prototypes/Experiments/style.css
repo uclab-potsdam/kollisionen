@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@300;400;700;900&display=swap');
+
 :root {
   --cinema: #002fa7;
   --biography: #fdd55c;
@@ -6,9 +8,15 @@
   --apartment: #922598;
 }
 
+.m-top-2 {
+  margin-top: 8px;
+}
+.m-top-3 {
+  margin-top: 12px;
+}
+
 body {
-  font-family: "Lucida Grande", "Lucida Sans Unicode", "Geneva", "Verdana",
-    sans-serif;
+  font-family: "Inconsolata", monospace;
   margin: 40px;
 }
 /* .axis path {
@@ -53,10 +61,10 @@ path.backgroundspiral {
 }
 
 .sidebar {
-  background-color: rgba(252, 245, 230, 0.6);
-  outline: 5px dotted grey;
-  margin: 0px;
-  font-size: 0.8em;
+  background-color: rgba(255, 255, 255, 0.5);
+  outline: 1px solid grey;
+  margin-top: 0px;
+  font-size: 1em;
   position: fixed;
   overflow-y: auto;
   top: 0;
@@ -65,9 +73,18 @@ path.backgroundspiral {
   height: 100%;
   display: none;
   text-align: left;
-  padding: 20px;
+  padding: 50px;
   z-index: 10;
   backdrop-filter: blur(8px);
+}
+
+.title {
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.date {
+  font-weight: bold;
 }
 
 h3 {
