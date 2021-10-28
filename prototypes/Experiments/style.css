@@ -64,7 +64,7 @@ path.backgroundspiral {
   background-color: rgba(255, 255, 255, 0.5);
   outline: 1px solid grey;
   margin: 0px;
-  font-size: 0.8em;
+  font-size: 0.9em;
   position: fixed;
   overflow-y: auto;
   top: 0;
@@ -233,7 +233,6 @@ width: 10px;
   cursor: move;
   z-index: 1;
   display: flex;
-  justify-content: center;
 }
 
 
