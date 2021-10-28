@@ -62,6 +62,8 @@ d3.select("#chart").call(zoom);
 
 function zoomed(event, d) {
   d3.select(".zoomG").attr("transform", event.transform);
+  d3.selectAll("path").style("stroke-width", 2/event.transform.k)
+  //d3.selectAll("circle").attr("r", function(){return d3.select(this).attr("r")/event.transform.k})
 }
 
 
