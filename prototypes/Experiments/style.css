@@ -54,10 +54,10 @@ path.backgroundspiral {
 }
 
 .sidebar {
-  background-color: rgba(252, 245, 230, 0.6);
-  outline: 5px dotted grey;
+  background-color: rgba(255, 255, 255, 0.5);
+  outline: 1px solid grey;
   margin: 0px;
-  font-size: 0.8em;
+  font-size: 1.2em;
   position: fixed;
   overflow-y: auto;
   top: 0;
