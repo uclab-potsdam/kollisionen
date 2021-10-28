@@ -473,12 +473,15 @@ Promise.all([
                 <p class="date">${formatTime(d.vdateStart)}</p>
                 <p class="title">${d.title}</p>
                 <p class="description"><b>Description: </b>${d.description}</p>
-                <p> <b>Related Objects: </b></p>
                 <p class="people"><b>People: </b>${d.people}</p>
                 <p class="places"><b>Places: </b>${d.places}</p>
                 <p class="works"<b>Works: </b>${d.works}</p>
                 <p class="artistic"><b>Artistic concepts:</b>${d.artistic}</p>
                 <p class="misc"><b>Misc:</b>${d.additional}</p>
+                <p> <b>Related Objects: </b></p>
+                <p class="source"><b>Source: </b>${d.source}</p>
+                <p class="displayTemporal"><b>Approximate time: </b>${d.displayTemporal}</p>
+                <p class="reference"><b>Further references: </b>${d.reference}</p>
                 <br/>
                 <span class="key-dot cinema"></span>Cinema and Theatre
                 `)
@@ -510,12 +513,15 @@ Promise.all([
                 <p class="date">${formatTime(d.vdateStart)} - ${formatTime(d.vdateEnd)}</p>
                 <p class="title">${d.title}</p>      
                 <p class="description"><b>Description: </b>${d.description}</p>
-                <p> <b>Related Objects: </b></p>
                 <p class="people"><b>People: </b>${d.people}</p>
                 <p class="places"><b>Places: </b>${d.places}</p>
-                <p class="works"<b>Works: </b>${d.works}</p>
+                <p class="works"></p><b>Works: </b>${d.works}</p>
                 <p class="artistic"><b>Artistic concepts:</b>${d.artistic}</p>
                 <p class="misc"><b>Misc:</b>${d.additional}</p>
+                <p> <b>Related Objects: </b></p>
+                <p class="source"><b>Source: </b>${d.source}</p>
+                <p class="displayTemporal"><b>Approximate time: </b>${d.displayTemporal}</p>
+                <p class="reference"><b>Further references: </b>${d.reference}</p>
                 <br/>
                 <span class="key-dot cinema"></span>Cinema and Theatre
                 `)
