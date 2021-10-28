@@ -17,7 +17,12 @@ let detailview = false;
 let soundtoggle = false;
 
 ///audio
-const audio = new Audio("https://media.geeksforgeeks.org/wp-content/uploads/20190531135120/beep.mp3")
+const audio1 = new Audio("sounds/sound1.mp3")
+const audio2 = new Audio("sounds/sound2.mp3")
+const audio3 = new Audio("sounds/sound3.mp3")
+const audio4 = new Audio("sounds/sound4.mp3")
+const audio5 = new Audio("sounds/sound5.mp3")
+
 
 function playAudio(file) {
   file.play();
@@ -452,7 +457,13 @@ Promise.all([
                 <span><b>${formatTime(d.vdateStart)}</b></span>
                 <br> <b>${d.title}</b> </span>`);
       })
-      .on("mouseover", function(){if (soundtoggle == true){playAudio(audio)}})
+      .on("mouseover", function(event, d){if (soundtoggle == true){
+        if (d.category1==true){playAudio(audio1)}
+        else if(d.category2==true){playAudio(audio2)}
+        else if(d.category3==true){playAudio(audio3)}
+        else if(d.category4==true){playAudio(audio4)}
+        else if(d.category5==true){playAudio(audio5)}
+      }})
       .on('click', function (event, d) {
         d3.select("#closedsidebar").style("display", "block")
 
@@ -532,7 +543,13 @@ Promise.all([
                 `)
 
       })
-      .on("mouseover", function(){if (soundtoggle == true){playAudio(audio)}})
+      .on("mouseover", function(event, d){if (soundtoggle == true){
+        if (d.category1==true){playAudio(audio1)}
+        else if(d.category2==true){playAudio(audio2)}
+        else if(d.category3==true){playAudio(audio3)}
+        else if(d.category4==true){playAudio(audio4)}
+        else if(d.category5==true){playAudio(audio5)}
+      }})
       .on('mouseout', function (d) {
         tooltip.style('display', 'none');
         tooltip.style('opacity', 0);
