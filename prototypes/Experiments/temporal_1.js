@@ -507,9 +507,9 @@ Promise.all([
         sidebar
           .style('display', 'block')
           .html(`
-                <p class="description"><b>Description: </b>${d.description}</p>
-                <p class="title">${d.title}</p>
                 <p class="date">${formatTime(d.vdateStart)} - ${formatTime(d.vdateEnd)}</p>
+                <p class="title">${d.title}</p>      
+                <p class="description"><b>Description: </b>${d.description}</p>
                 <p> <b>Related Objects: </b></p>
                 <p class="people"><b>People: </b>${d.people}</p>
                 <p class="places"><b>Places: </b>${d.places}</p>
