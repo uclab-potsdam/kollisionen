@@ -14,6 +14,14 @@ var width = 1000,
   };
 
 let detailview = false;
+let soundtoggle = false;
+
+///audio
+const audio = new Audio("https://media.geeksforgeeks.org/wp-content/uploads/20190531135120/beep.mp3")
+
+function playAudio(file) {
+  file.play();
+}
 
 // Constructing the spiral:
 
@@ -442,7 +450,10 @@ Promise.all([
                 <span><b>${formatTime(d.vdateStart)}</b></span>
                 <br> <b>${d.title}</b> </span>`);
       })
+      .on("mouseover", function(){if (soundtoggle == true){playAudio(audio)}})
       .on('click', function (event, d) {
+        d3.select("#closedsidebar").style("display", "block")
+
         sidebar
           .style('display', 'block')
           .html(`
@@ -489,6 +500,8 @@ Promise.all([
                       <br> <b>${d.title}</b> </span>`);
       })
       .on('click', function (event, d) {
+        d3.select("#closedsidebar").style("display", "block")
+
         sidebar
           .style('display', 'block')
           .html(`
@@ -517,6 +530,7 @@ Promise.all([
                 `)
 
       })
+      .on("mouseover", function(){if (soundtoggle == true){playAudio(audio)}})
       .on('mouseout', function (d) {
         tooltip.style('display', 'none');
         tooltip.style('opacity', 0);
@@ -524,12 +538,98 @@ Promise.all([
 
       //closes sidebar using 'x'
 
-      d3.selectAll("p")
+      d3.selectAll("#closedsidebar")
         .on('click', function (d) {
 
           d3.select(".sidebar")
             .style("display", "none")
 
+          d3.select("#closedsidebar").style("display", "none")
+
         });
+
+
+      ///filters
+
+      d3.select("#soundcheckbox").on('change', function() {
+        soundtoggle = !soundtoggle
+      });
+
+      d3.select(".f_c").on("click", function() {
+        if (d3.select(this).style("font-weight") != "bold") {
+          d3.selectAll(".filter").style("font-weight", 400)
+          d3.select(this).style("font-weight", "bold")
+          d3.selectAll("circle.cinema").transition().style("opacity", "1")
+          d3.selectAll("circle:not(.cinema)").transition().style("opacity", "0")
+          d3.selectAll(".pathG").selectAll("path.cinema").transition().style("opacity", "1")
+          d3.selectAll(".pathG").selectAll("path:not(.cinema)").transition().style("opacity", "0")
+        } else {
+          d3.select(this).style("font-weight", 400)
+          d3.selectAll("circle").transition().style("opacity", "1")
+          d3.selectAll(".pathG").selectAll("path").transition().style("opacity", "1")
+        }
+
+      })
+
+      d3.select(".f_b").on("click", function() {
+        if (d3.select(this).style("font-weight") != "bold") {
+          d3.selectAll(".filter").style("font-weight", 400)
+          d3.select(this).style("font-weight", "bold")
+          d3.selectAll("circle.biography").transition().style("opacity", "1")
+          d3.selectAll("circle:not(.biography)").transition().style("opacity", "0")
+          d3.selectAll(".pathG").selectAll("path.biography").transition().style("opacity", "1")
+          d3.selectAll(".pathG").selectAll("path:not(.biography)").transition().style("opacity", "0")
+        } else {
+          d3.select(this).style("font-weight", 400)
+          d3.selectAll("circle").transition().style("opacity", "1")
+          d3.selectAll(".pathG").selectAll("path").transition().style("opacity", "1")
+        }
+      })
+
+      d3.select(".f_w").on("click", function() {
+
+        if (d3.select(this).style("font-weight") != "bold") {
+          d3.selectAll(".filter").style("font-weight", 400)
+          d3.select(this).style("font-weight", "bold")
+          d3.selectAll("circle.writing").transition().style("opacity", "1")
+          d3.selectAll("circle:not(.writing)").transition().style("opacity", "0")
+          d3.selectAll(".pathG").selectAll("path.writing").transition().style("opacity", "1")
+          d3.selectAll(".pathG").selectAll("path:not(.writing)").transition().style("opacity", "0")
+        } else {
+          d3.select(this).style("font-weight", 400)
+          d3.selectAll("circle").transition().style("opacity", "1")
+          d3.selectAll(".pathG").selectAll("path").transition().style("opacity", "1")
+        }
+      })
+
+      d3.select(".f_g").on("click", function() {
+        if (d3.select(this).style("font-weight") != "bold") {
+          d3.selectAll(".filter").style("font-weight", 400)
+          d3.select(this).style("font-weight", "bold")
+          d3.selectAll("circle.graphic").transition().style("opacity", "1")
+          d3.selectAll("circle:not(.graphic)").transition().style("opacity", "0")
+          d3.selectAll(".pathG").selectAll("path.graphic").transition().style("opacity", "1")
+          d3.selectAll(".pathG").selectAll("path:not(.graphic)").transition().style("opacity", "0")
+        } else {
+          d3.select(this).style("font-weight", 400)
+          d3.selectAll("circle").transition().style("opacity", "1")
+          d3.selectAll(".pathG").selectAll("path").transition().style("opacity", "1")
+        }
+      })
+
+      d3.select(".f_d").on("click", function() {
+        if (d3.select(this).style("font-weight") != "bold") {
+          d3.selectAll(".filter").style("font-weight", 400)
+          d3.select(this).style("font-weight", "bold")
+          d3.selectAll("circle.apartment").transition().style("opacity", "1")
+          d3.selectAll("circle:not(.apartment)").transition().style("opacity", "0")
+          d3.selectAll(".pathG").selectAll("path.apartment").transition().style("opacity", "1")
+          d3.selectAll(".pathG").selectAll("path:not(.apartment)").transition().style("opacity", "0")
+        } else {
+          d3.select(this).style("font-weight", 400)
+          d3.selectAll("circle").transition().style("opacity", "1")
+          d3.selectAll(".pathG").selectAll("path").transition().style("opacity", "1")
+        }
+      })
 
   })
