@@ -109,6 +109,17 @@ var formatTime = d3.timeFormat("%e %B %Y"); //
 var url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvSLkjHvHlPjWLy3ec4UT9AsFsyTy2rbsjKquZgmhCqbsTZ4TLAnWv28Y3PnR/pub?gid=1387341329&single=true&output=csv'
 // url = './minimal.csv' //local backup
 
+
+// htmlRenderer is a function in the form: (data) => htmlText
+// eg. (title) => `<p class="title">${title}</p>`
+// if data exists, it'll return the string with data inside it, otherwise it'll return an empty string
+function conditionalReturn(data, htmlFormatter) {
+  if (data == null || data === '') {
+    return '';
+  }
+  return htmlFormatter(data);
+}
+
 ///load data
 Promise.all([
   d3.csv(url), //data
@@ -471,17 +482,17 @@ Promise.all([
           .style('display', 'block')
           .html(`
                 <p class="date">${formatTime(d.vdateStart)}</p>
-                <p class="title">${d.title}</p>
-                <p class="description"><b>Description: </b>${d.description}</p>
-                <p class="people"><b>People: </b>${d.people}</p>
-                <p class="places"><b>Places: </b>${d.places}</p>
-                <p class="works"<b>Works: </b>${d.works}</p>
-                <p class="artistic"><b>Artistic concepts:</b>${d.artistic}</p>
-                <p class="misc"><b>Misc:</b>${d.additional}</p>
+                ${conditionalReturn(d.title, (title) => `<p class="title">${title}</p>`)}
+                ${conditionalReturn(d.description, (description) => `<p class="description"><b>Description: </b>${description}</p>`)}                
+                ${conditionalReturn(d.people, (people) => `<p class="people"><b>People: </b>${people}</p>`)}
+                ${conditionalReturn(d.places, (places) => `<p class="places"><b>Places: </b>${places}</p>`)}
+                ${conditionalReturn(d.works, (works) => `<p class="works"<b><b>Works: </b>${works}</p>`)}
+                ${conditionalReturn(d.artistic, (artistic) => `<p class="artistic"><b>Artistic concepts:</b>${artistic}</p>`)}
+                ${conditionalReturn(d.additional, (additional) => `<p class="misc"><b>Misc:</b>${additional}</p>`)}
                 <p> <b>Related Objects: </b></p>
-                <p class="source"><b>Source: </b>${d.source}</p>
-                <p class="displayTemporal"><b>Approximate time: </b>${d.displayTemporal}</p>
-                <p class="reference"><b>Further references: </b>${d.reference}</p>
+                ${conditionalReturn(d.source, (source) => `<p class="source"><b>Source: </b>${source}</p>`)}
+                ${conditionalReturn(d.displayTemporal, (displayTemporal) => `<p class="displayTemporal"><b>Approximate time: </b>${displayTemporal}</p>`)}
+                ${conditionalReturn(d.reference, (reference) => `<p class="reference"><b>Further references: </b>${reference}</p>`)}
                 <br/>
                 <span class="key-dot cinema"></span>Cinema and Theatre
                 `)
@@ -510,21 +521,21 @@ Promise.all([
         sidebar
           .style('display', 'block')
           .html(`
-                <p class="date">${formatTime(d.vdateStart)} - ${formatTime(d.vdateEnd)}</p>
-                <p class="title">${d.title}</p>      
-                <p class="description"><b>Description: </b>${d.description}</p>
-                <p class="people"><b>People: </b>${d.people}</p>
-                <p class="places"><b>Places: </b>${d.places}</p>
-                <p class="works"></p><b>Works: </b>${d.works}</p>
-                <p class="artistic"><b>Artistic concepts:</b>${d.artistic}</p>
-                <p class="misc"><b>Misc:</b>${d.additional}</p>
-                <p> <b>Related Objects: </b></p>
-                <p class="source"><b>Source: </b>${d.source}</p>
-                <p class="displayTemporal"><b>Approximate time: </b>${d.displayTemporal}</p>
-                <p class="reference"><b>Further references: </b>${d.reference}</p>
-                <br/>
-                <span class="key-dot cinema"></span>Cinema and Theatre
-                `)
+          <p class="date">${formatTime(d.vdateStart)}</p>
+          ${conditionalReturn(d.title, (title) => `<p class="title">${title}</p>`)}
+          ${conditionalReturn(d.description, (description) => `<p class="description"><b>Description: </b>${description}</p>`)}                
+          ${conditionalReturn(d.people, (people) => `<p class="people"><b>People: </b>${people}</p>`)}
+          ${conditionalReturn(d.places, (places) => `<p class="places"><b>Places: </b>${places}</p>`)}
+          ${conditionalReturn(d.works, (works) => `<p class="works"<b><b>Works: </b>${works}</p>`)}
+          ${conditionalReturn(d.artistic, (artistic) => `<p class="artistic"><b>Artistic concepts:</b>${artistic}</p>`)}
+          ${conditionalReturn(d.additional, (additional) => `<p class="misc"><b>Misc:</b>${additional}</p>`)}
+          <p> <b>Related Objects: </b></p>
+          ${conditionalReturn(d.source, (source) => `<p class="source"><b>Source: </b>${source}</p>`)}
+          ${conditionalReturn(d.displayTemporal, (displayTemporal) => `<p class="displayTemporal"><b>Approximate time: </b>${displayTemporal}</p>`)}
+          ${conditionalReturn(d.reference, (reference) => `<p class="reference"><b>Further references: </b>${reference}</p>`)}
+          <br/>
+          <span class="key-dot cinema"></span>Cinema and Theatre
+          `)
 
       })
       .on("mouseover", function(event, d){if (soundtoggle == true){
