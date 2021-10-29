@@ -46,7 +46,7 @@ path.backgroundspiral {
 .tooltip {
   background: white;
   border-radius: 4px;
-  width: 200px;
+  width: 180px;
   box-shadow: 0 0 1px #999999;
   color: #333;
   font-size: 12px;
@@ -56,8 +56,17 @@ path.backgroundspiral {
   text-align: left;
   top: 95px;
   z-index: 10;
-  display: block;
-  opacity: 0;
+  display: inline-block;
+}
+
+.tooltip-date {
+  font-weight: 400;
+  font-size: 15px;
+}
+
+.tooltip-title{
+  font-weight: 400;
+  font-size: 12;
 }
 
 .sidebar {

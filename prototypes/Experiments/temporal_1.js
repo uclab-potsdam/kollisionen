@@ -464,17 +464,18 @@ Promise.all([
     //   .attr('class', 'sidebar_circle')
     //   .attr('r', 5)
 
+///tooltip for single day events
     svg.selectAll(".circles")
       .on('mousemove', function (event, d) {
         tooltip
           .style('position', 'absolute')
-          .style('left', `${event.pageX + 10}px`)
-          .style('top', `${event.pageY + 20}px`)
+          .style('left', `${event.pageX + 5}px`)
+          .style('top', `${event.pageY + 10}px`)
           .style('display', 'inline-block')
           .style('opacity', '0.9')
           .html(`
-                <span><b>${formatTime(d.vdateStart)}</b></span>
-                <br> <b>${d.title}</b> </span>`);
+                <p class="tooltip-date"><b>${formatTime(d.vdateStart)}</b></p>
+                <p class="tooltip-title">${d.title}</p>`);
       })
       .on("mouseover", function(event, d){if (soundtoggle == true){
         if (d.category1==true){playAudio(audio1)}
@@ -485,7 +486,7 @@ Promise.all([
       }})
       .on('click', function (event, d) {
         d3.select("#closedsidebar").style("display", "block")
-
+/// sidebar for single day dates
         sidebar
           .style('display', 'block')
           .html(`
@@ -515,22 +516,22 @@ Promise.all([
         tooltip.style('display', 'none');
         tooltip.style('opacity', 0);
       })
-
+/// tooltip for spans 
     svg.selectAll(".pathGs")
       .on('mousemove', function (event, d) {
         tooltip
           .style('position', 'absolute')
-          .style('left', `${event.pageX + 10}px`)
-          .style('top', `${event.pageY + 20}px`)
+          .style('left', `${event.pageX + 5}px`)
+          .style('top', `${event.pageY + 10}px`)
           .style('display', 'inline-block')
           .style('opacity', '0.9')
           .html(`
-                      <span><b>${formatTime(d.vdateStart)}</b> to<b>${formatTime(d.vdateEnd)}</b></span>
-                      <br> <b>${d.title}</b> </span>`);
+                      <p class="tooltip-date"><b>${formatTime(d.vdateStart)}</b> to<b>${formatTime(d.vdateEnd)}</b></p>
+                      <p class="tooltip-title">${d.title}</p>`);
       })
       .on('click', function (event, d) {
         d3.select("#closedsidebar").style("display", "block")
-
+/// sidebar for spans 
         sidebar
           .style('display', 'block')
           .html(`
