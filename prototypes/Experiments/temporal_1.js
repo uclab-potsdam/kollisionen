@@ -502,16 +502,12 @@ Promise.all([
                 ${conditionalReturn(d.displayTemporal, (displayTemporal) => `<p class="displayTemporal"><b>Approximate time: </b>${displayTemporal}</p>`)}
                 ${conditionalReturn(d.reference, (reference) => `<p class="reference"><b>Further references: </b>${reference}</p>`)}
                 <br/>
-                ${categoryReturn(d.category1, (category1) => `<span class="key-dot cinema"></span>Cinema and Theatre`)}
-                <br>
-                ${categoryReturn(d.category2, (category2) => `<span class="key-dot biography"></span>Biography and Personality`)}
-                <br>
-                ${categoryReturn(d.category3, (category3) => `<span class="key-dot writing"></span>Writing and Teaching`)}
-                <br>
-                ${categoryReturn(d.category4, (category4) => `<span class="key-dot graphic"></span>Graphic Art`)}
-                <br>
-                ${categoryReturn(d.category5, (category5) => `<span class="key-dot apartment"></span>Apartment`)}
-                <br>
+                ${categoryReturn(d.category1, (category1) => `<span class="key-dot cinema"></span>Cinema and Theatre<br>`)}
+                ${categoryReturn(d.category2, (category2) => `<span class="key-dot biography"></span>Biography and Personality<br>`)}
+                ${categoryReturn(d.category3, (category3) => `<span class="key-dot writing"></span>Writing and Teaching<br>`)}
+                ${categoryReturn(d.category4, (category4) => `<span class="key-dot graphic"></span>Graphic Art<br>`)}
+                ${categoryReturn(d.category5, (category5) => `<span class="key-dot apartment"></span>Apartment<br>`)}
+                
                 `)
 
       })
@@ -551,16 +547,11 @@ Promise.all([
           ${conditionalReturn(d.displayTemporal, (displayTemporal) => `<p class="displayTemporal"><b>Approximate time: </b>${displayTemporal}</p>`)}
           ${conditionalReturn(d.reference, (reference) => `<p class="reference"><b>Further references: </b>${reference}</p>`)}
           <br/>
-          ${categoryReturn(d.category1, (category1) => `<span class="key-dot cinema"></span>Cinema and Theatre`)}
-          <br>
-          ${categoryReturn(d.category2, (category2) => `<span class="key-dot biography"></span>Biography and Personality`)}
-          <br>
-          ${categoryReturn(d.category3, (category3) => `<span class="key-dot writing"></span>Writing and Teaching`)}
-          <br>
-          ${categoryReturn(d.category4, (category4) => `<span class="key-dot graphic"></span>Graphic Art`)}
-          <br>
-          ${categoryReturn(d.category5, (category5) => `<span class="key-dot apartment"></span>Apartment`)}
-          <br>
+          ${categoryReturn(d.category1, (category1) => `<span class="key-dot cinema"></span>Cinema and Theatre<br>`)}
+          ${categoryReturn(d.category2, (category2) => `<span class="key-dot biography"></span>Biography and Personality<br>`)}
+          ${categoryReturn(d.category3, (category3) => `<span class="key-dot writing"></span>Writing and Teaching<br>`)}
+          ${categoryReturn(d.category4, (category4) => `<span class="key-dot graphic"></span>Graphic Art<br>`)}
+          ${categoryReturn(d.category5, (category5) => `<span class="key-dot apartment"></span>Apartment<br>`)}
           `)
 
       })
