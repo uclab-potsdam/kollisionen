@@ -534,7 +534,7 @@ Promise.all([
         sidebar
           .style('display', 'block')
           .html(`
-          <p class="date">${formatTime(d.vdateStart)}</p>
+          <p class="date"><b>${formatTime(d.vdateStart)}</b> to <b>${formatTime(d.vdateEnd)}</b></p>
           ${conditionalReturn(d.title, (title) => `<p class="title">${title}</p>`)}
           ${conditionalReturn(d.description, (description) => `<p class="description"><b>Description: </b>${description}</p>`)}                
           ${conditionalReturn(d.people, (people) => `<p class="people"><b>People: </b>${people}</p>`)}
