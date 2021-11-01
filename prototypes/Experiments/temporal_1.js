@@ -526,7 +526,7 @@ Promise.all([
           .style('display', 'inline-block')
           .style('opacity', '0.9')
           .html(`
-                      <p class="tooltip-date"><b>${formatTime(d.vdateStart)}</b> to<b>${formatTime(d.vdateEnd)}</b></p>
+                      <p class="tooltip-date"><b>${formatTime(d.vdateStart)}</b> to <br><b>${formatTime(d.vdateEnd)}</b></p>
                       <p class="tooltip-title">${d.title}</p>`);
       })
       .on('click', function (event, d) {
