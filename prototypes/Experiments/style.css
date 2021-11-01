@@ -55,7 +55,7 @@ path.backgroundspiral {
   position: absolute;
   text-align: left;
   top: 95px;
-  z-index: 10;
+  z-index: 11;
   display: inline-block;
 }
 
@@ -229,7 +229,7 @@ width: 10px;
   font-size: 30;
   color: black;
   cursor: pointer;
-  z-index: 30;
+  z-index: 10;
   margin: 5px;
 }
 
@@ -240,7 +240,7 @@ width: 10px;
   height: 100%;
   width: 100%;
   cursor: move;
-  z-index: 1;
+  z-index: 11;
   display: flex;
 }
 
