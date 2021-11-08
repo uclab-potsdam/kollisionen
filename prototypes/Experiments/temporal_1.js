@@ -136,6 +136,18 @@ let b = d.title
  }
 };
 
+function replaceTemporal(d, temporalSwap) {
+
+  let a = d.displayTemporal
+  let b = d.vdateStart
+
+  if (a == null || a === '' || a === false) {
+    return temporalSwap(b)}
+      else {
+    }
+  if (a !== null || a !== '' || a !== false) {
+    return '';
+  }}
 
 ///load data
 Promise.all([
@@ -497,7 +509,8 @@ Promise.all([
           .style('display', 'inline-block')
           .style('opacity', '0.9')
           .html(`
-                <p class="tooltip-date"><b>${formatTime(d.vdateStart)}</b></p>
+                ${replaceTemporal(d, (vdateStart) => `<p class="date">${formatTime(d.vdateStart)}</p>`)}
+                ${conditionalReturn(d.displayTemporal, (displayTemporal) => `<p class="displayTemporal"><b>${displayTemporal}</b></p>`)}
                 <p class="tooltip-title">${d.title}</p>`);
       })
       .on("mouseover", function(event, d){if (soundtoggle == true){
@@ -513,7 +526,8 @@ Promise.all([
         sidebar
           .style('display', 'block')
           .html(`
-                <p class="date">${formatTime(d.vdateStart)}</p>
+                ${replaceTemporal(d, (vdateStart) => `<p class="date">${formatTime(d.vdateStart)}</p>`)}
+                ${conditionalReturn(d.displayTemporal, (displayTemporal) => `<p class="displayTemporal"><b>${displayTemporal}</b></p>`)}
                 ${conditionalReturn(d.title, (title) => `<p class="title">${title}</p>`)}
                 ${compareDescription(d, (description) => `<p class="description"><b>Description: </b>${description}</p>`)}                
                 ${conditionalReturn(d.people, (people) => `<p class="people"><b>People: </b>${people}</p>`)}
@@ -523,7 +537,6 @@ Promise.all([
                 ${conditionalReturn(d.additional, (additional) => `<p class="misc"><b>Misc:</b>${additional}</p>`)}
                 <p> <b>Related Objects: </b></p>
                 ${conditionalReturn(d.source, (source) => `<p class="source"><b>Source: </b>${source}</p>`)}
-                ${conditionalReturn(d.displayTemporal, (displayTemporal) => `<p class="displayTemporal"><b>Approximate time: </b>${displayTemporal}</p>`)}
                 ${conditionalReturn(d.reference, (reference) => `<p class="reference"><b>Further references: </b>${reference}</p>`)}
                 <br/>
                 ${conditionalReturn(d.category1, (category1) => `<span class="key-dot cinema"></span>Cinema and Theatre<br>`)}
@@ -549,7 +562,8 @@ Promise.all([
           .style('display', 'inline-block')
           .style('opacity', '0.9')
           .html(`
-                      <p class="tooltip-date"><b>${formatTime(d.vdateStart)}</b> to <b>${formatTime(d.vdateEnd)}</b></p>
+                      ${replaceTemporal(d, (vdateStart) => `<b><p class="date">${formatTime(d.vdateStart)}</b> to <b>${formatTime(d.vdateEnd)}</b></p>`)}
+                      ${conditionalReturn(d.displayTemporal, (displayTemporal) => `<p class="displayTemporal"><b>${displayTemporal}</b></p>`)}
                       <p class="tooltip-title">${d.title}</p>`);
       })
       .on('click', function (event, d) {
@@ -558,7 +572,8 @@ Promise.all([
         sidebar
           .style('display', 'block')
           .html(`
-          <p class="date"><b>${formatTime(d.vdateStart)}</b> to <b>${formatTime(d.vdateEnd)}</b></p>
+          ${replaceTemporal(d, (vdateStart) => `<b><p class="date">${formatTime(d.vdateStart)}</b> to <b>${formatTime(d.vdateEnd)}</b></p>`)}
+          ${conditionalReturn(d.displayTemporal, (displayTemporal) => `<p class="displayTemporal"><b>${displayTemporal}</b></p>`)}
           ${conditionalReturn(d.title, (title) => `<p class="title">${title}</p>`)}
           ${compareDescription(d, (description) => `<p class="description"><b>Description: </b>${description}</p>`)}                
           ${conditionalReturn(d.people, (people) => `<p class="people"><b>People: </b>${people}</p>`)}
@@ -568,7 +583,6 @@ Promise.all([
           ${conditionalReturn(d.additional, (additional) => `<p class="misc"><b>Misc:</b>${additional}</p>`)}
           <p> <b>Related Objects: </b></p>
           ${conditionalReturn(d.source, (source) => `<p class="source"><b>Source: </b>${source}</p>`)}
-          ${conditionalReturn(d.displayTemporal, (displayTemporal) => `<p class="displayTemporal"><b>Approximate time: </b>${displayTemporal}</p>`)}
           ${conditionalReturn(d.reference, (reference) => `<p class="reference"><b>Further references: </b>${reference}</p>`)}
           <br/>
           ${conditionalReturn(d.category1, (category1) => `<span class="key-dot cinema"></span>Cinema and Theatre<br>`)}
