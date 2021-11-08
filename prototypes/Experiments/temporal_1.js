@@ -149,6 +149,27 @@ function replaceTemporal(d, temporalSwap) {
     return '';
   }}
 
+  // people.split(";")
+  // places.split(";")
+  // works.split(";")
+  // artistic.split(";")
+  // additional.split(";")
+
+  function keywordSplit(data, keywordSplitter) {
+
+ var kws = data.split(";")
+    
+ if (data == null || data === '' || data === false) {
+      return '';}
+
+      else {
+    
+      } if (kws.length > 1) { return keywordSplitter(kws.join(", ")) }
+
+      else { return keywordSplitter(kws) }
+
+  };
+
 ///load data
 Promise.all([
   d3.csv(url), //data
@@ -222,13 +243,13 @@ Promise.all([
 
       if (spiralData[i]["uncertaintyend"] == 2 || 1 && endA[1] == "01" || "03" || "05" || "07" || "08" || "10" || "12" ) {
         spiralData[i]["vend"] = endA[0] + "-" + endA[1] + "-31";
-      } else if (spiralData[i]["uncertaintyend"] == 2 || 1 && endA[1] == "02" || "04" || "06" || "09" || "11" ) {
+      } else if (spiralData[i]["uncertaintyend"] === 2 || 1 && endA[1] == "02" || "04" || "06" || "09" || "11" ) {
         spiralData[i]["vend"] = endA[0] + "-" + endA[1] + "-30";
-      } else if (spiralData[i]["uncertaintyend"] == 2 || 1 & endA[1] == "02" && endA[0] % 4 === 0) {
+      } else if (spiralData[i]["uncertaintyend"] === 2 || 1 & endA[1] == "02" && endA[0] % 4 === 0) {
         spiralData[i]["vend"] = endA[0] + "-" + endA[1] + "-29";
       } else spiralData[i]["vend"] = endA[0] + "-" + endA[1] + "-28";
 
-       if (spiralData[i]["uncertaintyend"] == 2) spiralData[i]["vend"] = +endA[0] + 1 + "-01-01";
+       if (spiralData[i]["uncertaintyend"] === 2) spiralData[i]["vend"] = +endA[0] + 1 + "-01-01";
     };
 
     for (let i = 0; i < spiralData.length; i++) {
@@ -530,11 +551,11 @@ Promise.all([
                 ${conditionalReturn(d.displayTemporal, (displayTemporal) => `<p class="displayTemporal"><b>${displayTemporal}</b></p>`)}
                 ${conditionalReturn(d.title, (title) => `<p class="title">${title}</p>`)}
                 ${compareDescription(d, (description) => `<p class="description"><b>Description: </b>${description}</p>`)}                
-                ${conditionalReturn(d.people, (people) => `<p class="people"><b>People: </b>${people}</p>`)}
-                ${conditionalReturn(d.places, (places) => `<p class="places"><b>Places: </b>${places}</p>`)}
-                ${conditionalReturn(d.works, (works) => `<p class="works"<b><b>Works: </b>${works}</p>`)}
-                ${conditionalReturn(d.artistic, (artistic) => `<p class="artistic"><b>Artistic concepts:</b>${artistic}</p>`)}
-                ${conditionalReturn(d.additional, (additional) => `<p class="misc"><b>Misc:</b>${additional}</p>`)}
+                ${keywordSplit(d.people, (people) => `<p class="people"><b>People: </b>${people}</p>`)}
+                ${keywordSplit(d.places, (places) => `<p class="places"><b>Places: </b>${places}</p>`)}
+                ${keywordSplit(d.works, (works) => `<p class="works"<b><b>Works: </b>${works}</p>`)}
+                ${keywordSplit(d.artistic, (artistic) => `<p class="artistic"><b>Artistic concepts: </b>${artistic}</p>`)}
+                ${keywordSplit(d.additional, (additional) => `<p class="misc"><b>Misc: </b>${additional}</p>`)}
                 <p> <b>Related Objects: </b></p>
                 ${conditionalReturn(d.source, (source) => `<p class="source"><b>Source: </b>${source}</p>`)}
                 ${conditionalReturn(d.reference, (reference) => `<p class="reference"><b>Further references: </b>${reference}</p>`)}
@@ -576,11 +597,11 @@ Promise.all([
           ${conditionalReturn(d.displayTemporal, (displayTemporal) => `<p class="displayTemporal"><b>${displayTemporal}</b></p>`)}
           ${conditionalReturn(d.title, (title) => `<p class="title">${title}</p>`)}
           ${compareDescription(d, (description) => `<p class="description"><b>Description: </b>${description}</p>`)}                
-          ${conditionalReturn(d.people, (people) => `<p class="people"><b>People: </b>${people}</p>`)}
-          ${conditionalReturn(d.places, (places) => `<p class="places"><b>Places: </b>${places}</p>`)}
-          ${conditionalReturn(d.works, (works) => `<p class="works"<b><b>Works: </b>${works}</p>`)}
-          ${conditionalReturn(d.artistic, (artistic) => `<p class="artistic"><b>Artistic concepts:</b>${artistic}</p>`)}
-          ${conditionalReturn(d.additional, (additional) => `<p class="misc"><b>Misc:</b>${additional}</p>`)}
+          ${keywordSplit(d.people, (people) => `<p class="people"><b>People: </b>${people}</p>`)}
+          ${keywordSplit(d.places, (places) => `<p class="places"><b>Places: </b>${places}</p>`)}
+          ${keywordSplit(d.works, (works) => `<p class="works"<b><b>Works: </b>${works}</p>`)}
+          ${keywordSplit(d.artistic, (artistic) => `<p class="artistic"><b>Artistic concepts: </b>${artistic}</p>`)}
+          ${keywordSplit(d.additional, (additional) => `<p class="misc"><b>Misc: </b>${additional}</p>`)}
           <p> <b>Related Objects: </b></p>
           ${conditionalReturn(d.source, (source) => `<p class="source"><b>Source: </b>${source}</p>`)}
           ${conditionalReturn(d.reference, (reference) => `<p class="reference"><b>Further references: </b>${reference}</p>`)}
