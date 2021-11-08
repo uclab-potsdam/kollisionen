@@ -127,6 +127,14 @@ if (data == false || data === '') {
   return htmlFormatter1(data);
 }
 
+// create a function to compare content of strings and omit repeated strings
+
+function compareTitle(d, titleFormat) {
+  if (d.title === d.description) {
+    return '';
+}
+  return titleFormat(d);
+}
 
 ///load data
 Promise.all([
@@ -492,7 +500,7 @@ Promise.all([
           .html(`
                 <p class="date">${formatTime(d.vdateStart)}</p>
                 ${conditionalReturn(d.title, (title) => `<p class="title">${title}</p>`)}
-                ${conditionalReturn(d.description, (description) => `<p class="description"><b>Description: </b>${description}</p>`)}                
+                ${compareTitle(d.description, (description) => `<p class="description"><b>Description: </b>${description}</p>`)}                
                 ${conditionalReturn(d.people, (people) => `<p class="people"><b>People: </b>${people}</p>`)}
                 ${conditionalReturn(d.places, (places) => `<p class="places"><b>Places: </b>${places}</p>`)}
                 ${conditionalReturn(d.works, (works) => `<p class="works"<b><b>Works: </b>${works}</p>`)}
@@ -537,7 +545,7 @@ Promise.all([
           .html(`
           <p class="date"><b>${formatTime(d.vdateStart)}</b> to <b>${formatTime(d.vdateEnd)}</b></p>
           ${conditionalReturn(d.title, (title) => `<p class="title">${title}</p>`)}
-          ${conditionalReturn(d.description, (description) => `<p class="description"><b>Description: </b>${description}</p>`)}                
+          ${compareTitle(d.description, (description) => `<p class="description"><b>Description: </b>${description}</p>`)}                
           ${conditionalReturn(d.people, (people) => `<p class="people"><b>People: </b>${people}</p>`)}
           ${conditionalReturn(d.places, (places) => `<p class="places"><b>Places: </b>${places}</p>`)}
           ${conditionalReturn(d.works, (works) => `<p class="works"<b><b>Works: </b>${works}</p>`)}
