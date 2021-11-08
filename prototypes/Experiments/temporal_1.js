@@ -188,6 +188,11 @@ Promise.all([
 
       // gives all uncertain events actual dates values rather than placing it on 1st January
 
+
+    // fix date ranges - 01, 03, 05, 07, 08, 10, 12 = 31
+    // fix date ranges - 02, 04, 06, 09, 11 = 30
+    // else 28 (except leap years)
+
       if (spiralData[i]["uncertaintystart"] == 2) {
         spiralData[i]["vstart"] = startA[0] + "-01-01";
       } else if (spiralData[i]["uncertaintystart"] == 1) {
@@ -203,6 +208,15 @@ Promise.all([
         spiralData[i]["vend"] = endA[0] + "-" + endA[1] + "-28";
       } else spiralData[i]["vend"] = spiralData[i]["end"];
 
+      if (spiralData[i]["uncertaintyend"] == 2 || 1 && endA[1] == "01" || "03" || "05" || "07" || "08" || "10" || "12" ) {
+        spiralData[i]["vend"] = endA[0] + "-" + endA[1] + "-31";
+      } else if (spiralData[i]["uncertaintyend"] == 2 || 1 && endA[1] == "02" || "04" || "06" || "09" || "11" ) {
+        spiralData[i]["vend"] = endA[0] + "-" + endA[1] + "-30";
+      } else if (spiralData[i]["uncertaintyend"] == 2 || 1 & endA[1] == "02" && endA[0] % 4 === 0) {
+        spiralData[i]["vend"] = endA[0] + "-" + endA[1] + "-29";
+      } else spiralData[i]["vend"] = endA[0] + "-" + endA[1] + "-28";
+
+       if (spiralData[i]["uncertaintyend"] == 2) spiralData[i]["vend"] = +endA[0] + 1 + "-01-01";
     };
 
     for (let i = 0; i < spiralData.length; i++) {
