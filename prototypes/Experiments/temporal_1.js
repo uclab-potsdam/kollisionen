@@ -149,13 +149,9 @@ function replaceTemporal(d, temporalSwap) {
     return '';
   }}
 
-  // people.split(";")
-  // places.split(";")
-  // works.split(";")
-  // artistic.split(";")
-  // additional.split(";")
 
-  function keywordSplit(data, keywordSplitter) {
+
+function keywordSplit(data, keywordSplitter) {
 
  var kws = data.split(";")
     
