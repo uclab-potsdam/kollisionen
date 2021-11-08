@@ -114,27 +114,28 @@ var url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvS
 // eg. (title) => `<p class="title">${title}</p>`
 // if data exists, it'll return the string with data inside it, otherwise it'll return an empty string
 function conditionalReturn(data, htmlFormatter) {
-  if (data == null || data === '') {
+  if (data == null || data === '' || data === false) {
     return '';
   }
   return htmlFormatter(data);
 }
 
-function categoryReturn(data, htmlFormatter1) {
-if (data == false || data === '') {
-  return '';
-}
-  return htmlFormatter1(data);
-}
-
 // create a function to compare content of strings and omit repeated strings
 
-function compareTitle(d, titleFormat) {
-  if (d.title === d.description) {
+function compareDescription(d, descriptionFormat) {
+
+let a = d.description
+
+let b = d.title
+
+  if (a === b) {
     return '';
 }
-  return titleFormat(d);
-}
+ else {
+   return descriptionFormat(d.description);
+ }
+};
+
 
 ///load data
 Promise.all([
@@ -500,7 +501,7 @@ Promise.all([
           .html(`
                 <p class="date">${formatTime(d.vdateStart)}</p>
                 ${conditionalReturn(d.title, (title) => `<p class="title">${title}</p>`)}
-                ${compareTitle(d.description, (description) => `<p class="description"><b>Description: </b>${description}</p>`)}                
+                ${compareDescription(d, (description) => `<p class="description"><b>Description: </b>${description}</p>`)}                
                 ${conditionalReturn(d.people, (people) => `<p class="people"><b>People: </b>${people}</p>`)}
                 ${conditionalReturn(d.places, (places) => `<p class="places"><b>Places: </b>${places}</p>`)}
                 ${conditionalReturn(d.works, (works) => `<p class="works"<b><b>Works: </b>${works}</p>`)}
@@ -511,11 +512,11 @@ Promise.all([
                 ${conditionalReturn(d.displayTemporal, (displayTemporal) => `<p class="displayTemporal"><b>Approximate time: </b>${displayTemporal}</p>`)}
                 ${conditionalReturn(d.reference, (reference) => `<p class="reference"><b>Further references: </b>${reference}</p>`)}
                 <br/>
-                ${categoryReturn(d.category1, (category1) => `<span class="key-dot cinema"></span>Cinema and Theatre<br>`)}
-                ${categoryReturn(d.category2, (category2) => `<span class="key-dot biography"></span>Biography and Personality<br>`)}
-                ${categoryReturn(d.category3, (category3) => `<span class="key-dot writing"></span>Writing and Teaching<br>`)}
-                ${categoryReturn(d.category4, (category4) => `<span class="key-dot graphic"></span>Graphic Art<br>`)}
-                ${categoryReturn(d.category5, (category5) => `<span class="key-dot apartment"></span>Apartment<br>`)}
+                ${conditionalReturn(d.category1, (category1) => `<span class="key-dot cinema"></span>Cinema and Theatre<br>`)}
+                ${conditionalReturn(d.category2, (category2) => `<span class="key-dot biography"></span>Biography and Personality<br>`)}
+                ${conditionalReturn(d.category3, (category3) => `<span class="key-dot writing"></span>Writing and Teaching<br>`)}
+                ${conditionalReturn(d.category4, (category4) => `<span class="key-dot graphic"></span>Graphic Art<br>`)}
+                ${conditionalReturn(d.category5, (category5) => `<span class="key-dot apartment"></span>Apartment<br>`)}
                 
                 `)
 
@@ -545,7 +546,7 @@ Promise.all([
           .html(`
           <p class="date"><b>${formatTime(d.vdateStart)}</b> to <b>${formatTime(d.vdateEnd)}</b></p>
           ${conditionalReturn(d.title, (title) => `<p class="title">${title}</p>`)}
-          ${compareTitle(d.description, (description) => `<p class="description"><b>Description: </b>${description}</p>`)}                
+          ${compareDescription(d, (description) => `<p class="description"><b>Description: </b>${description}</p>`)}                
           ${conditionalReturn(d.people, (people) => `<p class="people"><b>People: </b>${people}</p>`)}
           ${conditionalReturn(d.places, (places) => `<p class="places"><b>Places: </b>${places}</p>`)}
           ${conditionalReturn(d.works, (works) => `<p class="works"<b><b>Works: </b>${works}</p>`)}
@@ -556,11 +557,11 @@ Promise.all([
           ${conditionalReturn(d.displayTemporal, (displayTemporal) => `<p class="displayTemporal"><b>Approximate time: </b>${displayTemporal}</p>`)}
           ${conditionalReturn(d.reference, (reference) => `<p class="reference"><b>Further references: </b>${reference}</p>`)}
           <br/>
-          ${categoryReturn(d.category1, (category1) => `<span class="key-dot cinema"></span>Cinema and Theatre<br>`)}
-          ${categoryReturn(d.category2, (category2) => `<span class="key-dot biography"></span>Biography and Personality<br>`)}
-          ${categoryReturn(d.category3, (category3) => `<span class="key-dot writing"></span>Writing and Teaching<br>`)}
-          ${categoryReturn(d.category4, (category4) => `<span class="key-dot graphic"></span>Graphic Art<br>`)}
-          ${categoryReturn(d.category5, (category5) => `<span class="key-dot apartment"></span>Apartment<br>`)}
+          ${conditionalReturn(d.category1, (category1) => `<span class="key-dot cinema"></span>Cinema and Theatre<br>`)}
+          ${conditionalReturn(d.category2, (category2) => `<span class="key-dot biography"></span>Biography and Personality<br>`)}
+          ${conditionalReturn(d.category3, (category3) => `<span class="key-dot writing"></span>Writing and Teaching<br>`)}
+          ${conditionalReturn(d.category4, (category4) => `<span class="key-dot graphic"></span>Graphic Art<br>`)}
+          ${conditionalReturn(d.category5, (category5) => `<span class="key-dot apartment"></span>Apartment<br>`)}
           `)
 
       })
