@@ -103,6 +103,8 @@ var path = backgroundSpiralG.append("path")
 
 var parseDate = d3.timeParse("%Y-%m-%d"); // further format to correctly position dates ()
 var formatTime = d3.timeFormat("%e %B %Y"); //
+var startParse = d3.timeParse("%Y-%m-%d %I:%M%p");
+var endParse = d3.timeParse("%Y-%m-%d %I:%M%p");
 
 //define data
 
@@ -267,8 +269,8 @@ Promise.all([
 
       //   // d.start = +parseDate(d.start);
       //   // d.end = +parseDate(d.end);
-      d.vdateStart = +parseDate(d.vstart);
-      d.vdateEnd = +parseDate(d.vend)
+      d.vdateStart = +startParse(d.vstart  + " 00:01AM");
+      d.vdateEnd = +endParse(d.vend + " 23:59AM")
       //   // d.vend = +parseDate(d.vend);
     });
 
@@ -356,9 +358,9 @@ Promise.all([
 
     var numSpiralsThetaScale = d3.scaleLinear()
       .domain([d3.min(spiralData, function (d) {
-        return parseDate(d.vstart)
+        return startParse(d.vstart + " 00:01AM")
       }), d3.max(spiralData, function (d) {
-        return parseDate(d.vend)
+        return endParse(d.vend + " 23:59AM")
       })])
       .range([0, numSpirals]);
 
@@ -377,11 +379,9 @@ Promise.all([
 
     for (let i = 0; i < spiralData.length; i++) {
 
-      var endSpiralTheta = numSpiralsThetaScale(parseDate(spiralData[i].vend));
-      var startSpiralTheta = numSpiralsThetaScale(parseDate(spiralData[i].vstart))
+      var endSpiralTheta = numSpiralsThetaScale(endParse(spiralData[i].vend  + " 23:59AM"));
+      var startSpiralTheta = numSpiralsThetaScale(startParse(spiralData[i].vstart  + " 00:01AM"))
       var numSpiralsTheta = endSpiralTheta - startSpiralTheta;
-
-      //console.log(numSpiralsTheta);
 
       var radiusArc1 = d3.scaleLinear()
         .domain([start, end])
