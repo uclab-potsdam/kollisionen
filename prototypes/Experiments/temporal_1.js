@@ -218,10 +218,6 @@ Promise.all([
       // gives all uncertain events actual dates values rather than placing it on 1st January
 
 
-    // fix date ranges - 01, 03, 05, 07, 08, 10, 12 = 31
-    // fix date ranges - 02, 04, 06, 09, 11 = 30
-    // else 28 (except leap years)
-
       if (spiralData[i]["uncertaintystart"] == 2) {
         spiralData[i]["vstart"] = startA[0] + "-01-01";
       } else if (spiralData[i]["uncertaintystart"] == 1) {
@@ -236,6 +232,10 @@ Promise.all([
       else if (spiralData[i]["uncertaintyend"] == 1) {
         spiralData[i]["vend"] = endA[0] + "-" + endA[1] + "-28";
       } else spiralData[i]["vend"] = spiralData[i]["end"];
+
+    // fix date ranges - 01, 03, 05, 07, 08, 10, 12 = 31
+    // fix date ranges - 02, 04, 06, 09, 11 = 30
+    // else 28 (except leap years)
 
       if (spiralData[i]["uncertaintyend"] == 2 || 1 && endA[1] == "01" || "03" || "05" || "07" || "08" || "10" || "12" ) {
         spiralData[i]["vend"] = endA[0] + "-" + endA[1] + "-31";
@@ -443,7 +443,7 @@ Promise.all([
       .join("g")
       .classed("circles", true)
       .each(function (d, i) { //for each group create circles
-        ///create an array of all categories to iterate over this an use the nubmer of iterations for the circle radius
+        ///create an array of all categories to iterate over this and use the nubmer of iterations for the circle radius
         let localCategories = []
         if (d.category1 == true) {
           localCategories.push("cinema")
