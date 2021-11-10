@@ -230,7 +230,7 @@ Promise.all([
       } else spiralData[i]["vstart"] = spiralData[i]["start"];
 
       if (spiralData[i]["uncertaintyend"] == 2) {
-        spiralData[i]["vend"] = +endA[0] + 1 + "-01-01";
+        spiralData[i]["vend"] = +endA[0] + "-12-31";
         // else if (spiralData[i]["uncertaintyend"] == 2) spiralData[i]["vend"] = +endA[0] + 1 + "-01-01";
       }
       else if (spiralData[i]["uncertaintyend"] == 1) {
@@ -249,7 +249,7 @@ Promise.all([
         spiralData[i]["vend"] = endA[0] + "-" + endA[1] + "-29";
       } else spiralData[i]["vend"] = endA[0] + "-" + endA[1] + "-28";
 
-       if (spiralData[i]["uncertaintyend"] === 2) spiralData[i]["vend"] = +endA[0] + 1 + "-01-01";
+       if (spiralData[i]["uncertaintyend"] === 2) spiralData[i]["vend"] = +endA[0] + "-12-31";
     };
 
     for (let i = 0; i < spiralData.length; i++) {
@@ -417,6 +417,9 @@ Promise.all([
       var endSpiralTheta = numSpiralsThetaScale(endParse(spiralData[i].vend  + " 23:59AM"));
       var startSpiralTheta = numSpiralsThetaScale(startParse(spiralData[i].vstart  + " 00:01AM"))
       var numSpiralsTheta = endSpiralTheta - startSpiralTheta;
+
+      console.log(numSpiralsThetaScale(-63205260000))
+      console.log(numSpiralsThetaScale(-94697940000))
 
       var radiusArc1 = d3.scaleLinear()
         .domain([start, end])
