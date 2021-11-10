@@ -238,19 +238,28 @@ Promise.all([
       } else spiralData[i]["vend"] = spiralData[i]["end"];
 
     // fix date ranges - 01, 03, 05, 07, 08, 10, 12 = 31
-    // fix date ranges - 02, 04, 06, 09, 11 = 30
+    // fix date ranges - 04, 06, 09, 11 = 30
     // else 28 (except leap years)
 
-      if (spiralData[i]["uncertaintyend"] == 2 || 1 && endA[1] == "01" || "03" || "05" || "07" || "08" || "10" || "12" ) {
-        spiralData[i]["vend"] = endA[0] + "-" + endA[1] + "-31";
-      } else if (spiralData[i]["uncertaintyend"] === 2 || 1 && endA[1] == "02" || "04" || "06" || "09" || "11" ) {
-        spiralData[i]["vend"] = endA[0] + "-" + endA[1] + "-30";
-      } else if (spiralData[i]["uncertaintyend"] === 2 || 1 & endA[1] == "02" && endA[0] % 4 === 0) {
-        spiralData[i]["vend"] = endA[0] + "-" + endA[1] + "-29";
-      } else spiralData[i]["vend"] = endA[0] + "-" + endA[1] + "-28";
+    if ((spiralData[i]["uncertaintyend"] == 1 && endA[1] == "01") || 
+    (spiralData[i]["uncertaintyend"] == 1 && endA[1] == "03") || 
+    (spiralData[i]["uncertaintyend"] == 1 && endA[1] == "05") || 
+    (spiralData[i]["uncertaintyend"] == 1 && endA[1] == "07") || 
+    (spiralData[i]["uncertaintyend"] == 1 && endA[1] == "08") || 
+    (spiralData[i]["uncertaintyend"] == 1 && endA[1] == "10") || 
+    (spiralData[i]["uncertaintyend"] == 1 && endA[1] == "12"))  {
+   spiralData[i]["vend"] = endA[0] + "-" + endA[1] + "-31";
+ } else if ((spiralData[i]["uncertaintyend"] == 1 && endA[1] == "04") || 
+            (spiralData[i]["uncertaintyend"] == 1 && endA[1] == "06") ||
+            (spiralData[i]["uncertaintyend"] == 1 && endA[1] == "09") ||
+            (spiralData[i]["uncertaintyend"] == 1 && endA[1] == "11")) {
+   spiralData[i]["vend"] = endA[0] + "-" + endA[1] + "-30";
+ } else if (spiralData[i]["uncertaintyend"] == 1 && endA[1] =="02" && endA[0] % 4 === 0) {
+   spiralData[i]["vend"] = endA[0] + "-" + endA[1] + "-29";
+ } else spiralData[i]["vend"] = endA[0] + "-" + endA[1] + "-28";
 
-       if (spiralData[i]["uncertaintyend"] === 2) spiralData[i]["vend"] = +endA[0] + "-12-31";
-    };
+if (spiralData[i]["uncertaintyend"] === 2) spiralData[i]["vend"] = endA[0] + "-12-31";
+};
 
     for (let i = 0; i < spiralData.length; i++) {
 
@@ -416,10 +425,10 @@ Promise.all([
 
       var endSpiralTheta = numSpiralsThetaScale(endParse(spiralData[i].vend  + " 23:59AM"));
       var startSpiralTheta = numSpiralsThetaScale(startParse(spiralData[i].vstart  + " 00:01AM"))
-      var numSpiralsTheta = endSpiralTheta - startSpiralTheta;
+      var numSpiralsTheta = (endSpiralTheta - startSpiralTheta) + 0.00121369930219;
 
-      console.log(numSpiralsThetaScale(-63205260000))
-      console.log(numSpiralsThetaScale(-94697940000))
+      // console.log(numSpiralsThetaScale(-63205260000))
+      // console.log(numSpiralsThetaScale(-94697940000))
 
       var radiusArc1 = d3.scaleLinear()
         .domain([start, end])
