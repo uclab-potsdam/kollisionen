@@ -15,6 +15,7 @@ var width = 1000,
 
 let detailview = false;
 let soundtoggle = false;
+let uncertaintytoggle = false;
 
 ///audio
 const audio1 = new Audio("sounds/sound1.mp3")
@@ -61,6 +62,20 @@ var svg = d3.select("#chart").append("svg")
   .classed("zoomG", true)
   .append("g")
   .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")")
+
+//blur filter
+const svgFilters = svg.append("defs")
+
+      svgFilters.append("filter")
+      .attr("id", "blur")
+      .append("feGaussianBlur")
+      .attr("stdDeviation", 0.5);
+
+      svgFilters.append("filter")
+      .attr("id", "blur2")
+      .append("feGaussianBlur")
+      .attr("stdDeviation", 1.5);
+
 
 d3.select("#chart").call(zoom);
 
@@ -455,6 +470,13 @@ Promise.all([
           .classed("writing", spiralData[i].category3 == true ? true : false)
           .classed("graphic", spiralData[i].category4 == true ? true : false)
           .classed("apartment", spiralData[i].category5 == true ? true : false)
+          // .attr("filter", function(){if (spiralData[i]["uncertaintystart"] == 0 && spiralData[i]["uncertaintyend"] == 0) {
+          //     return "none"
+          //   } else if (spiralData[i]["uncertaintystart"] == 1 && spiralData[i]["uncertaintyend"] == 1) {
+          //     return "url(#blur)"
+          //   } else if (spiralData[i]["uncertaintystart"] == 2 && spiralData[i]["uncertaintyend"] == 2) {
+          //     return "url(#blur)"
+          //   }})
           .style("opacity", function () {
             if (spiralData[i]["uncertaintystart"] == 0 && spiralData[i]["uncertaintyend"] == 0) {
               return 1
@@ -760,6 +782,25 @@ Promise.all([
 
       d3.select("#soundcheckbox").on('change', function() {
         soundtoggle = !soundtoggle
+      });
+
+      d3.select("#uncertaintycheckbox").on('change', function() {
+        uncertaintytoggle = !uncertaintytoggle
+        if(uncertaintytoggle == true){
+          d3.selectAll(".pathGs").filter(function(d){
+            return d.uncertaintystart == 1 && d.uncertaintyend ==1 })
+          .attr("filter", "url(#blur)")
+
+          d3.selectAll(".pathGs").filter(function(d){
+            return d.uncertaintystart == 2 && d.uncertaintyend == 2 })
+          .attr("filter", "url(#blur2)")
+        }else{
+          d3.selectAll(".pathGs").filter(function(d){
+            return d.uncertaintystart == 2 && d.uncertaintyend == 2 })
+          .attr("filter", null)
+        }
+
+
       });
 
       d3.select(".f_c").on("click", function() {
