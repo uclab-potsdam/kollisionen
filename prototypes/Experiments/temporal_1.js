@@ -318,8 +318,43 @@ Promise.all([
     }
 
     var getEventCoordinate = function (year, month, day) {
+      console.log(Number(month))
+      var monthScale = d3.scaleOrdinal()
+        .domain([1,2,3,4,5,6,7,8,9,10,11,12])
+        .range([1/12,2/12,3/12,4/12,5/12,6/12,7/12,8/12,9/12,10/12,11/12,12/12])
+
+      let percentageOfYear
+
+
+      if (Number(month)==1){
+        percentageOfYear = Number(day)/365
+      }else if (Number(month)==2){
+        percentageOfYear = (31+Number(day))/365
+      }else if (Number(month)==3){
+        percentageOfYear = (31+28+Number(day))/365
+      }else if (Number(month)==4){
+        percentageOfYear = (31+28+31+Number(day))/365
+      }else if (Number(month)==5){
+        percentageOfYear = (31+28+31+30+Number(day))/365
+      }else if (Number(month)==6){
+        percentageOfYear = (31+28+31+30+31+Number(day))/365
+      }else if (Number(month)==7){
+        percentageOfYear = (31+28+31+30+31+30+Number(day))/365
+      }else if (Number(month)==8){
+        percentageOfYear = (31+28+31+30+31+30+31+Number(day))/365
+      }else if (Number(month)==9){
+        percentageOfYear = (31+28+31+30+31+30+31+31+Number(day))/365
+      }else if (Number(month)==10){
+        percentageOfYear = (31+28+31+30+31+30+31+31+30+Number(day))/365
+      }else if (Number(month)==11){
+        percentageOfYear = (31+28+31+30+31+30+31+31+30+31+Number(day))/365
+      }else if (Number(month)==12){
+        percentageOfYear = (31+28+31+30+31+30+31+31+30+31+30+Number(day))/365
+      }
+      var yearWithPercentage = +year+percentageOfYear
+
       const relativePositionInTheYear = getRelativePositionInTheYear(month, day)
-      const absoluteRadius = absoluteRadiusScale(year)
+      const absoluteRadius = absoluteRadiusScale(yearWithPercentage)
 
       const emptyCenterRadius = 40
       const radius = emptyCenterRadius + absoluteRadius
