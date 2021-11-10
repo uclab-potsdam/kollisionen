@@ -93,23 +93,7 @@ var path = backgroundSpiralG.append("path")
   .style("fill", "none") // do all style in css
   .style("stroke", "grey")
   .style("stroke", ("6, 5"))
-  .style("opacity", 0.05);
-
-let firstYear = 1898 //we should take this from the data with d3.min()
-let lastYear = 1975 //we should take this from the data with d3.max()
-
-let labelScale = d3.scaleLinear()
-  .domain([firstYear, lastYear])
-  .range([-40, -r])
-
-for (let i = firstYear; i <= lastYear; i++) {
-if(i== firstYear || i == lastYear || i%5 == 0){
-  backgroundSpiralG.append("text").text(i)
-  .attr("y", labelScale(i))
-  .style("text-anchor", "middle")
-  .attr("dy", "0.4em")
-}
-}
+  .style("opacity", 0.05)
 
 
 
@@ -318,13 +302,11 @@ Promise.all([
     }
 
     var getEventCoordinate = function (year, month, day) {
-      console.log(Number(month))
       var monthScale = d3.scaleOrdinal()
         .domain([1,2,3,4,5,6,7,8,9,10,11,12])
         .range([1/12,2/12,3/12,4/12,5/12,6/12,7/12,8/12,9/12,10/12,11/12,12/12])
 
       let percentageOfYear
-
 
       if (Number(month)==1){
         percentageOfYear = Number(day)/365
@@ -550,10 +532,47 @@ Promise.all([
           .attr("opacity", 1)
       })
 
+
+      const yearLabelG = svg.append("g").classed("yearLabelG", true)
+
+      let firstYearforLabel = 1898 //we should take this from the data with d3.min()
+      let lastYearforLabel = 1975 //we should take this from the data with d3.max()
+
+      let labelScale = d3.scaleLinear()
+        .domain([firstYearforLabel, lastYearforLabel])
+        .range([-40, -r])
+
+      for (let i = firstYearforLabel; i <= lastYearforLabel; i++) {
+        yearLabelG.append("text").text(i)
+        .classed("timeLabels", true)
+        .datum(i)
+        .attr("y", labelScale(i))
+        .style("text-anchor", "middle")
+        .attr("dy", "0.4em")
+        .style("pointer-events", "none")
+        .style("stroke", "white")
+        .style("stroke-width", 5)
+        .style("opacity", function(){if(i== firstYearforLabel || i == lastYearforLabel){return 1}else{return 0}})
+
+        yearLabelG.append("text").text(i)
+        .classed("timeLabels", true)
+        .datum(i)
+        .attr("y", labelScale(i))
+        .style("text-anchor", "middle")
+        .attr("dy", "0.4em")
+        .style("pointer-events", "none")
+        .style("opacity", function(){if(i== firstYearforLabel || i == lastYearforLabel){return 1}else{return 0}})
+      }
+
+
+
+
+
     //tooltip
-    var tooltip = d3.select("#chart")
+    var tooltip = d3.select("body")
       .append('div')
-      .attr('class', 'tooltip');
+      .attr('class', 'tooltip')
+      .style('display', 'none');
 
     var sidebar = d3.select("#sidebar")
       .append('div')
@@ -572,6 +591,19 @@ Promise.all([
 ///tooltip for single day events
     svg.selectAll(".circles")
       .on('mousemove', function (event, d) {
+
+        ///display same year nodes/arcs
+        var [year, month, day] = d.vstart.split('-', 3)
+        d3.selectAll(".circles")
+        .style("opacity", function(D){if(D.vstart.includes(year) == true){return 1}else{ return 0}})
+
+        d3.selectAll(".pathGs")
+        .style("opacity", function(D){if(D.vstart.includes(year) == true || D.vend.includes(year) == true){return 1}else{ return 0}})
+
+        d3.selectAll(".timeLabels")
+        .style("opacity", function(D){if(D == year){return 1}else{ return 0}})
+
+        //tooltip
         tooltip
           .style('position', 'absolute')
           .style('left', `${event.pageX + 5}px`)
@@ -621,10 +653,33 @@ Promise.all([
       .on('mouseout', function (d) {
         tooltip.style('display', 'none');
         tooltip.style('opacity', 0);
+
+        d3.selectAll(".circles")
+        .style("opacity", 1)
+
+        d3.selectAll(".pathGs")
+        .style("opacity", 1)
+
+        d3.selectAll(".timeLabels")
+        .style("opacity", function(D){if(D== firstYearforLabel || D == lastYearforLabel){return 1}else{return 0}})
       })
 /// tooltip for spans
     svg.selectAll(".pathGs")
       .on('mousemove', function (event, d) {
+
+        ///display same year nodes/arcs
+        var [year, month, day] = d.vstart.split('-', 3)
+        console.log(year)
+        d3.selectAll(".circles")
+        .style("opacity", function(D){if(D.vstart.includes(year) == true){return 1}else{ return 0}})
+
+        d3.selectAll(".pathGs")
+        .style("opacity", function(D){if(D.vstart.includes(year) == true || D.vend.includes(year) == true){return 1}else{ return 0}})
+
+        d3.selectAll(".timeLabels")
+        .style("opacity", function(D){if(D == year){return 1}else{ return 0}})
+
+
         tooltip
           .style('position', 'absolute')
           .style('left', `${event.pageX + 5}px`)
@@ -673,6 +728,16 @@ Promise.all([
       .on('mouseout', function (d) {
         tooltip.style('display', 'none');
         tooltip.style('opacity', 0);
+
+        d3.selectAll(".circles")
+        .style("opacity", 1)
+
+        d3.selectAll(".pathGs")
+        .style("opacity", 1)
+
+        d3.selectAll(".timeLabels")
+        .style("opacity", function(D){if(D== firstYearforLabel || D == lastYearforLabel){return 1}else{return 0}})
+
       });
 
       //closes sidebar using 'x'
