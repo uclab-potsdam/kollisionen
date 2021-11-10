@@ -95,6 +95,24 @@ var path = backgroundSpiralG.append("path")
   .style("stroke", ("6, 5"))
   .style("opacity", 0.05);
 
+let firstYear = 1898 //we should take this from the data with d3.min()
+let lastYear = 1975 //we should take this from the data with d3.max()
+
+let labelScale = d3.scaleLinear()
+  .domain([firstYear, lastYear])
+  .range([-40, -r])
+
+for (let i = firstYear; i <= lastYear; i++) {
+if(i== firstYear || i == lastYear || i%5 == 0){
+  backgroundSpiralG.append("text").text(i)
+  .attr("y", labelScale(i))
+  .style("text-anchor", "middle")
+  .attr("dy", "0.4em")
+}
+}
+
+
+
 //  computed value for the total length of the path in user units, this is important for mapping the data later
 
 // var spiralLength = path.node().getTotalLength()
@@ -156,12 +174,12 @@ function replaceTemporal(d, temporalSwap) {
 function keywordSplit(data, keywordSplitter) {
 
  var kws = data.split(";")
-    
+
  if (data == null || data === '' || data === false) {
       return '';}
 
       else {
-    
+
       } if (kws.length > 1) { return keywordSplitter(kws.join(", ")) }
 
       else { return keywordSplitter(kws) }
@@ -546,7 +564,7 @@ Promise.all([
                 ${replaceTemporal(d, (vdateStart) => `<p class="date">${formatTime(d.vdateStart)}</p>`)}
                 ${conditionalReturn(d.displayTemporal, (displayTemporal) => `<p class="displayTemporal"><b>${displayTemporal}</b></p>`)}
                 ${conditionalReturn(d.title, (title) => `<p class="title">${title}</p>`)}
-                ${compareDescription(d, (description) => `<p class="description"><b>Description: </b>${description}</p>`)}                
+                ${compareDescription(d, (description) => `<p class="description"><b>Description: </b>${description}</p>`)}
                 ${keywordSplit(d.people, (people) => `<p class="people"><b>People: </b>${people}</p>`)}
                 ${keywordSplit(d.places, (places) => `<p class="places"><b>Places: </b>${places}</p>`)}
                 ${keywordSplit(d.works, (works) => `<p class="works"<b><b>Works: </b>${works}</p>`)}
@@ -561,7 +579,7 @@ Promise.all([
                 ${conditionalReturn(d.category3, (category3) => `<span class="key-dot writing"></span>Writing and Teaching<br>`)}
                 ${conditionalReturn(d.category4, (category4) => `<span class="key-dot graphic"></span>Graphic Art<br>`)}
                 ${conditionalReturn(d.category5, (category5) => `<span class="key-dot apartment"></span>Apartment<br>`)}
-                
+
                 `)
 
       })
@@ -569,7 +587,7 @@ Promise.all([
         tooltip.style('display', 'none');
         tooltip.style('opacity', 0);
       })
-/// tooltip for spans 
+/// tooltip for spans
     svg.selectAll(".pathGs")
       .on('mousemove', function (event, d) {
         tooltip
@@ -585,14 +603,14 @@ Promise.all([
       })
       .on('click', function (event, d) {
         d3.select("#closedsidebar").style("display", "block")
-/// sidebar for spans 
+/// sidebar for spans
         sidebar
           .style('display', 'block')
           .html(`
           ${replaceTemporal(d, (vdateStart) => `<b><p class="date">${formatTime(d.vdateStart)}</b> to <b>${formatTime(d.vdateEnd)}</b></p>`)}
           ${conditionalReturn(d.displayTemporal, (displayTemporal) => `<p class="displayTemporal"><b>${displayTemporal}</b></p>`)}
           ${conditionalReturn(d.title, (title) => `<p class="title">${title}</p>`)}
-          ${compareDescription(d, (description) => `<p class="description"><b>Description: </b>${description}</p>`)}                
+          ${compareDescription(d, (description) => `<p class="description"><b>Description: </b>${description}</p>`)}
           ${keywordSplit(d.people, (people) => `<p class="people"><b>People: </b>${people}</p>`)}
           ${keywordSplit(d.places, (places) => `<p class="places"><b>Places: </b>${places}</p>`)}
           ${keywordSplit(d.works, (works) => `<p class="works"<b><b>Works: </b>${works}</p>`)}
