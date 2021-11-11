@@ -130,63 +130,7 @@ var url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvS
 
 var itemsUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTpZlBfSa0sBkPXXCdHykUFi5N2zPcclrda8iaYlbWoyzaWxDj7q3WEtmP7m8hrzk5ejAgjk-Id_zk9/pub?gid=1626158426&single=true&output=csv'
 
-// htmlRenderer is a function in the form: (data) => htmlText
-// eg. (title) => `<p class="title">${title}</p>`
-// if data exists, it'll return the string with data inside it, otherwise it'll return an empty string
-function conditionalReturn(data, htmlFormatter) {
-  if (data == null || data === '' || data === false) {
-    return '';
-  }
-  return htmlFormatter(data);
-}
-
-// create a function to compare content of strings and omit repeated strings
-
-function compareDescription(d, descriptionFormat) {
-
-let a = d.description
-
-let b = d.title
-
-  if (a === b) {
-    return '';
-}
- else {
-   return descriptionFormat(d.description);
- }
-};
-
-function replaceTemporal(d, temporalSwap) {
-
-  let a = d.displayTemporal
-  let b = d.vdateStart
-
-  if (a == null || a === '' || a === false) {
-    return temporalSwap(b)}
-      else {
-    }
-  if (a !== null || a !== '' || a !== false) {
-    return '';
-  }}
-
-
-
-function keywordSplit(data, keywordSplitter) {
-
- var kws = data.split(";")
-
- if (data == null || data === '' || data === false) {
-      return '';}
-
-      else {
-
-      } if (kws.length > 1) { return keywordSplitter(kws.join(", ")) }
-
-      else { return keywordSplitter(kws) }
-
-  };
-
-///load data - metadataschema
+///load data and preprocessing- metadataschema
 Promise.all([
   d3.csv(url), //data
 ])
@@ -236,7 +180,6 @@ Promise.all([
           */
 
       // gives all uncertain events actual dates values rather than placing it on 1st January
-
 
       if (spiralData[i]["uncertaintystart"] == 2) {
         spiralData[i]["vstart"] = startA[0] + "-01-01";
@@ -292,13 +235,10 @@ if (spiralData[i]["uncertaintyend"] === 2) spiralData[i]["vend"] = endA[0] + "-1
 
     // // format the data
     spiralData.forEach(function (d) {
-      //   // d.start needs to be just the certain single dates (0), and needs to filter out the uncertain dates (1 or 2). There are also 'ranges' that contain
-
       //   // d.start = +parseDate(d.start);
       //   // d.end = +parseDate(d.end);
       d.vdateStart = +startParse(d.vstart  + " 00:01AM");
       d.vdateEnd = +endParse(d.vend + " 23:59AM")
-      //   // d.vend = +parseDate(d.vend);
     });
 
     // load the data - items
@@ -309,6 +249,14 @@ if (spiralData[i]["uncertaintyend"] === 2) spiralData[i]["vend"] = endA[0] + "-1
       .then(([itemsData]) => {
         console.log(itemsData);
       });
+
+      for (let i = 0; i < spiralData.length; i++) {
+
+      if (spiralData[i]["items"]) {
+        spiralData[i]["items"] = spiralData[i]["items"].split(",");
+      }
+    };
+
     // The mapping of visual variables starts here
 
     //certain one day events - circles
@@ -606,9 +554,92 @@ if (spiralData[i]["uncertaintyend"] === 2) spiralData[i]["vend"] = endA[0] + "-1
         .style("opacity", function(){if(i== firstYearforLabel || i == lastYearforLabel){return 1}else{return 0}})
       }
 
+// Set of functions for html formatting in tooltip and sidebar
 
+// htmlRenderer is a function in the form: (data) => htmlText
+// eg. (title) => `<p class="title">${title}</p>`
+// if data exists, it'll return the string with data inside it, otherwise it'll return an empty string
+function conditionalReturn(data, htmlFormatter) {
+  if (data == null || data === '' || data === false) {
+    return '';
+  }
+  return htmlFormatter(data);
+}
 
+// function to compare content of strings and omit repeated strings
 
+function compareDescription(d, descriptionFormat) {
+
+let a = d.description
+
+let b = d.title
+
+  if (a === b) {
+    return '';
+}
+ else {
+   return descriptionFormat(d.description);
+ }
+};
+
+// function to replace date with optional uncertain date
+
+function replaceTemporal(d, temporalSwap) {
+
+  let a = d.displayTemporal
+  let b = d.vdateStart
+
+  if (a == null || a === '' || a === false) {
+    return temporalSwap(b)}
+      else {
+    }
+  if (a !== null || a !== '' || a !== false) {
+    return '';
+  }}
+
+//function to split keywords by comma
+
+function keywordSplit(data, keywordSplitter) {
+
+ var kws = data.split(";")
+
+ if (data == null || data === '' || data === false) {
+      return '';
+    } else {
+
+      } if (kws.length > 1) { return keywordSplitter(kws.join(", ")) }
+
+      else { return keywordSplitter(kws) }
+
+  };
+
+function ifItems(data, itemsFormatter) {
+
+var items = data.split(";")
+
+  if (data == null || data === '' || data === false) {
+    return '';
+  } else {
+
+  } if (items.length > 1) { return itemsFormatter(items.join(", ")) }
+
+  return itemsFormatter(items);
+}
+
+  // compare a string against a image filename and return the image if it exists in the images folder
+
+function compareImage(data, image) {  //string is the string to compare, image is the image to compare against
+
+  if (data == null || data === '' || data === false) {
+    return '';
+  } else {
+  if (data == image) {  //if the string is equal to the image
+    return `<img src="images/${image}.png" alt="${image}" class="image">`;  //return the image
+  } else {  //if the string is not equal to the image
+    return "";  //return nothing
+  }
+}
+};
 
     //tooltip
     var tooltip = d3.select("body")
@@ -679,7 +710,7 @@ if (spiralData[i]["uncertaintyend"] === 2) spiralData[i]["vend"] = endA[0] + "-1
                 ${keywordSplit(d.works, (works) => `<p class="works"<b><b>Works: </b>${works}</p>`)}
                 ${keywordSplit(d.artistic, (artistic) => `<p class="artistic"><b>Artistic concepts: </b>${artistic}</p>`)}
                 ${keywordSplit(d.additional, (additional) => `<p class="misc"><b>Misc: </b>${additional}</p>`)}
-                <p> <b>Related Objects: </b></p>
+                ${conditionalReturn(d.image, (image) => `<img src="images/objects/${image}.png" alt="${image}" class="image">`)}
                 ${conditionalReturn(d.source, (source) => `<p class="source"><b>Source: </b>${source}</p>`)}
                 ${conditionalReturn(d.reference, (reference) => `<p class="reference"><b>Further references: </b>${reference}</p>`)}
                 <br/>
@@ -748,7 +779,7 @@ if (spiralData[i]["uncertaintyend"] === 2) spiralData[i]["vend"] = endA[0] + "-1
           ${keywordSplit(d.works, (works) => `<p class="works"<b><b>Works: </b>${works}</p>`)}
           ${keywordSplit(d.artistic, (artistic) => `<p class="artistic"><b>Artistic concepts: </b>${artistic}</p>`)}
           ${keywordSplit(d.additional, (additional) => `<p class="misc"><b>Misc: </b>${additional}</p>`)}
-          <p> <b>Related Objects: </b></p>
+          ${conditionalReturn(d.image, (image) => `<img src="images/objects/${image}.png" alt="${image}" class="image">`)}
           ${conditionalReturn(d.source, (source) => `<p class="source"><b>Source: </b>${source}</p>`)}
           ${conditionalReturn(d.reference, (reference) => `<p class="reference"><b>Further references: </b>${reference}</p>`)}
           <br/>
