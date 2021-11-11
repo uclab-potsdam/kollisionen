@@ -686,7 +686,7 @@ function stringSplit(data, keywordSplitter) {
                 ${stringSplit(d.works, (works) => `<p class="works"<b><b>Works: </b>${works}</p>`)}
                 ${stringSplit(d.artistic, (artistic) => `<p class="artistic"><b>Artistic concepts: </b>${artistic}</p>`)}
                 ${stringSplit(d.additional, (additional) => `<p class="misc"><b>Misc: </b>${additional}</p>`)}
-                ${stringSplit(d.image, (image) => `<p class="objects"><b>Additonal items: </b><img src="images/objects/${image}.png" alt="${image}" class="image"></p><br>`)}
+                ${stringSplit(d.image, (image) => `<p class="objects"><b>Additonal items: <br> </b><img src="images/objects/${image}.png" alt="${image}" width = "25%" height = "auto"  class="image"></p><br>`)}
                 ${conditionalReturn(d.source, (source) => `<p class="source"><b>Source: </b>${source}</p>`)}
                 ${conditionalReturn(d.reference, (reference) => `<p class="reference"><b>Further references: </b>${reference}</p>`)}
                 <br/>
@@ -755,7 +755,7 @@ function stringSplit(data, keywordSplitter) {
           ${stringSplit(d.works, (works) => `<p class="works"<b><b>Works: </b>${works}</p>`)}
           ${stringSplit(d.artistic, (artistic) => `<p class="artistic"><b>Artistic concepts: </b>${artistic}</p>`)}
           ${stringSplit(d.additional, (additional) => `<p class="misc"><b>Misc: </b>${additional}</p>`)}
-          ${conditionalReturn(d.image, (image) => `<p class="objects"><b>Additonal items: </b><img src="images/objects/${image}.png" alt="${image}" class="image"></p><br>`)}
+          ${conditionalReturn(d.image, (image) => `<p class="objects"><b>Additonal items: <br> </b><img src="images/objects/${image}.png" alt="${image} width = "25%" height = "auto" class="image"></p><br>`)}
           ${conditionalReturn(d.source, (source) => `<p class="source"><b>Source: </b>${source}</p>`)}
           ${conditionalReturn(d.reference, (reference) => `<p class="reference"><b>Further references: </b>${reference}</p>`)}
           <br/>
