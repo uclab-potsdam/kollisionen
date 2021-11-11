@@ -128,6 +128,7 @@ var endParse = d3.timeParse("%Y-%m-%d %I:%M%p");
 var url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvSLkjHvHlPjWLy3ec4UT9AsFsyTy2rbsjKquZgmhCqbsTZ4TLAnWv28Y3PnR/pub?gid=1387341329&single=true&output=csv'
 // url = './minimal.csv' //local backup
 
+var itemsUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTpZlBfSa0sBkPXXCdHykUFi5N2zPcclrda8iaYlbWoyzaWxDj7q3WEtmP7m8hrzk5ejAgjk-Id_zk9/pub?gid=1626158426&single=true&output=csv'
 
 // htmlRenderer is a function in the form: (data) => htmlText
 // eg. (title) => `<p class="title">${title}</p>`
@@ -185,7 +186,7 @@ function keywordSplit(data, keywordSplitter) {
 
   };
 
-///load data
+///load data - metadataschema
 Promise.all([
   d3.csv(url), //data
 ])
@@ -300,7 +301,14 @@ if (spiralData[i]["uncertaintyend"] === 2) spiralData[i]["vend"] = endA[0] + "-1
       //   // d.vend = +parseDate(d.vend);
     });
 
+    // load the data - items
 
+    Promise.all([
+      d3.csv(itemsUrl), //data
+    ])
+      .then(([itemsData]) => {
+        console.log(itemsData);
+      });
     // The mapping of visual variables starts here
 
     //certain one day events - circles
