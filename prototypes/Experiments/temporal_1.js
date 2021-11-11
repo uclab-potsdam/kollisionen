@@ -599,7 +599,7 @@ function replaceTemporal(d, temporalSwap) {
 
 //function to split keywords by comma
 
-function keywordSplit(data, keywordSplitter) {
+function stringSplit(data, keywordSplitter) {
 
  var kws = data.split(";")
 
@@ -613,33 +613,9 @@ function keywordSplit(data, keywordSplitter) {
 
   };
 
-function ifItems(data, itemsFormatter) {
+  //function to split images by comma
 
-var items = data.split(";")
 
-  if (data == null || data === '' || data === false) {
-    return '';
-  } else {
-
-  } if (items.length > 1) { return itemsFormatter(items.join(", ")) }
-
-  return itemsFormatter(items);
-}
-
-  // compare a string against a image filename and return the image if it exists in the images folder
-
-function compareImage(data, image) {  //string is the string to compare, image is the image to compare against
-
-  if (data == null || data === '' || data === false) {
-    return '';
-  } else {
-  if (data == image) {  //if the string is equal to the image
-    return `<img src="images/${image}.png" alt="${image}" class="image">`;  //return the image
-  } else {  //if the string is not equal to the image
-    return "";  //return nothing
-  }
-}
-};
 
     //tooltip
     var tooltip = d3.select("body")
@@ -705,12 +681,12 @@ function compareImage(data, image) {  //string is the string to compare, image i
                 ${conditionalReturn(d.displayTemporal, (displayTemporal) => `<p class="displayTemporal"><b>${displayTemporal}</b></p>`)}
                 ${conditionalReturn(d.title, (title) => `<p class="title">${title}</p>`)}
                 ${compareDescription(d, (description) => `<p class="description"><b>Description: </b>${description}</p>`)}
-                ${keywordSplit(d.people, (people) => `<p class="people"><b>People: </b>${people}</p>`)}
-                ${keywordSplit(d.places, (places) => `<p class="places"><b>Places: </b>${places}</p>`)}
-                ${keywordSplit(d.works, (works) => `<p class="works"<b><b>Works: </b>${works}</p>`)}
-                ${keywordSplit(d.artistic, (artistic) => `<p class="artistic"><b>Artistic concepts: </b>${artistic}</p>`)}
-                ${keywordSplit(d.additional, (additional) => `<p class="misc"><b>Misc: </b>${additional}</p>`)}
-                ${conditionalReturn(d.image, (image) => `<p class="objects"><b>Additonal items: </b><img src="images/objects/${image}.png" alt="${image}" class="image"></p>`)}
+                ${stringSplit(d.people, (people) => `<p class="people"><b>People: </b>${people}</p>`)}
+                ${stringSplit(d.places, (places) => `<p class="places"><b>Places: </b>${places}</p>`)}
+                ${stringSplit(d.works, (works) => `<p class="works"<b><b>Works: </b>${works}</p>`)}
+                ${stringSplit(d.artistic, (artistic) => `<p class="artistic"><b>Artistic concepts: </b>${artistic}</p>`)}
+                ${stringSplit(d.additional, (additional) => `<p class="misc"><b>Misc: </b>${additional}</p>`)}
+                ${stringSplit(d.image, (image) => `<p class="objects"><b>Additonal items: </b><img src="images/objects/${image}.png" alt="${image}" class="image"></p><br>`)}
                 ${conditionalReturn(d.source, (source) => `<p class="source"><b>Source: </b>${source}</p>`)}
                 ${conditionalReturn(d.reference, (reference) => `<p class="reference"><b>Further references: </b>${reference}</p>`)}
                 <br/>
@@ -774,12 +750,12 @@ function compareImage(data, image) {  //string is the string to compare, image i
           ${conditionalReturn(d.displayTemporal, (displayTemporal) => `<p class="displayTemporal"><b>${displayTemporal}</b></p>`)}
           ${conditionalReturn(d.title, (title) => `<p class="title">${title}</p>`)}
           ${compareDescription(d, (description) => `<p class="description"><b>Description: </b>${description}</p>`)}
-          ${keywordSplit(d.people, (people) => `<p class="people"><b>People: </b>${people}</p>`)}
-          ${keywordSplit(d.places, (places) => `<p class="places"><b>Places: </b>${places}</p>`)}
-          ${keywordSplit(d.works, (works) => `<p class="works"<b><b>Works: </b>${works}</p>`)}
-          ${keywordSplit(d.artistic, (artistic) => `<p class="artistic"><b>Artistic concepts: </b>${artistic}</p>`)}
-          ${keywordSplit(d.additional, (additional) => `<p class="misc"><b>Misc: </b>${additional}</p>`)}
-          ${conditionalReturn(d.image, (image) => `<p class="objects"><b>Additonal items: </b><img src="images/objects/${image}.png" alt="${image}" class="image"></p>`)}
+          ${stringSplit(d.people, (people) => `<p class="people"><b>People: </b>${people}</p>`)}
+          ${stringSplit(d.places, (places) => `<p class="places"><b>Places: </b>${places}</p>`)}
+          ${stringSplit(d.works, (works) => `<p class="works"<b><b>Works: </b>${works}</p>`)}
+          ${stringSplit(d.artistic, (artistic) => `<p class="artistic"><b>Artistic concepts: </b>${artistic}</p>`)}
+          ${stringSplit(d.additional, (additional) => `<p class="misc"><b>Misc: </b>${additional}</p>`)}
+          ${conditionalReturn(d.image, (image) => `<p class="objects"><b>Additonal items: </b><img src="images/objects/${image}.png" alt="${image}" class="image"></p><br>`)}
           ${conditionalReturn(d.source, (source) => `<p class="source"><b>Source: </b>${source}</p>`)}
           ${conditionalReturn(d.reference, (reference) => `<p class="reference"><b>Further references: </b>${reference}</p>`)}
           <br/>
