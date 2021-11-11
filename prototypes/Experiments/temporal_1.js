@@ -710,7 +710,7 @@ function compareImage(data, image) {  //string is the string to compare, image i
                 ${keywordSplit(d.works, (works) => `<p class="works"<b><b>Works: </b>${works}</p>`)}
                 ${keywordSplit(d.artistic, (artistic) => `<p class="artistic"><b>Artistic concepts: </b>${artistic}</p>`)}
                 ${keywordSplit(d.additional, (additional) => `<p class="misc"><b>Misc: </b>${additional}</p>`)}
-                ${conditionalReturn(d.image, (image) => `<img src="images/objects/${image}.png" alt="${image}" class="image">`)}
+                ${conditionalReturn(d.image, (image) => `<p class="objects"><b>Additonal items: </b><img src="images/objects/${image}.png" alt="${image}" class="image"></p>`)}
                 ${conditionalReturn(d.source, (source) => `<p class="source"><b>Source: </b>${source}</p>`)}
                 ${conditionalReturn(d.reference, (reference) => `<p class="reference"><b>Further references: </b>${reference}</p>`)}
                 <br/>
@@ -779,7 +779,7 @@ function compareImage(data, image) {  //string is the string to compare, image i
           ${keywordSplit(d.works, (works) => `<p class="works"<b><b>Works: </b>${works}</p>`)}
           ${keywordSplit(d.artistic, (artistic) => `<p class="artistic"><b>Artistic concepts: </b>${artistic}</p>`)}
           ${keywordSplit(d.additional, (additional) => `<p class="misc"><b>Misc: </b>${additional}</p>`)}
-          ${conditionalReturn(d.image, (image) => `<img src="images/objects/${image}.png" alt="${image}" class="image">`)}
+          ${conditionalReturn(d.image, (image) => `<p class="objects"><b>Additonal items: </b><img src="images/objects/${image}.png" alt="${image}" class="image"></p>`)}
           ${conditionalReturn(d.source, (source) => `<p class="source"><b>Source: </b>${source}</p>`)}
           ${conditionalReturn(d.reference, (reference) => `<p class="reference"><b>Further references: </b>${reference}</p>`)}
           <br/>
