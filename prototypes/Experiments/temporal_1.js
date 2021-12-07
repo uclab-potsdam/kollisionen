@@ -215,9 +215,10 @@ Promise.all([
    spiralData[i]["vend"] = endA[0] + "-" + endA[1] + "-30";
  } else if (spiralData[i]["uncertaintyend"] == 1 && endA[1] =="02" && endA[0] % 4 === 0) {
    spiralData[i]["vend"] = endA[0] + "-" + endA[1] + "-29";
- } else spiralData[i]["vend"] = endA[0] + "-" + endA[1] + "-28";
+ } 
+//  else spiralData[i]["vend"] = endA[0] + "-" + endA[1] + "-28";
 
-if (spiralData[i]["uncertaintyend"] === 2) spiralData[i]["vend"] = endA[0] + "-12-31";
+if (spiralData[i]["uncertaintyend"] == 2) spiralData[i]["vend"] = endA[0] + "-12-31"; // it is currently also doing this "-undefined-28"
 };
 
     for (let i = 0; i < spiralData.length; i++) {
@@ -622,33 +623,20 @@ let circles = circleG.selectAll("g")
 
 //for working out the 'middle colour'
 
-var blueRed = d3.scaleLinear().domain([0,10])
-  .range(["#002fa7", "#ed563b"])
+// var blueRed = d3.scaleLinear().domain([0,10])
+//   .range(["#002fa7", "#ed563b"])
 
-  var redBlue = d3.scaleLinear().domain([0,10])
-  .range(["#ed563b", "#002fa7"])
+// console.log(blueRed(5))
 
-console.log(blueRed(5))
-console.log(redBlue(5))
+// var blueYellow = d3.scaleLinear().domain([0,10])
+//   .range(["#002fa7", "#fdd55c"])
 
-var yellowBlue = d3.scaleLinear().domain([0,10])
-  .range(["#fdd55c", "#002fa7"])
+// console.log(blueYellow(5))
 
-var blueYellow = d3.scaleLinear().domain([0,10])
-  .range(["#002fa7", "#fdd55c"])
+// var yellowRed = d3.scaleLinear().domain([0,10])
+//   .range(["#ed563b", "#fdd55c"])
 
-console.log(yellowBlue(5))
-console.log(blueYellow(5))
-
-var redYellow = d3.scaleLinear().domain([0,10])
-  .range(["#fdd55c", "#ed563b"])
-
-var yellowRed = d3.scaleLinear().domain([0,10])
-  .range(["#ed563b", "#fdd55c"])
-
-console.log(redYellow(5))
-console.log(yellowRed(5))
-
+// console.log(yellowRed(5))
 
       const yearLabelG = svg.append("g").classed("yearLabelG", true)
 
