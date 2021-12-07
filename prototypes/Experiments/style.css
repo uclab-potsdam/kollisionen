@@ -6,6 +6,10 @@
   --writing: #ed563b;
   --graphic: #3caea3;
   --apartment: #922598;
+  --cinewrit: #694077;
+  --cinebio: #8d8b7d;
+  --biowrit: #f69d4d;
+  --allcat: #261302;
 }
 
 .m-top-2 {
@@ -156,6 +160,42 @@ path.apartment {
 }
 circle.apartment {
   fill: var(--apartment);
+}
+.cinewrit {
+  background: var(--cinewrit);
+}
+path.cinewrit {
+  stroke: var(--cinewrit);
+}
+circle.cinewrit {
+  fill: var(--cinewrit);
+}
+.cinebio {
+  background: var(--cinebio);
+}
+path.cinebio {
+  stroke: var(--cinebio);
+}
+circle.cinebio {
+  fill: var(--cinebio);
+}
+.biowrit {
+  background: var(--biowrit);
+}
+path.biowrit {
+  stroke: var(--biowrit);
+}
+circle.biowrit {
+  fill: var(--biowrit);
+}
+.allcat {
+  background: var(--allcat);
+}
+path.allcat {
+  stroke: var(--allcat);
+}
+circle.allcat {
+  fill: var(--allcat);
 }
 
 .spiralArcs {

@@ -430,11 +430,53 @@ if (spiralData[i]["uncertaintyend"] === 2) spiralData[i]["vend"] = endA[0] + "-1
           .datum(points)
           .classed("spiralArcs", true)
           .attr("d", spiralArcs)
-          .classed("cinema", spiralData[i].category1 == true ? true : false)
-          .classed("biography", spiralData[i].category2 == true ? true : false)
-          .classed("writing", spiralData[i].category3 == true ? true : false)
-          .classed("graphic", spiralData[i].category4 == true ? true : false)
-          .classed("apartment", spiralData[i].category5 == true ? true : false)
+          // .classed("cinema", spiralData[i].category1 == true ? true : false)
+          // .classed("biography", spiralData[i].category2 == true ? true : false)
+          // .classed("writing", spiralData[i].category3 == true ? true : false)
+          // .classed("graphic", spiralData[i].category4 == true ? true : false)
+          // .classed("apartment", spiralData[i].category5 == true ? true : false)
+          .classed("cinema", function () {
+            if (spiralData[i].category1 == true && spiralData[i].category2 == false && spiralData[i].category3 == false) 
+            {
+            return true;
+          } return false;
+          })
+          .classed("biography", function () {
+            if (spiralData[i].category2 == true && spiralData[i].category1 == false && spiralData[i].category3 == false)
+            {
+            return true;
+          } return false;
+          })
+          .classed("writing", function () {
+            if (spiralData[i].category3 == true && spiralData[i].category1 == false && spiralData[i].category2 == false)
+            {
+            return true;
+          } return false;
+          })
+          .classed("cinebio", function () {
+            if (spiralData[i].category1 == true && spiralData[i].category2 == true && spiralData[i].category3 == false)
+            {
+            return true;
+          } return false;
+          })
+          .classed("biowrit", function () {
+            if (spiralData[i].category1 == false && spiralData[i].category2 == true && spiralData[i].category3 == true)
+            {
+            return true;
+          } return false;
+          })
+          .classed("cinewrit", function () {
+            if (spiralData[i].category1 == true && spiralData[i].category2 == false && spiralData[i].category3 == true)
+            {
+            return true;
+          } return false;
+          })
+          .classed("allcat", function () {
+            if (spiralData[i].category1 == true && spiralData[i].category2 == true && spiralData[i].category3 == true)
+            {
+            return true;
+          } return false;
+          })
           // .attr("filter", function(){if (spiralData[i]["uncertaintystart"] == 0 && spiralData[i]["uncertaintyend"] == 0) {
           //     return "none"
           //   } else if (spiralData[i]["uncertaintystart"] == 1 && spiralData[i]["uncertaintyend"] == 1) {
@@ -522,6 +564,33 @@ if (spiralData[i]["uncertaintyend"] === 2) spiralData[i]["vend"] = endA[0] + "-1
           .attr("opacity", 1)
       })
 
+var blueRed = d3.scaleLinear().domain([0,10])
+  .range(["#002fa7", "#ed563b"])
+
+  var redBlue = d3.scaleLinear().domain([0,10])
+  .range(["#ed563b", "#002fa7"])
+
+console.log(blueRed(5))
+console.log(redBlue(5))
+
+var yellowBlue = d3.scaleLinear().domain([0,10])
+  .range(["#fdd55c", "#002fa7"])
+
+var blueYellow = d3.scaleLinear().domain([0,10])
+  .range(["#002fa7", "#fdd55c"])
+
+console.log(yellowBlue(5))
+console.log(blueYellow(5))
+
+var redYellow = d3.scaleLinear().domain([0,10])
+  .range(["#fdd55c", "#ed563b"])
+
+var yellowRed = d3.scaleLinear().domain([0,10])
+  .range(["#ed563b", "#fdd55c"])
+
+console.log(redYellow(5))
+console.log(yellowRed(5))
+
 
       const yearLabelG = svg.append("g").classed("yearLabelG", true)
 
@@ -595,7 +664,7 @@ function replaceTemporal(d, temporalSwap) {
     }
   if (a !== null || a !== '' || a !== false) {
     return '';
-  }}
+  }};
 
 //function to split keywords by comma
 
@@ -904,4 +973,4 @@ function stringSplit(data, keywordSplitter) {
         }
       })
 
-  })
+    })
