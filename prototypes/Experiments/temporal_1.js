@@ -501,68 +501,126 @@ if (spiralData[i]["uncertaintyend"] === 2) spiralData[i]["vend"] = endA[0] + "-1
 
     const circleG = svg.append("g").classed("circleG", true)
 
-    let circles = circleG.selectAll("g")
+let circles = circleG.selectAll("g")
+
       .data(function (d) {
         return spiralData.filter(function (d) {
           return d.uncertaintystart === 0 && d.end === "" && d.start.includes("/") == false && d.start.includes(",") == false && d.start != "" //took out some data points that create errors for now
         });
       })
       .join("g")
+      .append("circle")
       .classed("circles", true)
-      .each(function (d, i) { //for each group create circles
-        ///create an array of all categories to iterate over this and use the nubmer of iterations for the circle radius
-        let localCategories = []
-        if (d.category1 == true) {
-          localCategories.push("cinema")
-        }
-        if (d.category2 == true) {
-          localCategories.push("biography")
-        }
-        if (d.category3 == true) {
-          localCategories.push("writing")
-        }
-        if (d.category4 == true) {
-          localCategories.push("graphic")
-        }
-        if (d.category5 == true) {
-          localCategories.push("apartment")
-        }
-
-        //use the array to create the circles
-        d3.select(this).selectAll("circle")
-          .data(localCategories)
-          .join("circle")
-          .classed("circle", true)
-          .classed("cinema", function (D) {
-            return D == "cinema" ? true : false
-          })
-          .classed("biography", function (D) {
-            return D == "biography" ? true : false
-          })
-          .classed("writing", function (D) {
-            return D == "writing" ? true : false
-          })
-          .classed("graphic", function (D) {
-            return D == "graphic" ? true : false
-          })
-          .classed("apartment", function (D) {
-            return D == "apartment" ? true : false
-          })
-          .attr("cx", function () {
+      .classed("cinema", function (d) {
+        if (d.category1 == true && d.category2 == false && d.category3 == false) 
+        {
+        return true;
+      } return false;
+      })
+      .classed("biography", function (d) {
+        if (d.category2 == true && d.category1 == false && d.category3 == false)
+        {
+        return true;
+      } return false;
+      })
+      .classed("writing", function (d) {
+        if (d.category3 == true && d.category1 == false && d.category2 == false)
+        {
+        return true;
+      } return false;
+      })
+      .classed("cinebio", function (d) {
+        if (d.category1 == true && d.category2 == true && d.category3 == false)
+        {
+        return true;
+      } return false;
+      })
+      .classed("biowrit", function (d) {
+        if (d.category1 == false && d.category2 == true && d.category3 == true)
+        {
+        return true;
+      } return false;
+      })
+      .classed("cinewrit", function (d) {
+        if (d.category1 == true && d.category2 == false && d.category3 == true)
+        {
+        return true;
+      } return false;
+      })
+      .classed("allcat", function (d) {
+        if (d.category1 == true && d.category2 == true && d.category3 == true)
+        {
+        return true;
+      } return false;
+      })
+      .attr("cx", function (d) {
             let [year, month, day] = d.vstart.split('-', 3)
             let eventCoordinate = getEventCoordinate(year, month, day)
             return eventCoordinate.cx
           })
-          .attr("cy", function () {
+      .attr("cy", function (d) {
             let [year, month, day] = d.vstart.split('-', 3)
             let eventCoordinate = getEventCoordinate(year, month, day)
             return eventCoordinate.cy
           })
-          .attr("r", function (D, I) {
-            return 5 - 2 * I
-          }) // radius of circle
-          .attr("opacity", 1)
-      })
+      .attr("r", 5) // radius of circle
+      .attr("opacity", 1)
+      // .each(function (d, i) { //for each group create circles
+      //   ///create an array of all categories to iterate over this and use the nubmer of iterations for the circle radius
+      //   let localCategories = []
+      //   if (d.category1 == true) {
+      //     localCategories.push("cinema")
+      //   }
+      //   if (d.category2 == true) {
+      //     localCategories.push("biography")
+      //   }
+      //   if (d.category3 == true) {
+      //     localCategories.push("writing")
+      //   }
+      //   if (d.category4 == true) {
+      //     localCategories.push("graphic")
+      //   }
+      //   if (d.category5 == true) {
+      //     localCategories.push("apartment")
+      //   }
+
+      //   //use the array to create the circles
+      //   d3.select(this).selectAll("circle")
+      //     .data(localCategories)
+      //     .join("circle")
+      //     .classed("circle", true)
+      //     .classed("cinema", function (D) {
+      //       return D == "cinema" ? true : false
+      //     })
+      //     .classed("biography", function (D) {
+      //       return D == "biography" ? true : false
+      //     })
+      //     .classed("writing", function (D) {
+      //       return D == "writing" ? true : false
+      //     })
+      //     .classed("graphic", function (D) {
+      //       return D == "graphic" ? true : false
+      //     })
+      //     .classed("apartment", function (D) {
+      //       return D == "apartment" ? true : false
+      //     })
+      //     .attr("cx", function () {
+      //       let [year, month, day] = d.vstart.split('-', 3)
+      //       let eventCoordinate = getEventCoordinate(year, month, day)
+      //       return eventCoordinate.cx
+      //     })
+      //     .attr("cy", function () {
+      //       let [year, month, day] = d.vstart.split('-', 3)
+      //       let eventCoordinate = getEventCoordinate(year, month, day)
+      //       return eventCoordinate.cy
+      //     })
+      //     .attr("r", function (D, I) {
+      //       return 5 - 2 * I
+      //     }) // radius of circle
+      //     .attr("opacity", 1)
+      // })
+
+//for working out the 'middle colour'
 
 var blueRed = d3.scaleLinear().domain([0,10])
   .range(["#002fa7", "#ed563b"])
