@@ -1,0 +1,62 @@
+<html>
+
+<head>
+  <title>Kollisionen</title>
+  <meta property="og:title" content="Kollisionen">
+  <meta property="og:description" content="Biographical data visualisation of Sergei M. Eisenstein.">
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+
+  <!-- <link rel="stylesheet" href="../standard-style.css"> -->
+  <link rel="stylesheet" href="../index.css">
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://d3js.org/d3.v6.js"></script>
+
+</head>
+
+<body>
+
+  <div id="chart">
+
+  </div>
+
+  <div id="header">
+  <div class="image">
+    <a href="https://uclab-potsdam.github.io/kollisionen/prototypes/index.html">
+      <img src="../images/K_logo.png" alt="Kollisionen logo" height="75px">
+    </a>
+  </div>
+  <!-- <div class="intro-text">
+    <p style="font-weight: 600;">The biographical data is based on the book <em>Sergej M. Eisenstein. Materialien zu Leben und Werk</em> by Werner Sudendorf, Hanser, 1980.</p>
+    <p> This is work in progress as part of the research project <a href="https://collisions-eisensteinshouse.projekte-filmuni.de">KOLLISIONEN</a> at Fachhochschule Potsdam and Filmuniversität Babelsberg.</p>
+    </p>
+  </div> -->
+</div>
+
+  <div id="legend1">
+    <h2 id="soundheadline">Sound</h2>
+    <label class="switch">
+    <input type="checkbox" id="soundcheckbox">
+    <span class="slider"></span>
+</label>
+
+<h2 id="soundheadline">Uncertainty Display</h2>
+<label class="switch">
+<input type="checkbox" id="uncertaintycheckbox">
+<span class="slider"></span>
+</label>
+
+    <h2>Categories</h2>
+      <p class="f_c filter"> <span class="key-dot cinema"></span>Cinema and Theatre </p>
+        <p class="f_b filter"> <span class="key-dot biography"></span>Biography and Personality </p>
+        <p class="f_w filter"> <span class="key-dot writing"></span>Writing and Teaching</p>
+        <p class="f_g filter"> <span class="key-dot graphic"></span>Graphic Art </p>
+        <p class="f_d filter"> <span class="key-dot apartment"></span>Apartment </p>
+
+  </div>
+
+  <div id="sidebar">  <p id="closedsidebar" style="display:none">✕</p></div>
+
+<script type="text/javascript" src="network.js"></script>
+</body>
+
+</html>
