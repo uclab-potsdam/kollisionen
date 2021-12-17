@@ -142,7 +142,7 @@ artisticNodes.forEach(function(D){
 
 
 
-let allNodes = [].concat(keywordNodes)// , peopleNodes,placesNodes, worksNodes, projectNodes, artisticNodes)
+let allNodes = [].concat(keywordNodes, peopleNodes,placesNodes, worksNodes, projectNodes, artisticNodes)
 
 //create combinations of source+targets out of all "objects"
 //https://stackoverflow.com/questions/43241174/javascript-generating-all-combinations-of-elements-in-a-single-array-in-pairs
@@ -209,7 +209,7 @@ console.log(links)
         .style('top', `${event.pageY + 10}px`)
         .style('display', 'inline-block')
         .style('opacity', '0.9')
-        .html(function(){return `<p class="tooltip-title">${d.name}</p><p class="tooltip-title">Category: ${d.category}</p><p class="tooltip-title">Occuences: ${d.count}</p>`})
+        .html(function(){return `<p class="tooltip-title">${d.name}</p><p class="tooltip-title">Category: ${d.category}</p><p class="tooltip-title">Occurences: ${d.count}</p>`})
     })
     .on("mouseout", function(event, d){
       tooltip
