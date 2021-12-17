@@ -3,12 +3,21 @@
 var url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvSLkjHvHlPjWLy3ec4UT9AsFsyTy2rbsjKquZgmhCqbsTZ4TLAnWv28Y3PnR/pub?gid=1387341329&single=true&output=csv'
 // url = './minimal.csv' //local backup
 
-let width = 1600;
-let height = 800;
+const width = window.innerWidth
+const height = window.innerHeight
 
-let nodeScale = d3.scaleLinear()
-.domain([1,100])
-.range([2,30])
+let nodeScale = d3.scaleSqrt()
+.domain([1,300])
+.range([3,30])
+
+let zoom = d3.zoom()
+  .scaleExtent([1 / 3, 8])
+  .on("zoom", zoomed)
+
+  function zoomed(event, d) {
+    d3.select(".networkG").attr("transform", event.transform);
+    //d3.selectAll("circle").attr("r", function(){return d3.select(this).attr("r")/event.transform.k})
+  }
 
 let color =  d3.scaleOrdinal(d3.schemeCategory10)
 
@@ -18,10 +27,10 @@ let tooltip = d3.select("body")
   .style('display', 'none');
 
 const simulation = d3.forceSimulation()
-  // .force("link", d3.forceLink().id(function(d, i) {
-  //   return d.name;
-  // }))
-  .force("charge", d3.forceManyBody().strength(2)) //how much should elements attract or repell each other?
+.force("link", d3.forceLink().id(function(d, i) {
+  return d.name;
+}))
+  .force("charge", d3.forceManyBody().strength(-10)) //how much should elements attract or repell each other?
   .force("center", d3.forceCenter(width / 2, height / 2))
   .force("collision", d3.forceCollide(function(d){return nodeScale(d.count)+2}));
 
@@ -30,6 +39,9 @@ const simulation = d3.forceSimulation()
   .attr("width", width)
   .attr("height", height);
 
+
+  let networkG = svg.append("g").classed("networkG", true)
+  svg.call(zoom)
 
 ///load data and preprocessing- metadataschema
 Promise.all([
@@ -130,7 +142,7 @@ artisticNodes.forEach(function(D){
 
 
 
-let allNodes = [].concat(peopleNodes,keywordNodes, placesNodes, worksNodes, projectNodes, artisticNodes)
+let allNodes = [].concat(keywordNodes)// , peopleNodes,placesNodes, worksNodes, projectNodes, artisticNodes)
 
 //create combinations of source+targets out of all "objects"
 //https://stackoverflow.com/questions/43241174/javascript-generating-all-combinations-of-elements-in-a-single-array-in-pairs
@@ -142,7 +154,7 @@ allNodes.flatMap(
       target: w,
       dateStart: d.start,
       dateEnd: d.end,
-      source: d.title,
+      relation_source: d.title,
       description: d.description
     })
   }
@@ -162,11 +174,13 @@ simulation
   .nodes(nodes) //we use nodes from our json (look into the file to understand that)
   .on("tick", ticked)
 
-// simulation
-//   .force("link")
-//   .links(links)
+simulation
+  .force("link")
+  .links(links)
 
-  svg.selectAll(".link") //we create lines based on the links data
+console.log(links)
+
+  networkG.selectAll(".link") //we create lines based on the links data
     .data(links)
     .join("line")
     .style("fill", "none")
@@ -178,7 +192,7 @@ simulation
     .style("opacity", 0.5)
 
 
-  svg.selectAll(".node") //we create nodes based on the links data
+  networkG.selectAll(".node") //we create nodes based on the links data
     .data(nodes)
     .join("circle")
     .classed("node", true)
@@ -195,7 +209,14 @@ simulation
         .style('top', `${event.pageY + 10}px`)
         .style('display', 'inline-block')
         .style('opacity', '0.9')
-        .html(function(){return `<p class="tooltip-title">${d.name}</p>`})
+        .html(function(){return `<p class="tooltip-title">${d.name}</p><p class="tooltip-title">Category: ${d.category}</p><p class="tooltip-title">Occuences: ${d.count}</p>`})
+    })
+    .on("mouseout", function(event, d){
+      tooltip
+        .style('position', 'absolute')
+        .style('left', `${event.pageX + 5}px`)
+        .style('top', `${event.pageY + 10}px`)
+        .style('display', 'none')
     })
 
     function ticked(d) {
@@ -210,19 +231,19 @@ simulation
         })
 
         //also use the x, y of the links for the lines. x1 and y1 are for the source node, x2 and y2 for the target node
-      // d3.selectAll(".link")
-      //   .attr("x1", function(d) {
-      //     return d.source.x
-      //   })
-      //   .attr("y1", function(d) {
-      //     return d.source.y
-      //   })
-      //   .attr("x2", function(d) {
-      //     return d.target.x
-      //   })
-      //   .attr("y2", function(d) {
-      //     return d.target.y
-      //   });
+      d3.selectAll(".link")
+        .attr("x1", function(d) {
+          return d.source.x
+        })
+        .attr("y1", function(d) {
+          return d.source.y
+        })
+        .attr("x2", function(d) {
+          return d.target.x
+        })
+        .attr("y2", function(d) {
+          return d.target.y
+        });
 
     }
 
