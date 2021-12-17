@@ -56,7 +56,6 @@ let links = []
 networkData.forEach(function(d,i){
 
 let peopleNodes = d.people == "" ? [] : d.people.split(";")
-let keywordNodes = d.keyword == "" ? [] : d.keyword.split(";")
 let placesNodes = d.places == "" ? [] : d.places.split(";")
 let worksNodes = d.works == "" ? [] : d.works.split(";")
 let projectNodes = d.project == "" ? [] : d.project.split(";")
@@ -75,18 +74,6 @@ peopleNodes.forEach(function(D){
   }
 })
 
-//add keywords to nodes
-keywordNodes.forEach(function(D){
-  if (nodes.filter(function(x){return x.name == D}).length == 0){
-    nodes.push({
-      name: D,
-      count: 1,
-      category: "keyword"
-    })
-  }else{
-    nodes.filter(function(x){return x.name == D})[0].count++
-  }
-})
 
 //add places to nodes
 placesNodes.forEach(function(D){
@@ -142,7 +129,7 @@ artisticNodes.forEach(function(D){
 
 
 
-let allNodes = [].concat(keywordNodes, peopleNodes,placesNodes, worksNodes, projectNodes, artisticNodes)
+let allNodes = [].concat(peopleNodes,placesNodes, worksNodes, projectNodes, artisticNodes)
 
 //create combinations of source+targets out of all "objects"
 //https://stackoverflow.com/questions/43241174/javascript-generating-all-combinations-of-elements-in-a-single-array-in-pairs
