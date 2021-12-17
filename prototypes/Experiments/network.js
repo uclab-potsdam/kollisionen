@@ -187,9 +187,9 @@ console.log(links)
     .attr("stroke-width", 1)
     .attr("class", "link")
     .style("stroke", function(d, i) {
-      return "black"
+      return "rgb(125, 125, 125)"
     })
-    .style("opacity", 0.5)
+    .style("opacity", 0.3)
 
 
   networkG.selectAll(".node") //we create nodes based on the links data
