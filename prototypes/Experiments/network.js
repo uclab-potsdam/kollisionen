@@ -60,6 +60,7 @@ let placesNodes = d.places == "" ? [] : d.places.split(";")
 let worksNodes = d.works == "" ? [] : d.works.split(";")
 let projectNodes = d.project == "" ? [] : d.project.split(";")
 let artisticNodes = d.artistic == "" ? [] : d.artistic.split(";")
+let additionalNodes = d.additional == "" ? [] : d.additional.split(";")
 
 //add people to nodes
 peopleNodes.forEach(function(D){
@@ -127,9 +128,20 @@ artisticNodes.forEach(function(D){
   }
 })
 
+//add additional to nodes
+additionalNodes.forEach(function(D){
+  if (nodes.filter(function(x){return x.name == D}).length == 0){
+    nodes.push({
+      name: D,
+      count: 1,
+      category: "additional"
+    })
+  }else{
+    nodes.filter(function(x){return x.name == D})[0].count++
+  }
+})
 
-
-let allNodes = [].concat(peopleNodes,placesNodes, worksNodes, projectNodes, artisticNodes)
+let allNodes = [].concat(peopleNodes,placesNodes, worksNodes, projectNodes, artisticNodes, additionalNodes)
 
 //create combinations of source+targets out of all "objects"
 //https://stackoverflow.com/questions/43241174/javascript-generating-all-combinations-of-elements-in-a-single-array-in-pairs
