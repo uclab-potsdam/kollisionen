@@ -10,7 +10,19 @@
   <link rel="stylesheet" href="../index.css">
   <link rel="stylesheet" href="style.css" />
   <script src="https://d3js.org/d3.v6.js"></script>
-
+<style>
+#eventList{
+left:0;
+top:0;
+width: 300px;
+height: 100%;
+position:fixed;
+display: block;
+background-color: white;
+z-index:200;
+overflow-y: auto;
+}
+</style>
 </head>
 
 <body>
@@ -55,6 +67,7 @@
   </div>
 
   <div id="sidebar">  <p id="closedsidebar" style="display:none">✕</p></div>
+  <div id="eventList"></div>
 
 <script type="text/javascript" src="network.js"></script>
 </body>
