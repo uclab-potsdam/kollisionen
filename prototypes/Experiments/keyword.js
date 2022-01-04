@@ -111,6 +111,19 @@ for (let i = 0; i < keywordsData.length; i++) {
 if (keywordsData[i]["uncertaintyend"] == 2) keywordsData[i]["vend"] = endA[0] + "-12-31"; // it is currently also doing this "-undefined-28"
 };
 
+for (let i = 0; i < keywordsData.length; i++) {
+
+  // category 1=Cinema and Theatre, category 2=Biography and Personality, category 3=Writing and Teaching, category 4=Graphic Art, category 5=Apartment
+  //categories sorted into separate categories to aid with styling later
+
+  if (keywordsData[i]["category"].includes("Cinema and Theatre")) keywordsData[i]["category1"] = true;
+  if (keywordsData[i]["category"].includes("Biography and Personality")) keywordsData[i]["category2"] = true;
+  if (keywordsData[i]["category"].includes("Writing and Teaching")) keywordsData[i]["category3"] = true;
+  if (keywordsData[i]["category"].includes("Graphic Art")) keywordsData[i]["category4"] = true;
+  if (keywordsData[i]["category"].includes("Apartment")) keywordsData[i]["category5"] = true;
+
+};
+
 keywordsData.forEach(function(d) {
     d.vstart = +parseDate(d.vstart);
     d.vend = +parseDate(d.vend);
@@ -189,7 +202,7 @@ var yScale = d3.scaleLinear()
         .attr("y1", 0) //to be fixed later
         .attr("x2", 500)
         .attr("y2", height) //to be fixed later
-        .attr("stroke", "black")
+        .attr("stroke", "white")
         .attr("stroke-width", 1)
         .attr("stroke-dasharray", "5,5");
     
@@ -207,10 +220,27 @@ var yScale = d3.scaleLinear()
         }))
         .range([0, lineLength]);
 
+
+// create a timeline for each keyword in the keywordsCount array when it matches a keyword in keywordsData.people, keywordsData.places, keywordsData.works, keywordsData.artistic, keywordsData.additional but filtered only to show data matching that keyword
+
+for (let i = 0; i < keywordsCount.length; i++) {
+
+// if (keywordsCount[i] == keywordsData[i].people || keywordsData[i].places || keywordsData[i].works || keywordsData[i].artistic || keywordsData[i].additional) { 
+
+//   // filter data to only show data matching that keyword
+
+
+//filter has to match a keyword in keywordsData.people, keywordsData.places, keywordsData.works, keywordsData.artistic, keywordsData.additional to draw timeline
+
+  // var filteredData = keywordsData.filter(function(d) {
+  //   return d.people.includes(keywordsCount[i]) || d.places.includes(keywordsCount[i]) || d.works.includes(keywordsCount[i]) || d.artistic.includes(keywordsCount[i]) || d.additional.includes(keywordsCount[i]);
+  // });
+
         const circleG = svg.append("g").classed("circleG", true)
 
         let circles = circleG.selectAll("g")
 
+        .datum(filteredData)
         .data(function (d) {
             return keywordsData.filter(function (d) {
               return d.uncertaintystart === 0 && d.end === "" && d.start.includes("/") == false && d.start.includes(",") == false && d.start != "" //took out some data points that create errors for now
@@ -358,10 +388,11 @@ var yScale = d3.scaleLinear()
         
                 return d.cy;
               })
-            .attr("stroke", "black")
 
 }
 
+}
+};
 
 
 
