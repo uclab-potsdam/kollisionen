@@ -1,5 +1,3 @@
-
-
 var url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvSLkjHvHlPjWLy3ec4UT9AsFsyTy2rbsjKquZgmhCqbsTZ4TLAnWv28Y3PnR/pub?gid=1387341329&single=true&output=csv'
 // url = './minimal.csv' //local backup
 
@@ -12,23 +10,23 @@ var startParse = d3.timeParse("%Y-%m-%d %I:%M%p");
 var endParse = d3.timeParse("%Y-%m-%d %I:%M%p");
 
 let nodeScale = d3.scaleLinear()
-.domain([1,300])
-.range([5,100])
+  .domain([1, 300])
+  .range([5, 100])
 
 let edgeScale = d3.scaleLinear()
-.domain([1, 50])
-.range([0.5, 10])
+  .domain([1, 50])
+  .range([0.5, 10])
 
 let zoom = d3.zoom()
   .scaleExtent([1 / 3, 8])
   .on("zoom", zoomed)
 
-  function zoomed(event, d) {
-    d3.select(".networkG").attr("transform", event.transform);
-    //d3.selectAll("circle").attr("r", function(){return d3.select(this).attr("r")/event.transform.k})
-  }
+function zoomed(event, d) {
+  d3.select(".networkG").attr("transform", event.transform);
+  //d3.selectAll("circle").attr("r", function(){return d3.select(this).attr("r")/event.transform.k})
+}
 
-let color =  d3.scaleOrdinal(d3.schemeCategory10)
+let color = d3.scaleOrdinal(d3.schemeCategory10)
 
 let tooltip = d3.select("body")
   .append('div')
@@ -36,31 +34,33 @@ let tooltip = d3.select("body")
   .style('display', 'none');
 
 const simulation = d3.forceSimulation()
-.force("link", d3.forceLink().id(function(d, i) {
-  return d.name;
-}).distance(100))
+  .force("link", d3.forceLink().id(function(d, i) {
+    return d.name;
+  }).distance(100))
   .force("charge", d3.forceManyBody().strength(-20)) //how much should elements attract or repell each other?
   .force("center", d3.forceCenter(width / 2, height / 2))
-  .force("collision", d3.forceCollide(function(d){return nodeScale(d.count)+2}));
+  .force("collision", d3.forceCollide(function(d) {
+    return nodeScale(d.count) + 2
+  }));
 
 
-  var svg = d3.select("#chart").append("svg")
+var svg = d3.select("#chart").append("svg")
   .attr("width", width)
   .attr("height", height);
 
 
-  let networkG = svg.append("g").classed("networkG", true)
-  svg.call(zoom)
+let networkG = svg.append("g").classed("networkG", true)
+svg.call(zoom)
 
-  let linkG = networkG.append("g").attr("class", "linkG")
-  let nodeG = networkG.append("g").attr("class", "nodeG")
-  let linkChildren = networkG.append("g").attr("class", "linkChildrenG")
-  let labelG = networkG.append("g").attr("class", "labelG")
+let linkG = networkG.append("g").attr("class", "linkG")
+let nodeG = networkG.append("g").attr("class", "nodeG")
+let linkChildren = networkG.append("g").attr("class", "linkChildrenG")
+let labelG = networkG.append("g").attr("class", "labelG")
 
 ///load data and preprocessing- metadataschema
 Promise.all([
-  d3.csv(url), //data
-])
+    d3.csv(url), //data
+  ])
   .then(([networkData]) => {
     console.log(networkData)
 
@@ -116,35 +116,34 @@ Promise.all([
       if (networkData[i]["uncertaintyend"] == 2) {
         networkData[i]["vend"] = +endA[0] + "-12-31";
         // else if (networkData[i]["uncertaintyend"] == 2) networkData[i]["vend"] = +endA[0] + 1 + "-01-01";
-      }
-      else if (networkData[i]["uncertaintyend"] == 1) {
+      } else if (networkData[i]["uncertaintyend"] == 1) {
         networkData[i]["vend"] = endA[0] + "-" + endA[1] + "-28";
       } else networkData[i]["vend"] = networkData[i]["end"];
 
-    // fix date ranges - 01, 03, 05, 07, 08, 10, 12 = 31
-    // fix date ranges - 04, 06, 09, 11 = 30
-    // else 28 (except leap years)
+      // fix date ranges - 01, 03, 05, 07, 08, 10, 12 = 31
+      // fix date ranges - 04, 06, 09, 11 = 30
+      // else 28 (except leap years)
 
-    if ((networkData[i]["uncertaintyend"] == 1 && endA[1] == "01") ||
-    (networkData[i]["uncertaintyend"] == 1 && endA[1] == "03") ||
-    (networkData[i]["uncertaintyend"] == 1 && endA[1] == "05") ||
-    (networkData[i]["uncertaintyend"] == 1 && endA[1] == "07") ||
-    (networkData[i]["uncertaintyend"] == 1 && endA[1] == "08") ||
-    (networkData[i]["uncertaintyend"] == 1 && endA[1] == "10") ||
-    (networkData[i]["uncertaintyend"] == 1 && endA[1] == "12"))  {
-   networkData[i]["vend"] = endA[0] + "-" + endA[1] + "-31";
-  } else if ((networkData[i]["uncertaintyend"] == 1 && endA[1] == "04") ||
-            (networkData[i]["uncertaintyend"] == 1 && endA[1] == "06") ||
-            (networkData[i]["uncertaintyend"] == 1 && endA[1] == "09") ||
-            (networkData[i]["uncertaintyend"] == 1 && endA[1] == "11")) {
-   networkData[i]["vend"] = endA[0] + "-" + endA[1] + "-30";
-  } else if (networkData[i]["uncertaintyend"] == 1 && endA[1] =="02" && endA[0] % 4 === 0) {
-   networkData[i]["vend"] = endA[0] + "-" + endA[1] + "-29";
-  }
-  //  else networkData[i]["vend"] = endA[0] + "-" + endA[1] + "-28";
+      if ((networkData[i]["uncertaintyend"] == 1 && endA[1] == "01") ||
+        (networkData[i]["uncertaintyend"] == 1 && endA[1] == "03") ||
+        (networkData[i]["uncertaintyend"] == 1 && endA[1] == "05") ||
+        (networkData[i]["uncertaintyend"] == 1 && endA[1] == "07") ||
+        (networkData[i]["uncertaintyend"] == 1 && endA[1] == "08") ||
+        (networkData[i]["uncertaintyend"] == 1 && endA[1] == "10") ||
+        (networkData[i]["uncertaintyend"] == 1 && endA[1] == "12")) {
+        networkData[i]["vend"] = endA[0] + "-" + endA[1] + "-31";
+      } else if ((networkData[i]["uncertaintyend"] == 1 && endA[1] == "04") ||
+        (networkData[i]["uncertaintyend"] == 1 && endA[1] == "06") ||
+        (networkData[i]["uncertaintyend"] == 1 && endA[1] == "09") ||
+        (networkData[i]["uncertaintyend"] == 1 && endA[1] == "11")) {
+        networkData[i]["vend"] = endA[0] + "-" + endA[1] + "-30";
+      } else if (networkData[i]["uncertaintyend"] == 1 && endA[1] == "02" && endA[0] % 4 === 0) {
+        networkData[i]["vend"] = endA[0] + "-" + endA[1] + "-29";
+      }
+      //  else networkData[i]["vend"] = endA[0] + "-" + endA[1] + "-28";
 
-  if (networkData[i]["uncertaintyend"] == 2) networkData[i]["vend"] = endA[0] + "-12-31"; // it is currently also doing this "-undefined-28"
-  };
+      if (networkData[i]["uncertaintyend"] == 2) networkData[i]["vend"] = endA[0] + "-12-31"; // it is currently also doing this "-undefined-28"
+    };
 
     for (let i = 0; i < networkData.length; i++) {
 
@@ -160,321 +159,412 @@ Promise.all([
     };
 
     // // format the data
-    networkData.forEach(function (d) {
+    networkData.forEach(function(d) {
       //   // d.start = +parseDate(d.start);
       //   // d.end = +parseDate(d.end);
-      d.vdateStart = +startParse(d.vstart  + " 00:01AM");
+      d.vdateStart = +startParse(d.vstart + " 00:01AM");
       d.vdateEnd = +endParse(d.vend + " 23:59AM")
     });
 
     console.log(networkData)
 
-let nodes = []
-let links = []
+    let nodes = []
+    let links = []
 
-networkData.forEach(function(d,i){
+    networkData.forEach(function(d, i) {
 
-let peopleNodes = d.people == "" ? [] : d.people.split(";")
-let placesNodes = d.places == "" ? [] : d.places.split(";")
-let worksNodes = d.works == "" ? [] : d.works.split(";")
-//let projectNodes = d.project == "" ? [] : d.project.split(";")
-let artisticNodes = d.artistic == "" ? [] : d.artistic.split(";")
-let additionalNodes = d.additional == "" ? [] : d.additional.split(";")
+      let peopleNodes = d.people == "" ? [] : d.people.split(";")
+      let placesNodes = d.places == "" ? [] : d.places.split(";")
+      let worksNodes = d.works == "" ? [] : d.works.split(";")
+      //let projectNodes = d.project == "" ? [] : d.project.split(";")
+      let artisticNodes = d.artistic == "" ? [] : d.artistic.split(";")
+      let additionalNodes = d.additional == "" ? [] : d.additional.split(";")
 
-//add people to nodes
-peopleNodes.forEach(function(D){
-  if (nodes.filter(function(x){return x.name == D}).length == 0){
-    nodes.push({
-      name: D,
-      count: 1,
-      category: "people"
-    })
-  }else{
-    nodes.filter(function(x){return x.name == D})[0].count++
-  }
-})
-
-
-//add places to nodes
-placesNodes.forEach(function(D){
-  if (nodes.filter(function(x){return x.name == D}).length == 0){
-    nodes.push({
-      name: D,
-      count: 1,
-      category: "places"
-    })
-  }else{
-    nodes.filter(function(x){return x.name == D})[0].count++
-  }
-})
-
-//add works to nodes
-worksNodes.forEach(function(D){
-  if (nodes.filter(function(x){return x.name == D}).length == 0){
-    nodes.push({
-      name: D,
-      count: 1,
-      category: "works"
-    })
-  }else{
-    nodes.filter(function(x){return x.name == D})[0].count++
-  }
-})
-
-// //add project to nodes
-// projectNodes.forEach(function(D){
-//   if (nodes.filter(function(x){return x.name == D}).length == 0){
-//     nodes.push({
-//       name: D,
-//       count: 1,
-//       category: "project"
-//     })
-//   }else{
-//     nodes.filter(function(x){return x.name == D})[0].count++
-//   }
-// })
-
-//add artistic to nodes
-artisticNodes.forEach(function(D){
-  if (nodes.filter(function(x){return x.name == D}).length == 0){
-    nodes.push({
-      name: D,
-      count: 1,
-      category: "artistic"
-    })
-  }else{
-    nodes.filter(function(x){return x.name == D})[0].count++
-  }
-})
-
-//add additional to nodes
-additionalNodes.forEach(function(D){
-  if (nodes.filter(function(x){return x.name == D}).length == 0){
-    nodes.push({
-      name: D,
-      count: 1,
-      category: "additional"
-    })
-  }else{
-    nodes.filter(function(x){return x.name == D})[0].count++
-  }
-})
-
-let allNodes = [].concat(peopleNodes,placesNodes, worksNodes, artisticNodes, additionalNodes)
-
-//create combinations of source+targets out of all "objects"
-//https://stackoverflow.com/questions/43241174/javascript-generating-all-combinations-of-elements-in-a-single-array-in-pairs
-allNodes.flatMap(
-  function(v, i){return allNodes.slice(i+1).forEach(function(w){
-  //  console.log( v + '+ ' + w )
-    if (links.filter(function(D){return (D.source == v && D.target == w) || D.source == w && D.target == v}).length == 0){
-      links.push({
-        source: v,
-        target: w,
-        children:[{
-          source: v,
-          target: w,
-          dateStart: new Date(d.vstart),
-          dateEnd: new Date(d.vend),
-          relation_source: d.title,
-          description: d.description
-        }],
-      })
-    }else{
-      links.filter(function(D){return (D.source == v && D.target == w) || D.source == w && D.target == v})[0].children.push({
-        source: v,
-        target: w,
-        dateStart: new Date(d.vstart),
-        dateEnd: new Date(d.vend),
-        relation_source: d.title,
-        description: d.description
+      //add people to nodes
+      peopleNodes.forEach(function(D) {
+        if (nodes.filter(function(x) {
+            return x.name == D
+          }).length == 0) {
+          nodes.push({
+            name: D,
+            count: 1,
+            category: "people"
+          })
+        } else {
+          nodes.filter(function(x) {
+            return x.name == D
+          })[0].count++
+        }
       })
 
-    }
 
-  }
-  )}
-)
+      //add places to nodes
+      placesNodes.forEach(function(D) {
+        if (nodes.filter(function(x) {
+            return x.name == D
+          }).length == 0) {
+          nodes.push({
+            name: D,
+            count: 1,
+            category: "places"
+          })
+        } else {
+          nodes.filter(function(x) {
+            return x.name == D
+          })[0].count++
+        }
+      })
+
+      //add works to nodes
+      worksNodes.forEach(function(D) {
+        if (nodes.filter(function(x) {
+            return x.name == D
+          }).length == 0) {
+          nodes.push({
+            name: D,
+            count: 1,
+            category: "works"
+          })
+        } else {
+          nodes.filter(function(x) {
+            return x.name == D
+          })[0].count++
+        }
+      })
+
+      // //add project to nodes
+      // projectNodes.forEach(function(D){
+      //   if (nodes.filter(function(x){return x.name == D}).length == 0){
+      //     nodes.push({
+      //       name: D,
+      //       count: 1,
+      //       category: "project"
+      //     })
+      //   }else{
+      //     nodes.filter(function(x){return x.name == D})[0].count++
+      //   }
+      // })
+
+      //add artistic to nodes
+      artisticNodes.forEach(function(D) {
+        if (nodes.filter(function(x) {
+            return x.name == D
+          }).length == 0) {
+          nodes.push({
+            name: D,
+            count: 1,
+            category: "artistic"
+          })
+        } else {
+          nodes.filter(function(x) {
+            return x.name == D
+          })[0].count++
+        }
+      })
+
+      //add additional to nodes
+      additionalNodes.forEach(function(D) {
+        if (nodes.filter(function(x) {
+            return x.name == D
+          }).length == 0) {
+          nodes.push({
+            name: D,
+            count: 1,
+            category: "additional"
+          })
+        } else {
+          nodes.filter(function(x) {
+            return x.name == D
+          })[0].count++
+        }
+      })
+
+      let allNodes = [].concat(peopleNodes, placesNodes, worksNodes, artisticNodes, additionalNodes)
+
+      //create combinations of source+targets out of all "objects"
+      //https://stackoverflow.com/questions/43241174/javascript-generating-all-combinations-of-elements-in-a-single-array-in-pairs
+      allNodes.flatMap(
+        function(v, i) {
+          return allNodes.slice(i + 1).forEach(function(w) {
+            //  console.log( v + '+ ' + w )
+            if (links.filter(function(D) {
+                return (D.source == v && D.target == w) || D.source == w && D.target == v
+              }).length == 0) {
+              links.push({
+                source: v,
+                target: w,
+                children: [{
+                  source: v,
+                  target: w,
+                  category: d.category,
+                  dateStart: new Date(d.vstart),
+                  dateEnd: new Date(d.vend),
+                  relation_source: d.title,
+                  description: d.description
+                }],
+              })
+            } else {
+              links.filter(function(D) {
+                return (D.source == v && D.target == w) || D.source == w && D.target == v
+              })[0].children.push({
+                source: v,
+                target: w,
+                category: d.category,
+                dateStart: new Date(d.vstart),
+                dateEnd: new Date(d.vend),
+                relation_source: d.title,
+                description: d.description
+              })
+
+            }
+
+          })
+        }
+      )
 
 
 
-})
-
-console.log(links)
-console.log(nodes)
-
-
-
-simulation
-  .nodes(nodes) //we use nodes from our json (look into the file to understand that)
-  .on("tick", ticked)
-
-simulation
-  .force("link")
-  .links(links)
-
-console.log(links)
-
-  linkG.selectAll(".link") //we create lines based on the links data
-    .data(links)
-    .join("line")
-    .style("fill", "none")
-    .attr("stroke-width", function(d){return edgeScale(d.children.length)})
-    .attr("class", "link")
-    .style("stroke", function(d, i) {
-      return "rgb(125, 125, 125)"
     })
-    .style("opacity", 0.3)
-    .on("click", function(event,d,i){unfoldingEdges(d,i)})
+
+    console.log(links)
+    console.log(nodes)
 
 
-  // networkG.selectAll(".node") //we create nodes based on the links data
-  //   .data(nodes)
-  //   .join("circle")
-  //   .classed("node", true)
-  //   .attr("r", function(d){return nodeScale(d.count)})
-  //   .style("stroke", "white")
-  //   .style("stroke-width", 1)
-  //   .style("fill", function(d) {
-  //     return color(d.category)
-  //   })
 
-  const symbolScale = d3.scaleOrdinal()
-    .domain(["people", "places", "artistic", "works", "additional"])
-    .range([0,2,3,5,6])
+    simulation
+      .nodes(nodes) //we use nodes from our json (look into the file to understand that)
+      .on("tick", ticked)
 
-        nodeG.selectAll(".nodeSymbol") //we create nodes based on the links data
-          .data(nodes)
-          .join("path")
-          .classed("nodeSymbol", true)
-          .attr('d', d3.symbol().type( function(d,i) { return d3.symbols[symbolScale(d.category)]}).size(function(d){return nodeScale(d.count)*5}))
-          .on("mousemove", function(event, d){
-      tooltip
-        .style('position', 'absolute')
-        .style('left', `${event.pageX + 5}px`)
-        .style('top', `${event.pageY + 10}px`)
-        .style('display', 'inline-block')
-        .style('opacity', '0.9')
-        .html(function(){return `<p class="tooltip-title">${d.name}</p><p class="tooltip-title">Category: ${d.category}</p><p class="tooltip-title">Occurences: ${d.count}</p>`})
-    })
-    .on("mouseout", function(event, d){
-      tooltip
-        .style('position', 'absolute')
-        .style('left', `${event.pageX + 5}px`)
-        .style('top', `${event.pageY + 10}px`)
-        .style('display', 'none')
-    })
+    simulation
+      .force("link")
+      .links(links)
+
+    console.log(links)
+
+    linkG.selectAll(".link") //we create lines based on the links data
+      .data(links)
+      .join("line")
+      .style("fill", "none")
+      .attr("stroke-width", function(d) {
+        return edgeScale(d.children.length)
+      })
+      .attr("class", "link")
+      .style("stroke", function(d, i) {
+        if(d.children.length < 1){
+          if (d.children[0].category.includes("Cinema and Theatre")== true && d.children[0].category.includes("Biography and Personality") == false && d.children[0].category.includes("Writing and Teaching") == false){
+            return "#002fa7"
+          }else if (d.children[0].category.includes("Cinema and Theatre")== false && d.children[0].category.includes("Biography and Personality") == true && d.children[0].category.includes("Writing and Teaching") == false){
+              return "#fdd55c"
+            }else if (d.children[0].category.includes("Cinema and Theatre")== false && d.children[0].category.includes("Biography and Personality") == false && d.children[0].category.includes("Writing and Teaching") == true){
+                return "#ed563b"
+              }else if (d.children[0].category.includes("Cinema and Theatre")== true && d.children[0].category.includes("Biography and Personality") == false && d.children[0].category.includes("Writing and Teaching") == true){
+                  return "#774371"
+                }else if (d.children[0].category.includes("Cinema and Theatre")== true && d.children[0].category.includes("Biography and Personality") == true && d.children[0].category.includes("Writing and Teaching") == false){
+                    return "rgb(96, 167, 105)"
+                  }else if (d.children[0].category.includes("Cinema and Theatre")== false && d.children[0].category.includes("Biography and Personality") == true && d.children[0].category.includes("Writing and Teaching") == true){
+                      return "#f5964c"
+                    }else{return "grey"}
+        }else{return "black"
+      }
+      })
+      .style("opacity", 0.2)
+      .on("click", function(event, d, i) {
+        unfoldingEdges(d, i)
+      })
+
+
+    // networkG.selectAll(".node") //we create nodes based on the links data
+    //   .data(nodes)
+    //   .join("circle")
+    //   .classed("node", true)
+    //   .attr("r", function(d){return nodeScale(d.count)})
+    //   .style("stroke", "white")
+    //   .style("stroke-width", 1)
+    //   .style("fill", function(d) {
+    //     return color(d.category)
+    //   })
+
+    const symbolScale = d3.scaleOrdinal()
+      .domain(["people", "places", "artistic", "works", "additional"])
+      .range([0, 2, 3, 5, 6])
+
+    nodeG.selectAll(".nodeSymbol") //we create nodes based on the links data
+      .data(nodes)
+      .join("path")
+      .classed("nodeSymbol", true)
+      .attr('d', d3.symbol().type(function(d, i) {
+        return d3.symbols[symbolScale(d.category)]
+      }).size(function(d) {
+        return nodeScale(d.count) * 5
+      }))
+      .on("mousemove", function(event, d) {
+        tooltip
+          .style('position', 'absolute')
+          .style('left', `${event.pageX + 5}px`)
+          .style('top', `${event.pageY + 10}px`)
+          .style('display', 'inline-block')
+          .style('opacity', '0.9')
+          .html(function() {
+            return `<p class="tooltip-title">${d.name}</p><p class="tooltip-title">Category: ${d.category}</p><p class="tooltip-title">Occurences: ${d.count}</p>`
+          })
+      })
+      .on("mouseout", function(event, d) {
+        tooltip
+          .style('position', 'absolute')
+          .style('left', `${event.pageX + 5}px`)
+          .style('top', `${event.pageY + 10}px`)
+          .style('display', 'none')
+      })
 
     labelG.selectAll(".label") //we create nodes based on the links data
       .data(nodes)
       .join("text")
       .classed("label", true)
-      .attr("dx", function(d){return nodeScale(d.count)/5+2})
-      .attr("dy", function(d){return nodeScale(d.count)/5+2})
+      .attr("dx", function(d) {
+        return nodeScale(d.count) / 5 + 2
+      })
+      .attr("dy", function(d) {
+        return nodeScale(d.count) / 5 + 2
+      })
       .style("fill", "black")
-      .text(function(d){return d.name})
+      .text(function(d) {
+        return d.name
+      })
       .style("font-size", "6")
 
 
-//create Event List
-d3.select("#eventList").selectAll("p")
-.data(networkData)
-.join("p")
-.text(function(d){return d.title + " ("+d.start+"–"+d.end+")"})
-
-
- console.log(d3.select("#eventList").selectAll("p")
- .filter(function(d){
-   return d3.select(this).node().getBoundingClientRect().top >= 0 && d3.select(this).node().getBoundingClientRect().bottom <= (window.innerHeight || document.documentElement.clientHeight)}
- )._groups[0].length
-
- )
-function itemSelection(){
-let firstItem = new Date(d3.select("#eventList").selectAll("p")
-.filter(function(d){
-  return d3.select(this).node().getBoundingClientRect().top >= 0 && d3.select(this).node().getBoundingClientRect().bottom <= (window.innerHeight || document.documentElement.clientHeight)}
-)._groups[0][0].__data__.vstart)
-
-let visibleItemCount = d3.select("#eventList").selectAll("p")
-.filter(function(d){
-  return d3.select(this).node().getBoundingClientRect().top >= 0 && d3.select(this).node().getBoundingClientRect().bottom <= (window.innerHeight || document.documentElement.clientHeight)}
-)._groups[0].length
-
-let lastItem =  new Date(d3.select("#eventList").selectAll("p")
-.filter(function(d){
-  return d3.select(this).node().getBoundingClientRect().top >= 0 && d3.select(this).node().getBoundingClientRect().bottom <= (window.innerHeight || document.documentElement.clientHeight)}
-)._groups[0][visibleItemCount-1].__data__.vstart)
-console.log(firstItem)
-
-//d3.selectAll(".node").style("display", "none")
-d3.selectAll(".link").style("display", function(d){
-console.log(d)
-  if (d.children[0].dateStart >= firstItem && d.children[0].dateStart <= lastItem){return "block"}else{return "none"}})
-
-///get nodes with edges
-let connectedNodes = []
-
-d3.selectAll(".link").filter(function(d){return d.children[0].dateStart >= firstItem && d.children[0].dateStart <= lastItem})
-  .each(function(D, I) {
-    if (connectedNodes.filter(function(x) {
-        return x == D.source.name
-      }).length == 0) {
-      connectedNodes.push(
-        D.source.name
-      )
-    }
-    if (connectedNodes.filter(function(x) {
-        return x == D.target.name
-      }).length == 0) {
-      connectedNodes.push(
-        D.target.name
-      )
-    }
-  })
-
-  d3.selectAll(".nodeSymbol")
-    .style("display", function(D, I) {
-      if(connectedNodes.filter(function(d) {
-        return d == D.name
-      }).length > 0){return "block"}else{return "none"}
-    })
-
-    d3.selectAll(".label")
-      .style("display", function(D, I) {
-        if(connectedNodes.filter(function(d) {
-          return d == D.name
-        }).length > 0){return "block"}else{return "none"}
+    //create Event List
+    d3.select("#eventList").selectAll("p")
+      .data(networkData)
+      .join("p")
+      .text(function(d) {
+        return d.title + " (" + d.start + "–" + d.end + ")"
       })
 
-console.log(connectedNodes)
 
-simulation
-  .nodes(nodes.filter(function(D,I){return connectedNodes.filter(function(d) {
-    return d == D.name
-  }).length > 0}))
-  .on("tick", ticked)
+    console.log(d3.select("#eventList").selectAll("p")
+      .filter(function(d) {
+        return d3.select(this).node().getBoundingClientRect().top >= 0 && d3.select(this).node().getBoundingClientRect().bottom <= (window.innerHeight || document.documentElement.clientHeight)
+      })._groups[0].length
 
-  simulation
-    .force("link")
-    .links(links.filter(function(d){return d.children[0].dateStart >= firstItem && d.children[0].dateStart <= lastItem}))
-
-    simulation.alpha(1).restart();
-}
-
-d3.select("#eventList").on("scroll", itemSelection)
-
-itemSelection()
+    )
 
 
 
-function unfoldingEdges (d,i){
+
+
+    function itemSelection() {
+      let firstItem = new Date(d3.select("#eventList").selectAll("p")
+        .filter(function(d) {
+          return d3.select(this).node().getBoundingClientRect().top >= 0 && d3.select(this).node().getBoundingClientRect().bottom <= (window.innerHeight || document.documentElement.clientHeight)
+        })._groups[0][0].__data__.vstart)
+
+      let visibleItemCount = d3.select("#eventList").selectAll("p")
+        .filter(function(d) {
+          return d3.select(this).node().getBoundingClientRect().top >= 0 && d3.select(this).node().getBoundingClientRect().bottom <= (window.innerHeight || document.documentElement.clientHeight)
+        })._groups[0].length
+
+      let lastItem = new Date(d3.select("#eventList").selectAll("p")
+        .filter(function(d) {
+          return d3.select(this).node().getBoundingClientRect().top >= 0 && d3.select(this).node().getBoundingClientRect().bottom <= (window.innerHeight || document.documentElement.clientHeight)
+        })._groups[0][visibleItemCount - 1].__data__.vstart)
+      console.log(firstItem)
+
+      //d3.selectAll(".node").style("display", "none")
+      d3.selectAll(".link").style("display", function(d) {
+        console.log(d)
+        if (d.children[0].dateStart >= firstItem && d.children[0].dateStart <= lastItem) {
+          return "block"
+        } else {
+          return "none"
+        }
+      })
+
+      ///get nodes with edges
+      let connectedNodes = []
+
+      d3.selectAll(".link").filter(function(d) {
+          return d.children[0].dateStart >= firstItem && d.children[0].dateStart <= lastItem
+        })
+        .each(function(D, I) {
+          if (connectedNodes.filter(function(x) {
+              return x == D.source.name
+            }).length == 0) {
+            connectedNodes.push(
+              D.source.name
+            )
+          }
+          if (connectedNodes.filter(function(x) {
+              return x == D.target.name
+            }).length == 0) {
+            connectedNodes.push(
+              D.target.name
+            )
+          }
+        })
+
+      d3.selectAll(".nodeSymbol")
+        .style("display", function(D, I) {
+          if (connectedNodes.filter(function(d) {
+              return d == D.name
+            }).length > 0) {
+            return "block"
+          } else {
+            return "none"
+          }
+        })
+
+      d3.selectAll(".label")
+        .style("display", function(D, I) {
+          if (connectedNodes.filter(function(d) {
+              return d == D.name
+            }).length > 0) {
+            return "block"
+          } else {
+            return "none"
+          }
+        })
+
+
+
+      simulation
+        .nodes(nodes.filter(function(D, I) {
+          return connectedNodes.filter(function(d) {
+            return d == D.name
+          }).length > 0
+        }))
+        .on("tick", ticked)
+
+      simulation
+        .force("link")
+        .links(links.filter(function(d) {
+          return d.children[0].dateStart >= firstItem && d.children[0].dateStart <= lastItem
+        }))
+
+      simulation.alpha(1).restart();
+    }
+
+
+
+
+
+
+
+
+    d3.select("#eventList").on("scroll", itemSelection)
+
+    itemSelection()
+
+
+
+    function unfoldingEdges(d, i) {
       ///////edge unfolding start
       ////////////////////////////////////////////////
 
       console.log(d)
 
       d3.selectAll(".link").transition().style("stroke", "#E3E3E2").style("opacity", 1)
-    //  d3.select(this).transition().style("opacity", 0)
+      //  d3.select(this).transition().style("opacity", 0)
 
 
       let x1 = d.source.x //x Punkt A
@@ -551,12 +641,24 @@ function unfoldingEdges (d,i){
         .join("path")
         .style("fill", "none")
         .attr("stroke-width", function() {
-          return 1.5//(zoomlevel > 1) ? 1.5 / zoomlevel : 1.5
+          return 1 //(zoomlevel > 1) ? 1.5 / zoomlevel : 1.5
         })
         .attr("class", "linkChild")
         .style("stroke", function(D, I) {
-          return "red"
-
+          console.log(D)
+          if (D.category.includes("Cinema and Theatre")== true && D.category.includes("Biography and Personality") == false && D.category.includes("Writing and Teaching") == false){
+            return "#002fa7"
+          }else if (D.category.includes("Cinema and Theatre")== false && D.category.includes("Biography and Personality") == true && D.category.includes("Writing and Teaching") == false){
+              return "#fdd55c"
+            }else if (D.category.includes("Cinema and Theatre")== false && D.category.includes("Biography and Personality") == false && D.category.includes("Writing and Teaching") == true){
+                return "#ed563b"
+              }else if (D.category.includes("Cinema and Theatre")== true && D.category.includes("Biography and Personality") == false && D.category.includes("Writing and Teaching") == true){
+                  return "#774371"
+                }else if (D.category.includes("Cinema and Theatre")== true && D.category.includes("Biography and Personality") == true && D.category.includes("Writing and Teaching") == false){
+                    return "rgb(96, 167, 105)"
+                  }else if (D.category.includes("Cinema and Theatre")== false && D.category.includes("Biography and Personality") == true && D.category.includes("Writing and Teaching") == true){
+                      return "#f5964c"
+                    }else{return "grey"}
         })
         .attr("d", function(D, I) {
           let x1 = d.source.x //x Punkt A
@@ -623,62 +725,62 @@ function unfoldingEdges (d,i){
 
 
 
-    ///////edge unfolding end
-    ////////////////////////////////////////////////
+      ///////edge unfolding end
+      ////////////////////////////////////////////////
 
 
-}
+    }
 
-//http://walter.bislins.ch/blog/index.asp?page=Schnittpunkte+zweier+Kreise+berechnen+%28JavaScript%29
-//Intersect2Circles function start: find point using 2 points and 2 edge lengths
-function Intersect2Circles(A, a, B, b) {
-  // A, B = [ x, y ]
-  // return = [ Q1, Q2 ] or [ Q ] or [] where Q = [ x, y ]
-  var AB0 = B[0] - A[0];
-  var AB1 = B[1] - A[1];
-  var c = Math.sqrt(AB0 * AB0 + AB1 * AB1);
-  if (c == 0) {
-    // no distance between centers
-    return [];
-  }
-  var x = (a * a + c * c - b * b) / (2 * c);
-  var y = a * a - x * x;
-  if (y < 0) {
-    // no intersection
-    return [];
-  }
-  if (y > 0) y = Math.sqrt(y);
-  // compute unit vectors ex and ey
-  var ex0 = AB0 / c;
-  var ex1 = AB1 / c;
-  var ey0 = -ex1;
-  var ey1 = ex0;
-  var Q1x = A[0] + x * ex0;
-  var Q1y = A[1] + x * ex1;
-  if (y == 0) {
-    // one touch point
-    return [
-      [Q1x, Q1y]
-    ];
-  }
-  // two intersections
-  var Q2x = Q1x - y * ey0;
-  var Q2y = Q1y - y * ey1;
-  Q1x += y * ey0;
-  Q1y += y * ey1;
-  return [
-    [Q1x, Q1y],
-    [Q2x, Q2y]
-  ];
-}
-//Intersect2Circles function end
-////////////////////////////////
+    //http://walter.bislins.ch/blog/index.asp?page=Schnittpunkte+zweier+Kreise+berechnen+%28JavaScript%29
+    //Intersect2Circles function start: find point using 2 points and 2 edge lengths
+    function Intersect2Circles(A, a, B, b) {
+      // A, B = [ x, y ]
+      // return = [ Q1, Q2 ] or [ Q ] or [] where Q = [ x, y ]
+      var AB0 = B[0] - A[0];
+      var AB1 = B[1] - A[1];
+      var c = Math.sqrt(AB0 * AB0 + AB1 * AB1);
+      if (c == 0) {
+        // no distance between centers
+        return [];
+      }
+      var x = (a * a + c * c - b * b) / (2 * c);
+      var y = a * a - x * x;
+      if (y < 0) {
+        // no intersection
+        return [];
+      }
+      if (y > 0) y = Math.sqrt(y);
+      // compute unit vectors ex and ey
+      var ex0 = AB0 / c;
+      var ex1 = AB1 / c;
+      var ey0 = -ex1;
+      var ey1 = ex0;
+      var Q1x = A[0] + x * ex0;
+      var Q1y = A[1] + x * ex1;
+      if (y == 0) {
+        // one touch point
+        return [
+          [Q1x, Q1y]
+        ];
+      }
+      // two intersections
+      var Q2x = Q1x - y * ey0;
+      var Q2y = Q1y - y * ey1;
+      Q1x += y * ey0;
+      Q1y += y * ey1;
+      return [
+        [Q1x, Q1y],
+        [Q2x, Q2y]
+      ];
+    }
+    //Intersect2Circles function end
+    ////////////////////////////////
 
 
     function ticked(d) {
       //if (simulation.alpha() == 1) {
       //    simulation.stop()
-    //  position the nodes based on the simulated x y
+      //  position the nodes based on the simulated x y
       d3.selectAll(".node")
         .attr("cx", function(d) {
           return d.x;
@@ -687,19 +789,21 @@ function Intersect2Circles(A, a, B, b) {
           return d.y;
         })
 
-        d3.selectAll(".label")
-          .attr("x", function(d) {
-            return d.x;
-          })
-          .attr("y", function(d) {
-            return d.y;
-          })
+      d3.selectAll(".label")
+        .attr("x", function(d) {
+          return d.x;
+        })
+        .attr("y", function(d) {
+          return d.y;
+        })
 
-          d3.selectAll(".nodeSymbol")
-          .attr("transform",function(d) { return 'translate('+d.x+','+d.y+')';})
+      d3.selectAll(".nodeSymbol")
+        .attr("transform", function(d) {
+          return 'translate(' + d.x + ',' + d.y + ')';
+        })
 
 
-        //also use the x, y of the links for the lines. x1 and y1 are for the source node, x2 and y2 for the target node
+      //also use the x, y of the links for the lines. x1 and y1 are for the source node, x2 and y2 for the target node
       d3.selectAll(".link")
         .attr("x1", function(d) {
           return d.source.x
@@ -713,7 +817,7 @@ function Intersect2Circles(A, a, B, b) {
         .attr("y2", function(d) {
           return d.target.y
         });
-//}
+      //}
     }
 
-});
+  });
