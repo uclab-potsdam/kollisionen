@@ -329,6 +329,139 @@ Promise.all([
     console.log(links)
     console.log(nodes)
 
+    nodes.sort(function(a, b) {
+      return b.count - a.count;
+    })
+
+    ///////////////////search
+
+
+
+var searchDaten = [
+{
+text: "People",
+children:[]
+},
+{
+text: "Places",
+children:[]
+},
+{
+text: "Artistic",
+children:[]
+},
+{
+text: "Additional",
+children:[]
+},
+{
+text: "Works",
+children:[]
+},
+
+];
+
+
+nodes.filter(function(d){return d.category == "people"}).forEach(function(d,i){
+  searchDaten[0].children.push(
+    {id:i,
+    text:d.name + " ("+d.count+")",
+    name:d.name,
+    category: "people",
+    count:d.count,}
+  )
+})
+
+nodes.filter(function(d){return d.category == "places"}).forEach(function(d,i){
+  searchDaten[1].children.push(
+    {id:i,
+      text:d.name + " ("+d.count+")",
+      name:d.name,
+      category: "places",
+    count:d.count,}
+  )
+})
+
+nodes.filter(function(d){return d.category == "artistic"}).forEach(function(d,i){
+  searchDaten[2].children.push(
+    {id:i,
+      text:d.name + " ("+d.count+")",
+      name:d.name,
+      category: "artistic",
+    count:d.count,}
+  )
+})
+
+nodes.filter(function(d){return d.category == "additional"}).forEach(function(d,i){
+  searchDaten[3].children.push(
+    {id:i,
+      text:d.name + " ("+d.count+")",
+      name:d.name,
+      category: "additional",
+    count:d.count,}
+  )
+})
+
+nodes.filter(function(d){return d.category == "works"}).forEach(function(d,i){
+  searchDaten[4].children.push(
+    {id:i,
+      text:d.name + " ("+d.count+")",
+      name:d.name,
+      category: "works",
+      count:d.count,}
+  )
+})
+
+////search
+$("#search").select2({
+  data: searchDaten,
+  containerCssClass: "search",
+  selectOnClose: true,
+  placeholder: "Search Keywords",
+  allowClear: true
+
+});
+
+  $("#search").on("select2-selecting", function(e) {
+    console.log(e.choice.name)
+    console.log(e.choice.category)
+    d3.select("#eventList").selectAll("p").classed("filteredin",false)
+
+    if (e.choice.category == "people"){
+      d3.select("#eventList").selectAll("p").style("display", function(d){
+        if(d.people.includes(e.choice.name)){return "block"}else{return "none"}})
+        .classed("filteredin", function(d){
+          if(d.people.includes(e.choice.name)){return true}else{return false}})
+    }else if (e.choice.category == "places"){
+          d3.select("#eventList").selectAll("p").style("display", function(d){
+            if(d.places.includes(e.choice.name)){return "block"}else{return "none"}})
+            .classed("filteredin", function(d){
+              if(d.places.includes(e.choice.name)){return true}else{return false}})
+          }else if (e.choice.category == "artistic"){
+                d3.select("#eventList").selectAll("p").style("display", function(d){
+                  if(d.artistic.includes(e.choice.name)){return "block"}else{return "none"}})
+                  .classed("filteredin", function(d){
+                    if(d.artistic.includes(e.choice.name)){return true}else{return false}})
+                  }else if (e.choice.category == "additional"){
+                        d3.select("#eventList").selectAll("p").style("display", function(d){
+                          if(d.additional.includes(e.choice.name)){return "block"}else{return "none"}})
+                          .classed("filteredin", function(d){
+                            if(d.additional.includes(e.choice.name)){return true}else{return false}})
+                          }else if (e.choice.category == "works"){
+                                d3.select("#eventList").selectAll("p").style("display", function(d){
+                                  if(d.works.includes(e.choice.name)){return "block"}else{return "none"}})
+                                  .classed("filteredin", function(d){
+                                    if(d.works.includes(e.choice.name)){return true}else{return false}})
+                              }
+
+
+    itemSelection()
+  })
+
+
+
+
+
 
 
     simulation
@@ -437,42 +570,45 @@ Promise.all([
     d3.select("#eventList").selectAll("p")
       .data(networkData)
       .join("p")
+      .classed("filteredin",true)
       .text(function(d) {
         return d.title + " (" + d.start + "–" + d.end + ")"
       })
 
 
-    console.log(d3.select("#eventList").selectAll("p")
-      .filter(function(d) {
-        return d3.select(this).node().getBoundingClientRect().top >= 0 && d3.select(this).node().getBoundingClientRect().bottom <= (window.innerHeight || document.documentElement.clientHeight)
-      })._groups[0].length
-
-    )
+    //console.log(d3.select("#eventList").selectAll("p")
+    //   .filter(function(d) {
+    //     return d3.select(this).node().getBoundingClientRect().top >= 0 && d3.select(this).node().getBoundingClientRect().bottom <= (window.innerHeight || document.documentElement.clientHeight)
+    //   })._groups[0].length
+    //
+    // )
 
 
 
 
 
     function itemSelection() {
-      let firstItem = new Date(d3.select("#eventList").selectAll("p")
+      let firstItem = new Date(d3.select("#eventList").selectAll("p").filter(".filteredin")
         .filter(function(d) {
           return d3.select(this).node().getBoundingClientRect().top >= 0 && d3.select(this).node().getBoundingClientRect().bottom <= (window.innerHeight || document.documentElement.clientHeight)
         })._groups[0][0].__data__.vstart)
 
-      let visibleItemCount = d3.select("#eventList").selectAll("p")
+      let visibleItemCount = d3.select("#eventList").selectAll("p").filter(".filteredin")
         .filter(function(d) {
           return d3.select(this).node().getBoundingClientRect().top >= 0 && d3.select(this).node().getBoundingClientRect().bottom <= (window.innerHeight || document.documentElement.clientHeight)
         })._groups[0].length
 
-      let lastItem = new Date(d3.select("#eventList").selectAll("p")
+      let lastItem = new Date(d3.select("#eventList").selectAll("p").filter(".filteredin")
         .filter(function(d) {
           return d3.select(this).node().getBoundingClientRect().top >= 0 && d3.select(this).node().getBoundingClientRect().bottom <= (window.innerHeight || document.documentElement.clientHeight)
         })._groups[0][visibleItemCount - 1].__data__.vstart)
-      console.log(firstItem)
+
+     console.log(firstItem)
+     console.log(lastItem)
 
       //d3.selectAll(".node").style("display", "none")
       d3.selectAll(".link").style("display", function(d) {
-        console.log(d)
+  //      console.log(d)
         if (d.children[0].dateStart >= firstItem && d.children[0].dateStart <= lastItem) {
           return "block"
         } else {
@@ -561,7 +697,7 @@ Promise.all([
       ///////edge unfolding start
       ////////////////////////////////////////////////
 
-      console.log(d)
+      //console.log(d)
 
       d3.selectAll(".link").transition().style("stroke", "#E3E3E2").style("opacity", 1)
       //  d3.select(this).transition().style("opacity", 0)
@@ -645,7 +781,7 @@ Promise.all([
         })
         .attr("class", "linkChild")
         .style("stroke", function(D, I) {
-          console.log(D)
+        //  console.log(D)
           if (D.category.includes("Cinema and Theatre")== true && D.category.includes("Biography and Personality") == false && D.category.includes("Writing and Teaching") == false){
             return "#002fa7"
           }else if (D.category.includes("Cinema and Theatre")== false && D.category.includes("Biography and Personality") == true && D.category.includes("Writing and Teaching") == false){

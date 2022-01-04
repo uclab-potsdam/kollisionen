@@ -9,7 +9,11 @@
   <!-- <link rel="stylesheet" href="../standard-style.css"> -->
   <link rel="stylesheet" href="../index.css">
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" type="text/css" href="https://uclab.fh-potsdam.de/ff/css/select2.css">
   <script src="https://d3js.org/d3.v6.js"></script>
+  <script src="https://uclab.fh-potsdam.de/ff/js/jquery.min.js"></script>
+  <script src="https://uclab.fh-potsdam.de/ff/js/select2.min.js"></script>
+
 <style>
 #eventList{
 left:0;
@@ -34,6 +38,47 @@ overflow-y: auto;
   --biowrit: #f5964c;
   --allcat: #000000;
 }
+
+/*
+        * === SEARCH BOX===
+        */
+.searchiconbg {
+  background-color: lightgrey;
+  height: 24px;
+  margin-top: 0px;
+  margin-left: 13px;
+}
+
+#search-icon {
+  position: relative;
+  margin-top: 3px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #474747;
+}
+
+.search {
+  position: relative;
+  width: 300px;
+  font-size: 1em;
+  margin-left: 0px;
+  margin-top: 20px;
+  border: 0;
+}
+.search-container {
+  margin-top:0;
+  z-index:3;
+  display: block;
+  position: fixed;
+  top:0;
+  left: calc(50% - 125px);
+}
+
+#chart{
+  z-index:0;
+}
+
+
 </style>
 </head>
 
@@ -41,6 +86,9 @@ overflow-y: auto;
 
   <div id="chart">
 
+  </div>
+  <div class="search-container">
+    <div id="search"></div>
   </div>
 
   <div id="header">
