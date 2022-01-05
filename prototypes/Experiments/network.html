@@ -13,73 +13,6 @@
   <script src="https://d3js.org/d3.v6.js"></script>
   <script src="https://uclab.fh-potsdam.de/ff/js/jquery.min.js"></script>
   <script src="https://uclab.fh-potsdam.de/ff/js/select2.min.js"></script>
-
-<style>
-#eventList{
-left:0;
-top:0;
-width: 300px;
-height: 100%;
-position:fixed;
-display: block;
-background-color: white;
-z-index:200;
-overflow-y: auto;
-}
-
-:root {
-  --cinema: #002fa7;
-  --biography: #fdd55c;
-  --writing: #ed563b;
-  --graphic: #3caea3;
-  --apartment: #922598;
-  --cinewrit: #774371;
-  --cinebio: #7f8282;
-  --biowrit: #f5964c;
-  --allcat: #000000;
-}
-
-/*
-        * === SEARCH BOX===
-        */
-.searchiconbg {
-  background-color: lightgrey;
-  height: 24px;
-  margin-top: 0px;
-  margin-left: 13px;
-}
-
-#search-icon {
-  position: relative;
-  margin-top: 3px;
-  padding-left: 5px;
-  padding-right: 5px;
-  color: #474747;
-}
-
-.search {
-  position: relative;
-  width: 300px;
-  font-size: 1em;
-  margin-left: 0px;
-  margin-top: 20px;
-  border: 0;
-}
-.search-container {
-  margin-top:0;
-  z-index:3;
-  display: block;
-  position: fixed;
-  top:0;
-  left: calc(50% - 125px);
-}
-
-#chart{
-  z-index:0;
-}
-
-
-</style>
 </head>
 
 <body>
@@ -104,7 +37,7 @@ overflow-y: auto;
   </div> -->
 </div>
 
-  <div id="legend1">
+  <!-- <div id="legend1">
     <h2 id="soundheadline">Sound</h2>
     <label class="switch">
     <input type="checkbox" id="soundcheckbox">
@@ -124,7 +57,7 @@ overflow-y: auto;
         <p class="f_g filter"> <span class="key-dot graphic"></span>Graphic Art </p>
         <p class="f_d filter"> <span class="key-dot apartment"></span>Apartment </p>
 
-  </div>
+  </div> -->
 
   <div id="sidebar">  <p id="closedsidebar" style="display:none">✕</p></div>
   <div id="eventList"></div>
