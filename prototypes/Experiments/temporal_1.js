@@ -61,7 +61,7 @@ var svg = d3.select("#chart").append("svg")
   .append("g")
   .classed("zoomG", true)
   .append("g")
-  .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")")
+  .attr("transform", "translate(" + width / 2 + "," + (60+height / 2) + ")")
 
 //blur filter
 const svgFilters = svg.append("defs")
@@ -200,22 +200,22 @@ Promise.all([
     // fix date ranges - 04, 06, 09, 11 = 30
     // else 28 (except leap years)
 
-    if ((spiralData[i]["uncertaintyend"] == 1 && endA[1] == "01") || 
-    (spiralData[i]["uncertaintyend"] == 1 && endA[1] == "03") || 
-    (spiralData[i]["uncertaintyend"] == 1 && endA[1] == "05") || 
-    (spiralData[i]["uncertaintyend"] == 1 && endA[1] == "07") || 
-    (spiralData[i]["uncertaintyend"] == 1 && endA[1] == "08") || 
-    (spiralData[i]["uncertaintyend"] == 1 && endA[1] == "10") || 
+    if ((spiralData[i]["uncertaintyend"] == 1 && endA[1] == "01") ||
+    (spiralData[i]["uncertaintyend"] == 1 && endA[1] == "03") ||
+    (spiralData[i]["uncertaintyend"] == 1 && endA[1] == "05") ||
+    (spiralData[i]["uncertaintyend"] == 1 && endA[1] == "07") ||
+    (spiralData[i]["uncertaintyend"] == 1 && endA[1] == "08") ||
+    (spiralData[i]["uncertaintyend"] == 1 && endA[1] == "10") ||
     (spiralData[i]["uncertaintyend"] == 1 && endA[1] == "12"))  {
    spiralData[i]["vend"] = endA[0] + "-" + endA[1] + "-31";
- } else if ((spiralData[i]["uncertaintyend"] == 1 && endA[1] == "04") || 
+ } else if ((spiralData[i]["uncertaintyend"] == 1 && endA[1] == "04") ||
             (spiralData[i]["uncertaintyend"] == 1 && endA[1] == "06") ||
             (spiralData[i]["uncertaintyend"] == 1 && endA[1] == "09") ||
             (spiralData[i]["uncertaintyend"] == 1 && endA[1] == "11")) {
    spiralData[i]["vend"] = endA[0] + "-" + endA[1] + "-30";
  } else if (spiralData[i]["uncertaintyend"] == 1 && endA[1] =="02" && endA[0] % 4 === 0) {
    spiralData[i]["vend"] = endA[0] + "-" + endA[1] + "-29";
- } 
+ }
 //  else spiralData[i]["vend"] = endA[0] + "-" + endA[1] + "-28";
 
 if (spiralData[i]["uncertaintyend"] == 2) spiralData[i]["vend"] = endA[0] + "-12-31"; // it is currently also doing this "-undefined-28"
@@ -389,6 +389,313 @@ if (spiralData[i]["uncertaintyend"] == 2) spiralData[i]["vend"] = endA[0] + "-12
     Using this scale numSpiralsThetaScale(d.vend) - numSpiralsThetaScale(d.vstart) -> number of spirals needed
     */
 
+
+
+    ///////////////////search
+
+
+    let nodes = []
+    let links = []
+
+    spiralData.forEach(function(d, i) {
+
+      let peopleNodes = d.people == "" ? [] : d.people.split(";")
+      let placesNodes = d.places == "" ? [] : d.places.split(";")
+      let worksNodes = d.works == "" ? [] : d.works.split(";")
+      //let projectNodes = d.project == "" ? [] : d.project.split(";")
+      let artisticNodes = d.artistic == "" ? [] : d.artistic.split(";")
+      let additionalNodes = d.additional == "" ? [] : d.additional.split(";")
+
+      //add people to nodes
+      peopleNodes.forEach(function(D) {
+        if (nodes.filter(function(x) {
+            return x.name == D
+          }).length == 0) {
+          nodes.push({
+            name: D,
+            count: 1,
+            category: "people"
+          })
+        } else {
+          nodes.filter(function(x) {
+            return x.name == D
+          })[0].count++
+        }
+      })
+
+
+      //add places to nodes
+      placesNodes.forEach(function(D) {
+        if (nodes.filter(function(x) {
+            return x.name == D
+          }).length == 0) {
+          nodes.push({
+            name: D,
+            count: 1,
+            category: "places"
+          })
+        } else {
+          nodes.filter(function(x) {
+            return x.name == D
+          })[0].count++
+        }
+      })
+
+      //add works to nodes
+      worksNodes.forEach(function(D) {
+        if (nodes.filter(function(x) {
+            return x.name == D
+          }).length == 0) {
+          nodes.push({
+            name: D,
+            count: 1,
+            category: "works"
+          })
+        } else {
+          nodes.filter(function(x) {
+            return x.name == D
+          })[0].count++
+        }
+      })
+
+      // //add project to nodes
+      // projectNodes.forEach(function(D){
+      //   if (nodes.filter(function(x){return x.name == D}).length == 0){
+      //     nodes.push({
+      //       name: D,
+      //       count: 1,
+      //       category: "project"
+      //     })
+      //   }else{
+      //     nodes.filter(function(x){return x.name == D})[0].count++
+      //   }
+      // })
+
+      //add artistic to nodes
+      artisticNodes.forEach(function(D) {
+        if (nodes.filter(function(x) {
+            return x.name == D
+          }).length == 0) {
+          nodes.push({
+            name: D,
+            count: 1,
+            category: "artistic"
+          })
+        } else {
+          nodes.filter(function(x) {
+            return x.name == D
+          })[0].count++
+        }
+      })
+
+      //add additional to nodes
+      additionalNodes.forEach(function(D) {
+        if (nodes.filter(function(x) {
+            return x.name == D
+          }).length == 0) {
+          nodes.push({
+            name: D,
+            count: 1,
+            category: "additional"
+          })
+        } else {
+          nodes.filter(function(x) {
+            return x.name == D
+          })[0].count++
+        }
+      })
+
+      let allNodes = [].concat(peopleNodes, placesNodes, worksNodes, artisticNodes, additionalNodes)
+
+      //create combinations of source+targets out of all "objects"
+      //https://stackoverflow.com/questions/43241174/javascript-generating-all-combinations-of-elements-in-a-single-array-in-pairs
+      allNodes.flatMap(
+        function(v, i) {
+          return allNodes.slice(i + 1).forEach(function(w) {
+            //  console.log( v + '+ ' + w )
+            if (links.filter(function(D) {
+                return (D.source == v && D.target == w) || D.source == w && D.target == v
+              }).length == 0) {
+              links.push({
+                source: v,
+                target: w,
+                children: [{
+                  source: v,
+                  target: w,
+                  category: d.category,
+                  dateStart: new Date(d.vstart),
+                  dateEnd: new Date(d.vend),
+                  relation_source: d.title,
+                  description: d.description
+                }],
+              })
+            } else {
+              links.filter(function(D) {
+                return (D.source == v && D.target == w) || D.source == w && D.target == v
+              })[0].children.push({
+                source: v,
+                target: w,
+                category: d.category,
+                dateStart: new Date(d.vstart),
+                dateEnd: new Date(d.vend),
+                relation_source: d.title,
+                description: d.description
+              })
+
+            }
+
+          })
+        }
+      )
+
+
+
+    })
+
+    console.log(links)
+    console.log(nodes)
+
+    nodes.sort(function(a, b) {
+      return b.count - a.count;
+    })
+
+    ///////////////////search
+
+
+
+  let searchDaten = [
+  {
+  text: "People",
+  children:[]
+  },
+  {
+  text: "Places",
+  children:[]
+  },
+  {
+  text: "Artistic",
+  children:[]
+  },
+  {
+  text: "Additional",
+  children:[]
+  },
+  {
+  text: "Works",
+  children:[]
+  },
+
+  ];
+
+
+  nodes.filter(function(d){return d.category == "people"}).forEach(function(d,i){
+  searchDaten[0].children.push(
+    {id:i,
+    text:d.name + " ("+d.count+")",
+    name:d.name,
+    category: "people",
+    count:d.count,}
+  )
+  })
+
+  nodes.filter(function(d){return d.category == "places"}).forEach(function(d,i){
+  searchDaten[1].children.push(
+    {id:i,
+      text:d.name + " ("+d.count+")",
+      name:d.name,
+      category: "places",
+    count:d.count,}
+  )
+  })
+
+  nodes.filter(function(d){return d.category == "artistic"}).forEach(function(d,i){
+  searchDaten[2].children.push(
+    {id:i,
+      text:d.name + " ("+d.count+")",
+      name:d.name,
+      category: "artistic",
+    count:d.count,}
+  )
+  })
+
+  nodes.filter(function(d){return d.category == "additional"}).forEach(function(d,i){
+  searchDaten[3].children.push(
+    {id:i,
+      text:d.name + " ("+d.count+")",
+      name:d.name,
+      category: "additional",
+    count:d.count,}
+  )
+  })
+
+  nodes.filter(function(d){return d.category == "works"}).forEach(function(d,i){
+  searchDaten[4].children.push(
+    {id:i,
+      text:d.name + " ("+d.count+")",
+      name:d.name,
+      category: "works",
+      count:d.count,}
+  )
+  })
+
+  ////search
+  $("#search").select2({
+  data: searchDaten,
+  containerCssClass: "search",
+  selectOnClose: true,
+  placeholder: "Search events based on keywords",
+  allowClear: true
+
+  });
+
+
+  $("#search").on("select2-selecting", function(e) {
+    console.log(e.choice.name)
+    console.log(e.choice.category)
+
+    d3.selectAll("circle").classed("filteredout", function(d){
+      if (e.choice.category == "people"){
+        if(d.people.includes(e.choice.name)){return false}else{return true}
+      }else if (e.choice.category == "places"){
+          if(d.places.includes(e.choice.name)){return false}else{return true}
+        }else if (e.choice.category == "artistic"){
+            if(d.artistic.includes(e.choice.name)){return false}else{return true}
+          }else if (e.choice.category == "additional"){
+              if(d.additional.includes(e.choice.name)){return false}else{return true}
+            }else if (e.choice.category == "works"){
+                if(d.works.includes(e.choice.name)){return false}else{return true}
+              }})
+
+              d3.selectAll(".pathGs").classed("filteredout", function(d){
+                if (e.choice.category == "people"){
+                  if(d.people.includes(e.choice.name)){return false}else{return true}
+                }else if (e.choice.category == "places"){
+                    if(d.places.includes(e.choice.name)){return false}else{return true}
+                  }else if (e.choice.category == "artistic"){
+                      if(d.artistic.includes(e.choice.name)){return false}else{return true}
+                    }else if (e.choice.category == "additional"){
+                        if(d.additional.includes(e.choice.name)){return false}else{return true}
+                      }else if (e.choice.category == "works"){
+                          if(d.works.includes(e.choice.name)){return false}else{return true}
+                        }})
+
+
+  })
+
+
+$("#search").on("select2-clearing", function(e) {
+  d3.selectAll(".pathGs").classed("filteredout",false)
+  d3.selectAll("circle").classed("filteredout",false)
+})
+
+
+
+
+
+
+
+
+
     //this is the code for the arcs
 
     const pathG = svg.append("g").classed("pathG", true)
@@ -437,7 +744,7 @@ if (spiralData[i]["uncertaintyend"] == 2) spiralData[i]["vend"] = endA[0] + "-12
           // .classed("graphic", spiralData[i].category4 == true ? true : false)
           // .classed("apartment", spiralData[i].category5 == true ? true : false)
           .classed("cinema", function () {
-            if (spiralData[i].category1 == true && spiralData[i].category2 == false && spiralData[i].category3 == false) 
+            if (spiralData[i].category1 == true && spiralData[i].category2 == false && spiralData[i].category3 == false)
             {
             return true;
           } return false;
@@ -513,7 +820,7 @@ let circles = circleG.selectAll("g")
       .append("circle")
       .classed("circles", true)
       .classed("cinema", function (d) {
-        if (d.category1 == true && d.category2 == false && d.category3 == false) 
+        if (d.category1 == true && d.category2 == false && d.category3 == false)
         {
         return true;
       } return false;

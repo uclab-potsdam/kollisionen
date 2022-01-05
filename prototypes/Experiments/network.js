@@ -337,7 +337,7 @@ Promise.all([
 
 
 
-var searchDaten = [
+let searchDaten = [
 {
 text: "People",
 children:[]
