@@ -193,15 +193,13 @@ var yScale = d3.scaleLinear()
 
 // create timeline for events in d.vstart and v.vend
 
-
-
     var backgroundTimelineG = svg.append("g").classed("backgroundTimelineG", true)
 
     var timeLine = backgroundTimelineG.append("line")
-        .attr("x1", 500)
-        .attr("y1", 0) //to be fixed later
-        .attr("x2", 500)
-        .attr("y2", height) //to be fixed later
+        .attr("x1", 100)
+        .attr("y1", 100) //to be fixed later
+        .attr("x2", width)
+        .attr("y2", 100) //to be fixed later
         .attr("stroke", "white")
         .attr("stroke-width", 1)
         .attr("stroke-dasharray", "5,5");
@@ -223,7 +221,7 @@ var yScale = d3.scaleLinear()
 
 // create a timeline for each keyword in the keywordsCount array when it matches a keyword in keywordsData.people, keywordsData.places, keywordsData.works, keywordsData.artistic, keywordsData.additional but filtered only to show data matching that keyword
 
-for (let i = 0; i < keywordsCount.length; i++) {
+// for (let i = 0; i < keywordsCount.length; i++) {
 
 // if (keywordsCount[i] == keywordsData[i].people || keywordsData[i].places || keywordsData[i].works || keywordsData[i].artistic || keywordsData[i].additional) { 
 
@@ -236,16 +234,50 @@ for (let i = 0; i < keywordsCount.length; i++) {
   //   return d.people.includes(keywordsCount[i]) || d.places.includes(keywordsCount[i]) || d.works.includes(keywordsCount[i]) || d.artistic.includes(keywordsCount[i]) || d.additional.includes(keywordsCount[i]);
   // });
 
+//5 timelines to show the potential varieties of distribution of keywords
+//Que viva Mexico - 140
+//Travels - 58
+//Battleship Potempkin - 22
+//Shakespeare - 6
+//Dreams - 1
+
+//Timeline 1 - Que viva Mexico
+
+  // var filteredData = keywordsData.filter(function(d) {
+  //   return d.people.includes("¡Que viva México!	") || d.places.includes("¡Que viva México!	") || d.works.includes("¡Que viva México!	") || d.artistic.includes("¡Que viva México!	") || d.additional.includes("¡Que viva México!	");
+  // });
+
+  if(function (d) {
+    return keywordsData.filter(function (d) {
+      return d.uncertaintystart === 0 && d.end === "" && d.start.includes("/") == false && d.start.includes(",") == false && d.start != "" //took out some data points that create errors for now
+    });
+  }){
+  
+
         const circleG = svg.append("g").classed("circleG", true)
 
         let circles = circleG.selectAll("g")
 
-        .datum(filteredData)
+        // .data(function (d) {
+        //     return keywordsData.filter(function (d) {
+        //       return d.uncertaintystart === 0 && d.end === "" && d.start.includes("/") == false && d.start.includes(",") == false && d.start != "" //took out some data points that create errors for now
+        //     });
+        //   })
+        // .data(function (d) {
+        //   return keywordsData.filter(function(d) {
+        //   return d.people.includes("¡Que viva México!") || d.places.includes("¡Que viva México!") || d.works.includes("¡Que viva México!") || d.artistic.includes("¡Que viva México!") || d.additional.includes("¡Que viva México!");
+        // });
+        // })
+        // .data(function (d) {
+        //   return keywordsData.filter(function(d) {
+        //   return d.people.includes("Travels") || d.places.includes("Travels") || d.works.includes("Travels") || d.artistic.includes("Travels") || d.additional.includes("Travels");
+        // });
+        // })
         .data(function (d) {
-            return keywordsData.filter(function (d) {
-              return d.uncertaintystart === 0 && d.end === "" && d.start.includes("/") == false && d.start.includes(",") == false && d.start != "" //took out some data points that create errors for now
-            });
-          })
+          return keywordsData.filter(function(d) {
+          return d.people.includes("General Line") || d.places.includes("General Line") || d.works.includes("General Line") || d.artistic.includes("General Line") || d.additional.includes("General Line");
+        });
+        })
         .join("g")
         .append("circle")
         .classed("circles", true)
@@ -310,14 +342,28 @@ for (let i = 0; i < keywordsCount.length; i++) {
       .attr("r", 5) // radius of circle
       .attr("opacity", 1)
 
-      const pathG = svg.append("g").classed("pathG", true)
+      const lineG = svg.append("g").classed("lineG", true)
 
       for (let i = 0; i < keywordsData.length; i++) {
 
         if (keywordsData[i].vend != "") {
-            d3.select(".pathG").append("g").classed("pathGs", true)
+            d3.select(".lineG").append("g").classed("lineGs", true)
           .append("line")
-          .data(keywordsData)
+          // .data(function (d) {
+          //   return keywordsData.filter(function(d) {
+          //   return d.people.includes("¡Que viva México!") || d.places.includes("¡Que viva México!") || d.works.includes("¡Que viva México!") || d.artistic.includes("¡Que viva México!") || d.additional.includes("¡Que viva México!");
+          // });
+          // })
+          // .data(function (d) {
+          //   return keywordsData.filter(function(d) {
+          //   return d.people.includes("Travels") || d.places.includes("Travels") || d.works.includes("Travels") || d.artistic.includes("Travels") || d.additional.includes("Travels");
+          // });
+          // })
+          .data(function (d) {
+            return keywordsData.filter(function(d) {
+            return d.people.includes("General Line") || d.places.includes("General Line") || d.works.includes("General Line") || d.artistic.includes("General Line") || d.additional.includes("General Line");
+          });
+          })
           .classed("cinema", function () {
             if (keywordsData[i].category1 == true && keywordsData[i].category2 == false && keywordsData[i].category3 == false) 
             {
@@ -360,7 +406,19 @@ for (let i = 0; i < keywordsCount.length; i++) {
             return true;
           } return false;
           })
-          .attr("x1", 500)
+          .attr("x1", function(d,i){
+
+            // linePer is the position of cirlce/data on timeline
+            
+            var linePerStart = timeScaleStart(d.vstart),
+                posOnLineStart = timeLine.node().getPointAtLength(linePerStart);
+          
+                d.linePerStart = linePerStart; // % distance on the timeline
+                d.cx = posOnLineStart.x; // x postion on the timeline
+                d.cy = posOnLineStart.y; // y position on the timeline
+    
+            return d.cx;
+          })
             .attr("y1", function(d,i){
 
             // linePer is the position of cirlce/data on timeline
@@ -374,17 +432,29 @@ for (let i = 0; i < keywordsCount.length; i++) {
     
             return d.cy;
           })
-            .attr("x2", 500)
+            .attr("x2", function(d,i){
+
+              // linePer is the position of cirlce/data on timeline
+              
+              var linePerEnd = timeScaleStart(d.vend),
+                  posOnLineEnd = timeLine.node().getPointAtLength(linePerEnd);
+            
+                  d.linePerEnd = linePerEnd; // % distance on the timeline
+                  d.cx = posOnLineEnd.x; // x postion on the timeline
+                  d.cy = posOnLineEnd.y; // y position on the timeline
+      
+              return d.cx;
+            })
             .attr("y2", function(d,i){
 
                 // linePer is the position of cirlce/data on timeline
                 
-                var linePerStart = timeScaleEnd(d.vend),
-                    posOnLineStart = timeLine.node().getPointAtLength(linePerStart);
+                var linePerEnd = timeScaleEnd(d.vend),
+                    posOnLineEnd = timeLine.node().getPointAtLength(linePerEnd);
               
-                    d.linePerStart = linePerStart; // % distance on the timeline
-                    d.cx = posOnLineStart.x; // x postion on the timeline
-                    d.cy = posOnLineStart.y; // y position on the timeline
+                    d.linePerend = linePerEnd; // % distance on the timeline
+                    d.cx = posOnLineEnd.x; // x postion on the timeline
+                    d.cy = posOnLineEnd.y; // y position on the timeline
         
                 return d.cy;
               })
@@ -392,12 +462,14 @@ for (let i = 0; i < keywordsCount.length; i++) {
 }
 
 }
-};
+// };
+
+
+  }
 
 
 
-
-
+ 
       }
 
-  })
+  )
