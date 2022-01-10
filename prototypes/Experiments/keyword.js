@@ -197,13 +197,16 @@ var yScale = d3.scaleLinear()
 
     var timeLine = backgroundTimelineG.append("line")
         .attr("x1", 100)
-        .attr("y1", 100) //to be fixed later
+        .attr("y1", 100) //to be fixed later needs to be linked to a y scale
         .attr("x2", width)
-        .attr("y2", 100) //to be fixed later
+        .attr("y2", 100) //to be fixed later needs to be linked to a y scale
         .attr("stroke", "white")
         .attr("stroke-width", 1)
         .attr("stroke-dasharray", "5,5");
     
+
+// for positioning the events on the timeline
+
         var lineLength = timeLine.node().getTotalLength()
 
         var timeScaleStart = d3.scaleLinear()
@@ -218,20 +221,18 @@ var yScale = d3.scaleLinear()
         }))
         .range([0, lineLength]);
 
-
 // create a timeline for each keyword in the keywordsCount array when it matches a keyword in keywordsData.people, keywordsData.places, keywordsData.works, keywordsData.artistic, keywordsData.additional but filtered only to show data matching that keyword
 
 // for (let i = 0; i < keywordsCount.length; i++) {
 
-// if (keywordsCount[i] == keywordsData[i].people || keywordsData[i].places || keywordsData[i].works || keywordsData[i].artistic || keywordsData[i].additional) { 
+// if (keywordsCount[i] == keywordsData[i].people.split(";") || keywordsData[i].places.split(";") || keywordsData[i].works.split(";") || keywordsData[i].artistic.split(";") || keywordsData[i].additional.split(";")) { 
 
 //   // filter data to only show data matching that keyword
-
 
 //filter has to match a keyword in keywordsData.people, keywordsData.places, keywordsData.works, keywordsData.artistic, keywordsData.additional to draw timeline
 
   // var filteredData = keywordsData.filter(function(d) {
-  //   return d.people.includes(keywordsCount[i]) || d.places.includes(keywordsCount[i]) || d.works.includes(keywordsCount[i]) || d.artistic.includes(keywordsCount[i]) || d.additional.includes(keywordsCount[i]);
+  //   return d.people.split(;).includes(keywordsCount[i]) || d.places.split(;).includes(keywordsCount[i]) || d.works.split(;).includes(keywordsCount[i]) || d.artistic.split(;).includes(keywordsCount[i]) || d.additional.split(;)includes(keywordsCount[i]);
   // });
 
 //5 timelines to show the potential varieties of distribution of keywords
@@ -278,6 +279,18 @@ var yScale = d3.scaleLinear()
           return d.people.includes("General Line") || d.places.includes("General Line") || d.works.includes("General Line") || d.artistic.includes("General Line") || d.additional.includes("General Line");
         });
         })
+//         .data(function (d) {
+//           return keywordsData.filter(function(d) {
+// return d.people.split(";").includes(keywordsCount[i]) || d.places.split(";").includes(keywordsCount[i]) || d.works.split(";").includes(keywordsCount[i]) || d.artistic.split(";").includes(keywordsCount[i]) || d.additional.split(";").includes(keywordsCount[i]);
+
+//         });
+//         })
+        // .data(function (d) {
+        //   return keywordsData.filter(function(d) { if (keywordsCount[i] == d.people.split(";") || d.places.split(";") || d.works.split(";") || d.artistic.split(";") || d.additional.split(";")) {
+        //     return d.people.split(";") || d.places.split(";") || d.works.split(";") || d.artistic.split(";") || d.additional.split(";");
+        //   }
+        //   });
+        // })
         .join("g")
         .append("circle")
         .classed("circles", true)
@@ -342,6 +355,8 @@ var yScale = d3.scaleLinear()
       .attr("r", 5) // radius of circle
       .attr("opacity", 1)
 
+    };
+
       const lineG = svg.append("g").classed("lineG", true)
 
       for (let i = 0; i < keywordsData.length; i++) {
@@ -364,6 +379,18 @@ var yScale = d3.scaleLinear()
             return d.people.includes("General Line") || d.places.includes("General Line") || d.works.includes("General Line") || d.artistic.includes("General Line") || d.additional.includes("General Line");
           });
           })
+          // .data(function (d) {
+          //   return keywordsData.filter(function(d) { if (keywordsCount[i] == d.people.split(";") || d.places.split(";") || d.works.split(";") || d.artistic.split(";") || d.additional.split(";")) {
+          //     return d.people.split(";") || d.places.split(";") || d.works.split(";") || d.artistic.split(";") || d.additional.split(";");
+          //   }
+          //   });
+          // })
+  //         .data(function (d) {
+  //           return keywordsData.filter(function(d) {
+  // return d.people.split(";").includes(keywordsCount[i]) || d.places.split(";").includes(keywordsCount[i]) || d.works.split(";").includes(keywordsCount[i]) || d.artistic.split(";").includes(keywordsCount[i]) || d.additional.split(";").includes(keywordsCount[i]);
+  
+  //         });
+  //         })
           .classed("cinema", function () {
             if (keywordsData[i].category1 == true && keywordsData[i].category2 == false && keywordsData[i].category3 == false) 
             {
@@ -436,7 +463,7 @@ var yScale = d3.scaleLinear()
 
               // linePer is the position of cirlce/data on timeline
               
-              var linePerEnd = timeScaleStart(d.vend),
+              var linePerEnd = timeScaleEnd(d.vend),
                   posOnLineEnd = timeLine.node().getPointAtLength(linePerEnd);
             
                   d.linePerEnd = linePerEnd; // % distance on the timeline
@@ -462,7 +489,7 @@ var yScale = d3.scaleLinear()
 }
 
 }
-// };
+
 
 
   }
@@ -470,6 +497,6 @@ var yScale = d3.scaleLinear()
 
 
  
-      }
+      // }
 
   )
