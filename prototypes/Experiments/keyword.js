@@ -158,7 +158,21 @@ var keywordsCount = [];
 
     console.log(keywordsCount);
 
-//scaling for timeline
+    var keywordsCountFiltered = [];
+
+    for (let i = 0; i < keywordsCount.length; i++) {
+      var count = 0;
+      for (let j = 0; j < keywordsData.length; j++) {
+        if (keywordsData[j]["people"].includes(keywordsCount[i]) ||
+        keywordsData[j]["places"].includes(keywordsCount[i]) ||
+        keywordsData[j]["works"].includes(keywordsCount[i]) ||
+        keywordsData[j]["artistic"].includes(keywordsCount[i]) ||
+        keywordsData[j]["additional"].includes(keywordsCount[i])) count++;
+      }
+      if (count > 1) keywordsCountFiltered.push(keywordsCount[i]);
+    };
+
+    console.log(keywordsCountFiltered);
 
 //scale for width of timeline
 
@@ -171,10 +185,6 @@ var keywordsCount = [];
 
     console.log(dateRangeLength); //number of years
 
-    //scale for height of timeline
-
-
-
     // append svg to chart
 
     var svg = d3.select("#chart")
@@ -184,13 +194,13 @@ var keywordsCount = [];
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
         .append("g");
 
-// create timeline for events in d.vstart and v.vend
-
-for(let i = 0; i < keywordsCount.length; i++) {
-
-  var yScale = d3.scaleLinear()
-    .domain([0, keywordsCount.length])  //number of distinct keywords
+    var yScale = d3.scaleLinear()
+    .domain([0, keywordsCountFiltered.length])  //number of distinct keywords
     .range([0, height]);    //height of timeline
+
+//
+
+for(let i = 0; i < 1; i++) {
 
     var backgroundTimelineG = svg.append("g").classed("backgroundTimelineG", true)
 
@@ -203,6 +213,8 @@ for(let i = 0; i < keywordsCount.length; i++) {
         .attr("stroke-width", 1)
         // .attr("stroke-dasharray", "5,5");
 
+};
+
         var lineLength = timeLine.node().getTotalLength()
 
         var timeScaleStart = d3.scaleLinear()
@@ -211,14 +223,15 @@ for(let i = 0; i < keywordsCount.length; i++) {
         }))
         .range([0, lineLength]);
         
-        var timeScaleEnd = d3.scaleLinear()
-        .domain(d3.extent(keywordsData, function(d){
-        return d.vend;
-        }))
-        .range([0, lineLength]);
+        // var timeScaleEnd = d3.scaleLinear()
+        // .domain(d3.extent(keywordsData, function(d){
+        // return d.vend;
+        // }))
+        // .range([0, lineLength]);
+
+
         
-        
-        keywordsData.filter(function (d,i) {
+        keywordsData.filter(function (d) {
           return d.uncertaintystart === 0 && d.end === "" && d.start.includes("/") == false && d.start.includes(",") == false && d.start != "" //took out some data points that create errors for now
         }).forEach(function(D,I){
         
@@ -227,33 +240,6 @@ for(let i = 0; i < keywordsCount.length; i++) {
         
               let circles = circleG.selectAll("g")
         
-              // .data(function (d) {
-              //     return keywordsData.filter(function (d) {
-              //       return d.uncertaintystart === 0 && d.end === "" && d.start.includes("/") == false && d.start.includes(",") == false && d.start != "" //took out some data points that create errors for now
-              //     });
-              //   })
-              // .data(function (d) {
-              //   return keywordsData.filter(function(d) {
-              //   return d.people.includes("¡Que viva México!") || d.places.includes("¡Que viva México!") || d.works.includes("¡Que viva México!") || d.artistic.includes("¡Que viva México!") || d.additional.includes("¡Que viva México!");
-              // });
-              // })
-              // .data(function (d) {
-              //   return keywordsData.filter(function(d,i) {
-              //   return d.people.includes("Travels") || d.places.includes("Travels") || d.works.includes("Travels") || d.artistic.includes("Travels") || d.additional.includes("Travels");
-              // });
-              // })
-              // .data(function (d) {
-              //   return keywordsData.filter(function(d) {
-              //   return d.people.includes("General Line") || d.places.includes("General Line") || d.works.includes("General Line") || d.artistic.includes("General Line") || d.additional.includes("General Line");
-              // });
-              // })
-        //         .data(function (d) {
-        //           return keywordsData.filter(function(d) {
-        // return d.people.split(";").includes(keywordsCount[i]) || d.places.split(";").includes(keywordsCount[i]) || d.works.split(";").includes(keywordsCount[i]) || d.artistic.split(";").includes(keywordsCount[i]) || d.additional.split(";").includes(keywordsCount[i]);
-        
-        //         });
-        //         })
-        //         .data(function (d) {
               .data(function (d,i) {
                 return keywordsData.filter(function(d,i) { if (keywordsCount[i] == d.people.split(";") || d.places.split(";") || d.works.split(";") || d.artistic.split(";") || d.additional.split(";")) {
                   return d.people.split(";") || d.places.split(";") || d.works.split(";") || d.artistic.split(";") || d.additional.split(";");
@@ -305,7 +291,7 @@ for(let i = 0; i < keywordsCount.length; i++) {
               return true;
             } return false;
             })
-            .attr("cx", function(d,i){
+            .attr("cx", function(d,i) {
         
               // linePer is the position of cirlce/data on timeline
               
@@ -314,149 +300,159 @@ for(let i = 0; i < keywordsCount.length; i++) {
             
                   d.linePerStart = linePerStart; // % distance on the timeline
                   d.cx = posOnLineStart.x; // x postion on the timeline
-                  d.cy = posOnLineStart.y; // y position on the timeline
+                  // d.cy = posOnLineStart.y; // y position on the timeline
         
               return d.cx;
             })
-            .attr("cy", yScale(i));
+            .attr("cy", function(d,i){  
+
+              var yScale = d3.scaleLinear()
+              .domain([0, keywordsCountFiltered.length])  //number of distinct keywords
+              .range([0, height]);
+
+              return yScale(i);
+            })
+            // .attr("cy", yScale(keywordsCount(i)));
         
-            const lineG = svg.append("g").classed("lineG", true)
+        //     const lineG = svg.append("g").classed("lineG", true)
         
-            for (let i = 0; i < keywordsData.length; i++) {
+        //     for (let i = 0; i < keywordsData.length; i++) {
         
-              if (keywordsData[i].vend != "") {
-                  d3.select(".lineG").append("g").classed("lineGs", true)
-                .append("line")
-                // .data(function (d) {
-                //   return keywordsData.filter(function(d) {
-                //   return d.people.includes("¡Que viva México!") || d.places.includes("¡Que viva México!") || d.works.includes("¡Que viva México!") || d.artistic.includes("¡Que viva México!") || d.additional.includes("¡Que viva México!");
-                // });
-                // })
-                // .data(function (d) {
-                //   return keywordsData.filter(function(d) {
-                //   return d.people.includes("Travels") || d.places.includes("Travels") || d.works.includes("Travels") || d.artistic.includes("Travels") || d.additional.includes("Travels");
-                // });
-                // })
-                // .data(function (d) {
-                //   return keywordsData.filter(function(d) {
-                //   return d.people.includes("General Line") || d.places.includes("General Line") || d.works.includes("General Line") || d.artistic.includes("General Line") || d.additional.includes("General Line");
-                // });
-                // })
-                // .data(function (d) {
-                //   return keywordsData.filter(function(d) { if (keywordsCount[i] == d.people.split(";") || d.places.split(";") || d.works.split(";") || d.artistic.split(";") || d.additional.split(";")) {
-                //     return d.people.split(";") || d.places.split(";") || d.works.split(";") || d.artistic.split(";") || d.additional.split(";");
-                //   }
-                //   });
-                // })
-                .data(function (d) {
-                  return keywordsData.filter(function(d,i) {
-        return d.people.split(";").includes(keywordsCount[i]) || d.places.split(";").includes(keywordsCount[i]) || d.works.split(";").includes(keywordsCount[i]) || d.artistic.split(";").includes(keywordsCount[i]) || d.additional.split(";").includes(keywordsCount[i]);
+        //       if (keywordsData[i].vend != "") {
+        //           d3.select(".lineG").append("g").classed("lineGs", true)
+        //         .append("line")
+        //         // .data(function (d) {
+        //         //   return keywordsData.filter(function(d) {
+        //         //   return d.people.includes("¡Que viva México!") || d.places.includes("¡Que viva México!") || d.works.includes("¡Que viva México!") || d.artistic.includes("¡Que viva México!") || d.additional.includes("¡Que viva México!");
+        //         // });
+        //         // })
+        //         // .data(function (d) {
+        //         //   return keywordsData.filter(function(d) {
+        //         //   return d.people.includes("Travels") || d.places.includes("Travels") || d.works.includes("Travels") || d.artistic.includes("Travels") || d.additional.includes("Travels");
+        //         // });
+        //         // })
+        //         // .data(function (d) {
+        //         //   return keywordsData.filter(function(d) {
+        //         //   return d.people.includes("General Line") || d.places.includes("General Line") || d.works.includes("General Line") || d.artistic.includes("General Line") || d.additional.includes("General Line");
+        //         // });
+        //         // })
+        //         // .data(function (d) {
+        //         //   return keywordsData.filter(function(d) { if (keywordsCount[i] == d.people.split(";") || d.places.split(";") || d.works.split(";") || d.artistic.split(";") || d.additional.split(";")) {
+        //         //     return d.people.split(";") || d.places.split(";") || d.works.split(";") || d.artistic.split(";") || d.additional.split(";");
+        //         //   }
+        //         //   });
+        //         // })
+        //         .data(function (d) {
+        //           return keywordsData.filter(function(d,i) {
+        // return d.people.split(";").includes(keywordsCount[i]) || d.places.split(";").includes(keywordsCount[i]) || d.works.split(";").includes(keywordsCount[i]) || d.artistic.split(";").includes(keywordsCount[i]) || d.additional.split(";").includes(keywordsCount[i]);
         
-                });
-                })
-                .classed("cinema", function () {
-                  if (keywordsData[i].category1 == true && keywordsData[i].category2 == false && keywordsData[i].category3 == false) 
-                  {
-                  return true;
-                } return false;
-                })
-                .classed("biography", function () {
-                  if (keywordsData[i].category2 == true && keywordsData[i].category1 == false && keywordsData[i].category3 == false)
-                  {
-                  return true;
-                } return false;
-                })
-                .classed("writing", function () {
-                  if (keywordsData[i].category3 == true && keywordsData[i].category1 == false && keywordsData[i].category2 == false)
-                  {
-                  return true;
-                } return false;
-                })
-                .classed("cinebio", function () {
-                  if (keywordsData[i].category1 == true && keywordsData[i].category2 == true && keywordsData[i].category3 == false)
-                  {
-                  return true;
-                } return false;
-                })
-                .classed("biowrit", function () {
-                  if (keywordsData[i].category1 == false && keywordsData[i].category2 == true && keywordsData[i].category3 == true)
-                  {
-                  return true;
-                } return false;
-                })
-                .classed("cinewrit", function () {
-                  if (keywordsData[i].category1 == true && keywordsData[i].category2 == false && keywordsData[i].category3 == true)
-                  {
-                  return true;
-                } return false;
-                })
-                .classed("allcat", function () {
-                  if (keywordsData[i].category1 == true && keywordsData[i].category2 == true && keywordsData[i].category3 == true)
-                  {
-                  return true;
-                } return false;
-                })
-                .attr("x1", function(d,i){
+        //         });
+        //         })
+        //         .classed("cinema", function () {
+        //           if (keywordsData[i].category1 == true && keywordsData[i].category2 == false && keywordsData[i].category3 == false) 
+        //           {
+        //           return true;
+        //         } return false;
+        //         })
+        //         .classed("biography", function () {
+        //           if (keywordsData[i].category2 == true && keywordsData[i].category1 == false && keywordsData[i].category3 == false)
+        //           {
+        //           return true;
+        //         } return false;
+        //         })
+        //         .classed("writing", function () {
+        //           if (keywordsData[i].category3 == true && keywordsData[i].category1 == false && keywordsData[i].category2 == false)
+        //           {
+        //           return true;
+        //         } return false;
+        //         })
+        //         .classed("cinebio", function () {
+        //           if (keywordsData[i].category1 == true && keywordsData[i].category2 == true && keywordsData[i].category3 == false)
+        //           {
+        //           return true;
+        //         } return false;
+        //         })
+        //         .classed("biowrit", function () {
+        //           if (keywordsData[i].category1 == false && keywordsData[i].category2 == true && keywordsData[i].category3 == true)
+        //           {
+        //           return true;
+        //         } return false;
+        //         })
+        //         .classed("cinewrit", function () {
+        //           if (keywordsData[i].category1 == true && keywordsData[i].category2 == false && keywordsData[i].category3 == true)
+        //           {
+        //           return true;
+        //         } return false;
+        //         })
+        //         .classed("allcat", function () {
+        //           if (keywordsData[i].category1 == true && keywordsData[i].category2 == true && keywordsData[i].category3 == true)
+        //           {
+        //           return true;
+        //         } return false;
+        //         })
+        //         .attr("x1", function(d,i){
         
-                  // linePer is the position of cirlce/data on timeline
+        //           // linePer is the position of cirlce/data on timeline
                   
-                  var linePerStart = timeScaleStart(d.vstart),
-                      posOnLineStart = timeLine.node().getPointAtLength(linePerStart);
+        //           var linePerStart = timeScaleStart(d.vstart),
+        //               posOnLineStart = timeLine.node().getPointAtLength(linePerStart);
                 
-                      d.linePerStart = linePerStart; // % distance on the timeline
-                      d.cx = posOnLineStart.x; // x postion on the timeline
-                      d.cy = posOnLineStart.y; // y position on the timeline
+        //               d.linePerStart = linePerStart; // % distance on the timeline
+        //               d.cx = posOnLineStart.x; // x postion on the timeline
+        //               d.cy = posOnLineStart.y; // y position on the timeline
           
-                  return d.cx;
-                })
-                  .attr("y1", function(d,i){
+        //           return d.cx;
+        //         })
+        //           .attr("y1", function(d,i){
         
-                  // linePer is the position of cirlce/data on timeline
+        //           // linePer is the position of cirlce/data on timeline
                   
-                  var linePerStart = timeScaleStart(d.vstart),
-                      posOnLineStart = timeLine.node().getPointAtLength(linePerStart);
+        //           var linePerStart = timeScaleStart(d.vstart),
+        //               posOnLineStart = timeLine.node().getPointAtLength(linePerStart);
                 
-                      d.linePerStart = linePerStart; // % distance on the timeline
-                      d.cx = posOnLineStart.x; // x postion on the timeline
-                      d.cy = posOnLineStart.y; // y position on the timeline
+        //               d.linePerStart = linePerStart; // % distance on the timeline
+        //               d.cx = posOnLineStart.x; // x postion on the timeline
+        //               d.cy = posOnLineStart.y; // y position on the timeline
           
-                  return d.cy;
-                })
-                  .attr("x2", function(d,i){
+        //           return d.cy;
+        //         })
+        //           .attr("x2", function(d,i){
         
-                    // linePer is the position of cirlce/data on timeline
+        //             // linePer is the position of cirlce/data on timeline
                     
-                    var linePerEnd = timeScaleEnd(d.vend),
-                        posOnLineEnd = timeLine.node().getPointAtLength(linePerEnd);
+        //             var linePerEnd = timeScaleEnd(d.vend),
+        //                 posOnLineEnd = timeLine.node().getPointAtLength(linePerEnd);
                   
-                        d.linePerEnd = linePerEnd; // % distance on the timeline
-                        d.cx = posOnLineEnd.x; // x postion on the timeline
-                        d.cy = posOnLineEnd.y; // y position on the timeline
+        //                 d.linePerEnd = linePerEnd; // % distance on the timeline
+        //                 d.cx = posOnLineEnd.x; // x postion on the timeline
+        //                 d.cy = posOnLineEnd.y; // y position on the timeline
             
-                    return d.cx;
-                  })
-                  .attr("y2", function(d,i){
+        //             return d.cx;
+        //           })
+        //           .attr("y2", function(d,i){
         
-                      // linePer is the position of cirlce/data on timeline
+        //               // linePer is the position of cirlce/data on timeline
                       
-                      var linePerEnd = timeScaleEnd(d.vend),
-                          posOnLineEnd = timeLine.node().getPointAtLength(linePerEnd);
+        //               var linePerEnd = timeScaleEnd(d.vend),
+        //                   posOnLineEnd = timeLine.node().getPointAtLength(linePerEnd);
                     
-                          d.linePerend = linePerEnd; // % distance on the timeline
-                          d.cx = posOnLineEnd.x; // x postion on the timeline
-                          d.cy = posOnLineEnd.y; // y position on the timeline
+        //                   d.linePerend = linePerEnd; // % distance on the timeline
+        //                   d.cx = posOnLineEnd.x; // x postion on the timeline
+        //                   d.cy = posOnLineEnd.y; // y position on the timeline
               
-                      return d.cy;
-                    })
+        //               return d.cy;
+        //             })
         
-        }
-        
-        }
+        })
 
         
+         
+
+// };        
+
 });
 
-}
 
-  });
+
+  // });
 //for positioning the events on the timeline
