@@ -200,7 +200,7 @@ var keywordsCount = [];
 
 //
 
-for(let i = 0; i < 1; i++) {
+for(let i = 0; i < keywordsCountFiltered.length; i++) {
 
     var backgroundTimelineG = svg.append("g").classed("backgroundTimelineG", true)
 
@@ -248,7 +248,7 @@ for(let i = 0; i < 1; i++) {
               })
               .join("g")
               .append("circle")
-              .classed("circles", true)
+              // .classed("circles", true)
             .classed("cinema", function (d) {
               if (d.category1 == true && d.category2 == false && d.category3 == false) 
               {
@@ -312,6 +312,8 @@ for(let i = 0; i < 1; i++) {
 
               return yScale(i);
             })
+            .attr("r", 5) // radius of circle
+            .attr("opacity", 1)
             // .attr("cy", yScale(keywordsCount(i)));
         
         //     const lineG = svg.append("g").classed("lineG", true)
