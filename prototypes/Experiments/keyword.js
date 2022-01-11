@@ -447,7 +447,35 @@ for(let i = 0; i < keywordsCountFiltered.length; i++) {
         
         })
 
-        
+        var tooltip = d3.select("#chart")
+        .append('div')
+        .attr('class', 'tooltip');
+    
+        tooltip.append('div')
+        .attr('class', 'date');
+        tooltip.append('div')
+        .attr('class', 'value');
+    
+        svg.selectAll("circle")
+        .on('mouseover', function(d) {
+            tooltip
+                  .style('position', 'absolute')
+                  .style('left', `${d3.event.pageX + 10}px`)
+                  .style('top', `${d3.event.pageY + 20}px`)
+                  .style('display', 'inline-block')
+                  .style('opacity', '0.9')
+                  .html(`
+                    <span><b>${formatTime(d.vstart)}</b></span>
+                    <br> <b>${d.title}</b> </span>`);
+              })
+        .on('mouseout', function(d) {
+            d3.selectAll("rect")
+            .style("fill", function(d){return color(d.number1);})
+            .style("stroke", "none")
+    
+            tooltip.style('display', 'none');
+            tooltip.style('opacity',0);
+        });        
          
 
 // };        
