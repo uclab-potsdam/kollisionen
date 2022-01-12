@@ -531,7 +531,8 @@ console.log(timelineXScale(new Date(1926)))
 
         var tooltip = d3.select("#chart")
         .append('div')
-        .attr('class', 'tooltip');
+        .attr('class', 'tooltip')
+        .style('display', 'none');
 
         tooltip.append('div')
         .attr('class', 'date');
