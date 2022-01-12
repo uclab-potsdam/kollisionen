@@ -11,6 +11,17 @@
   <link rel="stylesheet" href="style.css" />
   <script src="https://d3js.org/d3.v6.js"></script>
 
+<style>
+#chart{
+  height: 20000px;
+  position: absolute;
+}
+
+#chart svg{
+  height: 20000px;
+}
+</style>
+
 </head>
 
 <body>
@@ -45,7 +56,7 @@
 <span class="slider"></span>
 </label>
 
-   <h2>Categories</h2> 
+   <h2>Categories</h2>
       <p class="f_c filter"> <span class="key-dot cinema"></span>Cinema and Theatre </p>
         <p class="f_b filter"> <span class="key-dot biography"></span>Biography and Personality </p>
         <p class="f_w filter"> <span class="key-dot writing"></span>Writing and Teaching</p>
@@ -57,10 +68,7 @@
   <div id="sidebar">  <p id="closedsidebar" style="display:none">✕</p></div>
 
 
-<div id="chart">
-<script type="text/javascript" src="keyword.js"></script>
-</div>
-
+<script type="text/javascript" src="keyword2.js"></script>
 </body>
 
 </html>
