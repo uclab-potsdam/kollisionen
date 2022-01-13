@@ -245,7 +245,7 @@ console.log(timelineXScale(new Date(1926)))
   timelinesG.each(function(D,I){
     d3.select(this).selectAll(".timelineNodes").append("g")
     .data(keywordsData.filter(function (d) {
-   return d.people.includes(D) || d.places.includes(D) || d.works.includes(D) || d.artistic.includes(D) ||d.additional.includes(D) && d.uncertaintystart === 0 && d.end === "" && d.vstart.includes("/") == false && d.vstart.includes(",") == false && d.vstart != "" //took out some data points that create errors for now
+   return d.people.includes(D) || d.places.includes(D) || d.works.includes(D) || d.artistic.includes(D) ||d.additional.includes(D) && d.uncertaintystart === 0 && d.vend === "" && d.vstart.includes("/") == false && d.vstart.includes(",") == false && d.vstart != "" //took out some data points that create errors for now
      }))
     .join("circle")
     .attr("r",3)
@@ -297,7 +297,7 @@ console.log(timelineXScale(new Date(1926)))
   timelinesG.each(function(D,I){
     d3.select(this).selectAll(".timelineLines").append("g")
     .data(keywordsData.filter(function (d) {
-   return d.people.includes(D) || d.places.includes(D) || d.works.includes(D) || d.artistic.includes(D) ||d.additional.includes(D) && d.vend != "" && d.vstart.includes("/") == false && d.vstart.includes(",") == false  //took out some data points that create errors for now
+   return d.people.includes(D) || d.places.includes(D) || d.works.includes(D) || d.artistic.includes(D) ||d.additional.includes(D) && d.vend != "" && d.vstart.includes("/") == false && d.vstart.includes(",") == false && d.vstart != "" //took out some data points that create errors for now
      }))
     .join("line")
     .attr("stroke-width", 3)
