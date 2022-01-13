@@ -124,10 +124,10 @@ for (let i = 0; i < keywordsData.length; i++) {
 
 };
 
-keywordsData.forEach(function(d) {
-    d.vstart = +parseDate(d.vstart);
-    d.vend = +parseDate(d.vend);
-  });
+// keywordsData.forEach(function(d) {
+//     d.vstart = +parseDate(d.vstart);
+//     d.vend = +parseDate(d.vend);
+//   });
 
 // var keywordsCount equals distinct strings seperated by ';' in d.people, d.places, d.works, d.artistic, and d.additional and ignore empty strings
 
@@ -245,12 +245,12 @@ console.log(timelineXScale(new Date(1926)))
   timelinesG.each(function(D,I){
     d3.select(this).selectAll(".timelineNodes").append("g")
     .data(keywordsData.filter(function (d) {
-   return d.keyword.includes(D) && d.uncertaintystart === 0 && d.end === "" && d.start.includes("/") == false && d.start.includes(",") == false && d.start != "" //took out some data points that create errors for now
+   return d.keyword.includes(D) && d.uncertaintystart === 0 && d.end === "" && d.vstart.includes("/") == false && d.vstart.includes(",") == false && d.vstart != "" //took out some data points that create errors for now
      }))
     .join("circle")
     .attr("r",3)
     .attr("cx", function(d,i){
-      let date = new Date (d.start)
+      let date = new Date (d.vstart)
     //console.log(date + "-" + timelineXScale(date))
       return timelineXScale(date)})
     .attr("cy", function(){return 10+I*20})
@@ -338,12 +338,12 @@ console.log(timelineXScale(new Date(1926)))
     }  else{return false}
     })
                 .attr("x1", function(d,i){
-                  let date = new Date (d.start)
+                  let date = new Date (d.vstart)
                 //console.log(date + "-" + timelineXScale(date))
                   return timelineXScale(date)})
                 .attr("y1", function(){return 10+I*20})
                 .attr("x2", function(d,i){
-                  let date = new Date (d.end)
+                  let date = new Date (d.vend)
                 //console.log(date + "-" + timelineXScale(date))
                   return timelineXScale(date)})
                 .attr("y2", function(){return 10+I*20})
