@@ -200,6 +200,8 @@ var keywordsCount = [];
 
 //
 
+
+
 // for(let i = 0; i < keywordsCountFiltered.length; i++) {
 //
 //     var backgroundTimelineG = svg.append("g").classed("backgroundTimelineG", true)
@@ -221,6 +223,8 @@ var keywordsCount = [];
 
 console.log(new Date("1926-01-22"))
 console.log(timelineXScale(new Date(1926)))
+
+
 
 
   let timelinesG = d3.select("#chart").select("svg").selectAll(".timelines")
@@ -245,8 +249,9 @@ console.log(timelineXScale(new Date(1926)))
   timelinesG.each(function(D,I){
     d3.select(this).selectAll(".timelineNodes").append("g")
     .data(keywordsData.filter(function (d) {
-   return d.people.includes(D) || d.places.includes(D) || d.works.includes(D) || d.artistic.includes(D) ||d.additional.includes(D) && d.uncertaintystart === 0 && d.vend === "" && d.vstart.includes("/") == false && d.vstart.includes(",") == false && d.vstart != "" //took out some data points that create errors for now
-     }))
+      if(d.uncertaintystart === 0 && d.vend === ""){
+   return (d.people.includes(D) || d.places.includes(D) || d.works.includes(D) || d.artistic.includes(D) ||d.additional.includes(D)) && d.vstart.includes("/") == false && d.vstart.includes(",") == false && d.vstart != "" //took out some data points that create errors for now
+    }}))
     .join("circle")
     .attr("r",3)
     .attr("cx", function(d,i){
@@ -297,8 +302,11 @@ console.log(timelineXScale(new Date(1926)))
   timelinesG.each(function(D,I){
     d3.select(this).selectAll(".timelineLines").append("g")
     .data(keywordsData.filter(function (d) {
-   return d.people.includes(D) || d.places.includes(D) || d.works.includes(D) || d.artistic.includes(D) ||d.additional.includes(D) && d.vend != "" && d.vstart.includes("/") == false && d.vstart.includes(",") == false && d.vstart != "" //took out some data points that create errors for now
-     }))
+
+      if (d.vend.includes("-")) {
+   return (d.people.includes(D) || d.places.includes(D) || d.works.includes(D) || d.artistic.includes(D) ||d.additional.includes(D)) && d.vstart.includes("/") == false && d.vstart.includes(",") == false && d.vstart != ""//took out some data points that create errors for now
+   
+    } }))
     .join("line")
     .attr("stroke-width", 3)
     .classed("biography", function (d) {
@@ -339,15 +347,16 @@ console.log(timelineXScale(new Date(1926)))
     })
                 .attr("x1", function(d,i){
                   let date = new Date (d.vstart)
-                //console.log(date + "-" + timelineXScale(date))
+                // console.log(date + "-" + timelineXScale(date))
                   return timelineXScale(date)})
                 .attr("y1", function(){return 10+I*20})
                 .attr("x2", function(d,i){
                   let date = new Date (d.vend)
-                //console.log(date + "-" + timelineXScale(date))
+                // console.log(date + "-" + timelineXScale(date))
+                // console.log(d.vend + "-" +date + "-" + timelineXScale(date))
                   return timelineXScale(date)})
                 .attr("y2", function(){return 10+I*20})
-        
+
         })
 
         var tooltip = d3.select("#chart")
