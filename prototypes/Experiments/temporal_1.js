@@ -792,16 +792,17 @@ $("#search").on("select2-clearing", function(e) {
           //   } else if (spiralData[i]["uncertaintystart"] == 2 && spiralData[i]["uncertaintyend"] == 2) {
           //     return "url(#blur)"
           //   }})
-          .style("opacity", function () {
-            if (spiralData[i]["uncertaintystart"] == 0 && spiralData[i]["uncertaintyend"] == 0) {
-              return 1
-            } else if (spiralData[i]["uncertaintystart"] == 1 && spiralData[i]["uncertaintyend"] == 1) {
-              return 0.66
-            } else if (spiralData[i]["uncertaintystart"] == 2 && spiralData[i]["uncertaintyend"] == 2) {
-              return 0.33
-            }
+          // .style("opacity", function () {
+          //   if (spiralData[i]["uncertaintystart"] == 0 && spiralData[i]["uncertaintyend"] == 0) {
+          //     return 1
+          //   } else if (spiralData[i]["uncertaintystart"] == 1 && spiralData[i]["uncertaintyend"] == 1) {
+          //     return 0.66
+          //   } else if (spiralData[i]["uncertaintystart"] == 2 && spiralData[i]["uncertaintyend"] == 2) {
+          //     return 0.33
+          //   }
 
-          })
+          // })
+          .attr("opacity", 1)
           .attr("transform", "rotate(" + angleStart + ")");
       }
 
