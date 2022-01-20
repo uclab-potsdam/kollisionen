@@ -7,7 +7,7 @@
   --graphic: #3caea3;
   --apartment: #922598;
   --cinewrit: #774371;
-  --cinebio: #7f8282;
+  --cinebio: #73d4d4;
   --biowrit: #f5964c;
   --allcat: #000000;
 }
@@ -149,7 +149,7 @@ circle.writing {
 line.writing {
   stroke: var(--writing);
 }
-.graphic {
+/* .graphic {
   background: var(--graphic);
 }
 path.graphic {
@@ -172,8 +172,8 @@ circle.apartment {
 }
 line.apartment {
   stroke: var(--apartment);
-}
-.cinewrit {
+} */
+/* .cinewrit {
   background: var(--cinewrit);
 }
 path.cinewrit {
@@ -184,7 +184,7 @@ circle.cinewrit {
 }
 line.cinewrit {
   stroke: var(--cinewrit);
-}
+} */
 .cinebio {
   background: var(--cinebio);
 }
@@ -436,7 +436,7 @@ input:checked + .slider:before {
     --graphic: #3caea3;
     --apartment: #922598;
     --cinewrit: #774371;
-    --cinebio: #7f8282;
+    --cinebio: #8a9a5b;
     --biowrit: #f5964c;
     --allcat: #000000;
   }
