@@ -297,7 +297,15 @@ console.log(timelineXScale(new Date(1926)))
       return true;
     }  else{return false}
     })
+    .style("opacity", function(d,i){
+      if (keywordsData[i]["people"] != "") {
+            return 1
+          } else {
+            return 0
+          }
+    })
   })
+
 
   timelinesG.each(function(D,I){
     d3.select(this).selectAll(".timelineLines").append("g")
