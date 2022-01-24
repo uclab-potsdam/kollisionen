@@ -173,7 +173,7 @@ circle.apartment {
 line.apartment {
   stroke: var(--apartment);
 } */
-/* .cinewrit {
+.cinewrit {
   background: var(--cinewrit);
 }
 path.cinewrit {
@@ -184,7 +184,7 @@ circle.cinewrit {
 }
 line.cinewrit {
   stroke: var(--cinewrit);
-} */
+}
 .cinebio {
   background: var(--cinebio);
 }
@@ -415,67 +415,67 @@ input:checked + .slider:before {
   display: none;
 }
 
-#eventList{
-  right:0;
-  top:0;
+#eventList {
+  right: 0;
+  top: 0;
   width: 350px;
   height: 100%;
-  position:fixed;
+  position: fixed;
   display: block;
   background-color: rgba(255, 255, 255, 0.5);
-  z-index:200;
+  z-index: 200;
   padding: 20px;
   outline: 1px solid grey;
   overflow-y: auto;
-  }
-  
-  :root {
-    --cinema: #002fa7;
-    --biography: #fdd55c;
-    --writing: #ed563b;
-    --graphic: #3caea3;
-    --apartment: #922598;
-    --cinewrit: #774371;
-    --cinebio: #8a9a5b;
-    --biowrit: #f5964c;
-    --allcat: #000000;
-  }
-  
-  /*
+}
+
+:root {
+  --cinema: #002fa7;
+  --biography: #fdd55c;
+  --writing: #ed563b;
+  --graphic: #3caea3;
+  --apartment: #922598;
+  --cinewrit: #774371;
+  --cinebio: #8a9a5b;
+  --biowrit: #f5964c;
+  --allcat: #000000;
+}
+
+/*
           * === SEARCH BOX===
           */
-  .searchiconbg {
-    background-color: lightgrey;
-    height: 24px;
-    margin-top: 0px;
-    margin-left: 13px;
-  }
-  
-  #search-icon {
-    position: relative;
-    margin-top: 3px;
-    padding-left: 5px;
-    padding-right: 5px;
-    color: #474747;
-  }
-  
-  .search {
-    position: relative;
-    width: 300px;
-    font-size: 1em;
-    margin-left: 0px;
-    margin-top: 20px;
-    border: 0;
-  }
-  .search-container {
-    margin-top:15;
-    z-index:3;
-    display: block;
-    position: fixed;
-    top:0;
-    left: calc(50% - 125px);
-  }
-  
-  #chart{
-    z-index:0;
-  }
+.searchiconbg {
+  background-color: lightgrey;
+  height: 24px;
+  margin-top: 0px;
+  margin-left: 13px;
+}
+
+#search-icon {
+  position: relative;
+  margin-top: 3px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #474747;
+}
+
+.search {
+  position: relative;
+  width: 300px;
+  font-size: 1em;
+  margin-left: 0px;
+  margin-top: 20px;
+  border: 0;
+}
+.search-container {
+  margin-top: 15;
+  z-index: 3;
+  display: block;
+  position: fixed;
+  top: 0;
+  left: calc(50% - 125px);
+}
+
+#chart {
+  z-index: 0;
+}
