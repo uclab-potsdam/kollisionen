@@ -222,13 +222,6 @@ var keywordsCount = [];
 console.log(new Date("1926-01-22"))
 console.log(timelineXScale(new Date(1926)))
 
-// create a symbol scale where a symbol is mapped to d.places, d.people, d.works, d.artistic, d.additional
-// d.places is d3.symbolTriangle, d.people is d2.symbolDiamond, d.artistic is symbolSquare, d.works is symbolWye, d.additional is symbolCross
-
-    // var symbolScale = d3.scaleOrdinal()
-    //     .domain(keywordsData[i]["places"], keywordsData[i]["people"], keywordsData[i]["works"], keywordsData[i]["artistic"], keywordsData[i]["additional"])
-    //     .range([d3.symbolTriangle, d3.symbolDiamond, d3.symbolSquare, d3.symbolWye, d3.symbolCross]);
-
   let timelinesG = d3.select("#chart").select("svg").selectAll(".timelines")
   .data(keywordsCountFiltered)//.filter(function(d,i){return i < 200}))
   .join("g")
@@ -248,98 +241,7 @@ console.log(timelineXScale(new Date(1926)))
   .attr("stroke", "white")
   .attr("stroke-width", 3)
 
-  // var symbolGenerator = d3.symbol()
-	// .size(100);
-
-  // var symbolScale = d3.scaleOrdinal()
-  // .domain([d.places, d.people, d.works, d.artistic, d.additional])
-  // .range([d3.symbolTriangle, d3.symbolDiamond, d3.symbolSquare, d3.symbolWye, d3.symbolCross]);
-
-
 // circles for timeline
-
-  // timelinesG.each(function(D,I){
-  //   d3.select(this).selectAll(".timelineNodes").append("g")
-  //   .data(keywordsData.filter(function (d) {
-  //     if(d.uncertaintystart === 0 && d.vend === ""){
-  //  return (d.people.includes(D) || d.places.includes(D) || d.works.includes(D) || d.artistic.includes(D) ||d.additional.includes(D)) && d.vstart.includes("/") == false && d.vstart.includes(",") == false && d.vstart != "" //took out some data points that create errors for now
-  //   }}))
-  //   .join("g")
-  //   // .join("circle")
-  //   // .attr("r",3)
-  //   // .attr("cx", function(d,i){
-  //   //   let date = new Date (d.vstart)
-  //   // //console.log(date + "-" + timelineXScale(date))
-  //   //   return timelineXScale(date)})
-  //   // .attr("cy", function(){return 10+I*20})
-  //   // .classed("cinema", function (d) {if (d.category1 == true && d.category2 == false && d.category3 == false)
-  //   // {return true}else{return false}})
-  //   .classed("biography", function (d) {
-  //     if (d.category2 == true && d.category1 == false && d.category3 == false)
-  //     {
-  //     return true;
-  //   } else{return false}
-  //   })
-  //   .classed("writing", function (d) {
-  //     if (d.category3 == true && d.category1 == false && d.category2 == false)
-  //     {
-  //     return true;
-  //   } else{return false}
-  //   })
-  //   .classed("cinebio", function (d) {
-  //     if (d.category1 == true && d.category2 == true && d.category3 == false)
-  //     {
-  //     return true;
-  //   }  else{return false}
-  //   })
-  //   .classed("biowrit", function (d) {
-  //     if (d.category1 == false && d.category2 == true && d.category3 == true)
-  //     {
-  //     return true;
-  //   }  else{return false}
-  //   })
-  //   .classed("cinewrit", function (d) {
-  //     if (d.category1 == true && d.category2 == false && d.category3 == true)
-  //     {
-  //     return true;
-  //   }  else{return false}
-  //   })
-  //   .classed("allcat", function (d) {
-  //     if (d.category1 == true && d.category2 == true && d.category3 == true)
-  //     {
-  //     return true;
-  //   }  else{return false}
-  //   })
-  // })
-
-//symbol for keyword categories
-
-var symbolPlaces = d3.symbol()
-  .type(d3.symbolTriangle)
-  .size(15);
-
-var symbolPeople = d3.symbol()
-  .type(d3.symbolDiamond)
-  .size(15);
-
-  var symbolWorks = d3.symbol()
-  .type(d3.symbolWye)
-  .size(15);
-
-  var symbolArtistic = d3.symbol()
-  .type(d3.symbolSquare)
-  .size(15);
-
-  var symbolAdditional = d3.symbol()
-  .type(d3.symbolCross)
-  .size(15);
-
-  var pathDataPlaces = symbolPlaces();
-  var pathDataPeople = symbolPeople();
-  var pathDataWorks = symbolWorks();
-  var pathDataArtistic = symbolArtistic();
-  var pathDataAdditional = symbolAdditional();
-
 
   timelinesG.each(function(D,I){
     d3.select(this).selectAll(".timelineNodes").append("g")
@@ -347,24 +249,17 @@ var symbolPeople = d3.symbol()
       if(d.uncertaintystart === 0 && d.vend === ""){
    return (d.people.includes(D) || d.places.includes(D) || d.works.includes(D) || d.artistic.includes(D) ||d.additional.includes(D)) && d.vstart.includes("/") == false && d.vstart.includes(",") == false && d.vstart != "" //took out some data points that create errors for now
     }}))
-    .join("path")
-    .attr("transform", function(d,i){
+    
+    .join("circle")
+    .classed("circles", true)
+    .attr("r",3)
+    .attr("cx", function(d,i){
       let date = new Date (d.vstart)
-      return "translate(" + timelineXScale(date) + "," + (10+I*20) + ")"})
-    // .attr("d", pathDataPeople)
-    .attr("d", function(d,i){
-            if(d.places){
-              return pathDataPlaces
-            } else if(d.people){
-              return pathDataPeople
-            } else if(d.works){
-              return pathDataWorks
-            } else if(d.artistic){
-              return pathDataArtistic
-            } else if(d.additional){
-              return pathDataAdditional
-            }
-             })
+    //console.log(date + "-" + timelineXScale(date))
+      return timelineXScale(date)})
+    .attr("cy", function(){return 10+I*20})
+    .classed("cinema", function (d) {if (d.category1 == true && d.category2 == false && d.category3 == false)
+    {return true}else{return false}})
     .classed("biography", function (d) {
       if (d.category2 == true && d.category1 == false && d.category3 == false)
       {
@@ -403,12 +298,102 @@ var symbolPeople = d3.symbol()
     })
   })
 
+//symbol for keyword categories
+
+// var symbolPlaces = d3.symbol()
+//   .type(d3.symbolTriangle)
+//   .size(15);
+
+// var symbolPeople = d3.symbol()
+//   .type(d3.symbolDiamond)
+//   .size(15);
+
+//   var symbolWorks = d3.symbol()
+//   .type(d3.symbolWye)
+//   .size(15);
+
+//   var symbolArtistic = d3.symbol()
+//   .type(d3.symbolSquare)
+//   .size(15);
+
+//   var symbolAdditional = d3.symbol()
+//   .type(d3.symbolCross)
+//   .size(15);
+
+//   var pathDataPlaces = symbolPlaces();
+//   var pathDataPeople = symbolPeople();
+//   var pathDataWorks = symbolWorks();
+//   var pathDataArtistic = symbolArtistic();
+//   var pathDataAdditional = symbolAdditional();
+
+
+//   timelinesG.each(function(D,I){
+//     d3.select(this).selectAll(".timelineNodes").append("g")
+//     .data(keywordsData.filter(function (d) {
+//       if(d.uncertaintystart === 0 && d.vend === ""){
+//    return (d.people.includes(D) || d.places.includes(D) || d.works.includes(D) || d.artistic.includes(D) ||d.additional.includes(D)) && d.vstart.includes("/") == false && d.vstart.includes(",") == false && d.vstart != "" //took out some data points that create errors for now
+//     }}))
+//     .join("path")
+//     .attr("transform", function(d,i){
+//       let date = new Date (d.vstart)
+//       return "translate(" + timelineXScale(date) + "," + (10+I*20) + ")"})
+//     // .attr("d", pathDataPeople)
+//     .attr("d", function(d,i){
+//             if(d.places){
+//               return pathDataPlaces
+//             } else if(d.people){
+//               return pathDataPeople
+//             } else if(d.works){
+//               return pathDataWorks
+//             } else if(d.artistic){
+//               return pathDataArtistic
+//             } else if(d.additional){
+//               return pathDataAdditional
+//             }
+//              })
+//     .classed("biography", function (d) {
+//       if (d.category2 == true && d.category1 == false && d.category3 == false)
+//       {
+//       return true;
+//     } else{return false}
+//     })
+//     .classed("writing", function (d) {
+//       if (d.category3 == true && d.category1 == false && d.category2 == false)
+//       {
+//       return true;
+//     } else{return false}
+//     })
+//     .classed("cinebio", function (d) {
+//       if (d.category1 == true && d.category2 == true && d.category3 == false)
+//       {
+//       return true;
+//     }  else{return false}
+//     })
+//     .classed("biowrit", function (d) {
+//       if (d.category1 == false && d.category2 == true && d.category3 == true)
+//       {
+//       return true;
+//     }  else{return false}
+//     })
+//     .classed("cinewrit", function (d) {
+//       if (d.category1 == true && d.category2 == false && d.category3 == true)
+//       {
+//       return true;
+//     }  else{return false}
+//     })
+//     .classed("allcat", function (d) {
+//       if (d.category1 == true && d.category2 == true && d.category3 == true)
+//       {
+//       return true;
+//     }  else{return false}
+//     })
+//   })
+
 
 
   timelinesG.each(function(D,I){
-    d3.select(this).selectAll(".timelineLines").append("g")
+    d3.select(this).selectAll(".timelineLines").append("g").classed(".timelineLines",true)
     .data(keywordsData.filter(function (d) {
-
       if (d.vend.includes("-")) {
    return (d.people.includes(D) || d.places.includes(D) || d.works.includes(D) || d.artistic.includes(D) ||d.additional.includes(D)) && d.vstart.includes("/") == false && d.vstart.includes(",") == false && d.vstart != ""//took out some data points that create errors for now
 
@@ -465,36 +450,251 @@ var symbolPeople = d3.symbol()
 
         })
 
-        var tooltip = d3.select("#chart")
-        .append('div')
-        .attr('class', 'tooltip')
-        .style('display', 'none');
 
-        tooltip.append('div')
-        .attr('class', 'date');
-        tooltip.append('div')
-        .attr('class', 'value');
+            //tooltip
+    var tooltip = d3.select("body")
+    .append('div')
+    .attr('class', 'tooltip')
+    .style('display', 'none');
 
-        svg.selectAll("circle")
-        .on('mouseover', function(d) {
-            tooltip
-                  .style('position', 'absolute')
-                  .style('left', `${d3.event.pageX + 10}px`)
-                  .style('top', `${d3.event.pageY + 20}px`)
-                  .style('display', 'inline-block')
-                  .style('opacity', '0.9')
-                  .html(`
-                    <span><b>${formatTime(d.vstart)}</b></span>
-                    <br> <b>${d.title}</b> </span>`);
-              })
-        .on('mouseout', function(d) {
-            d3.selectAll("rect")
-            .style("fill", function(d){return color(d.number1);})
-            .style("stroke", "none")
+  var sidebar = d3.select("#sidebar")
+    .append('div')
+    .attr('class', 'sidebar');
 
-            tooltip.style('display', 'none');
-            tooltip.style('opacity',0);
-        });
+// Set of functions for html formatting in tooltip and sidebar
+
+// htmlRenderer is a function in the form: (data) => htmlText
+// eg. (title) => `<p class="title">${title}</p>`
+// if data exists, it'll return the string with data inside it, otherwise it'll return an empty string
+function conditionalReturn(data, htmlFormatter) {
+  if (data == null || data === '' || data === false) {
+    return '';
+  }
+  return htmlFormatter(data);
+}
+
+// function to compare content of strings and omit repeated strings
+
+function compareDescription(d, descriptionFormat) {
+
+let a = d.description
+
+let b = d.title
+
+  if (a === b) {
+    return '';
+}
+ else {
+   return descriptionFormat(d.description);
+ }
+};
+
+// function to replace date with optional uncertain date
+
+function replaceTemporal(d, temporalSwap) {
+
+  let a = d.displayTemporal
+  let b = d.vdateStart
+
+  if (a == null || a === '' || a === false) {
+    return temporalSwap(b)}
+      else {
+    }
+  if (a !== null || a !== '' || a !== false) {
+    return '';
+  }};
+
+//function to split keywords by comma
+
+function stringSplit(data, keywordSplitter) {
+
+ var kws = data.split(";")
+
+ if (data == null || data === '' || data === false) {
+      return '';
+    } else {
+
+      } if (kws.length > 1) { return keywordSplitter(kws.join(", ")) }
+
+      else { return keywordSplitter(kws) }
+
+  };
+
+  // tooltip.append('div')
+  //   .attr('class', 'date');
+
+  // tooltip.append('div')
+  //   .attr('class', 'value');
+
+  // sidebar.append('circle')
+  //   .attr('class', 'sidebar_circle')
+  //   .attr('r', 5)
+
+///tooltip for single day events
+  svg.selectAll(".timelineNodes")
+    .on('mousemove', function (event, d) {
+
+      ///display same year nodes/arcs
+      var [year, month, day] = d.vstart.split('-', 3)
+      d3.selectAll(".timelineNodes")
+      .style("opacity", function(D){if(D.vstart.includes(year) == true){return 1}else{ return 0}})
+
+      d3.selectAll(".timelineLines")
+      .style("opacity", function(D){if(D.vstart.includes(year) == true || D.vend.includes(year) == true){return 1}else{ return 0}})
+
+      // d3.selectAll(".timeLabels")
+      // .style("opacity", function(D){if(D == year){return 1}else{ return 0}})
+
+      //tooltip
+      tooltip
+        .style('position', 'absolute')
+        .style('left', `${event.pageX + 5}px`)
+        .style('top', `${event.pageY + 10}px`)
+        .style('display', 'inline-block')
+        .style('opacity', '0.9')
+        .html(`
+              ${replaceTemporal(d, (vdateStart) => `<p class="date">${formatTime(d.vdateStart)}</p>`)}
+              ${conditionalReturn(d.displayTemporal, (displayTemporal) => `<p class="displayTemporal"><b>${displayTemporal}</b></p>`)}
+              <p class="tooltip-title">${d.title}</p>`);
+    })
+    // .on("mouseover", function(event, d){if (soundtoggle == true){
+    //   if (d.category1==true){playAudio(audio1)}
+    //   else if(d.category2==true){playAudio(audio2)}
+    //   else if(d.category3==true){playAudio(audio3)}
+    //   else if(d.category4==true){playAudio(audio4)}
+    //   else if(d.category5==true){playAudio(audio5)}
+    // }})
+    .on('click', function (event, d) {
+      d3.select("#closedsidebar").style("display", "block")
+/// sidebar for single day dates
+      sidebar
+        .style('display', 'block')
+        .html(`
+              ${replaceTemporal(d, (vdateStart) => `<p class="date">${formatTime(d.vdateStart)}</p>`)}
+              ${conditionalReturn(d.displayTemporal, (displayTemporal) => `<p class="displayTemporal"><b>${displayTemporal}</b></p>`)}
+              ${conditionalReturn(d.title, (title) => `<p class="title">${title}</p>`)}
+              ${compareDescription(d, (description) => `<p class="description"><b>Description: </b>${description}</p>`)}
+              ${stringSplit(d.people, (people) => `<p class="people"><b>People: </b>${people}</p>`)}
+              ${stringSplit(d.places, (places) => `<p class="places"><b>Places: </b>${places}</p>`)}
+              ${stringSplit(d.works, (works) => `<p class="works"<b><b>Works: </b>${works}</p>`)}
+              ${stringSplit(d.artistic, (artistic) => `<p class="artistic"><b>Artistic concepts: </b>${artistic}</p>`)}
+              ${stringSplit(d.additional, (additional) => `<p class="misc"><b>Misc: </b>${additional}</p>`)}
+              ${stringSplit(d.image, (image) => `<p class="objects"><b>Additonal items: <br> </b><img src="images/objects/${image}.png" alt="${image}" width = "25%" height = "auto"  class="image"></p><br>`)}
+              ${conditionalReturn(d.source, (source) => `<p class="source"><b>Source: </b>${source}</p>`)}
+              ${conditionalReturn(d.reference, (reference) => `<p class="reference"><b>Further references: </b>${reference}</p>`)}
+              <br/>
+              ${conditionalReturn(d.category1, (category1) => `<span class="key-dot cinema"></span>Cinema and Theatre<br>`)}
+              ${conditionalReturn(d.category2, (category2) => `<span class="key-dot biography"></span>Biography and Personality<br>`)}
+              ${conditionalReturn(d.category3, (category3) => `<span class="key-dot writing"></span>Writing and Teaching<br>`)}
+              ${conditionalReturn(d.category4, (category4) => `<span class="key-dot graphic"></span>Graphic Art<br>`)}
+              ${conditionalReturn(d.category5, (category5) => `<span class="key-dot apartment"></span>Apartment<br>`)}
+
+              `)
+
+    })
+    .on('mouseout', function (d) {
+      tooltip.style('display', 'none');
+      tooltip.style('opacity', 0);
+
+      d3.selectAll(".timelineNodes")
+      .style("opacity", 1)
+
+      d3.selectAll(".timelineLines")
+      .style("opacity", 1)
+
+      // d3.selectAll(".timeLabels")
+      // .style("opacity", function(D){if(D== firstYearforLabel || D == lastYearforLabel){return 1}else{return 0}})
+    })
+/// tooltip for spans
+  svg.selectAll(".timelineLines")
+    .on('mousemove', function (event, d) {
+
+      ///display same year nodes/arcs
+      // var [year, month, day] = d.vstart.split('-', 3)
+      // console.log(year)
+      // d3.selectAll(".circles")
+      // .style("opacity", function(D){if(D.vstart.includes(year) == true){return 1}else{ return 0}})
+
+      d3.selectAll(".timelineLines")
+      .style("opacity", function(D){if(D.vstart.includes(year) == true || D.vend.includes(year) == true){return 1}else{ return 0}})
+
+      // d3.selectAll(".timeLabels")
+      // .style("opacity", function(D){if(D == year){return 1}else{ return 0}})
+
+
+      tooltip
+        .style('position', 'absolute')
+        .style('left', `${event.pageX + 5}px`)
+        .style('top', `${event.pageY + 10}px`)
+        .style('display', 'inline-block')
+        .style('opacity', '0.9')
+        .html(`
+                    ${replaceTemporal(d, (vdateStart) => `<b><p class="date">${formatTime(d.vdateStart)}</b> to <b>${formatTime(d.vdateEnd)}</b></p>`)}
+                    ${conditionalReturn(d.displayTemporal, (displayTemporal) => `<p class="displayTemporal"><b>${displayTemporal}</b></p>`)}
+                    <p class="tooltip-title">${d.title}</p>`);
+    })
+    .on('click', function (event, d) {
+      d3.select("#closedsidebar").style("display", "block")
+/// sidebar for spans
+      sidebar
+        .style('display', 'block')
+        .html(`
+        ${replaceTemporal(d, (vdateStart) => `<b><p class="date">${formatTime(d.vdateStart)}</b> to <b>${formatTime(d.vdateEnd)}</b></p>`)}
+        ${conditionalReturn(d.displayTemporal, (displayTemporal) => `<p class="displayTemporal"><b>${displayTemporal}</b></p>`)}
+        ${conditionalReturn(d.title, (title) => `<p class="title">${title}</p>`)}
+        ${compareDescription(d, (description) => `<p class="description"><b>Description: </b>${description}</p>`)}
+        ${stringSplit(d.people, (people) => `<p class="people"><b>People: </b>${people}</p>`)}
+        ${stringSplit(d.places, (places) => `<p class="places"><b>Places: </b>${places}</p>`)}
+        ${stringSplit(d.works, (works) => `<p class="works"<b><b>Works: </b>${works}</p>`)}
+        ${stringSplit(d.artistic, (artistic) => `<p class="artistic"><b>Artistic concepts: </b>${artistic}</p>`)}
+        ${stringSplit(d.additional, (additional) => `<p class="misc"><b>Misc: </b>${additional}</p>`)}
+        ${conditionalReturn(d.image, (image) => `<p class="objects"><b>Additonal items: <br> </b><img src="images/objects/${image}.png" alt="${image} width = "25%" height = "auto" class="image"></p><br>`)}
+        ${conditionalReturn(d.source, (source) => `<p class="source"><b>Source: </b>${source}</p>`)}
+        ${conditionalReturn(d.reference, (reference) => `<p class="reference"><b>Further references: </b>${reference}</p>`)}
+        <br/>
+        ${conditionalReturn(d.category1, (category1) => `<span class="key-dot cinema"></span>Cinema and Theatre<br>`)}
+        ${conditionalReturn(d.category2, (category2) => `<span class="key-dot biography"></span>Biography and Personality<br>`)}
+        ${conditionalReturn(d.category3, (category3) => `<span class="key-dot writing"></span>Writing and Teaching<br>`)}
+        ${conditionalReturn(d.category4, (category4) => `<span class="key-dot graphic"></span>Graphic Art<br>`)}
+        ${conditionalReturn(d.category5, (category5) => `<span class="key-dot apartment"></span>Apartment<br>`)}
+        `)
+
+    })
+    // .on("mouseover", function(event, d){if (soundtoggle == true){
+    //   if (d.category1==true){playAudio(audio1)}
+    //   else if(d.category2==true){playAudio(audio2)}
+    //   else if(d.category3==true){playAudio(audio3)}
+    //   else if(d.category4==true){playAudio(audio4)}
+    //   else if(d.category5==true){playAudio(audio5)}
+    // }})
+    .on('mouseout', function (d) {
+      tooltip.style('display', 'none');
+      tooltip.style('opacity', 0);
+
+      d3.selectAll(".timelineNodes")
+      .style("opacity", 1)
+
+      d3.selectAll(".timelineLines")
+      .style("opacity", 1)
+
+      d3.selectAll(".timeLabels")
+      .style("opacity", function(D){if(D== firstYearforLabel || D == lastYearforLabel){return 1}else{return 0}})
+
+    });
+
+    //closes sidebar using 'x'
+
+    d3.selectAll("#closedsidebar")
+      .on('click', function (d) {
+
+        d3.select(".sidebar")
+          .style("display", "none")
+
+        d3.select("#closedsidebar").style("display", "none")
+
+      });
+
+
 
 
 // };
@@ -503,5 +703,5 @@ var symbolPeople = d3.symbol()
 
 
 
-  // });
+
 //for positioning the events on the timeline

@@ -121,7 +121,7 @@ h3 {
 }
 path.cinema {
   stroke: var(--cinema);
-  fill: var(--cinema);
+  /* fill: var(--cinema); */
 }
 circle.cinema {
   fill: var(--cinema);
@@ -131,7 +131,7 @@ circle.cinema {
 }
 path.biography {
   stroke: var(--biography);
-  fill: var(--biography);
+  /* fill: var(--biography); */
 }
 circle.biography {
   fill: var(--biography);
@@ -144,7 +144,7 @@ line.biography {
 }
 path.writing {
   stroke: var(--writing);
-  fill: var(--writing);
+  /* fill: var(--writing); */
 }
 circle.writing {
   fill: var(--writing);
@@ -181,7 +181,7 @@ line.apartment {
 }
 path.cinewrit {
   stroke: var(--cinewrit);
-  fill: var(--cinewrit);
+  /* fill: var(--cinewrit); */
 }
 circle.cinewrit {
   fill: var(--cinewrit);
@@ -194,7 +194,7 @@ line.cinewrit {
 }
 path.cinebio {
   stroke: var(--cinebio);
-  fill: var(--cinebio);
+  /* fill: var(--cinebio); */
 }
 circle.cinebio {
   fill: var(--cinebio);
@@ -207,7 +207,7 @@ line.cinebio {
 }
 path.biowrit {
   stroke: var(--biowrit);
-  fill: var(--biowrit);
+  /* fill: var(--biowrit); */
 }
 circle.biowrit {
   fill: var(--biowrit);
@@ -220,7 +220,7 @@ line.biowrit {
 }
 path.allcat {
   stroke: var(--allcat);
-  fill: var(--allcat);
+  /* fill: var(--allcat); */
 }
 circle.allcat {
   fill: var(--allcat);
