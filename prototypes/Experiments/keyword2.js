@@ -2,13 +2,14 @@
 var url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvSLkjHvHlPjWLy3ec4UT9AsFsyTy2rbsjKquZgmhCqbsTZ4TLAnWv28Y3PnR/pub?gid=1387341329&single=true&output=csv'
 // url = './minimal.csv' //local backup
 
-const width = window.innerWidth
-const height = 50000
+// const width = 1500 //width of the svg sidebar is 350px - needs to be adjusted to allow for the width of the sidebar
+const width = innerWidth - 350 //width of the svg sidebar is 350px - needs to be adjusted to allow for the width of the sidebar
+const height = 8250
 const margin = {
-    top: 50,
-    bottom: 50,
-    left: 50,
-    right: 50
+    top: 100,
+    bottom: 100,
+    left: 100,
+    right: 100
   };
 
 var parseDate = d3.timeParse("%Y-%m-%d"); // further format to correctly position dates ()
@@ -217,7 +218,7 @@ var keywordsCount = [];
 
   const timelineXScale = d3.scaleTime()
     .domain([new Date("1897-01-01"), new Date("1975-01-01")])
-    .range([100,width-100])
+    .range([350,width-200])
 
 console.log(new Date("1926-01-22"))
 console.log(timelineXScale(new Date(1926)))
@@ -229,14 +230,14 @@ console.log(timelineXScale(new Date(1926)))
 
   timelinesG.append("text")
   .text(function(d){return d})
-  .attr("x", 100)
+  .attr("x", 350)
   .attr("y", function(d,i){return 10+i*20})
   .style("text-anchor", "end")
 
   timelinesG.append("line")
-  .attr("x1", 100)  //start of timeline
+  .attr("x1", 350)  //start of timeline
   .attr("y1", function(d,i){return 10+i*20})
-  .attr("x2", width-100)  //end of timeline
+  .attr("x2", width-200)  //end of timeline
   .attr("y2", function(d,i){return 10+i*20})
   .attr("stroke", "white")
   .attr("stroke-width", 3)
@@ -249,7 +250,6 @@ console.log(timelineXScale(new Date(1926)))
       if(d.uncertaintystart === 0 && d.vend === ""){
    return (d.people.includes(D) || d.places.includes(D) || d.works.includes(D) || d.artistic.includes(D) ||d.additional.includes(D)) && d.vstart.includes("/") == false && d.vstart.includes(",") == false && d.vstart != "" //took out some data points that create errors for now
     }}))
-    
     .join("circle")
     .classed("circles", true)
     .attr("r",3)
@@ -392,7 +392,7 @@ console.log(timelineXScale(new Date(1926)))
 
 
   timelinesG.each(function(D,I){
-    d3.select(this).selectAll(".timelineLines").append("g").classed(".timelineLines",true)
+    d3.select(this).selectAll(".timelineLines").append("g")
     .data(keywordsData.filter(function (d) {
       if (d.vend.includes("-")) {
    return (d.people.includes(D) || d.places.includes(D) || d.works.includes(D) || d.artistic.includes(D) ||d.additional.includes(D)) && d.vstart.includes("/") == false && d.vstart.includes(",") == false && d.vstart != ""//took out some data points that create errors for now
@@ -461,6 +461,12 @@ console.log(timelineXScale(new Date(1926)))
     .append('div')
     .attr('class', 'sidebar');
 
+        
+
+
+
+
+
 // Set of functions for html formatting in tooltip and sidebar
 
 // htmlRenderer is a function in the form: (data) => htmlText
@@ -494,7 +500,7 @@ let b = d.title
 function replaceTemporal(d, temporalSwap) {
 
   let a = d.displayTemporal
-  let b = d.vdateStart
+  let b = d.vstart
 
   if (a == null || a === '' || a === false) {
     return temporalSwap(b)}
@@ -520,27 +526,18 @@ function stringSplit(data, keywordSplitter) {
 
   };
 
-  // tooltip.append('div')
-  //   .attr('class', 'date');
-
-  // tooltip.append('div')
-  //   .attr('class', 'value');
-
-  // sidebar.append('circle')
-  //   .attr('class', 'sidebar_circle')
-  //   .attr('r', 5)
-
 ///tooltip for single day events
-  svg.selectAll(".timelineNodes")
+
+  svg.selectAll("circles")
     .on('mousemove', function (event, d) {
 
-      ///display same year nodes/arcs
-      var [year, month, day] = d.vstart.split('-', 3)
-      d3.selectAll(".timelineNodes")
-      .style("opacity", function(D){if(D.vstart.includes(year) == true){return 1}else{ return 0}})
+      // ///display same year nodes/arcs
+      // var [year, month, day] = d.vstart.split('-', 3)
+      // d3.selectAll("circles")
+      // .style("opacity", function(D){if(D.vstart.includes(year) == true){return 1}else{ return 0}})
 
-      d3.selectAll(".timelineLines")
-      .style("opacity", function(D){if(D.vstart.includes(year) == true || D.vend.includes(year) == true){return 1}else{ return 0}})
+      // d3.selectAll("lines")
+      // .style("opacity", function(D){if(D.vstart.includes(year) == true || D.vend.includes(year) == true){return 1}else{ return 0}})
 
       // d3.selectAll(".timeLabels")
       // .style("opacity", function(D){if(D == year){return 1}else{ return 0}})
@@ -553,7 +550,7 @@ function stringSplit(data, keywordSplitter) {
         .style('display', 'inline-block')
         .style('opacity', '0.9')
         .html(`
-              ${replaceTemporal(d, (vdateStart) => `<p class="date">${formatTime(d.vdateStart)}</p>`)}
+              ${replaceTemporal(d, (vstart) => `<p class="date">${formatTime(d.vstart)}</p>`)}
               ${conditionalReturn(d.displayTemporal, (displayTemporal) => `<p class="displayTemporal"><b>${displayTemporal}</b></p>`)}
               <p class="tooltip-title">${d.title}</p>`);
     })
@@ -570,7 +567,7 @@ function stringSplit(data, keywordSplitter) {
       sidebar
         .style('display', 'block')
         .html(`
-              ${replaceTemporal(d, (vdateStart) => `<p class="date">${formatTime(d.vdateStart)}</p>`)}
+              ${replaceTemporal(d, (vstart) => `<p class="date">${formatTime(d.vstart)}</p>`)}
               ${conditionalReturn(d.displayTemporal, (displayTemporal) => `<p class="displayTemporal"><b>${displayTemporal}</b></p>`)}
               ${conditionalReturn(d.title, (title) => `<p class="title">${title}</p>`)}
               ${compareDescription(d, (description) => `<p class="description"><b>Description: </b>${description}</p>`)}
@@ -596,50 +593,50 @@ function stringSplit(data, keywordSplitter) {
       tooltip.style('display', 'none');
       tooltip.style('opacity', 0);
 
-      d3.selectAll(".timelineNodes")
+      d3.selectAll(".circles")
       .style("opacity", 1)
 
-      d3.selectAll(".timelineLines")
-      .style("opacity", 1)
+      // d3.selectAll(".timelineLines")
+      // .style("opacity", 1)
 
       // d3.selectAll(".timeLabels")
       // .style("opacity", function(D){if(D== firstYearforLabel || D == lastYearforLabel){return 1}else{return 0}})
     })
 /// tooltip for spans
-  svg.selectAll(".timelineLines")
-    .on('mousemove', function (event, d) {
+  // svg.selectAll(".timelineLines")
+  //   .on('mousemove', function (event, d) {
 
-      ///display same year nodes/arcs
-      // var [year, month, day] = d.vstart.split('-', 3)
-      // console.log(year)
-      // d3.selectAll(".circles")
-      // .style("opacity", function(D){if(D.vstart.includes(year) == true){return 1}else{ return 0}})
+  //     ///display same year nodes/arcs
+  //     // var [year, month, day] = d.vstart.split('-', 3)
+  //     // console.log(year)
+  //     // d3.selectAll(".circles")
+  //     // .style("opacity", function(D){if(D.vstart.includes(year) == true){return 1}else{ return 0}})
 
-      d3.selectAll(".timelineLines")
-      .style("opacity", function(D){if(D.vstart.includes(year) == true || D.vend.includes(year) == true){return 1}else{ return 0}})
+  //     d3.selectAll(".timelineLines")
+  //     .style("opacity", function(D){if(D.vstart.includes(year) == true || D.vend.includes(year) == true){return 1}else{ return 0}})
 
-      // d3.selectAll(".timeLabels")
-      // .style("opacity", function(D){if(D == year){return 1}else{ return 0}})
+  //     // d3.selectAll(".timeLabels")
+  //     // .style("opacity", function(D){if(D == year){return 1}else{ return 0}})
 
 
-      tooltip
-        .style('position', 'absolute')
-        .style('left', `${event.pageX + 5}px`)
-        .style('top', `${event.pageY + 10}px`)
-        .style('display', 'inline-block')
-        .style('opacity', '0.9')
-        .html(`
-                    ${replaceTemporal(d, (vdateStart) => `<b><p class="date">${formatTime(d.vdateStart)}</b> to <b>${formatTime(d.vdateEnd)}</b></p>`)}
-                    ${conditionalReturn(d.displayTemporal, (displayTemporal) => `<p class="displayTemporal"><b>${displayTemporal}</b></p>`)}
-                    <p class="tooltip-title">${d.title}</p>`);
-    })
+  //     tooltip
+  //       .style('position', 'absolute')
+  //       .style('left', `${event.pageX + 5}px`)
+  //       .style('top', `${event.pageY + 10}px`)
+  //       .style('display', 'inline-block')
+  //       .style('opacity', '0.9')
+  //       .html(`
+  //                   ${replaceTemporal(d, (vstart) => `<b><p class="date">${formatTime(d.vstart)}</b> to <b>${formatTime(d.vend)}</b></p>`)}
+  //                   ${conditionalReturn(d.displayTemporal, (displayTemporal) => `<p class="displayTemporal"><b>${displayTemporal}</b></p>`)}
+  //                   <p class="tooltip-title">${d.title}</p>`);
+  //   })
     .on('click', function (event, d) {
       d3.select("#closedsidebar").style("display", "block")
 /// sidebar for spans
       sidebar
         .style('display', 'block')
         .html(`
-        ${replaceTemporal(d, (vdateStart) => `<b><p class="date">${formatTime(d.vdateStart)}</b> to <b>${formatTime(d.vdateEnd)}</b></p>`)}
+        ${replaceTemporal(d, (vstart) => `<b><p class="date">${formatTime(d.vstart)}</b> to <b>${formatTime(d.vend)}</b></p>`)}
         ${conditionalReturn(d.displayTemporal, (displayTemporal) => `<p class="displayTemporal"><b>${displayTemporal}</b></p>`)}
         ${conditionalReturn(d.title, (title) => `<p class="title">${title}</p>`)}
         ${compareDescription(d, (description) => `<p class="description"><b>Description: </b>${description}</p>`)}
@@ -671,14 +668,14 @@ function stringSplit(data, keywordSplitter) {
       tooltip.style('display', 'none');
       tooltip.style('opacity', 0);
 
-      d3.selectAll(".timelineNodes")
+      d3.selectAll(".circles")
       .style("opacity", 1)
 
-      d3.selectAll(".timelineLines")
-      .style("opacity", 1)
+      // d3.selectAll(".circles")
+      // .style("opacity", 1)
 
-      d3.selectAll(".timeLabels")
-      .style("opacity", function(D){if(D== firstYearforLabel || D == lastYearforLabel){return 1}else{return 0}})
+      // d3.selectAll(".timeLabels")
+      // .style("opacity", function(D){if(D== firstYearforLabel || D == lastYearforLabel){return 1}else{return 0}})
 
     });
 
