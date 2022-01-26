@@ -256,33 +256,7 @@ console.log(timelineXScale(new Date(1926)))
   // .range([d3.symbolTriangle, d3.symbolDiamond, d3.symbolSquare, d3.symbolWye, d3.symbolCross]);
 
 
-//symbol for d.places
-
-var symbolPlaces = d3.symbol()
-  .type(d3.symbolTriangle)
-  .size(15);
-
-var symbolPeople = d3.symbol()
-  .type(d3.symbolDiamond)
-  .size(15);
-
-  var symbolWorks = d3.symbol()
-  .type(d3.symbolWye)
-  .size(15);
-
-  var symbolArtistic = d3.symbol()
-  .type(d3.symbolSquare)
-  .size(15);
-
-  var symbolAdditional = d3.symbol()
-  .type(d3.symbolCross)
-  .size(15);
-
-  var pathDataPlaces = symbolPlaces();
-  var pathDataPeople = symbolPeople();
-  var pathDataWorks = symbolWorks();
-  var pathDataArtistic = symbolArtistic();
-  var pathDataAdditional = symbolAdditional();
+// circles for timeline
 
   // timelinesG.each(function(D,I){
   //   d3.select(this).selectAll(".timelineNodes").append("g")
@@ -338,7 +312,33 @@ var symbolPeople = d3.symbol()
   //   })
   // })
 
-  //symbol for d.people
+//symbol for keyword categories
+
+var symbolPlaces = d3.symbol()
+  .type(d3.symbolTriangle)
+  .size(15);
+
+var symbolPeople = d3.symbol()
+  .type(d3.symbolDiamond)
+  .size(15);
+
+  var symbolWorks = d3.symbol()
+  .type(d3.symbolWye)
+  .size(15);
+
+  var symbolArtistic = d3.symbol()
+  .type(d3.symbolSquare)
+  .size(15);
+
+  var symbolAdditional = d3.symbol()
+  .type(d3.symbolCross)
+  .size(15);
+
+  var pathDataPlaces = symbolPlaces();
+  var pathDataPeople = symbolPeople();
+  var pathDataWorks = symbolWorks();
+  var pathDataArtistic = symbolArtistic();
+  var pathDataAdditional = symbolAdditional();
 
 
   timelinesG.each(function(D,I){
@@ -364,15 +364,6 @@ var symbolPeople = d3.symbol()
           return pathDataAdditional;
         }
          })
-    // .join("circle")
-    // .attr("r",3)
-    // .attr("cx", function(d,i){
-    //   let date = new Date (d.vstart)
-    // //console.log(date + "-" + timelineXScale(date))
-    //   return timelineXScale(date)})
-    // .attr("cy", function(){return 10+I*20})
-    // .classed("cinema", function (d) {if (d.category1 == true && d.category2 == false && d.category3 == false)
-    // {return true}else{return false}})
     .classed("biography", function (d) {
       if (d.category2 == true && d.category1 == false && d.category3 == false)
       {
