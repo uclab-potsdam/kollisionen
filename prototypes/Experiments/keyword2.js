@@ -347,23 +347,24 @@ var symbolPeople = d3.symbol()
       if(d.uncertaintystart === 0 && d.vend === ""){
    return (d.people.includes(D) || d.places.includes(D) || d.works.includes(D) || d.artistic.includes(D) ||d.additional.includes(D)) && d.vstart.includes("/") == false && d.vstart.includes(",") == false && d.vstart != "" //took out some data points that create errors for now
     }}))
-    .join("g")
-    .append("path")
-    .attr("transform", function(d){return "translate(" + timelineXScale(new Date(d.vstart)) + "," + 10+I*20 + ")"})
+    .join("path")
+    .attr("transform", function(d,i){
+      let date = new Date (d.vstart)
+      return "translate(" + timelineXScale(date) + "," + (10+I*20) + ")"})
     // .attr("d", pathDataPeople)
-    .attr("d", function(d){
-        if(d.places){
-          return pathDataPlaces;
-        } else if(d.people){
-          return pathDataPeople;
-        } else if(d.works){
-          return pathDataWorks;
-        } else if(d.artistic){
-          return pathDataArtistic;
-        } else if(d.additional){
-          return pathDataAdditional;
-        }
-         })
+    .attr("d", function(d,i){
+            if(d.places){
+              return pathDataPlaces
+            } else if(d.people){
+              return pathDataPeople
+            } else if(d.works){
+              return pathDataWorks
+            } else if(d.artistic){
+              return pathDataArtistic
+            } else if(d.additional){
+              return pathDataAdditional
+            }
+             })
     .classed("biography", function (d) {
       if (d.category2 == true && d.category1 == false && d.category3 == false)
       {
@@ -402,7 +403,7 @@ var symbolPeople = d3.symbol()
     })
   })
 
-  
+
 
   timelinesG.each(function(D,I){
     d3.select(this).selectAll(".timelineLines").append("g")
@@ -410,7 +411,7 @@ var symbolPeople = d3.symbol()
 
       if (d.vend.includes("-")) {
    return (d.people.includes(D) || d.places.includes(D) || d.works.includes(D) || d.artistic.includes(D) ||d.additional.includes(D)) && d.vstart.includes("/") == false && d.vstart.includes(",") == false && d.vstart != ""//took out some data points that create errors for now
-   
+
     } }))
     .join("line")
     .attr("stroke-width", 3)
