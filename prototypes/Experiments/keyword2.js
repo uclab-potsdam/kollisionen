@@ -200,8 +200,6 @@ var keywordsCount = [];
 
 //
 
-
-
 // for(let i = 0; i < keywordsCountFiltered.length; i++) {
 //
 //     var backgroundTimelineG = svg.append("g").classed("backgroundTimelineG", true)
@@ -224,8 +222,12 @@ var keywordsCount = [];
 console.log(new Date("1926-01-22"))
 console.log(timelineXScale(new Date(1926)))
 
+// create a symbol scale where a symbol is mapped to d.places, d.people, d.works, d.artistic, d.additional
+// d.places is d3.symbolTriangle, d.people is d2.symbolDiamond, d.artistic is symbolSquare, d.works is symbolWye, d.additional is symbolCross
 
-
+    // var symbolScale = d3.scaleOrdinal()
+    //     .domain(keywordsData[i]["places"], keywordsData[i]["people"], keywordsData[i]["works"], keywordsData[i]["artistic"], keywordsData[i]["additional"])
+    //     .range([d3.symbolTriangle, d3.symbolDiamond, d3.symbolSquare, d3.symbolWye, d3.symbolCross]);
 
   let timelinesG = d3.select("#chart").select("svg").selectAll(".timelines")
   .data(keywordsCountFiltered)//.filter(function(d,i){return i < 200}))
@@ -246,21 +248,131 @@ console.log(timelineXScale(new Date(1926)))
   .attr("stroke", "white")
   .attr("stroke-width", 3)
 
+  // var symbolGenerator = d3.symbol()
+	// .size(100);
+
+  // var symbolScale = d3.scaleOrdinal()
+  // .domain([d.places, d.people, d.works, d.artistic, d.additional])
+  // .range([d3.symbolTriangle, d3.symbolDiamond, d3.symbolSquare, d3.symbolWye, d3.symbolCross]);
+
+
+//symbol for d.places
+
+var symbolPlaces = d3.symbol()
+  .type(d3.symbolTriangle)
+  .size(15);
+
+var symbolPeople = d3.symbol()
+  .type(d3.symbolDiamond)
+  .size(15);
+
+  var symbolWorks = d3.symbol()
+  .type(d3.symbolWye)
+  .size(15);
+
+  var symbolArtistic = d3.symbol()
+  .type(d3.symbolSquare)
+  .size(15);
+
+  var symbolAdditional = d3.symbol()
+  .type(d3.symbolCross)
+  .size(15);
+
+  var pathDataPlaces = symbolPlaces();
+  var pathDataPeople = symbolPeople();
+  var pathDataWorks = symbolWorks();
+  var pathDataArtistic = symbolArtistic();
+  var pathDataAdditional = symbolAdditional();
+
+  // timelinesG.each(function(D,I){
+  //   d3.select(this).selectAll(".timelineNodes").append("g")
+  //   .data(keywordsData.filter(function (d) {
+  //     if(d.uncertaintystart === 0 && d.vend === ""){
+  //  return (d.people.includes(D) || d.places.includes(D) || d.works.includes(D) || d.artistic.includes(D) ||d.additional.includes(D)) && d.vstart.includes("/") == false && d.vstart.includes(",") == false && d.vstart != "" //took out some data points that create errors for now
+  //   }}))
+  //   .join("g")
+  //   // .join("circle")
+  //   // .attr("r",3)
+  //   // .attr("cx", function(d,i){
+  //   //   let date = new Date (d.vstart)
+  //   // //console.log(date + "-" + timelineXScale(date))
+  //   //   return timelineXScale(date)})
+  //   // .attr("cy", function(){return 10+I*20})
+  //   // .classed("cinema", function (d) {if (d.category1 == true && d.category2 == false && d.category3 == false)
+  //   // {return true}else{return false}})
+  //   .classed("biography", function (d) {
+  //     if (d.category2 == true && d.category1 == false && d.category3 == false)
+  //     {
+  //     return true;
+  //   } else{return false}
+  //   })
+  //   .classed("writing", function (d) {
+  //     if (d.category3 == true && d.category1 == false && d.category2 == false)
+  //     {
+  //     return true;
+  //   } else{return false}
+  //   })
+  //   .classed("cinebio", function (d) {
+  //     if (d.category1 == true && d.category2 == true && d.category3 == false)
+  //     {
+  //     return true;
+  //   }  else{return false}
+  //   })
+  //   .classed("biowrit", function (d) {
+  //     if (d.category1 == false && d.category2 == true && d.category3 == true)
+  //     {
+  //     return true;
+  //   }  else{return false}
+  //   })
+  //   .classed("cinewrit", function (d) {
+  //     if (d.category1 == true && d.category2 == false && d.category3 == true)
+  //     {
+  //     return true;
+  //   }  else{return false}
+  //   })
+  //   .classed("allcat", function (d) {
+  //     if (d.category1 == true && d.category2 == true && d.category3 == true)
+  //     {
+  //     return true;
+  //   }  else{return false}
+  //   })
+  // })
+
+  //symbol for d.people
+
+
   timelinesG.each(function(D,I){
     d3.select(this).selectAll(".timelineNodes").append("g")
     .data(keywordsData.filter(function (d) {
       if(d.uncertaintystart === 0 && d.vend === ""){
    return (d.people.includes(D) || d.places.includes(D) || d.works.includes(D) || d.artistic.includes(D) ||d.additional.includes(D)) && d.vstart.includes("/") == false && d.vstart.includes(",") == false && d.vstart != "" //took out some data points that create errors for now
     }}))
-    .join("circle")
-    .attr("r",3)
-    .attr("cx", function(d,i){
-      let date = new Date (d.vstart)
-    //console.log(date + "-" + timelineXScale(date))
-      return timelineXScale(date)})
-    .attr("cy", function(){return 10+I*20})
-    .classed("cinema", function (d) {if (d.category1 == true && d.category2 == false && d.category3 == false)
-    {return true}else{return false}})
+    .join("g")
+    .append("path")
+    .attr("transform", function(d){return "translate(" + timelineXScale(new Date(d.vstart)) + "," + 10+I*20 + ")"})
+    // .attr("d", pathDataPeople)
+    .attr("d", function(d){
+        if(d.places){
+          return pathDataPlaces;
+        } else if(d.people){
+          return pathDataPeople;
+        } else if(d.works){
+          return pathDataWorks;
+        } else if(d.artistic){
+          return pathDataArtistic;
+        } else if(d.additional){
+          return pathDataAdditional;
+        }
+         })
+    // .join("circle")
+    // .attr("r",3)
+    // .attr("cx", function(d,i){
+    //   let date = new Date (d.vstart)
+    // //console.log(date + "-" + timelineXScale(date))
+    //   return timelineXScale(date)})
+    // .attr("cy", function(){return 10+I*20})
+    // .classed("cinema", function (d) {if (d.category1 == true && d.category2 == false && d.category3 == false)
+    // {return true}else{return false}})
     .classed("biography", function (d) {
       if (d.category2 == true && d.category1 == false && d.category3 == false)
       {
@@ -297,15 +409,9 @@ console.log(timelineXScale(new Date(1926)))
       return true;
     }  else{return false}
     })
-    .style("opacity", function(d,i){
-      if (keywordsData[i]["people"] != "") {
-            return 1
-          } else {
-            return 0
-          }
-    })
   })
 
+  
 
   timelinesG.each(function(D,I){
     d3.select(this).selectAll(".timelineLines").append("g")
