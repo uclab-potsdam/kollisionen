@@ -223,13 +223,88 @@ var keywordsCount = [];
 console.log(new Date("1926-01-22"))
 console.log(timelineXScale(new Date(1926)))
 
+// tooltip setup
+
+var tooltip = d3.select("body")
+.append('div')
+.data(keywordsData)
+.attr('class', 'tooltip')
+.style('display', 'none');
+
+var sidebar = d3.select("#sidebar")
+.append('div')
+.attr('class', 'sidebar');
+
+//Conditioning the data for the sidebar
+
+// Set of functions for html formatting in tooltip and sidebar
+
+// htmlRenderer is a function in the form: (data) => htmlText
+// eg. (title) => `<p class="title">${title}</p>`
+// if data exists, it'll return the string with data inside it, otherwise it'll return an empty string
+function conditionalReturn(data, htmlFormatter) {
+  if (data == null || data === '' || data === false) {
+    return '';
+  }
+  return htmlFormatter(data);
+}
+
+// function to compare content of strings and omit repeated strings
+
+function compareDescription(d, descriptionFormat) {
+
+let a = d.description
+
+let b = d.title
+
+  if (a === b) {
+    return '';
+}
+ else {
+   return descriptionFormat(d.description);
+ }
+};
+
+// function to replace date with optional uncertain date
+
+function replaceTemporal(d, temporalSwap) {
+
+  let a = d.displayTemporal
+  let b = d.vstart
+
+  if (a == null || a === '' || a === false) {
+    return temporalSwap(b)}
+      else {
+    }
+  if (a !== null || a !== '' || a !== false) {
+    return '';
+  }};
+
+//function to split keywords by comma
+
+function stringSplit(data, keywordSplitter) {
+
+ var kws = data.split(";")
+
+ if (data == null || data === '' || data === false) {
+      return '';
+    } else {
+
+      } if (kws.length > 1) { return keywordSplitter(kws.join(", ")) }
+
+      else { return keywordSplitter(kws) }
+
+  };
+
   let timelinesG = d3.select("#chart").select("svg").selectAll(".timelines")
   .data(keywordsCountFiltered)//.filter(function(d,i){return i < 200}))
   .join("g")
   .classed("backgroundTimelineG", true)
 
   timelinesG.append("text")
-  .text(function(d){return d})
+  .text(function(d){
+    if(d.length >= 20){return d.slice(0, 20) + "[…]"}
+    else{return d}})
   .attr("x", 350)
   .attr("y", function(d,i){return 10+i*20})
   .style("text-anchor", "end")
@@ -296,6 +371,68 @@ console.log(timelineXScale(new Date(1926)))
       return true;
     }  else{return false}
     })
+    .on('mousemove', function (event, d) {
+      tooltip
+        .style('position', 'absolute')
+        .style('left', `${event.pageX + 5}px`)
+        .style('top', `${event.pageY + 10}px`)
+        .style('display', 'inline-block')
+        .style('opacity', '0.9')
+        .html(`
+              ${replaceTemporal(d, (vstart) => `<p class="date">${formatTime(d.vstart)}</p>`)}
+              ${conditionalReturn(d.displayTemporal, (displayTemporal) => `<p class="displayTemporal"><b>${displayTemporal}</b></p>`)}
+              <p class="tooltip-title">${d.title}</p>`);
+    })
+    .on('click', function (event, d) {
+      d3.select("#closedsidebar").style("display", "block")
+      sidebar
+      .style('display', 'block')
+      .html(`
+            ${replaceTemporal(d, (vstart) => `<p class="date">${formatTime(d.vstart)}</p>`)}
+            ${conditionalReturn(d.displayTemporal, (displayTemporal) => `<p class="displayTemporal"><b>${displayTemporal}</b></p>`)}
+            ${conditionalReturn(d.title, (title) => `<p class="title">${title}</p>`)}
+            ${compareDescription(d, (description) => `<p class="description"><b>Description: </b>${description}</p>`)}
+            ${stringSplit(d.people, (people) => `<p class="people"><b>People: </b>${people}</p>`)}
+            ${stringSplit(d.places, (places) => `<p class="places"><b>Places: </b>${places}</p>`)}
+            ${stringSplit(d.works, (works) => `<p class="works"<b><b>Works: </b>${works}</p>`)}
+            ${stringSplit(d.artistic, (artistic) => `<p class="artistic"><b>Artistic concepts: </b>${artistic}</p>`)}
+            ${stringSplit(d.additional, (additional) => `<p class="misc"><b>Misc: </b>${additional}</p>`)}
+            ${stringSplit(d.image, (image) => `<p class="objects"><b>Additonal items: <br> </b><img src="images/objects/${image}.png" alt="${image}" width = "25%" height = "auto"  class="image"></p><br>`)}
+            ${conditionalReturn(d.source, (source) => `<p class="source"><b>Source: </b>${source}</p>`)}
+            ${conditionalReturn(d.reference, (reference) => `<p class="reference"><b>Further references: </b>${reference}</p>`)}
+            <br/>
+            ${conditionalReturn(d.category1, (category1) => `<span class="key-dot cinema"></span>Cinema and Theatre<br>`)}
+            ${conditionalReturn(d.category2, (category2) => `<span class="key-dot biography"></span>Biography and Personality<br>`)}
+            ${conditionalReturn(d.category3, (category3) => `<span class="key-dot writing"></span>Writing and Teaching<br>`)}
+            ${conditionalReturn(d.category4, (category4) => `<span class="key-dot graphic"></span>Graphic Art<br>`)}
+            ${conditionalReturn(d.category5, (category5) => `<span class="key-dot apartment"></span>Apartment<br>`)}
+
+            `)
+
+  })
+  .on('mouseout', function (d) {
+    tooltip.style('display', 'none');
+    tooltip.style('opacity', 0);
+
+    d3.selectAll(".circles")
+    .style("opacity", 1)
+  })
+  .on('mouseout', function (d) {
+    tooltip.style('display', 'none');
+    tooltip.style('opacity', 0);
+
+    d3.selectAll(".circles")
+    .style("opacity", 1)
+  });
+  d3.selectAll("#closedsidebar")
+    .on('click', function (d) {
+
+      d3.select(".sidebar")
+        .style("display", "none")
+
+      d3.select("#closedsidebar").style("display", "none")
+
+    });  
   })
 
 //symbol for keyword categories
@@ -451,246 +588,6 @@ console.log(timelineXScale(new Date(1926)))
         })
 
 
-            //tooltip
-    var tooltip = d3.select("body")
-    .append('div')
-    .data(keywordsData)
-    .attr('class', 'tooltip')
-    .style('display', 'none');
-
-  var sidebar = d3.select("#sidebar")
-    .append('div')
-    .attr('class', 'sidebar');
-
-        
-
-
-
-
-
-// Set of functions for html formatting in tooltip and sidebar
-
-// htmlRenderer is a function in the form: (data) => htmlText
-// eg. (title) => `<p class="title">${title}</p>`
-// if data exists, it'll return the string with data inside it, otherwise it'll return an empty string
-function conditionalReturn(data, htmlFormatter) {
-  if (data == null || data === '' || data === false) {
-    return '';
-  }
-  return htmlFormatter(data);
-}
-
-// function to compare content of strings and omit repeated strings
-
-function compareDescription(d, descriptionFormat) {
-
-let a = d.description
-
-let b = d.title
-
-  if (a === b) {
-    return '';
-}
- else {
-   return descriptionFormat(d.description);
- }
-};
-
-// function to replace date with optional uncertain date
-
-function replaceTemporal(d, temporalSwap) {
-
-  let a = d.displayTemporal
-  let b = d.vstart
-
-  if (a == null || a === '' || a === false) {
-    return temporalSwap(b)}
-      else {
-    }
-  if (a !== null || a !== '' || a !== false) {
-    return '';
-  }};
-
-//function to split keywords by comma
-
-function stringSplit(data, keywordSplitter) {
-
- var kws = data.split(";")
-
- if (data == null || data === '' || data === false) {
-      return '';
-    } else {
-
-      } if (kws.length > 1) { return keywordSplitter(kws.join(", ")) }
-
-      else { return keywordSplitter(kws) }
-
-  };
-
-///tooltip for single day events
-
-  svg.selectAll(".circles")
-    .on('mousemove', function (event, d) {
-
-      // ///display same year nodes/arcs
-      // var [year, month, day] = d.vstart.split('-', 3)
-      // d3.selectAll("circles")
-      // .style("opacity", function(D){if(D.vstart.includes(year) == true){return 1}else{ return 0}})
-
-      // d3.selectAll("lines")
-      // .style("opacity", function(D){if(D.vstart.includes(year) == true || D.vend.includes(year) == true){return 1}else{ return 0}})
-
-      // d3.selectAll(".timeLabels")
-      // .style("opacity", function(D){if(D == year){return 1}else{ return 0}})
-
-      //tooltip
-      tooltip
-        .style('position', 'absolute')
-        .style('left', `${event.pageX + 5}px`)
-        .style('top', `${event.pageY + 10}px`)
-        .style('display', 'inline-block')
-        .style('opacity', '0.9')
-        .html(`
-              ${replaceTemporal(d, (vstart) => `<p class="date">${formatTime(d.vstart)}</p>`)}
-              ${conditionalReturn(d.displayTemporal, (displayTemporal) => `<p class="displayTemporal"><b>${displayTemporal}</b></p>`)}
-              <p class="tooltip-title">${d.title}</p>`);
-    })
-    // .on("mouseover", function(event, d){if (soundtoggle == true){
-    //   if (d.category1==true){playAudio(audio1)}
-    //   else if(d.category2==true){playAudio(audio2)}
-    //   else if(d.category3==true){playAudio(audio3)}
-    //   else if(d.category4==true){playAudio(audio4)}
-    //   else if(d.category5==true){playAudio(audio5)}
-    // }})
-    .on('click', function (event, d) {
-      d3.select("#closedsidebar").style("display", "block")
-/// sidebar for single day dates
-      sidebar
-        .style('display', 'block')
-        .html(`
-              ${replaceTemporal(d, (vstart) => `<p class="date">${formatTime(d.vstart)}</p>`)}
-              ${conditionalReturn(d.displayTemporal, (displayTemporal) => `<p class="displayTemporal"><b>${displayTemporal}</b></p>`)}
-              ${conditionalReturn(d.title, (title) => `<p class="title">${title}</p>`)}
-              ${compareDescription(d, (description) => `<p class="description"><b>Description: </b>${description}</p>`)}
-              ${stringSplit(d.people, (people) => `<p class="people"><b>People: </b>${people}</p>`)}
-              ${stringSplit(d.places, (places) => `<p class="places"><b>Places: </b>${places}</p>`)}
-              ${stringSplit(d.works, (works) => `<p class="works"<b><b>Works: </b>${works}</p>`)}
-              ${stringSplit(d.artistic, (artistic) => `<p class="artistic"><b>Artistic concepts: </b>${artistic}</p>`)}
-              ${stringSplit(d.additional, (additional) => `<p class="misc"><b>Misc: </b>${additional}</p>`)}
-              ${stringSplit(d.image, (image) => `<p class="objects"><b>Additonal items: <br> </b><img src="images/objects/${image}.png" alt="${image}" width = "25%" height = "auto"  class="image"></p><br>`)}
-              ${conditionalReturn(d.source, (source) => `<p class="source"><b>Source: </b>${source}</p>`)}
-              ${conditionalReturn(d.reference, (reference) => `<p class="reference"><b>Further references: </b>${reference}</p>`)}
-              <br/>
-              ${conditionalReturn(d.category1, (category1) => `<span class="key-dot cinema"></span>Cinema and Theatre<br>`)}
-              ${conditionalReturn(d.category2, (category2) => `<span class="key-dot biography"></span>Biography and Personality<br>`)}
-              ${conditionalReturn(d.category3, (category3) => `<span class="key-dot writing"></span>Writing and Teaching<br>`)}
-              ${conditionalReturn(d.category4, (category4) => `<span class="key-dot graphic"></span>Graphic Art<br>`)}
-              ${conditionalReturn(d.category5, (category5) => `<span class="key-dot apartment"></span>Apartment<br>`)}
-
-              `)
-
-    })
-    .on('mouseout', function (d) {
-      tooltip.style('display', 'none');
-      tooltip.style('opacity', 0);
-
-      d3.selectAll(".circles")
-      .style("opacity", 1)
-
-      // d3.selectAll(".timelineLines")
-      // .style("opacity", 1)
-
-      // d3.selectAll(".timeLabels")
-      // .style("opacity", function(D){if(D== firstYearforLabel || D == lastYearforLabel){return 1}else{return 0}})
-    })
-/// tooltip for spans
-  // svg.selectAll(".timelineLines")
-  //   .on('mousemove', function (event, d) {
-
-  //     ///display same year nodes/arcs
-  //     // var [year, month, day] = d.vstart.split('-', 3)
-  //     // console.log(year)
-  //     // d3.selectAll(".circles")
-  //     // .style("opacity", function(D){if(D.vstart.includes(year) == true){return 1}else{ return 0}})
-
-  //     d3.selectAll(".timelineLines")
-  //     .style("opacity", function(D){if(D.vstart.includes(year) == true || D.vend.includes(year) == true){return 1}else{ return 0}})
-
-  //     // d3.selectAll(".timeLabels")
-  //     // .style("opacity", function(D){if(D == year){return 1}else{ return 0}})
-
-
-  //     tooltip
-  //       .style('position', 'absolute')
-  //       .style('left', `${event.pageX + 5}px`)
-  //       .style('top', `${event.pageY + 10}px`)
-  //       .style('display', 'inline-block')
-  //       .style('opacity', '0.9')
-  //       .html(`
-  //                   ${replaceTemporal(d, (vstart) => `<b><p class="date">${formatTime(d.vstart)}</b> to <b>${formatTime(d.vend)}</b></p>`)}
-  //                   ${conditionalReturn(d.displayTemporal, (displayTemporal) => `<p class="displayTemporal"><b>${displayTemporal}</b></p>`)}
-  //                   <p class="tooltip-title">${d.title}</p>`);
-  //   })
-//     .on('click', function (event, d) {
-//       d3.select("#closedsidebar").style("display", "block")
-// /// sidebar for spans
-//       sidebar
-//         .style('display', 'block')
-//         .html(`
-//         ${replaceTemporal(d, (vstart) => `<b><p class="date">${formatTime(d.vstart)}</b> to <b>${formatTime(d.vend)}</b></p>`)}
-//         ${conditionalReturn(d.displayTemporal, (displayTemporal) => `<p class="displayTemporal"><b>${displayTemporal}</b></p>`)}
-//         ${conditionalReturn(d.title, (title) => `<p class="title">${title}</p>`)}
-//         ${compareDescription(d, (description) => `<p class="description"><b>Description: </b>${description}</p>`)}
-//         ${stringSplit(d.people, (people) => `<p class="people"><b>People: </b>${people}</p>`)}
-//         ${stringSplit(d.places, (places) => `<p class="places"><b>Places: </b>${places}</p>`)}
-//         ${stringSplit(d.works, (works) => `<p class="works"<b><b>Works: </b>${works}</p>`)}
-//         ${stringSplit(d.artistic, (artistic) => `<p class="artistic"><b>Artistic concepts: </b>${artistic}</p>`)}
-//         ${stringSplit(d.additional, (additional) => `<p class="misc"><b>Misc: </b>${additional}</p>`)}
-//         ${conditionalReturn(d.image, (image) => `<p class="objects"><b>Additonal items: <br> </b><img src="images/objects/${image}.png" alt="${image} width = "25%" height = "auto" class="image"></p><br>`)}
-//         ${conditionalReturn(d.source, (source) => `<p class="source"><b>Source: </b>${source}</p>`)}
-//         ${conditionalReturn(d.reference, (reference) => `<p class="reference"><b>Further references: </b>${reference}</p>`)}
-//         <br/>
-//         ${conditionalReturn(d.category1, (category1) => `<span class="key-dot cinema"></span>Cinema and Theatre<br>`)}
-//         ${conditionalReturn(d.category2, (category2) => `<span class="key-dot biography"></span>Biography and Personality<br>`)}
-//         ${conditionalReturn(d.category3, (category3) => `<span class="key-dot writing"></span>Writing and Teaching<br>`)}
-//         ${conditionalReturn(d.category4, (category4) => `<span class="key-dot graphic"></span>Graphic Art<br>`)}
-//         ${conditionalReturn(d.category5, (category5) => `<span class="key-dot apartment"></span>Apartment<br>`)}
-//         `)
-
-//     })
-    // .on("mouseover", function(event, d){if (soundtoggle == true){
-    //   if (d.category1==true){playAudio(audio1)}
-    //   else if(d.category2==true){playAudio(audio2)}
-    //   else if(d.category3==true){playAudio(audio3)}
-    //   else if(d.category4==true){playAudio(audio4)}
-    //   else if(d.category5==true){playAudio(audio5)}
-    // }})
-    .on('mouseout', function (d) {
-      tooltip.style('display', 'none');
-      tooltip.style('opacity', 0);
-
-      d3.selectAll(".circles")
-      .style("opacity", 1)
-
-      // d3.selectAll(".circles")
-      // .style("opacity", 1)
-
-      // d3.selectAll(".timeLabels")
-      // .style("opacity", function(D){if(D== firstYearforLabel || D == lastYearforLabel){return 1}else{return 0}})
-
-    });
-
-    //closes sidebar using 'x'
-
-    d3.selectAll("#closedsidebar")
-      .on('click', function (d) {
-
-        d3.select(".sidebar")
-          .style("display", "none")
-
-        d3.select("#closedsidebar").style("display", "none")
-
-      });
 
 
 
