@@ -586,18 +586,75 @@ var symbolPeople = d3.symbol()
                 // console.log(d.vend + "-" +date + "-" + timelineXScale(date))
                   return timelineXScale(date)})
                 .attr("y2", function(){return 10+I*20})
+      .on('mousemove', function (event, d) {
+        tooltip
+          .style('position', 'absolute')
+          .style('left', `${event.pageX + 5}px`)
+          .style('top', `${event.pageY + 10}px`)
+          .style('display', 'inline-block')
+          .style('opacity', '0.9')
+          .html(`
+                      ${replaceTemporal(d, (vdateStart) => `<b><p class="date">${formatTime(d.vdateStart)}</b> to <b>${formatTime(d.vdateEnd)}</b></p>`)}
+                      ${conditionalReturn(d.displayTemporal, (displayTemporal) => `<p class="displayTemporal"><b>${displayTemporal}</b></p>`)}
+                      <p class="tooltip-title">${d.title}</p>`);
+      })
+      .on('click', function (event, d) {
+        d3.select("#closedsidebar").style("display", "block")
+/// sidebar for spans
+        sidebar
+          .style('display', 'block')
+          .html(`
+          ${replaceTemporal(d, (vdateStart) => `<b><p class="date">${formatTime(d.vdateStart)}</b> to <b>${formatTime(d.vdateEnd)}</b></p>`)}
+          ${conditionalReturn(d.displayTemporal, (displayTemporal) => `<p class="displayTemporal"><b>${displayTemporal}</b></p>`)}
+          ${conditionalReturn(d.title, (title) => `<p class="title">${title}</p>`)}
+          ${compareDescription(d, (description) => `<p class="description"><b>Description: </b>${description}</p>`)}
+          ${stringSplit(d.people, (people) => `<p class="people"><b>People: </b>${people}</p>`)}
+          ${stringSplit(d.places, (places) => `<p class="places"><b>Places: </b>${places}</p>`)}
+          ${stringSplit(d.works, (works) => `<p class="works"<b><b>Works: </b>${works}</p>`)}
+          ${stringSplit(d.artistic, (artistic) => `<p class="artistic"><b>Artistic concepts: </b>${artistic}</p>`)}
+          ${stringSplit(d.additional, (additional) => `<p class="misc"><b>Misc: </b>${additional}</p>`)}
+          ${conditionalReturn(d.image, (image) => `<p class="objects"><b>Additonal items: <br> </b><img src="images/objects/${image}.png" alt="${image} width = "25%" height = "auto" class="image"></p><br>`)}
+          ${conditionalReturn(d.source, (source) => `<p class="source"><b>Source: </b>${source}</p>`)}
+          ${conditionalReturn(d.reference, (reference) => `<p class="reference"><b>Further references: </b>${reference}</p>`)}
+          <br/>
+          ${conditionalReturn(d.category1, (category1) => `<span class="key-dot cinema"></span>Cinema and Theatre<br>`)}
+          ${conditionalReturn(d.category2, (category2) => `<span class="key-dot biography"></span>Biography and Personality<br>`)}
+          ${conditionalReturn(d.category3, (category3) => `<span class="key-dot writing"></span>Writing and Teaching<br>`)}
+          ${conditionalReturn(d.category4, (category4) => `<span class="key-dot graphic"></span>Graphic Art<br>`)}
+          ${conditionalReturn(d.category5, (category5) => `<span class="key-dot apartment"></span>Apartment<br>`)}
+          `)
 
+      })
+      .on('mouseout', function (d) {
+        tooltip.style('display', 'none');
+        tooltip.style('opacity', 0);
+
+        d3.selectAll(".pathGs")
+        .style("opacity", 1)
+      })
+      d3.selectAll("#closedsidebar")
+      .on('click', function (d) {
+
+        d3.select(".sidebar")
+          .style("display", "none")
+
+        d3.select("#closedsidebar").style("display", "none")
+
+      })
         })
+
+
+
+//symbols for keyword categories
 
         timelinesG.each(function(D,I){
           d3.select(this).selectAll(".symbols").append("g")
           .data(keywordsData.filter(function (d) {
-                  if(d.uncertaintystart === 0 && d.vend === ""){
                return (d.people.includes(D) || d.places.includes(D) || d.works.includes(D) || d.artistic.includes(D) ||d.additional.includes(D)) && d.vstart.includes("/") == false && d.vstart.includes(",") == false && d.vstart != "" //took out some data points that create errors for now
-                }}))               
+                }))               
 .join("path")
 .attr("transform", function(d,i){
-return "translate(340," + (10+i*20) + ")"})
+return "translate(340," + (10+I*20) + ")"})
 .attr("d", function(d,i){
         if(d.places){
           return pathDataPlaces
