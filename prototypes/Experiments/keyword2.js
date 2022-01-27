@@ -2,6 +2,9 @@
 var url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvSLkjHvHlPjWLy3ec4UT9AsFsyTy2rbsjKquZgmhCqbsTZ4TLAnWv28Y3PnR/pub?gid=1387341329&single=true&output=csv'
 // url = './minimal.csv' //local backup
 
+var itemsUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTpZlBfSa0sBkPXXCdHykUFi5N2zPcclrda8iaYlbWoyzaWxDj7q3WEtmP7m8hrzk5ejAgjk-Id_zk9/pub?gid=1626158426&single=true&output=csv'
+
+
 // const width = 1500 //width of the svg sidebar is 350px - needs to be adjusted to allow for the width of the sidebar
 const width = innerWidth - 350 //width of the svg sidebar is 350px - needs to be adjusted to allow for the width of the sidebar
 const height = 8250
@@ -176,6 +179,20 @@ var keywordsCount = [];
     };
 
     console.log(keywordsCountFiltered);
+
+    Promise.all([
+      d3.csv(itemsUrl), //data
+    ])
+      .then(([itemsData]) => {
+        console.log(itemsData);
+      });
+
+      for (let i = 0; i < keywordsData.length; i++) {
+
+      if (keywordsData[i]["items"]) {
+        keywordsData[i]["items"] = keywordsData[i]["items"].split(",");
+      }
+    };
 
 //scale for width of timeline
 
