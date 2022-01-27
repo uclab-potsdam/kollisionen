@@ -125,10 +125,12 @@ for (let i = 0; i < keywordsData.length; i++) {
 
 };
 
-// keywordsData.forEach(function(d) {
+keywordsData.forEach(function(d) {
 //     d.vstart = +parseDate(d.vstart);
 //     d.vend = +parseDate(d.vend);
-//   });
+d.vdateStart = +startParse(d.vstart  + " 00:01AM");
+d.vdateEnd = +endParse(d.vend + " 23:59AM")
+  });
 
 // var keywordsCount equals distinct strings seperated by ';' in d.people, d.places, d.works, d.artistic, and d.additional and ignore empty strings
 
@@ -305,7 +307,7 @@ function stringSplit(data, keywordSplitter) {
   .text(function(d){
     if(d.length >= 20){return d.slice(0, 20) + "[…]"}
     else{return d}})
-  .attr("x", 350)
+  .attr("x", 320)
   .attr("y", function(d,i){return 10+i*20})
   .style("text-anchor", "end")
 
@@ -379,7 +381,7 @@ function stringSplit(data, keywordSplitter) {
         .style('display', 'inline-block')
         .style('opacity', '0.9')
         .html(`
-              ${replaceTemporal(d, (vstart) => `<p class="date">${formatTime(d.vstart)}</p>`)}
+              ${replaceTemporal(d, (vdateStart) => `<p class="date">${formatTime(d.vdateStart)}</p>`)}
               ${conditionalReturn(d.displayTemporal, (displayTemporal) => `<p class="displayTemporal"><b>${displayTemporal}</b></p>`)}
               <p class="tooltip-title">${d.title}</p>`);
     })
@@ -388,7 +390,7 @@ function stringSplit(data, keywordSplitter) {
       sidebar
       .style('display', 'block')
       .html(`
-            ${replaceTemporal(d, (vstart) => `<p class="date">${formatTime(d.vstart)}</p>`)}
+            ${replaceTemporal(d, (vdateStart) => `<p class="date">${formatTime(d.vdateStart)}</p>`)}
             ${conditionalReturn(d.displayTemporal, (displayTemporal) => `<p class="displayTemporal"><b>${displayTemporal}</b></p>`)}
             ${conditionalReturn(d.title, (title) => `<p class="title">${title}</p>`)}
             ${compareDescription(d, (description) => `<p class="description"><b>Description: </b>${description}</p>`)}
@@ -435,33 +437,33 @@ function stringSplit(data, keywordSplitter) {
     });  
   })
 
-//symbol for keyword categories
+// symbol for keyword categories
 
-// var symbolPlaces = d3.symbol()
-//   .type(d3.symbolTriangle)
-//   .size(15);
+var symbolPlaces = d3.symbol()
+  .type(d3.symbolTriangle)
+  .size(15);
 
-// var symbolPeople = d3.symbol()
-//   .type(d3.symbolDiamond)
-//   .size(15);
+var symbolPeople = d3.symbol()
+  .type(d3.symbolDiamond)
+  .size(15);
 
-//   var symbolWorks = d3.symbol()
-//   .type(d3.symbolWye)
-//   .size(15);
+  var symbolWorks = d3.symbol()
+  .type(d3.symbolWye)
+  .size(15);
 
-//   var symbolArtistic = d3.symbol()
-//   .type(d3.symbolSquare)
-//   .size(15);
+  var symbolArtistic = d3.symbol()
+  .type(d3.symbolSquare)
+  .size(15);
 
-//   var symbolAdditional = d3.symbol()
-//   .type(d3.symbolCross)
-//   .size(15);
+  var symbolAdditional = d3.symbol()
+  .type(d3.symbolCross)
+  .size(15);
 
-//   var pathDataPlaces = symbolPlaces();
-//   var pathDataPeople = symbolPeople();
-//   var pathDataWorks = symbolWorks();
-//   var pathDataArtistic = symbolArtistic();
-//   var pathDataAdditional = symbolAdditional();
+  var pathDataPlaces = symbolPlaces();
+  var pathDataPeople = symbolPeople();
+  var pathDataWorks = symbolWorks();
+  var pathDataArtistic = symbolArtistic();
+  var pathDataAdditional = symbolAdditional();
 
 
 //   timelinesG.each(function(D,I){
@@ -587,7 +589,34 @@ function stringSplit(data, keywordSplitter) {
 
         })
 
+        timelinesG.each(function(D,I){
+          d3.select(this).selectAll(".symbols").append("g")
+          .data(keywordsData.filter(function (d) {
+                  if(d.uncertaintystart === 0 && d.vend === ""){
+               return (d.people.includes(D) || d.places.includes(D) || d.works.includes(D) || d.artistic.includes(D) ||d.additional.includes(D)) && d.vstart.includes("/") == false && d.vstart.includes(",") == false && d.vstart != "" //took out some data points that create errors for now
+                }}))               
+.join("path")
+.attr("transform", function(d,i){
+return "translate(340," + (10+i*20) + ")"})
+.attr("d", function(d,i){
+        if(d.places){
+          return pathDataPlaces
+        } else if(d.people){
+          return pathDataPeople
+        } else if(d.works){
+          return pathDataWorks
+        } else if(d.artistic){
+          return pathDataArtistic
+        } else if(d.additional){
+          return pathDataAdditional
+        }
+         })
+.attr("fill", "black")
+.attr("stroke", "black")
+.attr("stroke-width", 1)
+.attr("opacity", 1)
 
+})
 
 
 
