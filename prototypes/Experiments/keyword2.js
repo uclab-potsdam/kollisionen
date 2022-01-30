@@ -180,6 +180,10 @@ var keywordsCount = [];
 
     console.log(keywordsCountFiltered);
 
+    //sort keywordsCountFiltered alphabetically
+
+    
+
     Promise.all([
       d3.csv(itemsUrl), //data
     ])
