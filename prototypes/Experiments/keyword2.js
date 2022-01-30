@@ -182,7 +182,36 @@ var keywordsCount = [];
 
     //sort keywordsCountFiltered alphabetically
 
+    keywordsCountFiltered.sort(); // alphabetically sort
+
+    console.log(keywordsCountFiltered);
+
+    //create array of objects with keyword and count
+
+    var keywordsCountFilteredObjects = [];
+
+    for (let i = 0; i < keywordsCountFiltered.length; i++) {
+      var count = 0;
+      for (let j = 0; j < keywordsData.length; j++) {
+        if (keywordsData[j]["people"].includes(keywordsCountFiltered[i]) ||
+        keywordsData[j]["places"].includes(keywordsCountFiltered[i]) ||
+        keywordsData[j]["works"].includes(keywordsCountFiltered[i]) ||
+        keywordsData[j]["artistic"].includes(keywordsCountFiltered[i]) ||
+        keywordsData[j]["additional"].includes(keywordsCountFiltered[i])) count++;
+      }
+
+      keywordsCountFilteredObjects.push({"keyword":keywordsCountFiltered[i],"count":count});
+    };
+
+    console.log(keywordsCountFilteredObjects);
+
+// sort keywordsCountFilteredObjects by count
+
+    keywordsCountFilteredObjects.sort(function(a, b) {
+      return b.count - a.count;
+    });
     
+    console.log(keywordsCountFilteredObjects);
 
     Promise.all([
       d3.csv(itemsUrl), //data
