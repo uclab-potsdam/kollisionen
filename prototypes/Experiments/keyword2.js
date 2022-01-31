@@ -590,8 +590,6 @@ var symbolPeople = d3.symbol()
 //     })
 //   })
 
-
-
   timelinesG.each(function(D,I){
     d3.select(this).selectAll(".timelineLines").append("g")
     .data(keywordsData.filter(function (d) {
@@ -600,6 +598,7 @@ var symbolPeople = d3.symbol()
 
     } }))
     .join("line")
+    .classed("timelineLines", true)
     .attr("stroke-width", 3)
     .classed("biography", function (d) {
       if (d.category2 == true && d.category1 == false && d.category3 == false)
@@ -691,7 +690,7 @@ var symbolPeople = d3.symbol()
         tooltip.style('display', 'none');
         tooltip.style('opacity', 0);
 
-        d3.selectAll(".pathGs")
+        d3.selectAll(".timelineLines")
         .style("opacity", 1)
       })
       d3.selectAll("#closedsidebar")
@@ -737,8 +736,288 @@ return "translate(340," + (10+I*20) + ")"})
 
 })
 
+///////////////////search
 
 
+let nodes = []
+let links = []
+
+keywordsData.forEach(function(d, i) {
+
+  let peopleNodes = d.people == "" ? [] : d.people.split(";")
+  let placesNodes = d.places == "" ? [] : d.places.split(";")
+  let worksNodes = d.works == "" ? [] : d.works.split(";")
+  let artisticNodes = d.artistic == "" ? [] : d.artistic.split(";")
+  let additionalNodes = d.additional == "" ? [] : d.additional.split(";")
+
+  //add people to nodes
+  peopleNodes.forEach(function(D) {
+    if (nodes.filter(function(x) {
+        return x.name == D
+      }).length == 0) {
+      nodes.push({
+        name: D,
+        count: 1,
+        category: "people"
+      })
+    } else {
+      nodes.filter(function(x) {
+        return x.name == D
+      })[0].count++
+    }
+  })
+
+
+  //add places to nodes
+  placesNodes.forEach(function(D) {
+    if (nodes.filter(function(x) {
+        return x.name == D
+      }).length == 0) {
+      nodes.push({
+        name: D,
+        count: 1,
+        category: "places"
+      })
+    } else {
+      nodes.filter(function(x) {
+        return x.name == D
+      })[0].count++
+    }
+  })
+
+  //add works to nodes
+  worksNodes.forEach(function(D) {
+    if (nodes.filter(function(x) {
+        return x.name == D
+      }).length == 0) {
+      nodes.push({
+        name: D,
+        count: 1,
+        category: "works"
+      })
+    } else {
+      nodes.filter(function(x) {
+        return x.name == D
+      })[0].count++
+    }
+  })
+
+  //add artistic to nodes
+  artisticNodes.forEach(function(D) {
+    if (nodes.filter(function(x) {
+        return x.name == D
+      }).length == 0) {
+      nodes.push({
+        name: D,
+        count: 1,
+        category: "artistic"
+      })
+    } else {
+      nodes.filter(function(x) {
+        return x.name == D
+      })[0].count++
+    }
+  })
+
+  //add additional to nodes
+  additionalNodes.forEach(function(D) {
+    if (nodes.filter(function(x) {
+        return x.name == D
+      }).length == 0) {
+      nodes.push({
+        name: D,
+        count: 1,
+        category: "additional"
+      })
+    } else {
+      nodes.filter(function(x) {
+        return x.name == D
+      })[0].count++
+    }
+  })
+
+  let allNodes = [].concat(peopleNodes, placesNodes, worksNodes, artisticNodes, additionalNodes)
+
+  //create combinations of source+targets out of all "objects"
+  //https://stackoverflow.com/questions/43241174/javascript-generating-all-combinations-of-elements-in-a-single-array-in-pairs
+  allNodes.flatMap(
+    function(v, i) {
+      return allNodes.slice(i + 1).forEach(function(w) {
+        //  console.log( v + '+ ' + w )
+        if (links.filter(function(D) {
+            return (D.source == v && D.target == w) || D.source == w && D.target == v
+          }).length == 0) {
+          links.push({
+            source: v,
+            target: w,
+            children: [{
+              source: v,
+              target: w,
+              category: d.category,
+              dateStart: new Date(d.vstart),
+              dateEnd: new Date(d.vend),
+              relation_source: d.title,
+              description: d.description
+            }],
+          })
+        } else {
+          links.filter(function(D) {
+            return (D.source == v && D.target == w) || D.source == w && D.target == v
+          })[0].children.push({
+            source: v,
+            target: w,
+            category: d.category,
+            dateStart: new Date(d.vstart),
+            dateEnd: new Date(d.vend),
+            relation_source: d.title,
+            description: d.description
+          })
+
+        }
+
+      })
+    }
+  )
+
+
+
+})
+
+console.log(links)
+console.log(nodes)
+
+nodes.sort(function(a, b) {
+  return b.count - a.count;
+})
+
+///////////////////search
+
+
+
+let searchDaten = [
+{
+text: "People",
+children:[]
+},
+{
+text: "Places",
+children:[]
+},
+{
+text: "Artistic",
+children:[]
+},
+{
+text: "Additional",
+children:[]
+},
+{
+text: "Works",
+children:[]
+},
+
+];
+
+
+nodes.filter(function(d){return d.category == "people"}).forEach(function(d,i){
+searchDaten[0].children.push(
+{id:i,
+text:d.name + " ("+d.count+")",
+name:d.name,
+category: "people",
+count:d.count,}
+)
+})
+
+nodes.filter(function(d){return d.category == "places"}).forEach(function(d,i){
+searchDaten[1].children.push(
+{id:i,
+  text:d.name + " ("+d.count+")",
+  name:d.name,
+  category: "places",
+count:d.count,}
+)
+})
+
+nodes.filter(function(d){return d.category == "artistic"}).forEach(function(d,i){
+searchDaten[2].children.push(
+{id:i,
+  text:d.name + " ("+d.count+")",
+  name:d.name,
+  category: "artistic",
+count:d.count,}
+)
+})
+
+nodes.filter(function(d){return d.category == "additional"}).forEach(function(d,i){
+searchDaten[3].children.push(
+{id:i,
+  text:d.name + " ("+d.count+")",
+  name:d.name,
+  category: "additional",
+count:d.count,}
+)
+})
+
+nodes.filter(function(d){return d.category == "works"}).forEach(function(d,i){
+searchDaten[4].children.push(
+{id:i,
+  text:d.name + " ("+d.count+")",
+  name:d.name,
+  category: "works",
+  count:d.count,}
+)
+})
+
+////search
+$("#search").select2({
+data: searchDaten,
+containerCssClass: "search",
+selectOnClose: true,
+placeholder: "Search events based on keywords",
+allowClear: true
+
+});
+
+
+$("#search").on("select2-selecting", function(e) {
+console.log(e.choice.name)
+console.log(e.choice.category)
+
+d3.selectAll("circle").classed("filteredout", function(d){
+  if (e.choice.category == "people"){
+    if(d.people.includes(e.choice.name)){return false}else{return true}
+  }else if (e.choice.category == "places"){
+      if(d.places.includes(e.choice.name)){return false}else{return true}
+    }else if (e.choice.category == "artistic"){
+        if(d.artistic.includes(e.choice.name)){return false}else{return true}
+      }else if (e.choice.category == "additional"){
+          if(d.additional.includes(e.choice.name)){return false}else{return true}
+        }else if (e.choice.category == "works"){
+            if(d.works.includes(e.choice.name)){return false}else{return true}
+          }})
+
+          d3.selectAll(".timelineLines").classed("filteredout", function(d){
+            if (e.choice.category == "people"){
+              if(d.people.includes(e.choice.name)){return false}else{return true}
+            }else if (e.choice.category == "places"){
+                if(d.places.includes(e.choice.name)){return false}else{return true}
+              }else if (e.choice.category == "artistic"){
+                  if(d.artistic.includes(e.choice.name)){return false}else{return true}
+                }else if (e.choice.category == "additional"){
+                    if(d.additional.includes(e.choice.name)){return false}else{return true}
+                  }else if (e.choice.category == "works"){
+                      if(d.works.includes(e.choice.name)){return false}else{return true}
+                    }})
+
+
+})
+
+
+$("#search").on("select2-clearing", function(e) {
+d3.selectAll(".timelineLines").classed("filteredout",false)
+d3.selectAll("circle").classed("filteredout",false)
+})
 
 // };
 
