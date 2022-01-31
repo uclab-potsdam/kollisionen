@@ -213,6 +213,17 @@ var keywordsCount = [];
     
     console.log(keywordsCountFilteredObjects);
 
+
+// sort keywordsCountFiltered by the count from the sorted keywordsCountFilteredObjects
+
+    var keywordsCountFilteredSorted = [];
+
+    for (let i = 0; i < keywordsCountFilteredObjects.length; i++) {
+      keywordsCountFilteredSorted.push(keywordsCountFilteredObjects[i]["keyword"]);
+    };
+
+    console.log(keywordsCountFilteredSorted);
+
     Promise.all([
       d3.csv(itemsUrl), //data
     ])
@@ -349,7 +360,8 @@ function stringSplit(data, keywordSplitter) {
   };
 
   let timelinesG = d3.select("#chart").select("svg").selectAll(".timelines")
-  .data(keywordsCountFiltered)//.filter(function(d,i){return i < 200}))
+  .data(keywordsCountFilteredSorted)//.filter(function(d,i){return i < 200})) // sort by count
+  // .data(keywordsCountFiltered) //sort aphabetically
   .join("g")
   .classed("backgroundTimelineG", true)
 
