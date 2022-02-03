@@ -643,7 +643,7 @@ if (spiralData[i]["uncertaintyend"] == 2) spiralData[i]["vend"] = endA[0] + "-12
   data: searchDaten,
   containerCssClass: "search",
   selectOnClose: true,
-  placeholder: "Search events based on keywords",
+  placeholder: "Search events keywords",
   allowClear: true
 
   });
