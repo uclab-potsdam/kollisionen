@@ -378,8 +378,17 @@ function stringSplit(data, keywordSplitter) {
   .attr("y1", function(d,i){return 10+i*20})
   .attr("x2", width-200)  //end of timeline
   .attr("y2", function(d,i){return 10+i*20})
-  .attr("stroke", "white")
-  .attr("stroke-width", 3)
+  // .attr("stroke", "white")
+  // .attr("stroke-width", 3)
+  .style("stroke", "grey")
+  .style("stroke", ("6, 5"))
+  .style("opacity", 0.05)
+
+// fisheye effect
+
+var fisheye = d3.fisheye
+    .circular()
+    .radius(10)
 
 // circles for timeline
 
@@ -435,6 +444,26 @@ function stringSplit(data, keywordSplitter) {
       return true;
     }  else{return false}
     })
+    //fisheye effect
+    .on('mouseover', function (event, d) {
+      fisheye.focus(d3.select(this));
+
+      d3.select(this).each(function(d) { d.fisheye = fisheye(d); })
+            .attr("cx", function(d) { return d.fisheye.x; })
+            .attr("cy", function(){return 10+I*20})
+            .attr("r", function(d) { return d.fisheye.z * 0.3; });
+
+            console.log(d)
+    })
+
+
+
+    // .on('mouseout', function (event, d) {
+    //   fisheye.focus(null);
+
+    // })
+
+      //tooltip
     .on('mousemove', function (event, d) {
       tooltip
         .style('position', 'absolute')
@@ -447,7 +476,8 @@ function stringSplit(data, keywordSplitter) {
               ${conditionalReturn(d.displayTemporal, (displayTemporal) => `<p class="displayTemporal"><b>${displayTemporal}</b></p>`)}
               <p class="tooltip-title">${d.title}</p>`);
     })
-    .on('click', function (event, d) {
+
+      .on('click', function (event, d) {
       d3.select("#closedsidebar").style("display", "block")
       sidebar
       .style('display', 'block')
@@ -599,7 +629,7 @@ var symbolPeople = d3.symbol()
     } }))
     .join("line")
     .classed("timelineLines", true)
-    .attr("stroke-width", 3)
+    .attr("stroke-width", 6)
     .classed("biography", function (d) {
       if (d.category2 == true && d.category1 == false && d.category3 == false)
       {
@@ -1009,7 +1039,6 @@ d3.selectAll("circle").classed("filteredout", function(d){
                   }else if (e.choice.category == "works"){
                       if(d.works.includes(e.choice.name)){return false}else{return true}
                     }})
-
 
 })
 
