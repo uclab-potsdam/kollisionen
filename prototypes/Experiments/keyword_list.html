@@ -18,8 +18,10 @@
 <style>
 #chart{
   height: 8250px;
-  position: absolute;
+  position: fixed;
   top: 25px;
+  width: calc(100% - 150px);
+  margin-left: 150px
 }
 
 #chart svg{
@@ -37,7 +39,7 @@
     <div class="timelinesviz"> <a href="https://uclab-potsdam.github.io/kollisionen/prototypes/Experiments/keyword_list.html"><h2>Timelines</h2></a></div>
   </div>
 
-  <div id="chart" style="margin-left:100px;">
+  <div id="chart">
 <script type="text/javascript" src="keyword2.js"></script>
   </div>
 
