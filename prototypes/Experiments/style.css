@@ -257,7 +257,7 @@ width: 10px;
 #left-panel {
   left: 10px;
   top: 10px;
-  position: absolute;
+  position: fixed;
   z-index: 20;
   width: 320px;
   padding-left: 15px;
@@ -381,11 +381,10 @@ h2 {
 .toppanel { 
   display: flex; 
   justify-content: center;
-  position:absolute;
+  position: static;
   clear: both;
   width: 100%;
   height: 60px;
-  height: 100%;
   margin-top: 30px;
   z-index: 5;
 }
