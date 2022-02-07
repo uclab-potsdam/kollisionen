@@ -7,7 +7,7 @@
   <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 
   <!-- <link rel="stylesheet" href="../standard-style.css"> -->
-  <link rel="stylesheet" href="../index.css">
+  <!-- <link rel="stylesheet" href="../index.css"> -->
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" type="text/css" href="https://uclab.fh-potsdam.de/ff/css/select2.css">
   <script src="https://d3js.org/d3.v6.js"></script>
@@ -19,6 +19,7 @@
 #chart{
   height: 8250px;
   position: absolute;
+  top: 25px;
 }
 
 #chart svg{
@@ -30,35 +31,80 @@
 
 <body>
 
-  <div id="chart">
+  <div class="toppanel">
+    <div class="spiralviz"> <a href="https://uclab-potsdam.github.io/kollisionen/prototypes/Experiments/index.html"><h2>Spiral</h2></a></div>
+    <div class="networkviz"> <a href="https://uclab-potsdam.github.io/kollisionen/prototypes/Experiments/network.html"><h2>Network</h2></a></div>
+    <div class="timelinesviz"> <a href="https://uclab-potsdam.github.io/kollisionen/prototypes/Experiments/keyword_list.html"><h2>Timelines</h2></a></div>
+  </div>
+
+  <div id="chart" style="margin-left:100px;">
 <script type="text/javascript" src="keyword2.js"></script>
   </div>
 
   
-  <div id="header">
-  <div class="image">
+<div id="left-panel">
+  <div class="logo">
     <a href="https://uclab-potsdam.github.io/kollisionen/prototypes/index.html">
       <img src="../images/K_logo.png" alt="Kollisionen logo" height="75px">
     </a>
   </div>
-  
 
-
-  <!-- <div class="intro-text">
-    <p style="font-weight: 600;">The biographical data is based on the book <em>Sergej M. Eisenstein. Materialien zu Leben und Werk</em> by Werner Sudendorf, Hanser, 1980.</p>
-    <p> This is work in progress as part of the research project <a href="https://collisions-eisensteinshouse.projekte-filmuni.de">KOLLISIONEN</a> at Fachhochschule Potsdam and Filmuniversität Babelsberg.</p>
-    </p>
-  </div> -->
+  <div class="intro-text">
+    <p>This visualisation is part of research project <a href="https://collisions-eisensteinshouse.projekte-filmuni.de">KOLLISIONEN</a> at Fachhochschule Potsdam and Filmuniversität Babelsberg.</p>
+    <p>It visualises the life and legacy of Sergej M. Eisenstein.</p>
   </div>
 
-<div class="search-container">
-  <div id="search"></div>
+  <div class="search-container">
+    <div id="search"></div>
+  </div>
+
+  <div class="highlights">
+    <h2>Highlights</h2>
+    <p>Sokrates Sculpture Post Card</p>
+    <p>Mey Lan Fan Photo</p>    
+    <p>Pual Robeson Photo</p>
+    <p>Dawn Quixote Daumier Painting</p>
+    <p>Mexcian Carpets</p>  
+    <p>Straw Horseman</p>
+    <p>Meyerhold Painting</p>
+    <p>Sergey Prokofiev Photo</p>
+  </div>  
+
+  <div class="categories">
+    <h2>Categories</h2>
+    <p class="f_c filter"> <span class="key-dot cinema"></span>Cinema and Theatre </p>
+      <p class="f_b filter"> <span class="key-dot biography"></span>Biography and Personality </p>
+      <p class="f_w filter"> <span class="key-dot writing"></span>Writing and Teaching</p>
+      <p class="f_ac filter f_cb filter f_wb filter f_cb filter">
+        <span class="key-dot biowrit" style="margin-right: -10px;"></span>
+        <span class="key-dot cinewrit" style="margin-right: -10px;"></span>
+        <span class="key-dot cinebio"style="margin-right: -10px;"></span>
+        <span class="key-dot allcat" style="margin-right: 2px;"></span> Multiple</p>
+  </div>
+
+  <div class ="entities">
+    <h2>Entities</h2>
+    <p class="triangle"><img src="../entities_icons/triangle.png" height="15px">People</p>
+    <p class="diamond"><img src="../entities_icons/diamond.png" height="15px">Places</p>
+    <p class="threeprong"><img src="../entities_icons/threeprong.png" height="15px">Works</p>
+    <p class="square"><img src="../entities_icons/square.png" height="15px">Artistic Concepts</p>
+    <p class="plus"><img src="../entities_icons/plus.png" height="15px">Additional</p>
+  </div>
+
+  <div id="legend1">   
+    <h2 id="soundheadline">Sound</h2>
+    <label class="switch">
+    <input type="checkbox" id="soundcheckbox">
+    <span class="slider"></span>
+    </label>
+  </div>
+
 </div>
 
 
-  <div id="sidebar">  <p id="closedsidebar" style="display:none">✕</p></div>
+<div id="sidebar">  <p id="closedsidebar" style="display:none">✕</p></div>
 
-
+  
 
 
 </body>

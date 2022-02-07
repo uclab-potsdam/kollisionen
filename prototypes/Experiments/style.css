@@ -381,13 +381,13 @@ h2 {
 .toppanel { 
   display: flex; 
   justify-content: center;
-  position:fixed;
+  position:absolute;
   clear: both;
   width: 100%;
   height: 60px;
   height: 100%;
   margin-top: 30px;
-  z-index: 0;
+  z-index: 5;
 }
 
 .toppanel a {
