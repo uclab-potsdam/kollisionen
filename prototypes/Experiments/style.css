@@ -364,6 +364,7 @@ h2 {
 .entities img {
   display: inline-block;
   margin-right: 8px;
+}
 
 #closedsidebar {
   position: fixed;
