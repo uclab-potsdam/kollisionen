@@ -357,6 +357,9 @@ h2 {
   cursor: pointer;
 }
 
+.entities {
+  float: left;
+
 #closedsidebar {
   position: fixed;
   right: 10px;
