@@ -1,5 +1,9 @@
-@import "./standard-style.css";
+/* @import "./standard-style.css"; */
 /* @import './fonts.css'; */
+
+/* body {
+  background-color: #fdf5e6;
+} */
 
 #prototype {
   position: relative;

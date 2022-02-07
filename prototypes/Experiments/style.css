@@ -1,5 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Inconsolata:wght@300;400;700;900&display=swap");
 
+body {
+  background-color: #fdf5e6;
+  font-family: "Inconsolata", monospace;
+}
+
 :root {
   --cinema: #002fa7;
   --biography: #fdd55c;
@@ -19,10 +24,6 @@
   margin-top: 12px;
 }
 
-body {
-  font-family: "Inconsolata", monospace;
-  margin: 40px;
-}
 /* .axis path {
   fill: none;
   stroke: #999;
@@ -377,14 +378,56 @@ h2 {
   margin: 5px;
 }
 
+.toppanel { 
+  display: flex; 
+  justify-content: center;
+  position:fixed;
+  clear: both;
+  width: 100%;
+  height: 60px;
+  height: 100%;
+  margin-top: 30px;
+  z-index: 0;
+}
+
+.toppanel a {
+  color: black;
+}
+
+
+.spiralviz {
+  float: left;
+  padding-top: 30px;
+  padding-right: 70px;
+}
+
+.networkviz {
+  float: left;
+  padding-top: 30px;
+}
+
+.timelinesviz {
+  float: left;
+  padding-top: 30px;
+  padding-left: 70px;
+}
+
+
+/* .spiralviz {
+  width: auto;
+  margin: auto;
+  position: absolute;
+  top: 0;
+} */
+
 #chart {
   position: fixed;
   left: 0;
-  top: 0;
+  top: 50;
   height: 100%;
   width: 100%;
   cursor: move;
-  z-index: 1;
+  z-index: 0;
   display: flex;
 }
 
@@ -522,6 +565,4 @@ input:checked + .slider:before {
           */
 
 
-#chart {
-  z-index: 0;
-}
+
