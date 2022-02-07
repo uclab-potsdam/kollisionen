@@ -127,6 +127,9 @@ path.cinema {
 circle.cinema {
   fill: var(--cinema);
 }
+line.cinema {
+  stroke: var(--cinema);
+}
 .biography {
   background: var(--biography);
 }
@@ -232,7 +235,7 @@ line.allcat {
 
 .line {
   stroke-width: 1.5px;
-  fill: none;
+  /* fill: none; */
 }
 
 .spiralArcs {
@@ -434,7 +437,7 @@ h2 {
   cursor: pointer;
 }
 
-.backgroundTimelineG {
+.timelineLines {
   cursor: pointer;
 }
 

@@ -445,16 +445,16 @@ var fisheye = d3.fisheye
     }  else{return false}
     })
     //fisheye effect
-    .on('mouseover', function (event, d) {
-      fisheye.focus(d3.select(this));
+    // .on('mouseover', function (event, d) {
+    //   fisheye.focus(d3.select(this));
 
-      d3.select(this).each(function(d) { d.fisheye = fisheye(d); })
-            .attr("cx", function(d) { return d.fisheye.x; })
-            .attr("cy", function(){return 10+I*20})
-            .attr("r", function(d) { return d.fisheye.z * 0.3; });
+    //   d3.select(this).each(function(d) { d.fisheye = fisheye(d); })
+    //         .attr("cx", function(d) { return d.fisheye.x; })
+    //         .attr("cy", function(){return 10+I*20})
+    //         .attr("r", function(d) { return d.fisheye.z * 0.3; });
 
-            console.log(d)
-    })
+    //         console.log(d)
+    // })
 
 
 
@@ -531,11 +531,11 @@ var fisheye = d3.fisheye
 
 // symbol for keyword categories
 
-var symbolPlaces = d3.symbol()
+var symbolPeople = d3.symbol()
   .type(d3.symbolTriangle)
   .size(15);
 
-var symbolPeople = d3.symbol()
+var symbolPlaces = d3.symbol()
   .type(d3.symbolDiamond)
   .size(15);
 
@@ -1048,6 +1048,114 @@ d3.selectAll(".timelineLines").classed("filteredout",false)
 d3.selectAll("circle").classed("filteredout",false)
 })
 
+
+d3.select(".f_c").on("click", function() {
+  if (d3.select(this).style("font-weight") != "bold") {
+    d3.selectAll(".filter").style("font-weight", 400)
+    d3.select(this).style("font-weight", "bold")
+    d3.selectAll("circle.cinema").transition().style("opacity", "1")
+    d3.selectAll("circle:not(.cinema)").transition().style("opacity", "0")
+    d3.selectAll(".timelineLines").filter(".cinema").transition().style("opacity", "1")
+    d3.selectAll(".timelineLines").filter(":not(.cinema)").transition().style("opacity", "0")
+  } else {
+    d3.select(this).style("font-weight", 400)
+    d3.selectAll("circle").transition().style("opacity", "1")
+    d3.selectAll(".timelineLines").transition().style("opacity", "1")
+  }
+
+})
+
+d3.select(".f_b").on("click", function() {
+  if (d3.select(this).style("font-weight") != "bold") {
+    d3.selectAll(".filter").style("font-weight", 400)
+    d3.select(this).style("font-weight", "bold")
+    d3.selectAll("circle.biography").transition().style("opacity", "1")
+    d3.selectAll("circle:not(.biography)").transition().style("opacity", "0")
+    d3.selectAll(".timelineLines").filter(".biography").transition().style("opacity", 1)
+    d3.selectAll(".timelineLines").filter(":not(.biography)").transition().style("opacity", 0)
+
+  } else {
+    d3.select(this).style("font-weight", 400)
+    d3.selectAll("circle").transition().style("opacity", "1")
+    d3.selectAll(".timelineLines").transition().style("opacity", "1")
+  }
+})
+
+d3.select(".f_w").on("click", function() {
+
+  if (d3.select(this).style("font-weight") != "bold") {
+    d3.selectAll(".filter").style("font-weight", 400)
+    d3.select(this).style("font-weight", "bold")
+    d3.selectAll("circle.writing").transition().style("opacity", "1")
+    d3.selectAll("circle:not(.writing)").transition().style("opacity", "0")
+    d3.selectAll(".timelineLines").filter(".writing").transition().style("opacity", "1")
+    d3.selectAll(".timelineLines").filter(":not(.writing)").transition().style("opacity", "0")
+  } else {
+    d3.select(this).style("font-weight", 400)
+    d3.selectAll("circle").transition().style("opacity", "1")
+    d3.selectAll(".timelineLines").transition().style("opacity", "1")
+  }
+})
+
+d3.select(".f_cw").on("click", function() {
+  if (d3.select(this).style("font-weight") != "bold") {
+    d3.selectAll(".filter").style("font-weight", 400)
+    d3.select(this).style("font-weight", "bold")
+    d3.selectAll("circle.cinewrit").transition().style("opacity", "1")
+    d3.selectAll("circle:not(.cinewrit)").transition().style("opacity", "0")
+    d3.selectAll(".timelineLines").filter(".cinewrit").transition().style("opacity", "1")
+    d3.selectAll(".timelineLines").filter(":not(.cinewrit)").transition().style("opacity", "0")
+  } else {
+    d3.select(this).style("font-weight", 400)
+    d3.selectAll("circle").transition().style("opacity", "1")
+    d3.selectAll(".timelineLines").transition().style("opacity", "1")
+  }
+})
+
+d3.select(".f_cb").on("click", function() {
+  if (d3.select(this).style("font-weight") != "bold") {
+    d3.selectAll(".filter").style("font-weight", 400)
+    d3.select(this).style("font-weight", "bold")
+    d3.selectAll("circle.cinebio").transition().style("opacity", "1")
+    d3.selectAll("circle:not(.cinebio)").transition().style("opacity", "0")
+    d3.selectAll(".timelineLines").filter(".cinebio").transition().style("opacity", "1")
+    d3.selectAll(".timelineLines").filter(":not(.cinebio)").transition().style("opacity", "0")
+  } else {
+    d3.select(this).style("font-weight", 400)
+    d3.selectAll("circle").transition().style("opacity", "1")
+    d3.selectAll(".timelineLines").transition().style("opacity", "1")
+  }
+})
+
+d3.select(".f_wb").on("click", function() {
+  if (d3.select(this).style("font-weight") != "bold") {
+    d3.selectAll(".filter").style("font-weight", 400)
+    d3.select(this).style("font-weight", "bold")
+    d3.selectAll("circle.biowrit").transition().style("opacity", "1")
+    d3.selectAll("circle:not(.biowrit)").transition().style("opacity", "0")
+    d3.selectAll(".timelineLines").filter(".biowrit").transition().style("opacity", "1")
+    d3.selectAll(".timelineLines").filter(":not(.apartment)").transition().style("opacity", "0")
+  } else {
+    d3.select(this).style("font-weight", 400)
+    d3.selectAll("circle").transition().style("opacity", "1")
+    d3.selectAll(".timelineLines").transition().style("opacity", "1")
+  }
+})
+
+d3.select(".f_ac").on("click", function() {
+  if (d3.select(this).style("font-weight") != "bold") {
+    d3.selectAll(".filter").style("font-weight", 400)
+    d3.select(this).style("font-weight", "bold")
+    d3.selectAll("circle.allacat").transition().style("opacity", "1")
+    d3.selectAll("circle:not(.allcat)").transition().style("opacity", "0")
+    d3.selectAll(".timelineLines").filter(".allcat").transition().style("opacity", "1")
+    d3.selectAll(".timelineLines").filter(":not(.allcat)").transition().style("opacity", "0")
+  } else {
+    d3.select(this).style("font-weight", 400)
+    d3.selectAll("circle").transition().style("opacity", "1")
+    d3.selectAll(".timelineLines").transition().style("opacity", "1")
+  }
+})
 // };
 
 });
