@@ -113,7 +113,6 @@ h3 {
   width: 10px;
 }
 
-
 .legend {
   margin-right: 20px;
 }
@@ -248,8 +247,6 @@ margin-right: .5em;
 width: 10px;
 } */
 
-
-
 .key-dot {
   border-radius: 50%;
 }
@@ -269,8 +266,8 @@ width: 10px;
   z-index: 20;
 }
 
-p { 
-  margin:5; 
+p {
+  margin: 5;
   margin-left: 0px;
 }
 
@@ -322,7 +319,7 @@ h2 {
 }
 
 .highlights {
-  float:left;
+  float: left;
   padding-top: 10px;
 }
 
@@ -394,7 +391,6 @@ h2 {
   color: black;
 }
 
-
 .spiralviz {
   float: left;
   padding-top: 30px;
@@ -411,7 +407,6 @@ h2 {
   padding-top: 30px;
   padding-left: 70px;
 }
-
 
 /* .spiralviz {
   width: auto;
@@ -436,6 +431,10 @@ h2 {
 }
 
 .pathGs {
+  cursor: pointer;
+}
+
+.backgroundTimelineG {
   cursor: pointer;
 }
 
@@ -563,6 +562,3 @@ input:checked + .slider:before {
 /*
           * === SEARCH BOX===
           */
-
-
-
