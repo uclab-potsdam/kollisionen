@@ -6,12 +6,12 @@ var itemsUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTpZlBfSa0sBkPXX
 
 
 // const width = 1500 //width of the svg sidebar is 350px - needs to be adjusted to allow for the width of the sidebar
-const width = innerWidth - 350 //width of the svg sidebar is 350px - needs to be adjusted to allow for the width of the sidebar
+const width = innerWidth - 450 //width of the svg sidebar is 350px - needs to be adjusted to allow for the width of the sidebar
 const height = 8250
 const margin = {
     top: 100,
     bottom: 100,
-    left: 100,
+    left: 0,
     right: 100
   };
 
