@@ -1357,6 +1357,54 @@ function stringSplit(data, keywordSplitter) {
         }
       })
 
+//VR object test
+
+//new array of objects
+
+var vrObjects = [
+  {
+    "name": "meeting_and_shooting_with_Mei_Lang-Fang",
+  },
+  {
+    "name": "night_shots_in_Moscow",
+  },
+  {
+    "name": "appointment_artistic_director_Mosfilm",
+  },
+  {
+    "name": "discussion_new_film_type_war_film_chronicle",
+  },
+  {
+    "name": "work_on_compilation_war_film_chronicle",
+  },
+  {
+    "name": "E._released_from_management_Mosfilm",
+  },
+  {
+    "name": "trip_to_Alma-Ata_relocation_VGIK",
+  }
+]
+
+console.log(vrObjects)
+
+d3.select(".sokrates").on("click", function() {
+  if (d3.select(this).style("font-weight") != "bold") {
+    d3.selectAll(".filter").style("font-weight", 400)
+    d3.select(this).style("font-weight", "bold")
+    d3.selectAll("circle").filter( function(d,i) { if (spiralData[i]["Event_ID"] == vrObjects.name) {return spiralData[i]["Event_ID"]} }).transition().style("opacity", "1")
+    d3.selectAll("circle").filter( function(d,i) { if (spiralData[i]["Event_ID"] != vrObjects.name) {return spiralData[i]["Event_ID"]} }).transition().style("opacity", "0")
+    d3.selectAll(".pathG").selectAll("path").filter( function(d,i) { if (spiralData[i]["Event_ID"] === vrObjects.name) {return spiralData[i]["Event_ID"]} }).transition().style("opacity", "1")
+    d3.selectAll(".pathG").selectAll("path").filter( function(d,i) { if (spiralData[i]["Event_ID"] !== vrObjects.name) {return spiralData[i]["Event_ID"]} }).transition().style("opacity", "0")
+  } else {
+    d3.select(this).style("font-weight", 400)
+    d3.selectAll("circle").transition().style("opacity", "1")
+    d3.selectAll(".pathG").selectAll("path").transition().style("opacity", "1")
+  }
+})
+
+
+
+
 
 
     })

@@ -1048,6 +1048,7 @@ d3.selectAll(".timelineLines").classed("filteredout",false)
 d3.selectAll("circle").classed("filteredout",false)
 })
 
+// filter for categories
 
 d3.select(".f_c").on("click", function() {
   if (d3.select(this).style("font-weight") != "bold") {
@@ -1158,9 +1159,24 @@ d3.select(".f_ac").on("click", function() {
 })
 // };
 
+// filter for keyword categories
+
+d3.select(".triangle").on("click", function() {
+  if (d3.select(this).style("font-weight") != "bold") {
+    d3.selectAll(".filter").style("font-weight", 400)
+    d3.select(this).style("font-weight", "bold")
+    d3.selectAll("circle").filter(function(d) { return d.people != ""; }).transition().style("opacity", "1")
+    d3.selectAll("circle").filter(function(d) { return d.people == ""; }).transition().style("opacity", "0")
+    // d3.selectAll(".timelineLines").filter(".cinema").transition().style("opacity", "1")
+    // d3.selectAll(".timelineLines").filter(":not(.cinema)").transition().style("opacity", "0")
+  } else {
+    d3.select(this).style("font-weight", 400)
+    d3.selectAll("circle").transition().style("opacity", "1")
+    // d3.selectAll(".timelineLines").transition().style("opacity", "1")
+  }
+
+})
+
+
+
 });
-
-
-
-
-//for positioning the events on the timeline
