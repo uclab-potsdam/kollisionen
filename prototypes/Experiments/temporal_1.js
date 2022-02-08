@@ -1387,7 +1387,8 @@ var vrObjects = [
 
 console.log(vrObjects)
 
-d3.select(".sokrates").on("click", function() {
+d3.select(".sokrates")
+.on("click", function() {
   if (d3.select(this).style("font-weight") != "bold") {
     d3.selectAll(".filter").style("font-weight", 400)
     d3.select(this).style("font-weight", "bold")
@@ -1395,6 +1396,10 @@ d3.select(".sokrates").on("click", function() {
     d3.selectAll("circle").filter( function(d,i) { if (spiralData[i]["Event_ID"] != vrObjects.name) {return spiralData[i]["Event_ID"]} }).transition().style("opacity", "0")
     d3.selectAll(".pathG").selectAll("path").filter( function(d,i) { if (spiralData[i]["Event_ID"] === vrObjects.name) {return spiralData[i]["Event_ID"]} }).transition().style("opacity", "1")
     d3.selectAll(".pathG").selectAll("path").filter( function(d,i) { if (spiralData[i]["Event_ID"] !== vrObjects.name) {return spiralData[i]["Event_ID"]} }).transition().style("opacity", "0")
+    d3.select("#closedsidebar").style("display", "block")
+/// sidebar for spans
+        sidebar
+          .style('display', 'block')
   } else {
     d3.select(this).style("font-weight", 400)
     d3.selectAll("circle").transition().style("opacity", "1")
