@@ -1399,6 +1399,8 @@ d3.select(".sokrates")
     d3.select("#closedsidebar").style("display", "block")
 /// sidebar for spans
         sidebar
+        //.html
+        //when there is data add it here
           .style('display', 'block')
   } else {
     d3.select(this).style("font-weight", 400)
