@@ -7,7 +7,7 @@ var itemsUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTpZlBfSa0sBkPXX
 
 // const width = 1500 //width of the svg sidebar is 350px - needs to be adjusted to allow for the width of the sidebar
 const width = innerWidth - 420 //width of the svg sidebar is 350px - needs to be adjusted to allow for the width of the sidebar
-const height = 8250
+const height = 22000
 const margin = {
     top: 100,
     bottom: 100,
@@ -359,8 +359,10 @@ function stringSplit(data, keywordSplitter) {
 
   };
 
+
+
   let timelinesG = d3.select("#chart").select("svg").selectAll(".timelines")
-  .data(keywordsCountFilteredSorted)//.filter(function(d,i){return i < 200})) // sort by count
+  .data(keywordsCount)//.filter(function(d,i){return i < 200})) // sort by count
   // .data(keywordsCountFiltered) //sort aphabetically
   .join("g")
   .classed("backgroundTimelineG", true)
@@ -529,96 +531,7 @@ var fisheye = d3.fisheye
     });  
   })
 
-// symbol for keyword categories
-
-var symbolPeople = d3.symbol()
-  .type(d3.symbolTriangle)
-  .size(15);
-
-var symbolPlaces = d3.symbol()
-  .type(d3.symbolDiamond)
-  .size(15);
-
-  var symbolWorks = d3.symbol()
-  .type(d3.symbolWye)
-  .size(15);
-
-  var symbolArtistic = d3.symbol()
-  .type(d3.symbolSquare)
-  .size(15);
-
-  var symbolAdditional = d3.symbol()
-  .type(d3.symbolCross)
-  .size(15);
-
-  var pathDataPlaces = symbolPlaces();
-  var pathDataPeople = symbolPeople();
-  var pathDataWorks = symbolWorks();
-  var pathDataArtistic = symbolArtistic();
-  var pathDataAdditional = symbolAdditional();
-
-
-//   timelinesG.each(function(D,I){
-//     d3.select(this).selectAll(".timelineNodes").append("g")
-//     .data(keywordsData.filter(function (d) {
-//       if(d.uncertaintystart === 0 && d.vend === ""){
-//    return (d.people.includes(D) || d.places.includes(D) || d.works.includes(D) || d.artistic.includes(D) ||d.additional.includes(D)) && d.vstart.includes("/") == false && d.vstart.includes(",") == false && d.vstart != "" //took out some data points that create errors for now
-//     }}))
-//     .join("path")
-//     .attr("transform", function(d,i){
-//       let date = new Date (d.vstart)
-//       return "translate(" + timelineXScale(date) + "," + (10+I*20) + ")"})
-//     // .attr("d", pathDataPeople)
-//     .attr("d", function(d,i){
-//             if(d.places){
-//               return pathDataPlaces
-//             } else if(d.people){
-//               return pathDataPeople
-//             } else if(d.works){
-//               return pathDataWorks
-//             } else if(d.artistic){
-//               return pathDataArtistic
-//             } else if(d.additional){
-//               return pathDataAdditional
-//             }
-//              })
-//     .classed("biography", function (d) {
-//       if (d.category2 == true && d.category1 == false && d.category3 == false)
-//       {
-//       return true;
-//     } else{return false}
-//     })
-//     .classed("writing", function (d) {
-//       if (d.category3 == true && d.category1 == false && d.category2 == false)
-//       {
-//       return true;
-//     } else{return false}
-//     })
-//     .classed("cinebio", function (d) {
-//       if (d.category1 == true && d.category2 == true && d.category3 == false)
-//       {
-//       return true;
-//     }  else{return false}
-//     })
-//     .classed("biowrit", function (d) {
-//       if (d.category1 == false && d.category2 == true && d.category3 == true)
-//       {
-//       return true;
-//     }  else{return false}
-//     })
-//     .classed("cinewrit", function (d) {
-//       if (d.category1 == true && d.category2 == false && d.category3 == true)
-//       {
-//       return true;
-//     }  else{return false}
-//     })
-//     .classed("allcat", function (d) {
-//       if (d.category1 == true && d.category2 == true && d.category3 == true)
-//       {
-//       return true;
-//     }  else{return false}
-//     })
-//   })
+  //spans
 
   timelinesG.each(function(D,I){
     d3.select(this).selectAll(".timelineLines").append("g")
@@ -734,9 +647,33 @@ var symbolPlaces = d3.symbol()
       })
         })
 
-
-
 //symbols for keyword categories
+
+var symbolPeople = d3.symbol()
+  .type(d3.symbolTriangle)
+  .size(15);
+
+var symbolPlaces = d3.symbol()
+  .type(d3.symbolDiamond)
+  .size(15);
+
+  var symbolWorks = d3.symbol()
+  .type(d3.symbolWye)
+  .size(15);
+
+  var symbolArtistic = d3.symbol()
+  .type(d3.symbolSquare)
+  .size(15);
+
+  var symbolAdditional = d3.symbol()
+  .type(d3.symbolCross)
+  .size(15);
+
+  var pathDataPlaces = symbolPlaces();
+  var pathDataPeople = symbolPeople();
+  var pathDataWorks = symbolWorks();
+  var pathDataArtistic = symbolArtistic();
+  var pathDataAdditional = symbolAdditional();
 
         timelinesG.each(function(D,I){
           d3.select(this).selectAll(".symbols").append("g")
@@ -1048,6 +985,45 @@ d3.selectAll(".timelineLines").classed("filteredout",false)
 d3.selectAll("circle").classed("filteredout",false)
 })
 
+// filters and sorting
+
+//timelines sorting options
+
+// d3.select(".alphabetical")
+// .on("click", function() {
+//   if (d3.select(this).style("font-weight") != "bold") {
+//     d3.selectAll(".filter").style("font-weight", 400)
+//     d3.select(this).style("font-weight", "bold")
+//     d3.selectAll(".timelineG").select("#chart").select("svg").selectAll(".timelines")
+//   .data(keywordsCountFilteredSorted)//.filter(function(d,i){return i < 200})) // sort by count
+//   // .data(keywordsCountFiltered) //sort aphabetically
+//   .join("g")
+//   .classed("backgroundTimelineG", true)
+//   }else {
+//     d3.select(this).style("font-weight", 400)
+//   }
+//   });
+
+// d3.select("frequency").on("click", function() {
+
+//   let timelinesG = d3.select("#chart").select("svg").selectAll(".timelines")
+//   .data(keywordsCountFilteredSorted)
+//   .join("g")
+//   .classed("backgroundTimelineG", true)
+
+
+// })
+
+// d3.select("temporal").on("click", function() {
+
+//   let timelinesG = d3.select("#chart").select("svg").selectAll(".timelines")
+//   .data(keywordsCount)
+//   .join("g")
+//   .classed("backgroundTimelineG", true)
+
+
+// })
+
 // filter for categories
 
 d3.select(".f_c").on("click", function() {
@@ -1063,7 +1039,6 @@ d3.select(".f_c").on("click", function() {
     d3.selectAll("circle").transition().style("opacity", "1")
     d3.selectAll(".timelineLines").transition().style("opacity", "1")
   }
-
 })
 
 d3.select(".f_b").on("click", function() {
@@ -1159,7 +1134,9 @@ d3.select(".f_ac").on("click", function() {
 })
 // };
 
-// filter for keyword categories
+// filters for entities
+
+//people
 
 d3.select(".triangle").on("click", function() {
   if (d3.select(this).style("font-weight") != "bold") {
@@ -1177,6 +1154,76 @@ d3.select(".triangle").on("click", function() {
 
 })
 
+//places
 
+d3.select(".diamond").on("click", function() {
+  if (d3.select(this).style("font-weight") != "bold") {
+    d3.selectAll(".filter").style("font-weight", 400)
+    d3.select(this).style("font-weight", "bold")
+    d3.selectAll("circle").filter(function(d) { return d.places != ""; }).transition().style("opacity", "1")
+    d3.selectAll("circle").filter(function(d) { return d.places == ""; }).transition().style("opacity", "0")
+    // d3.selectAll(".timelineLines").filter(".cinema").transition().style("opacity", "1")
+    // d3.selectAll(".timelineLines").filter(":not(.cinema)").transition().style("opacity", "0")
+  } else {
+    d3.select(this).style("font-weight", 400)
+    d3.selectAll("circle").transition().style("opacity", "1")
+    // d3.selectAll(".timelineLines").transition().style("opacity", "1")
+  }
+
+})
+
+//works
+
+d3.select(".threeprong").on("click", function() {
+  if (d3.select(this).style("font-weight") != "bold") {
+    d3.selectAll(".filter").style("font-weight", 400)
+    d3.select(this).style("font-weight", "bold")
+    d3.selectAll("circle").filter(function(d) { return d.works != ""; }).transition().style("opacity", "1")
+    d3.selectAll("circle").filter(function(d) { return d.works == ""; }).transition().style("opacity", "0")
+    // d3.selectAll(".timelineLines").filter(".cinema").transition().style("opacity", "1")
+    // d3.selectAll(".timelineLines").filter(":not(.cinema)").transition().style("opacity", "0")
+  } else {
+    d3.select(this).style("font-weight", 400)
+    d3.selectAll("circle").transition().style("opacity", "1")
+    // d3.selectAll(".timelineLines").transition().style("opacity", "1")
+  }
+
+})
+
+//artistic concepts
+
+d3.select(".square").on("click", function() {
+  if (d3.select(this).style("font-weight") != "bold") {
+    d3.selectAll(".filter").style("font-weight", 400)
+    d3.select(this).style("font-weight", "bold")
+    d3.selectAll("circle").filter(function(d) { return d.artistic != ""; }).transition().style("opacity", "1")
+    d3.selectAll("circle").filter(function(d) { return d.artistic == ""; }).transition().style("opacity", "0")
+    // d3.selectAll(".timelineLines").filter(".cinema").transition().style("opacity", "1")
+    // d3.selectAll(".timelineLines").filter(":not(.cinema)").transition().style("opacity", "0")
+  } else {
+    d3.select(this).style("font-weight", 400)
+    d3.selectAll("circle").transition().style("opacity", "1")
+    // d3.selectAll(".timelineLines").transition().style("opacity", "1")
+  }
+
+})
+
+//additional
+
+d3.select(".plus").on("click", function() {
+  if (d3.select(this).style("font-weight") != "bold") {
+    d3.selectAll(".filter").style("font-weight", 400)
+    d3.select(this).style("font-weight", "bold")
+    d3.selectAll("circle").filter(function(d) { return d.additional != ""; }).transition().style("opacity", "1")
+    d3.selectAll("circle").filter(function(d) { return d.additional == ""; }).transition().style("opacity", "0")
+    d3.selectAll(".timelineLines").filter(function(d) { return d.additional != ""; }).transition().style("opacity", "1")
+    d3.selectAll(".timelineLines").filter(function(d) { return d.additional == ""; }).transition().style("opacity", "0")
+  } else {
+    d3.select(this).style("font-weight", 400)
+    d3.selectAll("circle").transition().style("opacity", "1")
+    d3.selectAll(".timelineLines").transition().style("opacity", "1")
+  }
+
+})
 
 });

@@ -418,6 +418,27 @@ h2 {
   top: 0;
 } */
 
+/* .timeline-sorting {
+
+} */
+
+/* .alphabetical {
+  float: left;
+  padding-top: 30px;
+  padding-right: 70px;
+}
+
+.temporal {
+  float: left;
+  padding-top: 30px;
+}
+
+.frequency {
+  float: left;
+  padding-top: 30px;
+  padding-left: 70px;
+} */
+
 #chart {
   position: fixed;
   left: 0;
