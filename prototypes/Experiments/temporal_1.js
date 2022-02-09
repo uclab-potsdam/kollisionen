@@ -1409,4 +1409,5 @@ d3.select(".sokrates")
   }
 })
 
+
   })
