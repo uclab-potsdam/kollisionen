@@ -125,17 +125,30 @@ var endParse = d3.timeParse("%Y-%m-%d %I:%M%p");
 
 //define data
 
-var url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvSLkjHvHlPjWLy3ec4UT9AsFsyTy2rbsjKquZgmhCqbsTZ4TLAnWv28Y3PnR/pub?gid=1387341329&single=true&output=csv'
+var urlMinimal = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvSLkjHvHlPjWLy3ec4UT9AsFsyTy2rbsjKquZgmhCqbsTZ4TLAnWv28Y3PnR/pub?gid=1387341329&single=true&output=csv'
 // url = './minimal.csv' //local backup
+
+var urlVrLaSarraz = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvSLkjHvHlPjWLy3ec4UT9AsFsyTy2rbsjKquZgmhCqbsTZ4TLAnWv28Y3PnR/pub?gid=1234220819&single=true&output=csv'
+
+var urlVrPaul = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvSLkjHvHlPjWLy3ec4UT9AsFsyTy2rbsjKquZgmhCqbsTZ4TLAnWv28Y3PnR/pub?gid=1752697880&single=true&output=csv'
+
+var urlVrSokrates = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvSLkjHvHlPjWLy3ec4UT9AsFsyTy2rbsjKquZgmhCqbsTZ4TLAnWv28Y3PnR/pub?gid=196127159&single=true&output=csv'
+
+var urlVrMei = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvSLkjHvHlPjWLy3ec4UT9AsFsyTy2rbsjKquZgmhCqbsTZ4TLAnWv28Y3PnR/pub?gid=1779118710&single=true&output=csv'
+
+var urlVrStraw = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvSLkjHvHlPjWLy3ec4UT9AsFsyTy2rbsjKquZgmhCqbsTZ4TLAnWv28Y3PnR/pub?gid=427715118&single=true&output=csv'
+
+var urlVrMeyer = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvSLkjHvHlPjWLy3ec4UT9AsFsyTy2rbsjKquZgmhCqbsTZ4TLAnWv28Y3PnR/pub?gid=2142317381&single=true&output=csv'
 
 var itemsUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTpZlBfSa0sBkPXXCdHykUFi5N2zPcclrda8iaYlbWoyzaWxDj7q3WEtmP7m8hrzk5ejAgjk-Id_zk9/pub?gid=1626158426&single=true&output=csv'
 
 ///load data and preprocessing- metadataschema
 Promise.all([
-  d3.csv(url), //data
+  d3.csv(urlMinimal), //data
 ])
   .then(([spiralData]) => {
     console.log(spiralData);
+
 
     // 1. add properties 'vstart' and 'vend' for inferred dates
     //    and uncertainty property
@@ -257,6 +270,63 @@ if (spiralData[i]["uncertaintyend"] == 2) spiralData[i]["vend"] = endA[0] + "-12
         spiralData[i]["items"] = spiralData[i]["items"].split(",");
       }
     };
+
+    // load the data for objects
+
+    // la sarraz
+
+        Promise.all([
+      d3.csv(urlVrLaSarraz), //data
+    ])
+      .then(([sarrazData]) => {
+        console.log(sarrazData);
+      });
+
+    // paul robeson
+
+            Promise.all([
+      d3.csv(urlVrPaul), //data
+    ])
+      .then(([paulData]) => {
+        console.log(paulData);
+      });
+
+    // sokrates
+
+            Promise.all([
+      d3.csv(urlVrSokrates), //data
+    ])
+      .then(([sokratesData]) => {
+        console.log(sokratesData);
+      });
+
+    // mei lang-fang
+
+            Promise.all([
+      d3.csv(urlVrMei), //data
+    ])
+      .then(([meiData]) => {
+        console.log(meiData);
+      });
+
+    // straw horseman
+
+            Promise.all([
+      d3.csv(urlVrStraw), //data
+    ])
+      .then(([strawData]) => {
+        console.log(strawData);
+      });
+
+      // meyerhold
+
+            Promise.all([
+      d3.csv(urlVrMeyer), //data
+    ])
+      .then(([meyerholdData]) => {
+        console.log(meyerholdData);
+      });
+
 
     // The mapping of visual variables starts here
 
