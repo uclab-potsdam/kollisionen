@@ -128,17 +128,17 @@ var endParse = d3.timeParse("%Y-%m-%d %I:%M%p");
 var urlMinimal = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvSLkjHvHlPjWLy3ec4UT9AsFsyTy2rbsjKquZgmhCqbsTZ4TLAnWv28Y3PnR/pub?gid=1387341329&single=true&output=csv'
 // url = './minimal.csv' //local backup
 
-var urlVrLaSarraz = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvSLkjHvHlPjWLy3ec4UT9AsFsyTy2rbsjKquZgmhCqbsTZ4TLAnWv28Y3PnR/pub?gid=1234220819&single=true&output=csv'
+var urlSarraz = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvSLkjHvHlPjWLy3ec4UT9AsFsyTy2rbsjKquZgmhCqbsTZ4TLAnWv28Y3PnR/pub?gid=1234220819&single=true&output=csv'
 
-var urlVrPaul = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvSLkjHvHlPjWLy3ec4UT9AsFsyTy2rbsjKquZgmhCqbsTZ4TLAnWv28Y3PnR/pub?gid=1752697880&single=true&output=csv'
+var urlPaul = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvSLkjHvHlPjWLy3ec4UT9AsFsyTy2rbsjKquZgmhCqbsTZ4TLAnWv28Y3PnR/pub?gid=1752697880&single=true&output=csv'
 
-var urlVrSokrates = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvSLkjHvHlPjWLy3ec4UT9AsFsyTy2rbsjKquZgmhCqbsTZ4TLAnWv28Y3PnR/pub?gid=196127159&single=true&output=csv'
+var urlSokrates = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvSLkjHvHlPjWLy3ec4UT9AsFsyTy2rbsjKquZgmhCqbsTZ4TLAnWv28Y3PnR/pub?gid=196127159&single=true&output=csv'
 
-var urlVrMei = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvSLkjHvHlPjWLy3ec4UT9AsFsyTy2rbsjKquZgmhCqbsTZ4TLAnWv28Y3PnR/pub?gid=1779118710&single=true&output=csv'
+var urlMei = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvSLkjHvHlPjWLy3ec4UT9AsFsyTy2rbsjKquZgmhCqbsTZ4TLAnWv28Y3PnR/pub?gid=1779118710&single=true&output=csv'
 
-var urlVrStraw = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvSLkjHvHlPjWLy3ec4UT9AsFsyTy2rbsjKquZgmhCqbsTZ4TLAnWv28Y3PnR/pub?gid=427715118&single=true&output=csv'
+var urlStraw = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvSLkjHvHlPjWLy3ec4UT9AsFsyTy2rbsjKquZgmhCqbsTZ4TLAnWv28Y3PnR/pub?gid=427715118&single=true&output=csv'
 
-var urlVrMeyer = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvSLkjHvHlPjWLy3ec4UT9AsFsyTy2rbsjKquZgmhCqbsTZ4TLAnWv28Y3PnR/pub?gid=2142317381&single=true&output=csv'
+var urlMeyer = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvSLkjHvHlPjWLy3ec4UT9AsFsyTy2rbsjKquZgmhCqbsTZ4TLAnWv28Y3PnR/pub?gid=2142317381&single=true&output=csv'
 
 var itemsUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTpZlBfSa0sBkPXXCdHykUFi5N2zPcclrda8iaYlbWoyzaWxDj7q3WEtmP7m8hrzk5ejAgjk-Id_zk9/pub?gid=1626158426&single=true&output=csv'
 
@@ -262,7 +262,7 @@ if (spiralData[i]["uncertaintyend"] == 2) spiralData[i]["vend"] = endA[0] + "-12
     ])
       .then(([itemsData]) => {
         console.log(itemsData);
-      });
+      // });
 
       for (let i = 0; i < spiralData.length; i++) {
 
@@ -276,57 +276,88 @@ if (spiralData[i]["uncertaintyend"] == 2) spiralData[i]["vend"] = endA[0] + "-12
     // la sarraz
 
         Promise.all([
-      d3.csv(urlVrLaSarraz), //data
+      d3.csv(urlSarraz), //data
     ])
       .then(([sarrazData]) => {
         console.log(sarrazData);
-      });
+      // });
+
+      for (let i = 0; i <sarrazData.length; i++) {
+        sarraz.push(sarrazData[i]["Event Identifier"]);
+      }
 
     // paul robeson
 
             Promise.all([
-      d3.csv(urlVrPaul), //data
+      d3.csv(urlPaul), //data
     ])
       .then(([paulData]) => {
         console.log(paulData);
-      });
+      // });
 
+      let paul = [];
+      for (let i = 0; i < paulData.length; i++) {
+        paul.push(paulData[i]["Event Identifier"]);
+      }
+    
     // sokrates
 
             Promise.all([
-      d3.csv(urlVrSokrates), //data
+      d3.csv(urlSokrates), //data
     ])
       .then(([sokratesData]) => {
         console.log(sokratesData);
-      });
+
+// make an array of the "Event Identifier"s
+
+  let sokrates = [];
+  for (let i = 0; i < sokratesData.length; i++) {
+    sokrates.push(sokratesData[i]["Event Identifier"]);
+  }
+
+      // });
 
     // mei lang-fang
 
             Promise.all([
-      d3.csv(urlVrMei), //data
+      d3.csv(urlMei), //data
     ])
       .then(([meiData]) => {
         console.log(meiData);
-      });
+      // });
+
+      let mei = [];
+  for (let i = 0; i < meiData.length; i++) {
+    mei.push(meiData[i]["Event Identifier"]);
+  }
 
     // straw horseman
 
             Promise.all([
-      d3.csv(urlVrStraw), //data
+      d3.csv(urlStraw), //data
     ])
       .then(([strawData]) => {
         console.log(strawData);
-      });
+      // });
+
+      let straw = [];
+  for (let i = 0; i < strawData.length; i++) {
+    straw.push(strawData[i]["Event Identifier"]);
+  }
 
       // meyerhold
 
             Promise.all([
-      d3.csv(urlVrMeyer), //data
+      d3.csv(urlMeyer), //data
     ])
       .then(([meyerholdData]) => {
         console.log(meyerholdData);
-      });
+      // });
 
+      let meyerhold = [];
+  for (let i = 0; i < meyerholdData.length; i++) {
+    meyerhold.push(meyerholdData[i]["Event Identifier"]);
+  }
 
     // The mapping of visual variables starts here
 
@@ -1427,50 +1458,28 @@ function stringSplit(data, keywordSplitter) {
         }
       })
 
-//VR object test
+// filters for VR objects
 
-//new array of objects
-
-var vrObjects = [
-  {
-    "name": "meeting_and_shooting_with_Mei_Lang-Fang",
-  },
-  {
-    "name": "night_shots_in_Moscow",
-  },
-  {
-    "name": "appointment_artistic_director_Mosfilm",
-  },
-  {
-    "name": "discussion_new_film_type_war_film_chronicle",
-  },
-  {
-    "name": "work_on_compilation_war_film_chronicle",
-  },
-  {
-    "name": "E._released_from_management_Mosfilm",
-  },
-  {
-    "name": "trip_to_Alma-Ata_relocation_VGIK",
-  }
-]
-
-console.log(vrObjects)
+//sokrates
 
 d3.select(".sokrates")
 .on("click", function() {
   if (d3.select(this).style("font-weight") != "bold") {
     d3.selectAll(".filter").style("font-weight", 400)
     d3.select(this).style("font-weight", "bold")
-    d3.selectAll("circle").filter( function(d,i) { if (spiralData[i]["Event_ID"] == vrObjects.name) {return spiralData[i]["Event_ID"]} }).transition().style("opacity", "1")
-    d3.selectAll("circle").filter( function(d,i) { if (spiralData[i]["Event_ID"] != vrObjects.name) {return spiralData[i]["Event_ID"]} }).transition().style("opacity", "0")
-    d3.selectAll(".pathG").selectAll("path").filter( function(d,i) { if (spiralData[i]["Event_ID"] === vrObjects.name) {return spiralData[i]["Event_ID"]} }).transition().style("opacity", "1")
-    d3.selectAll(".pathG").selectAll("path").filter( function(d,i) { if (spiralData[i]["Event_ID"] !== vrObjects.name) {return spiralData[i]["Event_ID"]} }).transition().style("opacity", "0")
+    d3.selectAll("circle").filter(function(d,i) {return sokrates.includes(d.Event_ID) == true }).transition().style("opacity", "1")
+    d3.selectAll("circle").filter(function(d,i) {return sokrates.includes(d.Event_ID) == false }).transition().style("opacity", "0")
+    d3.selectAll(".pathG").selectAll("path").filter(function(d,i) {return sokrates.includes(spiralData[i]["Event_ID"]) == true }).transition().style("opacity", "1")
+    d3.selectAll(".pathG").selectAll("path").filter(function(d,i) {return sokrates.includes(spiralData[i]["Event_ID"]) == false }).transition().style("opacity", "0")
     d3.select("#closedsidebar").style("display", "block")
 /// sidebar for spans
         sidebar
-        //.html
-        //when there is data add it here
+        .html(`
+        ${`<p class="title">Postcard of Sokrates sculpture</p>`}
+        ${`<p class="objects"><img src="images/objects/sokrates.png" alt="sokrates postcard" width = "100%" height = "auto" class="image"></p><br>`}
+        ${`<p class="descrption">For Eisenstein Socrates symbolized the best way of teaching - by asking questions instead of giving answers.<br>
+        Eisenstein loved teaching and implemented the "Socrates-Method"</p>`}
+        `)
           .style('display', 'block')
   } else {
     d3.select(this).style("font-weight", 400)
@@ -1479,5 +1488,141 @@ d3.select(".sokrates")
   }
 })
 
+// Mei Lanfang
+
+d3.select(".mei_lanfang")
+.on("click", function() {
+  if (d3.select(this).style("font-weight") != "bold") {
+    d3.selectAll(".filter").style("font-weight", 400)
+    d3.select(this).style("font-weight", "bold")
+    d3.selectAll("circle").filter(function(d,i) {return mei.includes(d.Event_ID) == true }).transition().style("opacity", "1")
+    d3.selectAll("circle").filter(function(d,i) {return mei.includes(d.Event_ID) == false }).transition().style("opacity", "0")
+    d3.selectAll(".pathG").selectAll("path").filter(function(d,i) {return mei.includes(spiralData[i]["Event_ID"]) == true }).transition().style("opacity", "1")
+    d3.selectAll(".pathG").selectAll("path").filter(function(d,i) {return mei.includes(spiralData[i]["Event_ID"]) == false }).transition().style("opacity", "0")
+    d3.select("#closedsidebar").style("display", "block")
+/// sidebar for spans
+        sidebar
+        .html(`
+        ${`<p class="title">Mei Lanfang</p>`}
+        ${`<p class="objects"><img src="images/objects/mei.png" alt="sokrates postcard" width = "100%" height = "auto" class="image"></p><br>`}
+        ${`<p class="description">Eisenstein was facinated by Mei Lanfang...</p>`}
+        `)
+          .style('display', 'block')
+  } else {
+    d3.select(this).style("font-weight", 400)
+    d3.selectAll("circle").transition().style("opacity", "1")
+    d3.selectAll(".pathG").selectAll("path").transition().style("opacity", "1")
+  }
+})
+
+d3.select(".robeson")
+.on("click", function() {
+  if (d3.select(this).style("font-weight") != "bold") {
+    d3.selectAll(".filter").style("font-weight", 400)
+    d3.select(this).style("font-weight", "bold")
+    d3.selectAll("circle").filter(function(d,i) {return paul.includes(d.Event_ID) == true }).transition().style("opacity", "1")
+    d3.selectAll("circle").filter(function(d,i) {return paul.includes(d.Event_ID) == false }).transition().style("opacity", "0")
+    d3.selectAll(".pathG").selectAll("path").filter(function(d,i) {return paul.includes(spiralData[i]["Event_ID"]) == true }).transition().style("opacity", "1")
+    d3.selectAll(".pathG").selectAll("path").filter(function(d,i) {return paul.includes(spiralData[i]["Event_ID"]) == false }).transition().style("opacity", "0")
+    d3.select("#closedsidebar").style("display", "block")
+/// sidebar for spans
+        sidebar
+        .html(`
+        ${`<p class="title">Paul Robeson</p>`}
+        ${`<p class="objects"><img src="images/objects/paul.png" alt="sokrates postcard" width = "100%" height = "auto" class="image"></p><br>`}
+        ${`<p class="description">Eisenstein was facinated by Mei Lanfang...</p>`}
+        `)
+          .style('display', 'block')
+  } else {
+    d3.select(this).style("font-weight", 400)
+    d3.selectAll("circle").transition().style("opacity", "1")
+    d3.selectAll(".pathG").selectAll("path").transition().style("opacity", "1")
+  }
+})
+
+d3.select(".strawman")
+.on("click", function() {
+  if (d3.select(this).style("font-weight") != "bold") {
+    d3.selectAll(".filter").style("font-weight", 400)
+    d3.select(this).style("font-weight", "bold")
+    d3.selectAll("circle").filter(function(d,i) {return straw.includes(d.Event_ID) == true }).transition().style("opacity", "1")
+    d3.selectAll("circle").filter(function(d,i) {return straw.includes(d.Event_ID) == false }).transition().style("opacity", "0")
+    d3.selectAll(".pathG").selectAll("path").filter(function(d,i) {return straw.includes(spiralData[i]["Event_ID"]) == true }).transition().style("opacity", "1")
+    d3.selectAll(".pathG").selectAll("path").filter(function(d,i) {return straw.includes(spiralData[i]["Event_ID"]) == false }).transition().style("opacity", "0")
+    d3.select("#closedsidebar").style("display", "block")
+/// sidebar for spans
+        sidebar
+        .html(`
+        ${`<p class="title">Straw</p>`}
+        ${`<p class="objects"><img src="images/objects/mei.png" alt="sokrates postcard" width = "100%" height = "auto" class="image"></p><br>`}
+        ${`<p class="description">Eisenstein was facinated by Mei Lanfang...</p>`}
+        `)
+          .style('display', 'block')
+  } else {
+    d3.select(this).style("font-weight", 400)
+    d3.selectAll("circle").transition().style("opacity", "1")
+    d3.selectAll(".pathG").selectAll("path").transition().style("opacity", "1")
+  }
+})
+
+d3.select(".meyerhold")
+.on("click", function() {
+  if (d3.select(this).style("font-weight") != "bold") {
+    d3.selectAll(".filter").style("font-weight", 400)
+    d3.select(this).style("font-weight", "bold")
+    d3.selectAll("circle").filter(function(d,i) {return meyerhold.includes(d.Event_ID) == true }).transition().style("opacity", "1")
+    d3.selectAll("circle").filter(function(d,i) {return meyerhold.includes(d.Event_ID) == false }).transition().style("opacity", "0")
+    d3.selectAll(".pathG").selectAll("path").filter(function(d,i) {return meyerhold.includes(spiralData[i]["Event_ID"]) == true }).transition().style("opacity", "1")
+    d3.selectAll(".pathG").selectAll("path").filter(function(d,i) {return meyerhold.includes(spiralData[i]["Event_ID"]) == false }).transition().style("opacity", "0")
+    d3.select("#closedsidebar").style("display", "block")
+/// sidebar for spans
+        sidebar
+        .html(`
+        ${`<p class="title">Meyerhold</p>`}
+        ${`<p class="objects"><img src="images/objects/mei.png" alt="sokrates postcard" width = "100%" height = "auto" class="image"></p><br>`}
+        ${`<p class="descrption">Eisenstein was facinated by Mei Lanfang...</p>`}
+        `)
+          .style('display', 'block')
+  } else {
+    d3.select(this).style("font-weight", 400)
+    d3.selectAll("circle").transition().style("opacity", "1")
+    d3.selectAll(".pathG").selectAll("path").transition().style("opacity", "1")
+  }
+})
+
+d3.select(".sarraz")
+.on("click", function() {
+  if (d3.select(this).style("font-weight") != "bold") {
+    d3.selectAll(".filter").style("font-weight", 400)
+    d3.select(this).style("font-weight", "bold")
+    d3.selectAll("circle").filter(function(d,i) {return sarraz.includes(d.Event_ID) == true }).transition().style("opacity", "1")
+    d3.selectAll("circle").filter(function(d,i) {return sarraz.includes(d.Event_ID) == false }).transition().style("opacity", "0")
+    d3.selectAll(".pathG").selectAll("path").filter(function(d,i) {return sarraz.includes(spiralData[i]["Event_ID"]) == true }).transition().style("opacity", "1")
+    d3.selectAll(".pathG").selectAll("path").filter(function(d,i) {return sarraz.includes(spiralData[i]["Event_ID"]) == false }).transition().style("opacity", "0")
+    d3.select("#closedsidebar").style("display", "block")
+/// sidebar for spans
+        sidebar
+        .html(`
+        ${`<p class="title">La Sarraz</p>`}
+        ${`<p class="objects"><img src="images/objects/mei.png" alt="sokrates postcard" width = "100%" height = "auto" class="image"></p><br>`}
+        ${`<p class="description">Eisenstein was facinated by Mei Lanfang...</p>`}
+        `)
+          .style('display', 'block')
+  } else {
+    d3.select(this).style("font-weight", 400)
+    d3.selectAll("circle").transition().style("opacity", "1")
+    d3.selectAll(".pathG").selectAll("path").transition().style("opacity", "1")
+  }
+})
+
+// concludings } for the csv promises
+
+      })
+    })
+  })
+})
+})
+})
+})
 
   })
