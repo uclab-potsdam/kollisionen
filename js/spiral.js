@@ -304,19 +304,19 @@ if (spiralData[i]["uncertaintyend"] == 2) spiralData[i]["vend"] = endA[0] + "-12
     
 //     // sokrates
 
-//             Promise.all([
+           //  Promise.all([
 //       d3.csv(urlSokrates), //data
 //     ])
 //       .then(([sokratesData]) => {
 //         console.log(sokratesData);
-
+//
 // // make an array of the "Event Identifier"s
-
+//
 //   let sokrates1 = [];
 //   for (let i = 0; i < sokratesData.length; i++) {
 //     sokrates1.push(sokratesData[i]["Event Identifier"]);
 //   }
-
+//
 //   console.log(sokrates1);
 
 //       // });
@@ -366,11 +366,13 @@ if (spiralData[i]["uncertaintyend"] == 2) spiralData[i]["vend"] = endA[0] + "-12
 
 // highlights
 
-            Promise.all([
+    Promise.all([
       d3.csv(urlHighlights), //data
     ])
       .then(([highlightsData]) => {
-        console.log(highlightsData);
+         
+          console.log(highlightsData);
+          
       // });
 
       let sokrates = [];
@@ -380,7 +382,7 @@ if (highlightsData[i]["identifier"] == "sokrates") {
 
     let event = highlightsData[i]["events"];
     let events = event.split(";");
-    sokrates.push(events);
+    sokrates.concat(events);
 
   }
 }
@@ -1724,4 +1726,4 @@ d3.select(".sarraz")
 // })
 // })
 // })
-  })
+})
