@@ -128,19 +128,21 @@ var endParse = d3.timeParse("%Y-%m-%d %I:%M%p");
 var urlMinimal = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvSLkjHvHlPjWLy3ec4UT9AsFsyTy2rbsjKquZgmhCqbsTZ4TLAnWv28Y3PnR/pub?gid=1387341329&single=true&output=csv'
 // url = './minimal.csv' //local backup
 
-var urlSarraz = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvSLkjHvHlPjWLy3ec4UT9AsFsyTy2rbsjKquZgmhCqbsTZ4TLAnWv28Y3PnR/pub?gid=1234220819&single=true&output=csv'
+// var urlSarraz = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvSLkjHvHlPjWLy3ec4UT9AsFsyTy2rbsjKquZgmhCqbsTZ4TLAnWv28Y3PnR/pub?gid=1234220819&single=true&output=csv'
 
-var urlPaul = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvSLkjHvHlPjWLy3ec4UT9AsFsyTy2rbsjKquZgmhCqbsTZ4TLAnWv28Y3PnR/pub?gid=1752697880&single=true&output=csv'
+// var urlPaul = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvSLkjHvHlPjWLy3ec4UT9AsFsyTy2rbsjKquZgmhCqbsTZ4TLAnWv28Y3PnR/pub?gid=1752697880&single=true&output=csv'
 
-var urlSokrates = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvSLkjHvHlPjWLy3ec4UT9AsFsyTy2rbsjKquZgmhCqbsTZ4TLAnWv28Y3PnR/pub?gid=196127159&single=true&output=csv'
+// var urlSokrates = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvSLkjHvHlPjWLy3ec4UT9AsFsyTy2rbsjKquZgmhCqbsTZ4TLAnWv28Y3PnR/pub?gid=196127159&single=true&output=csv'
 
-var urlMei = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvSLkjHvHlPjWLy3ec4UT9AsFsyTy2rbsjKquZgmhCqbsTZ4TLAnWv28Y3PnR/pub?gid=1779118710&single=true&output=csv'
+// var urlMei = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvSLkjHvHlPjWLy3ec4UT9AsFsyTy2rbsjKquZgmhCqbsTZ4TLAnWv28Y3PnR/pub?gid=1779118710&single=true&output=csv'
 
-var urlStraw = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvSLkjHvHlPjWLy3ec4UT9AsFsyTy2rbsjKquZgmhCqbsTZ4TLAnWv28Y3PnR/pub?gid=427715118&single=true&output=csv'
+// var urlStraw = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvSLkjHvHlPjWLy3ec4UT9AsFsyTy2rbsjKquZgmhCqbsTZ4TLAnWv28Y3PnR/pub?gid=427715118&single=true&output=csv'
 
-var urlMeyer = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvSLkjHvHlPjWLy3ec4UT9AsFsyTy2rbsjKquZgmhCqbsTZ4TLAnWv28Y3PnR/pub?gid=2142317381&single=true&output=csv'
+// var urlMeyer = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvSLkjHvHlPjWLy3ec4UT9AsFsyTy2rbsjKquZgmhCqbsTZ4TLAnWv28Y3PnR/pub?gid=2142317381&single=true&output=csv'
 
 var itemsUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTpZlBfSa0sBkPXXCdHykUFi5N2zPcclrda8iaYlbWoyzaWxDj7q3WEtmP7m8hrzk5ejAgjk-Id_zk9/pub?gid=1626158426&single=true&output=csv'
+
+var urlHighlights = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT3XiwLUS9uF0SIvV0QOOTGJv5FY077vEEIiShwtJkEcxDC-Dghp9JEycZxNDAplPetp73-ssUqZ8dv/pub?gid=0&single=true&output=csv'
 
 ///load data and preprocessing- metadataschema
 Promise.all([
@@ -273,91 +275,188 @@ if (spiralData[i]["uncertaintyend"] == 2) spiralData[i]["vend"] = endA[0] + "-12
 
     // load the data for objects
 
-    // la sarraz
+//     // la sarraz
 
-        Promise.all([
-      d3.csv(urlSarraz), //data
-    ])
-      .then(([sarrazData]) => {
-        console.log(sarrazData);
-      // });
+//         Promise.all([
+//       d3.csv(urlSarraz), //data
+//     ])
+//       .then(([sarrazData]) => {
+//         console.log(sarrazData);
+//       // });
 
-      for (let i = 0; i <sarrazData.length; i++) {
-        sarraz.push(sarrazData[i]["Event Identifier"]);
-      }
+//       for (let i = 0; i <sarrazData.length; i++) {
+//         sarraz.push(sarrazData[i]["Event Identifier"]);
+//       }
 
-    // paul robeson
+//     // paul robeson
 
-            Promise.all([
-      d3.csv(urlPaul), //data
-    ])
-      .then(([paulData]) => {
-        console.log(paulData);
-      // });
+//             Promise.all([
+//       d3.csv(urlPaul), //data
+//     ])
+//       .then(([paulData]) => {
+//         console.log(paulData);
+//       // });
 
-      let paul = [];
-      for (let i = 0; i < paulData.length; i++) {
-        paul.push(paulData[i]["Event Identifier"]);
-      }
+//       let paul = [];
+//       for (let i = 0; i < paulData.length; i++) {
+//         paul.push(paulData[i]["Event Identifier"]);
+//       }
     
-    // sokrates
+//     // sokrates
+
+//             Promise.all([
+//       d3.csv(urlSokrates), //data
+//     ])
+//       .then(([sokratesData]) => {
+//         console.log(sokratesData);
+
+// // make an array of the "Event Identifier"s
+
+//   let sokrates1 = [];
+//   for (let i = 0; i < sokratesData.length; i++) {
+//     sokrates1.push(sokratesData[i]["Event Identifier"]);
+//   }
+
+//   console.log(sokrates1);
+
+//       // });
+
+//     // mei lang-fang
+
+//             Promise.all([
+//       d3.csv(urlMei), //data
+//     ])
+//       .then(([meiData]) => {
+//         console.log(meiData);
+//       // });
+
+//       let mei = [];
+//   for (let i = 0; i < meiData.length; i++) {
+//     mei.push(meiData[i]["Event Identifier"]);
+//   }
+
+//     // straw horseman
+
+//             Promise.all([
+//       d3.csv(urlStraw), //data
+//     ])
+//       .then(([strawData]) => {
+//         console.log(strawData);
+//       // });
+
+//       let straw = [];
+//   for (let i = 0; i < strawData.length; i++) {
+//     straw.push(strawData[i]["Event Identifier"]);
+//   }
+
+//       // meyerhold
+
+//             Promise.all([
+//       d3.csv(urlMeyer), //data
+//     ])
+//       .then(([meyerholdData]) => {
+//         console.log(meyerholdData);
+//       // });
+
+//       let meyerhold = [];
+//   for (let i = 0; i < meyerholdData.length; i++) {
+//     meyerhold.push(meyerholdData[i]["Event Identifier"]);
+//   }
+
+
+// highlights
 
             Promise.all([
-      d3.csv(urlSokrates), //data
+      d3.csv(urlHighlights), //data
     ])
-      .then(([sokratesData]) => {
-        console.log(sokratesData);
-
-// make an array of the "Event Identifier"s
-
-  let sokrates = [];
-  for (let i = 0; i < sokratesData.length; i++) {
-    sokrates.push(sokratesData[i]["Event Identifier"]);
-  }
-
+      .then(([highlightsData]) => {
+        console.log(highlightsData);
       // });
 
-    // mei lang-fang
+      let sokrates = [];
+  for (let i = 0; i < highlightsData.length; i++) {
 
-            Promise.all([
-      d3.csv(urlMei), //data
-    ])
-      .then(([meiData]) => {
-        console.log(meiData);
-      // });
+if (highlightsData[i]["identifier"] == "sokrates") {
 
-      let mei = [];
-  for (let i = 0; i < meiData.length; i++) {
-    mei.push(meiData[i]["Event Identifier"]);
+    let event = highlightsData[i]["events"];
+    let events = event.split(";");
+    sokrates.push(events);
+
   }
+}
+console.log(sokrates)
 
-    // straw horseman
+let mei = [];
+  for (let i = 0; i < highlightsData.length; i++) {
 
-            Promise.all([
-      d3.csv(urlStraw), //data
-    ])
-      .then(([strawData]) => {
-        console.log(strawData);
-      // });
+  if (highlightsData[i]["identifier"] == "mei") {
 
-      let straw = [];
-  for (let i = 0; i < strawData.length; i++) {
-    straw.push(strawData[i]["Event Identifier"]);
+      let event = highlightsData[i]["events"];
+      let events = event.split(";");
+      mei.push(events);
+
   }
+}
+console.log(mei)
 
-      // meyerhold
+  let straw = [];
+  for (let i = 0; i < highlightsData.length; i++) {
 
-            Promise.all([
-      d3.csv(urlMeyer), //data
-    ])
-      .then(([meyerholdData]) => {
-        console.log(meyerholdData);
-      // });
+  if (highlightsData[i]["identifier"] == "straw") {
+    
+      let event = highlightsData[i]["events"];
+      let events = event.split(";");
+      straw.push(events);
 
-      let meyerhold = [];
-  for (let i = 0; i < meyerholdData.length; i++) {
-    meyerhold.push(meyerholdData[i]["Event Identifier"]);
   }
+}
+
+  console.log(straw)
+
+  let meyerhold = [];
+  for (let i = 0; i < highlightsData.length; i++) {
+    
+  if (highlightsData[i]["identifier"] == "meyerhold") {
+
+      let event = highlightsData[i]["events"];
+      let events = event.split(";");
+      meyerhold.push(events);
+
+  }
+}
+
+  console.log(meyerhold)
+
+  let sarraz = [];
+  for (let i = 0; i < highlightsData.length; i++) {
+
+  if (highlightsData[i]["identifier"] == "sarraz") {
+
+      let event = highlightsData[i]["events"];
+      let events = event.split(";");
+      sarraz.push(events);
+      
+  }
+}
+
+  console.log(sarraz)
+
+  let paul = [];
+  for (let i = 0; i < highlightsData.length; i++) {
+
+  if (highlightsData[i]["identifier"] == "paul") {
+
+      let event = highlightsData[i]["events"];
+      let events = event.split(";");
+      paul.push(events);
+
+  }
+}
+
+  console.log(paul)
+
+  
+
 
     // The mapping of visual variables starts here
 
@@ -1619,10 +1718,10 @@ d3.select(".sarraz")
 
       })
     })
-  })
-})
-})
-})
-})
-
+  // })
+// })
+// })
+// })
+// })
+// })
   })
