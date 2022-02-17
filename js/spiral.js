@@ -371,6 +371,17 @@ if (spiralData[i]["uncertaintyend"] == 2) spiralData[i]["vend"] = endA[0] + "-12
     ])
       .then(([highlightsData]) => {
          
+//create a p class for each of the 'identifier's and insert into into the div class="highlights" in index.html
+
+for (let i = 0; i < highlightsData.length; i++) {
+  let identifier = highlightsData[i]["identifier"];
+  let text = highlightsData[i]["name"];
+  let p = document.createElement("p");
+  p.className = identifier;
+  p.innerHTML = text;
+  document.getElementsByClassName("highlights")[0].appendChild(p);
+}
+
           console.log(highlightsData);
           
       // });
@@ -382,7 +393,7 @@ if (highlightsData[i]["identifier"] == "sokrates") {
 
     let event = highlightsData[i]["events"];
     let events = event.split(";");
-    sokrates.concat(events);
+    sokrates.push(events);
 
   }
 }
@@ -1559,20 +1570,29 @@ function stringSplit(data, keywordSplitter) {
         }
       })
 
-// filters for VR objects
+// filters for 'highlights'
 
-//sokrates
+// d3.select the <p class=> that is clicked on in the 'highlights' div class
 
-d3.select(".sokrates")
+    
+
+
+
+d3.selectAll("p")
 .on("click", function() {
   if (d3.select(this).style("font-weight") != "bold") {
     d3.selectAll(".filter").style("font-weight", 400)
     d3.select(this).style("font-weight", "bold")
-    d3.selectAll("circle").filter(function(d,i) {return sokrates.includes(d.Event_ID) == true }).transition().style("opacity", "1")
-    d3.selectAll("circle").filter(function(d,i) {return sokrates.includes(d.Event_ID) == false }).transition().style("opacity", "0")
-    d3.selectAll(".pathG").selectAll("path").filter(function(d,i) {return sokrates.includes(spiralData[i]["Event_ID"]) == true }).transition().style("opacity", "1")
-    d3.selectAll(".pathG").selectAll("path").filter(function(d,i) {return sokrates.includes(spiralData[i]["Event_ID"]) == false }).transition().style("opacity", "0")
-    d3.select("#closedsidebar").style("display", "block")
+    let highlight = d3.select(this).attr("class") // get the class of the p tag that was clicked on
+    console.log(highlight)
+    //if highlight matches highlightsData 'identifier'
+    if (highlight == highlightsData["identifier"]  ) { // if the identifier matches the highlight
+      d3.selectAll("circle").filter(function(d,i) {return highlightsdata["events"].includes(d.Event_ID) == true }).transition().style("opacity", "1")
+      d3.selectAll("circle").filter(function(d,i) {return highlightsdata["events"].includes(d.Event_ID) == false }).transition().style("opacity", "0")
+      // d3.selectAll(".pathG").selectAll("path").filter(function(d,i) {return sokrates.includes(spiralData[i]["Event_ID"]) == true }).transition().style("opacity", "1")
+      // d3.selectAll(".pathG").selectAll("path").filter(function(d,i) {return sokrates.includes(spiralData[i]["Event_ID"]) == false }).transition().style("opacity", "0")
+      d3.select("#closedsidebar").style("display", "block")
+    }
 /// sidebar for spans
         sidebar
         .html(`
@@ -1589,134 +1609,7 @@ d3.select(".sokrates")
   }
 })
 
-// Mei Lanfang
-
-d3.select(".mei_lanfang")
-.on("click", function() {
-  if (d3.select(this).style("font-weight") != "bold") {
-    d3.selectAll(".filter").style("font-weight", 400)
-    d3.select(this).style("font-weight", "bold")
-    d3.selectAll("circle").filter(function(d,i) {return mei.includes(d.Event_ID) == true }).transition().style("opacity", "1")
-    d3.selectAll("circle").filter(function(d,i) {return mei.includes(d.Event_ID) == false }).transition().style("opacity", "0")
-    d3.selectAll(".pathG").selectAll("path").filter(function(d,i) {return mei.includes(spiralData[i]["Event_ID"]) == true }).transition().style("opacity", "1")
-    d3.selectAll(".pathG").selectAll("path").filter(function(d,i) {return mei.includes(spiralData[i]["Event_ID"]) == false }).transition().style("opacity", "0")
-    d3.select("#closedsidebar").style("display", "block")
-/// sidebar for spans
-        sidebar
-        .html(`
-        ${`<p class="title">Mei Lanfang</p>`}
-        ${`<p class="objects"><img src="images/objects/mei.png" alt="sokrates postcard" width = "100%" height = "auto" class="image"></p><br>`}
-        ${`<p class="description">Eisenstein was facinated by Mei Lanfang...</p>`}
-        `)
-          .style('display', 'block')
-  } else {
-    d3.select(this).style("font-weight", 400)
-    d3.selectAll("circle").transition().style("opacity", "1")
-    d3.selectAll(".pathG").selectAll("path").transition().style("opacity", "1")
-  }
-})
-
-d3.select(".robeson")
-.on("click", function() {
-  if (d3.select(this).style("font-weight") != "bold") {
-    d3.selectAll(".filter").style("font-weight", 400)
-    d3.select(this).style("font-weight", "bold")
-    d3.selectAll("circle").filter(function(d,i) {return paul.includes(d.Event_ID) == true }).transition().style("opacity", "1")
-    d3.selectAll("circle").filter(function(d,i) {return paul.includes(d.Event_ID) == false }).transition().style("opacity", "0")
-    d3.selectAll(".pathG").selectAll("path").filter(function(d,i) {return paul.includes(spiralData[i]["Event_ID"]) == true }).transition().style("opacity", "1")
-    d3.selectAll(".pathG").selectAll("path").filter(function(d,i) {return paul.includes(spiralData[i]["Event_ID"]) == false }).transition().style("opacity", "0")
-    d3.select("#closedsidebar").style("display", "block")
-/// sidebar for spans
-        sidebar
-        .html(`
-        ${`<p class="title">Paul Robeson</p>`}
-        ${`<p class="objects"><img src="images/objects/paul.png" alt="sokrates postcard" width = "100%" height = "auto" class="image"></p><br>`}
-        ${`<p class="description">Eisenstein was facinated by Mei Lanfang...</p>`}
-        `)
-          .style('display', 'block')
-  } else {
-    d3.select(this).style("font-weight", 400)
-    d3.selectAll("circle").transition().style("opacity", "1")
-    d3.selectAll(".pathG").selectAll("path").transition().style("opacity", "1")
-  }
-})
-
-d3.select(".strawman")
-.on("click", function() {
-  if (d3.select(this).style("font-weight") != "bold") {
-    d3.selectAll(".filter").style("font-weight", 400)
-    d3.select(this).style("font-weight", "bold")
-    d3.selectAll("circle").filter(function(d,i) {return straw.includes(d.Event_ID) == true }).transition().style("opacity", "1")
-    d3.selectAll("circle").filter(function(d,i) {return straw.includes(d.Event_ID) == false }).transition().style("opacity", "0")
-    d3.selectAll(".pathG").selectAll("path").filter(function(d,i) {return straw.includes(spiralData[i]["Event_ID"]) == true }).transition().style("opacity", "1")
-    d3.selectAll(".pathG").selectAll("path").filter(function(d,i) {return straw.includes(spiralData[i]["Event_ID"]) == false }).transition().style("opacity", "0")
-    d3.select("#closedsidebar").style("display", "block")
-/// sidebar for spans
-        sidebar
-        .html(`
-        ${`<p class="title">Straw</p>`}
-        ${`<p class="objects"><img src="images/objects/mei.png" alt="sokrates postcard" width = "100%" height = "auto" class="image"></p><br>`}
-        ${`<p class="description">Eisenstein was facinated by Mei Lanfang...</p>`}
-        `)
-          .style('display', 'block')
-  } else {
-    d3.select(this).style("font-weight", 400)
-    d3.selectAll("circle").transition().style("opacity", "1")
-    d3.selectAll(".pathG").selectAll("path").transition().style("opacity", "1")
-  }
-})
-
-d3.select(".meyerhold")
-.on("click", function() {
-  if (d3.select(this).style("font-weight") != "bold") {
-    d3.selectAll(".filter").style("font-weight", 400)
-    d3.select(this).style("font-weight", "bold")
-    d3.selectAll("circle").filter(function(d,i) {return meyerhold.includes(d.Event_ID) == true }).transition().style("opacity", "1")
-    d3.selectAll("circle").filter(function(d,i) {return meyerhold.includes(d.Event_ID) == false }).transition().style("opacity", "0")
-    d3.selectAll(".pathG").selectAll("path").filter(function(d,i) {return meyerhold.includes(spiralData[i]["Event_ID"]) == true }).transition().style("opacity", "1")
-    d3.selectAll(".pathG").selectAll("path").filter(function(d,i) {return meyerhold.includes(spiralData[i]["Event_ID"]) == false }).transition().style("opacity", "0")
-    d3.select("#closedsidebar").style("display", "block")
-/// sidebar for spans
-        sidebar
-        .html(`
-        ${`<p class="title">Meyerhold</p>`}
-        ${`<p class="objects"><img src="images/objects/mei.png" alt="sokrates postcard" width = "100%" height = "auto" class="image"></p><br>`}
-        ${`<p class="descrption">Eisenstein was facinated by Mei Lanfang...</p>`}
-        `)
-          .style('display', 'block')
-  } else {
-    d3.select(this).style("font-weight", 400)
-    d3.selectAll("circle").transition().style("opacity", "1")
-    d3.selectAll(".pathG").selectAll("path").transition().style("opacity", "1")
-  }
-})
-
-d3.select(".sarraz")
-.on("click", function() {
-  if (d3.select(this).style("font-weight") != "bold") {
-    d3.selectAll(".filter").style("font-weight", 400)
-    d3.select(this).style("font-weight", "bold")
-    d3.selectAll("circle").filter(function(d,i) {return sarraz.includes(d.Event_ID) == true }).transition().style("opacity", "1")
-    d3.selectAll("circle").filter(function(d,i) {return sarraz.includes(d.Event_ID) == false }).transition().style("opacity", "0")
-    d3.selectAll(".pathG").selectAll("path").filter(function(d,i) {return sarraz.includes(spiralData[i]["Event_ID"]) == true }).transition().style("opacity", "1")
-    d3.selectAll(".pathG").selectAll("path").filter(function(d,i) {return sarraz.includes(spiralData[i]["Event_ID"]) == false }).transition().style("opacity", "0")
-    d3.select("#closedsidebar").style("display", "block")
-/// sidebar for spans
-        sidebar
-        .html(`
-        ${`<p class="title">La Sarraz</p>`}
-        ${`<p class="objects"><img src="images/objects/mei.png" alt="sokrates postcard" width = "100%" height = "auto" class="image"></p><br>`}
-        ${`<p class="description">Eisenstein was facinated by Mei Lanfang...</p>`}
-        `)
-          .style('display', 'block')
-  } else {
-    d3.select(this).style("font-weight", 400)
-    d3.selectAll("circle").transition().style("opacity", "1")
-    d3.selectAll(".pathG").selectAll("path").transition().style("opacity", "1")
-  }
-})
-
-// concludings } for the csv promises
+// concluding } for the csv promises
 
       })
     })
