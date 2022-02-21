@@ -1339,7 +1339,7 @@ d3.select(".sokrates")
     d3.selectAll("circle").filter(function(d,i) {return sokrates.includes(d.Event_ID) == true }).transition().style("opacity", "1")
     d3.selectAll("circle").filter(function(d,i) {return sokrates.includes(d.Event_ID) == false }).transition().style("opacity", "0")
     d3.selectAll(".timelineLines").filter(function(d,i) {return sokrates.includes(d.Event_ID) == true }).transition().style("opacity", "1")
-    d3.selectAll(".timelineLines").filter(function(d,i) {return sokrates.includes(d.Event_ID]) == false }).transition().style("opacity", "0")
+    d3.selectAll(".timelineLines").filter(function(d,i) {return sokrates.includes(d.Event_ID) == false }).transition().style("opacity", "0")
     d3.select("#closedsidebar").style("display", "block")
 /// sidebar for spans
         sidebar
