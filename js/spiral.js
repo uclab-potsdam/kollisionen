@@ -1574,25 +1574,29 @@ function stringSplit(data, keywordSplitter) {
 
 // d3.select the <p class=> that is clicked on in the 'highlights' div class
 
-    
 
-
-
-d3.selectAll("p")
-.on("click", function() {
+d3.selectAll(".highlights p")
+.on("click", function(d,i) {
   if (d3.select(this).style("font-weight") != "bold") {
     d3.selectAll(".filter").style("font-weight", 400)
     d3.select(this).style("font-weight", "bold")
-    let highlight = d3.select(this).attr("class") // get the class of the p tag that was clicked on
-    console.log(highlight)
-    //if highlight matches highlightsData 'identifier'
-    if (highlight == highlightsData["identifier"]  ) { // if the identifier matches the highlight
-      d3.selectAll("circle").filter(function(d,i) {return highlightsdata["events"].includes(d.Event_ID) == true }).transition().style("opacity", "1")
-      d3.selectAll("circle").filter(function(d,i) {return highlightsdata["events"].includes(d.Event_ID) == false }).transition().style("opacity", "0")
-      // d3.selectAll(".pathG").selectAll("path").filter(function(d,i) {return sokrates.includes(spiralData[i]["Event_ID"]) == true }).transition().style("opacity", "1")
-      // d3.selectAll(".pathG").selectAll("path").filter(function(d,i) {return sokrates.includes(spiralData[i]["Event_ID"]) == false }).transition().style("opacity", "0")
+    let selectedIdentifier = d3.select(this).attr("class") // get the class of the p tag that was clicked on
+    // console.log(selectedIdentifier)
+    // //if highlight matches highlightsData 'identifier'
+    // console.log(highlightsData.filter(function(D){return D.identifier ==  selectedIdentifier})[0])
+
+    d3.selectAll("circle").filter(function(X,Y){return highlightsData.filter(function(D){return D.identifier ==  selectedIdentifier})[0].events.includes(X.Event_ID) == true
+  }).transition().style("opacity", "1")
+  d3.selectAll("circle").filter(function(X,Y){return highlightsData.filter(function(D){return D.identifier ==  selectedIdentifier})[0].events.includes(X.Event_ID) == false
+}).transition().style("opacity", "0")
+  d3.selectAll(".pathG").selectAll("path").filter(function(d,i){return highlightsData.filter(function(D){return D.identifier ==  selectedIdentifier})[0].events.includes(spiralData[i]["Event_ID"]) == true
+}).transition().style("opacity", "1")
+  d3.selectAll(".pathG").selectAll("path").filter(function(d,i){return highlightsData.filter(function(D){return D.identifier ==  selectedIdentifier})[0].events.includes(spiralData[i]["Event_ID"]) == false
+}).transition().style("opacity", "0")
+
+    
       d3.select("#closedsidebar").style("display", "block")
-    }
+    
 /// sidebar for spans
         sidebar
         .html(`
@@ -1608,6 +1612,15 @@ d3.selectAll("p")
     d3.selectAll(".pathG").selectAll("path").transition().style("opacity", "1")
   }
 })
+d3.selectAll("#closedsidebar")
+      .on('click', function (d) {
+
+        d3.select(".sidebar")
+          .style("display", "none")
+
+        d3.select("#closedsidebar").style("display", "none")
+
+      })
 
 // concluding } for the csv promises
 
