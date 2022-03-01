@@ -1089,7 +1089,11 @@ function stringSplit(data, keywordSplitter) {
     svg.selectAll(".circles")
       .on('mousemove', function (event, d) {
 
-        ///display same year nodes/arcs
+        // if filters are not selected then show all events
+
+
+
+        //display same year nodes/arcs
         var [year, month, day] = d.vstart.split('-', 3)
         d3.selectAll(".circles")
         .style("opacity", function(D){if(D.vstart.includes(year) == true){return 1}else{ return 0}})
@@ -1120,6 +1124,17 @@ function stringSplit(data, keywordSplitter) {
         else if(d.category5==true){playAudio(audio5)}
       }})
       .on('click', function (event, d) {
+        if  (d3.select(this).style("stroke") != "black" && d3.select(this).style("stroke-width") != "3px") {
+          d3.selectAll(".circles").style("stroke", "none").style("stroke-width", "0px")
+          d3.select(this).style("stroke", "black").style("stroke-width", "3px")
+        }else{
+        d3.select(this).style("stroke", "none").style("stroke-width", "0px")
+        }
+        // make not(this) opacity 0.5 when this is clicked
+        // d3.selectAll(".circles").filter(function(D){return D != d}).style("opacity", "0.5")
+
+        //display sidebar
+
         d3.select("#closedsidebar").style("display", "block")
 /// sidebar for single day dates
         sidebar
@@ -1157,14 +1172,14 @@ function stringSplit(data, keywordSplitter) {
         d3.selectAll(".pathGs")
         .style("opacity", 1)
 
-        d3.selectAll(".timeLabels")
-        .style("opacity", function(D){if(D== firstYearforLabel || D == lastYearforLabel){return 1}else{return 0}})
+        // d3.selectAll(".timeLabels")
+        // .style("opacity", function(D){if(D== firstYearforLabel || D == lastYearforLabel){return 1}else{return 0}})
       })
 /// tooltip for spans
     svg.selectAll(".pathGs")
       .on('mousemove', function (event, d) {
 
-        ///display same year nodes/arcs
+        //display same year nodes/arcs
         var [year, month, day] = d.vstart.split('-', 3)
         console.log(year)
         d3.selectAll(".circles")
@@ -1189,6 +1204,14 @@ function stringSplit(data, keywordSplitter) {
                       <p class="tooltip-title">${d.title}</p>`);
       })
       .on('click', function (event, d) {
+
+        // if  (d3.select(this).style("stroke-width") != "3px") {
+        //   d3.selectAll("pathGs").classed("spiralArcs")
+        //   d3.select(this).style("stroke-width", "3px")
+        // }else{
+        // d3.select(this).classed("spiralArcs")
+        // }
+
         d3.select("#closedsidebar").style("display", "block")
 /// sidebar for spans
         sidebar

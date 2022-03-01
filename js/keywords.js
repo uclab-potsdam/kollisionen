@@ -1015,32 +1015,42 @@ d3.selectAll("circle").classed("filteredout",false)
 //   if (d3.select(this).style("font-weight") != "bold") {
 //     d3.selectAll(".filter").style("font-weight", 400)
 //     d3.select(this).style("font-weight", "bold")
-//     d3.selectAll(".timelineG").select("#chart").select("svg").selectAll(".timelines")
-//   .data(keywordsCountFilteredSorted)//.filter(function(d,i){return i < 200})) // sort by count
-//   // .data(keywordsCountFiltered) //sort aphabetically
-//   .join("g")
-//   .classed("backgroundTimelineG", true)
+//     d3.selectAll(".timelineG").sort(function(a, b) {
+//       return d3.ascending(a.name, b.name)
+//     })
+//   }
+// })
+//
+
+
+//d3.select(".chronological")
+// .on("click", function() {
+//   if (d3.select(this).style("font-weight") != "bold") {
+//     d3.selectAll(".filter").style("font-weight", 400)
+//     d3.select(this).style("font-weight", "bold")
+//     d3.selectAll(".timelineG").sort(function(a, b) {
+//       return a.date > b.date ? 1 : -1
+//     })
+//   }
+// })
+
+// d3.select(".frequency")
+// .on("click", function() {
+//   if (d3.select(this).style("font-weight") != "bold") {
+//     d3.selectAll(".filter").style("font-weight", 400)
+//     d3.select(this).style("font-weight", "bold")
+//     d3.selectAll(".timelineG").sort(function(a, b) {
+//       return a.count > b.count ? -1 : 1
+//     })
+
+
+
 //   }else {
 //     d3.select(this).style("font-weight", 400)
 //   }
 //   });
 
-// d3.select("frequency").on("click", function() {
 
-//   let timelinesG = d3.select("#chart").select("svg").selectAll(".timelines")
-//   .data(keywordsCountFilteredSorted)
-//   .join("g")
-//   .classed("backgroundTimelineG", true)
-
-
-// })
-
-// d3.select("temporal").on("click", function() {
-
-//   let timelinesG = d3.select("#chart").select("svg").selectAll(".timelines")
-//   .data(keywordsCount)
-//   .join("g")
-//   .classed("backgroundTimelineG", true)
 
 
 // })
@@ -1292,7 +1302,8 @@ d3.selectAll("#closedsidebar")
 
         d3.select(".sidebar")
           .style("display", "none")
-
+          d3.selectAll("circle").transition().style("opacity", "1")
+        d3.selectAll(".timelineLines").transition().style("opacity", "1")
         d3.select("#closedsidebar").style("display", "none")
 
       })
