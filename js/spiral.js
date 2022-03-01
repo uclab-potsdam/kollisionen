@@ -128,18 +128,6 @@ var endParse = d3.timeParse("%Y-%m-%d %I:%M%p");
 var urlMinimal = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvSLkjHvHlPjWLy3ec4UT9AsFsyTy2rbsjKquZgmhCqbsTZ4TLAnWv28Y3PnR/pub?gid=1387341329&single=true&output=csv'
 // url = './minimal.csv' //local backup
 
-// var urlSarraz = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvSLkjHvHlPjWLy3ec4UT9AsFsyTy2rbsjKquZgmhCqbsTZ4TLAnWv28Y3PnR/pub?gid=1234220819&single=true&output=csv'
-
-// var urlPaul = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvSLkjHvHlPjWLy3ec4UT9AsFsyTy2rbsjKquZgmhCqbsTZ4TLAnWv28Y3PnR/pub?gid=1752697880&single=true&output=csv'
-
-// var urlSokrates = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvSLkjHvHlPjWLy3ec4UT9AsFsyTy2rbsjKquZgmhCqbsTZ4TLAnWv28Y3PnR/pub?gid=196127159&single=true&output=csv'
-
-// var urlMei = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvSLkjHvHlPjWLy3ec4UT9AsFsyTy2rbsjKquZgmhCqbsTZ4TLAnWv28Y3PnR/pub?gid=1779118710&single=true&output=csv'
-
-// var urlStraw = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvSLkjHvHlPjWLy3ec4UT9AsFsyTy2rbsjKquZgmhCqbsTZ4TLAnWv28Y3PnR/pub?gid=427715118&single=true&output=csv'
-
-// var urlMeyer = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvSLkjHvHlPjWLy3ec4UT9AsFsyTy2rbsjKquZgmhCqbsTZ4TLAnWv28Y3PnR/pub?gid=2142317381&single=true&output=csv'
-
 var itemsUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTpZlBfSa0sBkPXXCdHykUFi5N2zPcclrda8iaYlbWoyzaWxDj7q3WEtmP7m8hrzk5ejAgjk-Id_zk9/pub?gid=1626158426&single=true&output=csv'
 
 var urlHighlights = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT3XiwLUS9uF0SIvV0QOOTGJv5FY077vEEIiShwtJkEcxDC-Dghp9JEycZxNDAplPetp73-ssUqZ8dv/pub?gid=0&single=true&output=csv'
@@ -273,97 +261,6 @@ if (spiralData[i]["uncertaintyend"] == 2) spiralData[i]["vend"] = endA[0] + "-12
       }
     };
 
-    // load the data for objects
-
-//     // la sarraz
-
-//         Promise.all([
-//       d3.csv(urlSarraz), //data
-//     ])
-//       .then(([sarrazData]) => {
-//         console.log(sarrazData);
-//       // });
-
-//       for (let i = 0; i <sarrazData.length; i++) {
-//         sarraz.push(sarrazData[i]["Event Identifier"]);
-//       }
-
-//     // paul robeson
-
-//             Promise.all([
-//       d3.csv(urlPaul), //data
-//     ])
-//       .then(([paulData]) => {
-//         console.log(paulData);
-//       // });
-
-//       let paul = [];
-//       for (let i = 0; i < paulData.length; i++) {
-//         paul.push(paulData[i]["Event Identifier"]);
-//       }
-    
-//     // sokrates
-
-           //  Promise.all([
-//       d3.csv(urlSokrates), //data
-//     ])
-//       .then(([sokratesData]) => {
-//         console.log(sokratesData);
-//
-// // make an array of the "Event Identifier"s
-//
-//   let sokrates1 = [];
-//   for (let i = 0; i < sokratesData.length; i++) {
-//     sokrates1.push(sokratesData[i]["Event Identifier"]);
-//   }
-//
-//   console.log(sokrates1);
-
-//       // });
-
-//     // mei lang-fang
-
-//             Promise.all([
-//       d3.csv(urlMei), //data
-//     ])
-//       .then(([meiData]) => {
-//         console.log(meiData);
-//       // });
-
-//       let mei = [];
-//   for (let i = 0; i < meiData.length; i++) {
-//     mei.push(meiData[i]["Event Identifier"]);
-//   }
-
-//     // straw horseman
-
-//             Promise.all([
-//       d3.csv(urlStraw), //data
-//     ])
-//       .then(([strawData]) => {
-//         console.log(strawData);
-//       // });
-
-//       let straw = [];
-//   for (let i = 0; i < strawData.length; i++) {
-//     straw.push(strawData[i]["Event Identifier"]);
-//   }
-
-//       // meyerhold
-
-//             Promise.all([
-//       d3.csv(urlMeyer), //data
-//     ])
-//       .then(([meyerholdData]) => {
-//         console.log(meyerholdData);
-//       // });
-
-//       let meyerhold = [];
-//   for (let i = 0; i < meyerholdData.length; i++) {
-//     meyerhold.push(meyerholdData[i]["Event Identifier"]);
-//   }
-
-
 // highlights
 
     Promise.all([
@@ -385,91 +282,6 @@ for (let i = 0; i < highlightsData.length; i++) {
           console.log(highlightsData);
           
       // });
-
-      let sokrates = [];
-  for (let i = 0; i < highlightsData.length; i++) {
-
-if (highlightsData[i]["identifier"] == "sokrates") {
-
-    let event = highlightsData[i]["events"];
-    let events = event.split(";");
-    sokrates.push(events);
-
-  }
-}
-console.log(sokrates)
-
-let mei = [];
-  for (let i = 0; i < highlightsData.length; i++) {
-
-  if (highlightsData[i]["identifier"] == "mei") {
-
-      let event = highlightsData[i]["events"];
-      let events = event.split(";");
-      mei.push(events);
-
-  }
-}
-console.log(mei)
-
-  let straw = [];
-  for (let i = 0; i < highlightsData.length; i++) {
-
-  if (highlightsData[i]["identifier"] == "straw") {
-    
-      let event = highlightsData[i]["events"];
-      let events = event.split(";");
-      straw.push(events);
-
-  }
-}
-
-  console.log(straw)
-
-  let meyerhold = [];
-  for (let i = 0; i < highlightsData.length; i++) {
-    
-  if (highlightsData[i]["identifier"] == "meyerhold") {
-
-      let event = highlightsData[i]["events"];
-      let events = event.split(";");
-      meyerhold.push(events);
-
-  }
-}
-
-  console.log(meyerhold)
-
-  let sarraz = [];
-  for (let i = 0; i < highlightsData.length; i++) {
-
-  if (highlightsData[i]["identifier"] == "sarraz") {
-
-      let event = highlightsData[i]["events"];
-      let events = event.split(";");
-      sarraz.push(events);
-      
-  }
-}
-
-  console.log(sarraz)
-
-  let paul = [];
-  for (let i = 0; i < highlightsData.length; i++) {
-
-  if (highlightsData[i]["identifier"] == "paul") {
-
-      let event = highlightsData[i]["events"];
-      let events = event.split(";");
-      paul.push(events);
-
-  }
-}
-
-  console.log(paul)
-
-  
-
 
     // The mapping of visual variables starts here
 
@@ -1581,30 +1393,28 @@ d3.selectAll(".highlights p")
     d3.selectAll(".filter").style("font-weight", 400)
     d3.select(this).style("font-weight", "bold")
     let selectedIdentifier = d3.select(this).attr("class") // get the class of the p tag that was clicked on
-    // console.log(selectedIdentifier)
-    // //if highlight matches highlightsData 'identifier'
-    // console.log(highlightsData.filter(function(D){return D.identifier ==  selectedIdentifier})[0])
 
     d3.selectAll("circle").filter(function(X,Y){return highlightsData.filter(function(D){return D.identifier ==  selectedIdentifier})[0].events.includes(X.Event_ID) == true
   }).transition().style("opacity", "1")
-  d3.selectAll("circle").filter(function(X,Y){return highlightsData.filter(function(D){return D.identifier ==  selectedIdentifier})[0].events.includes(X.Event_ID) == false
-}).transition().style("opacity", "0")
-  d3.selectAll(".pathG").selectAll("path").filter(function(d,i){return highlightsData.filter(function(D){return D.identifier ==  selectedIdentifier})[0].events.includes(spiralData[i]["Event_ID"]) == true
-}).transition().style("opacity", "1")
-  d3.selectAll(".pathG").selectAll("path").filter(function(d,i){return highlightsData.filter(function(D){return D.identifier ==  selectedIdentifier})[0].events.includes(spiralData[i]["Event_ID"]) == false
-}).transition().style("opacity", "0")
-
-    
-      d3.select("#closedsidebar").style("display", "block")
+    d3.selectAll("circle").filter(function(X,Y){return highlightsData.filter(function(D){return D.identifier ==  selectedIdentifier})[0].events.includes(X.Event_ID) == false
+  }).transition().style("opacity", "0")
+    d3.selectAll(".pathG").selectAll("path").filter(function(d,i){return highlightsData.filter(function(D){return D.identifier ==  selectedIdentifier})[0].events.includes(spiralData[i]["Event_ID"]) == true
+  }).transition().style("opacity", "1")
+    d3.selectAll(".pathG").selectAll("path").filter(function(d,i){return highlightsData.filter(function(D){return D.identifier ==  selectedIdentifier})[0].events.includes(spiralData[i]["Event_ID"]) == false
+  }).transition().style("opacity", "0")    
+    d3.select("#closedsidebar").style("display", "block")
     
 /// sidebar for spans
-        sidebar
-        .html(`
-        ${`<p class="title">Postcard of Sokrates sculpture</p>`}
-        ${`<p class="objects"><img src="images/objects/sokrates.png" alt="sokrates postcard" width = "100%" height = "auto" class="image"></p><br>`}
-        ${`<p class="descrption">For Eisenstein Socrates symbolized the best way of teaching - by asking questions instead of giving answers.<br>
-        Eisenstein loved teaching and implemented the "Socrates-Method"</p>`}
-        `)
+sidebar
+.html(`
+<h1 class="highlightsName">${highlightsData.filter(function(D){return D.identifier ==  selectedIdentifier})[0].name}</h1>
+<p class="highlightsImage"><img src="images/objects/${highlightsData.filter(function(D){return D.identifier ==  selectedIdentifier})[0].identifier}.png" alt="${highlightsData.filter(function(D){return D.identifier ==  selectedIdentifier})[0].identifier}" width = "50%" height = "auto" class="image"></p>
+<p class="highlightsSubtitle">${highlightsData.filter(function(D){return D.identifier ==  selectedIdentifier})[0].subtitle}</p>
+<p class="highlightsDescription">${highlightsData.filter(function(D){return D.identifier ==  selectedIdentifier})[0].description}</p>
+<p class="highlightsDate">${highlightsData.filter(function(D){return D.identifier ==  selectedIdentifier})[0].date}</p>
+<p class="highlightsLink"><a href="${highlightsData.filter(function(D){return D.identifier ==  selectedIdentifier})[0].links}" target="_blank">${highlightsData.filter(function(D){return D.identifier ==  selectedIdentifier})[0].links}</a></p>
+
+`)
           .style('display', 'block')
   } else {
     d3.select(this).style("font-weight", 400)
@@ -1626,10 +1436,5 @@ d3.selectAll("#closedsidebar")
 
       })
     })
-  // })
-// })
-// })
-// })
-// })
-// })
+
 })
