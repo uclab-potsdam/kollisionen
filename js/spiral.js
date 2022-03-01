@@ -1390,7 +1390,7 @@ function stringSplit(data, keywordSplitter) {
 d3.selectAll(".highlights p")
 .on("click", function(d,i) {
   if (d3.select(this).style("font-weight") != "bold") {
-    d3.selectAll(".filter").style("font-weight", 400)
+    d3.selectAll(".highlights p").style("font-weight", 400)
     d3.select(this).style("font-weight", "bold")
     let selectedIdentifier = d3.select(this).attr("class") // get the class of the p tag that was clicked on
 
@@ -1415,7 +1415,7 @@ sidebar
 <p class="highlightsLink"><a href="${highlightsData.filter(function(D){return D.identifier ==  selectedIdentifier})[0].links}" target="_blank">${highlightsData.filter(function(D){return D.identifier ==  selectedIdentifier})[0].links}</a></p>
 
 `)
-          .style('display', 'block')
+.style('display', 'block')
   } else {
     d3.select(this).style("font-weight", 400)
     d3.selectAll("circle").transition().style("opacity", "1")
@@ -1427,8 +1427,10 @@ d3.selectAll("#closedsidebar")
 
         d3.select(".sidebar")
           .style("display", "none")
+          d3.selectAll("circle").transition().style("opacity", "1")
+          d3.selectAll(".pathG").selectAll("path").transition().style("opacity", "1")
+          d3.select("#closedsidebar").style("display", "none")
 
-        d3.select("#closedsidebar").style("display", "none")
 
       })
 

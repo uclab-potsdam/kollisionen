@@ -1252,7 +1252,7 @@ d3.select(".plus").on("click", function() {
 d3.selectAll(".highlights p")
 .on("click", function(d,i) {
   if (d3.select(this).style("font-weight") != "bold") {
-    d3.selectAll(".filter").style("font-weight", 400)
+    d3.selectAll(".highlights p").style("font-weight", 400)
     d3.select(this).style("font-weight", "bold")
     let selectedIdentifier = d3.select(this).attr("class") // get the class of the p tag that was clicked on
 
