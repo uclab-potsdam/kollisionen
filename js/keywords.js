@@ -1161,7 +1161,7 @@ d3.select(".f_ac").on("click", function() {
 
 d3.select(".triangle").on("click", function() {
   if (d3.select(this).style("font-weight") != "bold") {
-    d3.selectAll(".filter").style("font-weight", 400)
+    d3.selectAll(".entities p").style("font-weight", 400)
     d3.select(this).style("font-weight", "bold")
     d3.selectAll("circle").filter(function(d) { return d.people != ""; }).transition().style("opacity", "1")
     d3.selectAll("circle").filter(function(d) { return d.people == ""; }).transition().style("opacity", "0")
@@ -1179,7 +1179,7 @@ d3.select(".triangle").on("click", function() {
 
 d3.select(".diamond").on("click", function() {
   if (d3.select(this).style("font-weight") != "bold") {
-    d3.selectAll(".filter").style("font-weight", 400)
+    d3.selectAll(".entities p").style("font-weight", 400)
     d3.select(this).style("font-weight", "bold")
     d3.selectAll("circle").filter(function(d) { return d.places != ""; }).transition().style("opacity", "1")
     d3.selectAll("circle").filter(function(d) { return d.places == ""; }).transition().style("opacity", "0")
@@ -1197,7 +1197,7 @@ d3.select(".diamond").on("click", function() {
 
 d3.select(".threeprong").on("click", function() {
   if (d3.select(this).style("font-weight") != "bold") {
-    d3.selectAll(".filter").style("font-weight", 400)
+    d3.selectAll(".entities p").style("font-weight", 400)
     d3.select(this).style("font-weight", "bold")
     d3.selectAll("circle").filter(function(d) { return d.works != ""; }).transition().style("opacity", "1")
     d3.selectAll("circle").filter(function(d) { return d.works == ""; }).transition().style("opacity", "0")
@@ -1215,7 +1215,7 @@ d3.select(".threeprong").on("click", function() {
 
 d3.select(".square").on("click", function() {
   if (d3.select(this).style("font-weight") != "bold") {
-    d3.selectAll(".filter").style("font-weight", 400)
+    d3.selectAll(".entities p").style("font-weight", 400)
     d3.select(this).style("font-weight", "bold")
     d3.selectAll("circle").filter(function(d) { return d.artistic != ""; }).transition().style("opacity", "1")
     d3.selectAll("circle").filter(function(d) { return d.artistic == ""; }).transition().style("opacity", "0")
@@ -1233,7 +1233,7 @@ d3.select(".square").on("click", function() {
 
 d3.select(".plus").on("click", function() {
   if (d3.select(this).style("font-weight") != "bold") {
-    d3.selectAll(".filter").style("font-weight", 400)
+    d3.selectAll(".entities p").style("font-weight", 400)
     d3.select(this).style("font-weight", "bold")
     d3.selectAll("circle").filter(function(d) { return d.additional != ""; }).transition().style("opacity", "1")
     d3.selectAll("circle").filter(function(d) { return d.additional == ""; }).transition().style("opacity", "0")

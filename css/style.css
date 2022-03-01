@@ -366,6 +366,10 @@ h2 {
   float: left;
 }
 
+.entities p {
+  cursor: pointer;
+}
+
 .entities img {
   display: inline-block;
   margin-right: 8px;
