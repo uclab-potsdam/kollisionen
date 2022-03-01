@@ -501,6 +501,12 @@ var fisheye = d3.fisheye
     })
 
       .on('click', function (event, d) {
+        if  (d3.select(this).style("stroke") != "black" && d3.select(this).style("stroke-width") != "2px") {
+          d3.selectAll(".circles").style("stroke", "none").style("stroke-width", "0px")
+          d3.select(this).style("stroke", "black").style("stroke-width", "2px")
+        }else{
+        d3.select(this).style("stroke", "none").style("stroke-width", "0px")
+        }
       d3.select("#closedsidebar").style("display", "block")
       sidebar
       .style('display', 'block')
