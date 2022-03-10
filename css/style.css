@@ -432,28 +432,6 @@ h2 {
 }
 
 
-/* .modal-guide {
-  display: block;
-  float: left;
-  bottom: 50px;
-  position: absolute;
-}
-
-.modal-guide img {
-  padding: 4px;
-}
-
-.modal-info {
-  display: block;
-  float: left;
-  bottom: 50px;
-  position: absolute;
-}
-
-.modal-info img {
-  padding: 4px;
-} */
-
 .sorting {
   display: flex;
   justify-content: center;
