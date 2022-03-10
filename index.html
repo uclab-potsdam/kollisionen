@@ -9,6 +9,7 @@
   <!-- <link rel="stylesheet" href="../css/standard-style.css"> -->
   <!-- <link rel="stylesheet" href="../css/index.css"> -->
   <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/modal-guide.css" />
   <link rel="stylesheet" type="text/css" href="https://uclab.fh-potsdam.de/ff/css/select2.css">
   <script src="https://d3js.org/d3.v6.js"></script>
   <script src="https://uclab.fh-potsdam.de/ff/js/jquery.min.js"></script>
@@ -68,7 +69,116 @@
     </label>
   </div>
 
+  <div class="modalbuttons">
+
+    <div class="modal-info">
+      <img id="info-button" src="images/modal-info.png" alt="guide icon" height="30px">
+    </div>
+
+    <div class="modal-guide">
+      <img id="guide-button" src="images/modal-guide.png" alt="guide icon" height="30px">
+    </div>
+    
+  </div>
+
 </div>
+
+<!-- The Modal -->
+<div id="modal-guide" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div class="modal-header">
+      <span class="close" id="closeGuide">&times;</span>
+      <h3>How to explore these visualisation?</h3>
+    </div>
+    <div class="modal-body">
+      <p>Following is a short guide on how you can explore the visualisations</p>
+      <h3>Highlights</h3>
+      <p>These are eight objects linked to Eisenstein’s life that we have especially focused on in information visualization prototype. 
+      Clicking on these individual objects, highlights all events and categories that are directly or indirectly linked to data in the respective visualization. 
+      These collection highlights can also be experienced in the VR and 3D environment.</p>
+      <h3>Categories</h3>
+      <p>Different dimensions of Eisenstein's life are split into four categories(
+        <span style="background-color:#002fa7; color:aliceblue;">Cinema and Theatre</span>, 
+        <span style="background-color:#fdd55c;">Biography and Personality</span>, 
+        <span style="background-color:#ed563b;">Writing and Teaching</span>)
+        and further into the overlap of these categories (
+        <span style="background-color:#8a9a5b;">Cinema and Theatre + Biography and Personality</span>, 
+        <span style="background-color:#f5964c;">Biography and Personality + Writing and Teaching</span>, 
+        <span style="background-color:#774371;">Cinema and Theatre + Writing and Teaching</span> and 
+        <span style="background-color:black;color:aliceblue;">Cinema and Theatre + Biography and Personality +  Writing and Teaching </span>). 
+        Clicking on the categories highlights the related data points in the respective visualization. 
+        We have assigned specific colors to each of the categories and their consequent combinations.
+      </p>
+      <h3>Entities</h3>
+      <p>In order to ease exploration of Eisenstein’s life and legacy, 
+        the entities linked to his life are also split into five categories. 
+        Selecting any of the five entities highlights the related data points in the respective visualization. 
+        (*symbols will be added here)
+      </p>
+      <h3>Sound</h3>
+      <p>With Eisenstein being one of the biggest contributors to the early development of audio-visual films or ‘talkies’, 
+        Kollisionen specially focused on including sound as a feature in our experience as a tribute to him. 
+        There is sound encoded to different categories or dimensions of Eisenstein's life and turning on the sounds enables you to immerse yourself in the world of sound upon hover.  </p>
+      <h3>Right panel</h3>
+      <p>The right panel of the visualization displays detailed information of the selection corresponding to the left panel and the respective visualization. 
+        In spiral and timelines visualizations, the right panel displays detail of the events if a circle or a span is clicked on, 
+        and clicking on any of the highlights displays the corresponding detail of it in the right panel.
+        In case of the network visualisation, the right panel shows the events, the entities connected to which are displayed through the visualization. 
+        Scrolling through the rights panel in the network visualisation alters the networks displayed, depending on the events visible in the right panel.</p>
+    </div>
+    <div class="modal-footer">
+    </div>
+  </div>
+</div>
+
+<!-- text for info modal -->
+<div id="modal-info" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div class="modal-header">
+      <span class="close" id="closeInfo">&times;</span>
+      <h3>What are these three visualisation?</h3>
+    </div>
+    <div class="modal-body">
+      <h3>How do these visualizations function? </h3>
+      <p>Considering the all encompassing contributions of Eisenstein to the world of cinema and theatre, 
+        we have visualised his monumental feats through three visualizations: Spiral, Network and Timelines. 
+        Each of these three visualizations display dimensions of Eisenstein's life with different aspects as the primary focus.</p>
+      <h3>Spiral visualization:</h3>
+      <p>Spiral visualization is a temporal display of the journey of Eisenstein's personal and artistic endeavours. 
+          It spans from his birth in 1898 till his demise in 1958, and how the legacy he left has continued till today. 
+          The spiral shape of this visualization was inspired by Eisenstein’s film theory of Spherical Book. 
+          The VR experience of Kollisionen also replicates the spiral in a 3D space. 
+          Circles represent single day events in Eisensstein’s life (image will be added)
+          Arcs represent events that spanned over two or more days  (image will be added)
+      </p>
+      <h3>Network visualization:</h3>
+      <p>Eisenstein contributed to the world of film and theatre through his cinematic masterpieces and through his artistic ideas. 
+          During his life, he travelled to other parts of the world and connected with several notable people in personal and professional capacity. 
+          Network visualization displays these connections between different entities in Eisensten’s life. 
+          Each of the symbol used in network visualization represents a certain category of entities 
+          (symbols will be added here)
+          The networks displayed in the visualisation show connections between the entities related to the events displayed in the right panel. 
+          Scrolling through the rights panel in the alters the networks displayed, depending on the events visible in the right panel. 
+      </p>
+      <h3>Timelines visualization:</h3>
+      <p>This visualization displays how different people, places, artistic concept, cinematic work and other aspects of Eisenstein's life occurred and recurred throughout his life. 
+          It displays linear timelines of each of these entities.   
+
+          Circles represent single day events in Eisensstein’s life (image will be added)
+          Arcs represent events that spanned over two or more days  (image will be added)
+          
+          Each row of the visualization shows a particular entity and a linear timeline of role the way they occurred in Eisenstein’s life. 
+      </p>
+    </div>
+    <div class="modal-footer">
+    </div>
+  </div>
+</div>
+
+<script src="js/modal-guide.js"></script>
+<script src="js/modal-info.js"></script>
 
 <!-- <h2 id="soundheadline">Uncertainty Display</h2>
 <label class="switch">

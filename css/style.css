@@ -262,6 +262,7 @@ width: 10px;
   width: 320px;
   padding-left: 15px;
   padding-top: 15px;
+  height: 100%;
 }
 
 .left-panel {
@@ -418,6 +419,40 @@ h2 {
   padding-top: 30px;
   padding-left: 70px;
 }
+
+.modalbuttons {
+  display: flex;
+  float: left;
+  bottom: 50px;
+  position: absolute;
+}
+
+.modalbuttons img {
+  padding: 4px;
+}
+
+
+/* .modal-guide {
+  display: block;
+  float: left;
+  bottom: 50px;
+  position: absolute;
+}
+
+.modal-guide img {
+  padding: 4px;
+}
+
+.modal-info {
+  display: block;
+  float: left;
+  bottom: 50px;
+  position: absolute;
+}
+
+.modal-info img {
+  padding: 4px;
+} */
 
 .sorting {
   display: flex;
