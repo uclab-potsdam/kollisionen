@@ -18,7 +18,6 @@ closeInfo.onclick = function() {
 
 // When the user clicks anywhere outside of the modal, close it
 window.addEventListener("click", function(event) {
-  console.log("double fuck");
   if (event.target == modalInfo) {
     modalInfo.style.display = "none";
   }
