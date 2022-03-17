@@ -136,7 +136,7 @@ d.vdateStart = +startParse(d.vstart  + " 00:01AM");
 d.vdateEnd = +endParse(d.vend + " 23:59AM")
   });
 
-//keywordsCount distinct strings seperated by ';' in d.people, d.places, d.works, d.artistic, and d.additional and ignore empty strings
+//keywordsCount = distinct strings seperated by ';' in d.people, d.places, d.works, d.artistic, and d.additional and ignore empty strings and make the column header 'keywords'
 
 var keywordsCount = [];
 
@@ -161,9 +161,39 @@ var keywordsCount = [];
         keywords.forEach(function(d,i){
             if (keywordsCount.indexOf(d) == -1 && d != "") keywordsCount.push(d);
         });
+
     });
 
     console.log(keywordsCount);
+
+//Array of keywords and keyword category
+
+    var keywordsArray = [];
+
+    for (let i = 0; i < keywordsCount.length; i++) {
+
+      keywordsArray[i] = {};
+      keywordsArray[i]["keyword"] = keywordsCount[i];
+      keywordsArray[i]["category"] = "";
+    };
+
+    console.log(keywordsArray);
+
+    for (let i = 0; i < keywordsArray.length; i++) {
+
+      for (let j = 0; j < keywordsData.length; j++) {
+
+        if (keywordsData[j]["places"].includes(keywordsArray[i]["keyword"])) keywordsArray[i]["category"] = "Places";
+        if (keywordsData[j]["people"].includes(keywordsArray[i]["keyword"])) keywordsArray[i]["category"] = "People";
+        if (keywordsData[j]["works"].includes(keywordsArray[i]["keyword"])) keywordsArray[i]["category"] = "Works";
+        if (keywordsData[j]["artistic"].includes(keywordsArray[i]["keyword"])) keywordsArray[i]["category"] = "Artistic";
+        if (keywordsData[j]["additional"].includes(keywordsArray[i]["keyword"])) keywordsArray[i]["category"] = "Additional";
+      };
+
+    };
+
+    console.log(keywordsArray);
+
 
     var keywordsCountFiltered = [];
 
@@ -205,6 +235,7 @@ var keywordsCount = [];
     };
 
     console.log(keywordsCountFilteredObjects);
+
 
 // sort keywordsCountFilteredObjects by count
 
@@ -380,18 +411,25 @@ function stringSplit(data, keywordSplitter) {
 
   };
 
-
+  // the timelines
 
   let timelinesG = d3.select("#chart").select("svg").selectAll(".timelines")
-  .data(keywordsCount)//.filter(function(d,i){return i < 200})) // sort by count
-  // .data(keywordsCountFiltered) //sort aphabetically
+  // .data(keywordsArray.filter(
+  //   function(d) { return d.keyword }
+  // ))
+  .data(keywordsCount)
   .join("g")
   .classed("backgroundTimelineG", true)
+  .classed("people", function (d) {if (keywordsData.filter(function(D){return D.people == d}).length > 0) {return true} else {return false}})
+  .classed("places", function (d) {if (keywordsData.filter(function(D){return D.places == d}).length > 0) {return true} else {return false}})
+  .classed("works", function (d) {if (keywordsData.filter(function(D){return D.works == d}).length > 0) {return true} else {return false}})
+  .classed("artistic", function (d) {if (keywordsData.filter(function(D){return D.artistic == d}).length > 0) {return true} else {return false}})
+  .classed("additional", function (d) {if (keywordsData.filter(function(D){return D.additional == d}).length > 0) {return true} else {return false}})
 
   timelinesG.append("text")
   .text(function(d){
     if(d.length >= 20){return d.slice(0, 20) + "[…]"}
-    else{return d}})
+    else{return d}}) 
   .attr("x", 320)
   .attr("y", function(d,i){return 10+i*20})
   .style("text-anchor", "end")
@@ -406,6 +444,7 @@ function stringSplit(data, keywordSplitter) {
   .style("stroke", "grey")
   .style("stroke", ("6, 5"))
   .style("opacity", 0.05)
+  .classed("timeline", true)
 
 // fisheye effect
 
@@ -1179,8 +1218,12 @@ d3.select(".triangle").on("click", function() {
   if (d3.select(this).style("font-weight") != "bold") {
     d3.selectAll(".entities p").style("font-weight", 400)
     d3.select(this).style("font-weight", "bold")
-    d3.selectAll("circle").filter(function(d) { return d.people != ""; }).transition().style("opacity", "1")
-    d3.selectAll("circle").filter(function(d) { return d.people == ""; }).transition().style("opacity", "0")
+    d3.selectAll("backgroundTimelineG.person").transition().style("opacity", "1")
+
+    .select(".people").transition().style("opacity", "1")
+    d3.selectAll(".people:not(.people)").transition().style("opacity", "0")
+    // d3.selectAll("circle").filter(function(d) { return d.people != ""; }).transition().style("opacity", "1")
+    // d3.selectAll("circle").filter(function(d) { return d.people == ""; }).transition().style("opacity", "0")
     // d3.selectAll(".timelineLines").filter(".cinema").transition().style("opacity", "1")
     // d3.selectAll(".timelineLines").filter(":not(.cinema)").transition().style("opacity", "0")
   } else {
