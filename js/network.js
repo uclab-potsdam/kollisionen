@@ -576,18 +576,19 @@ $("#search").select2({
     d3.select("#eventList").append("ul").selectAll("li")
       .data(networkData)
       .join("li")
-      .classed("cinema", function(d){if(d.category == "Cinema and Theatre"){return true}})
+      .classed("cinema", function(d){if(d.category == "Cinema and Theatre" || d.category == "Cinema and theatre" || d.category == "Cinema and Theatre;Graphic Art" || d.category == "Graphic Art;Cinema and Theatre" || d.category == "Graphic Art"){return true}})
+      //.classed("cinema", function(d){if(d.category == "Cinema and Theatre;Graphic Art" || d.category == "Graphic Art;Cinema and Theatre"){return true}})
       .classed("biography", function(d){if(d.category == "Biography and Personality"){return true}})
       .classed("writing", function(d){if(d.category == "Writing and Teaching"){return true}})
       .classed("cinewrit", function(d){if(d.category == "Cinema and Theatre;Writing and Teaching" || d.category== "Writing and Teaching;Cinema and Theatre"){return true}})
-      .classed("cinebio", function(d){if(d.category == "Cinema and Theatre;Biography and Personality" || d.category == "Biography and Personality;Cinema and Theatre" ){return true}})
+      .classed("cinebio", function(d){if(d.category == "Cinema and Theatre;Biography and Personality" || d.category == "Graphic Art;Biography and Personality" || d.category == "Biography and Personality;Cinema and Theatre" ){return true}})
       .classed("biowrit", function(d){if(d.category == "Biography and Personality;Writing and Teaching" || d.category == "Writing and Teaching;Biography and Personality"){return true}})
       .classed("apartment", function(d){if(d.category == "Apartment"){return true}})
-      .classed("graphic", function(d){if(d.category == "Graphic Art"){return true}})
-      .classed("allcat", function(d){if(d.category == "Biography and Personality;Cinema and Theatre;Writing and Teaching"){return true}})
+      //.classed("cinema", function(d){if(d.category == "Graphic Art"){return true}})
+      .classed("allcat", function(d){if(d.category.includes("Biography and Personality") == true && (d.category.includes("Cinema and Theatre") == true ||d.category.includes("Graphic Art") == true) && d.category.includes("Writing and Teaching") == true){return true}})
       .classed("filteredin",true)
       .text(function(d) {
-        return d.displayTemporal + ": " +d.title//+ " (" + d.start + "–" + d.end + ")"
+        return (d.displayTemporal ? d.displayTemporal : (d.end ? d.start+" to "+d.end : d.start)) + ": " +d.title//+ " (" + d.start + "–" + d.end + ")"
       })
 
 
@@ -714,7 +715,7 @@ $("#search").select2({
 
       //console.log(d)
 
-      d3.selectAll(".link").transition().style("stroke", "#E3E3E2").style("opacity", 1)
+      d3.selectAll(".link").transition()//.style("opacity", 1)//.style("stroke", "#E3E3E2")
       //  d3.select(this).transition().style("opacity", 0)
 
 
