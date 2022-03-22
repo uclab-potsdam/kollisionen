@@ -3,6 +3,8 @@
 body {
   background-color: #fdf5e6;
   font-family: "Inconsolata", monospace;
+  margin:0;
+  overflow-x: hidden;
 }
 
 :root {
@@ -350,7 +352,7 @@ h2 {
 } */
 
 /* #legend1 p {
-  font-size: 1em; 
+  font-size: 1em;
   text-align: left;
   margin: 0.5em;
 } */
@@ -601,6 +603,7 @@ input:checked + .slider:before {
   padding: 20px;
   outline: 1px solid grey;
   overflow-y: auto;
+  backdrop-filter: blur(8px);
 }
 
 :root {
