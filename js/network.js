@@ -519,7 +519,13 @@ $("#search").select2({
 
     const symbolScale = d3.scaleOrdinal()
       .domain(["people", "places", "artistic", "works", "additional"])
-      .range([0, 2, 3, 5, 6])
+      .range([5, 2, 3, 6, 1])
+      // Dreieck: 5
+      // Kreis: 0
+      // Diamand: 2
+      // Atom-Ding: 6
+      // Quadrat: 3
+
 
     nodeG.selectAll(".nodeSymbol") //we create nodes based on the links data
       .data(nodes)
