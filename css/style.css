@@ -600,10 +600,67 @@ input:checked + .slider:before {
   display: block;
   background-color: rgba(255, 255, 255, 0.5);
   z-index: 200;
-  padding: 20px;
+  padding: 10px;
   outline: 1px solid grey;
   overflow-y: auto;
   backdrop-filter: blur(8px);
+}
+
+#eventList ul{
+  padding-left:30;
+  margin:0;
+  list-style: none;
+}
+
+#eventList li{
+margin-bottom: 1em;
+background:none;
+}
+
+#eventList li::before {
+  font-size:0.75em;
+  content: "\2B24";  /* Add content: \2022 is the CSS Code/unicode for a bullet */
+  color: white;
+  font-weight: bold; /* If you want it to be bold */
+  display: inline-block; /* Needed to add space between the bullet and the text */
+  width: 2em; /* Also needed for space (tweak if needed) */
+  margin-left: -2em; /* Also needed for space (tweak if needed) */
+}
+
+#eventList li.cinema::before{
+  color: var(--cinema);
+}
+
+#eventList li.biography::before{
+  color: var(--biography);
+}
+
+#eventList li.writing::before{
+  color: var(--writing);
+}
+
+#eventList li.graphic::before{
+  color: var(--graphic);
+}
+
+#eventList li.apartment::before{
+  color: var(--apartment);
+}
+
+#eventList li.cinewrit::before{
+  color: var(--cinewrit);
+}
+
+#eventList li.cinebio::before{
+  color: var(--cinebio);
+}
+
+#eventList li.biowrit::before{
+  color: var(--biowrit);
+}
+
+#eventList li.allcat::before{
+  color: var(--allcat);
 }
 
 :root {

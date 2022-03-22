@@ -425,30 +425,30 @@ $("#search").select2({
   $("#search").on("select2-selecting", function(e) {
     console.log(e.choice.name)
     console.log(e.choice.category)
-    d3.select("#eventList").selectAll("p").classed("filteredin",false)
+    d3.select("#eventList").selectAll("li").classed("filteredin",false)
 
     if (e.choice.category == "people"){
-      d3.select("#eventList").selectAll("p").style("display", function(d){
+      d3.select("#eventList").selectAll("li").style("display", function(d){
         if(d.people.includes(e.choice.name)){return "block"}else{return "none"}})
         .classed("filteredin", function(d){
           if(d.people.includes(e.choice.name)){return true}else{return false}})
     }else if (e.choice.category == "places"){
-          d3.select("#eventList").selectAll("p").style("display", function(d){
+          d3.select("#eventList").selectAll("li").style("display", function(d){
             if(d.places.includes(e.choice.name)){return "block"}else{return "none"}})
             .classed("filteredin", function(d){
               if(d.places.includes(e.choice.name)){return true}else{return false}})
           }else if (e.choice.category == "artistic"){
-                d3.select("#eventList").selectAll("p").style("display", function(d){
+                d3.select("#eventList").selectAll("li").style("display", function(d){
                   if(d.artistic.includes(e.choice.name)){return "block"}else{return "none"}})
                   .classed("filteredin", function(d){
                     if(d.artistic.includes(e.choice.name)){return true}else{return false}})
                   }else if (e.choice.category == "additional"){
-                        d3.select("#eventList").selectAll("p").style("display", function(d){
+                        d3.select("#eventList").selectAll("li").style("display", function(d){
                           if(d.additional.includes(e.choice.name)){return "block"}else{return "none"}})
                           .classed("filteredin", function(d){
                             if(d.additional.includes(e.choice.name)){return true}else{return false}})
                           }else if (e.choice.category == "works"){
-                                d3.select("#eventList").selectAll("p").style("display", function(d){
+                                d3.select("#eventList").selectAll("li").style("display", function(d){
                                   if(d.works.includes(e.choice.name)){return "block"}else{return "none"}})
                                   .classed("filteredin", function(d){
                                     if(d.works.includes(e.choice.name)){return true}else{return false}})
@@ -567,16 +567,27 @@ $("#search").select2({
 
 
     //create Event List
-    d3.select("#eventList").selectAll("p")
+    d3.select("#eventList").append("ul").selectAll("li")
       .data(networkData)
-      .join("p")
+      .join("li")
+      .classed("cinema", function(d){if(d.category == "Cinema and Theatre"){return true}})
+      .classed("biography", function(d){console.log(d.category)
+        if(d.category == "Biography and Personality"){
+        return true}})
+      .classed("writing", function(d){if(d.category == "Writing and Teaching"){return true}})
+      .classed("cinewrit", function(d){if(d.category == "Cinema and Theatre;Writing and Teaching" || d.category== "Writing and Teaching;Cinema and Theatre"){return true}})
+      .classed("cinebio", function(d){if(d.category == "Cinema and Theatre;Biography and Personality" || d.category == "Biography and Personality;Cinema and Theatre" ){return true}})
+      .classed("biowrit", function(d){if(d.category == "Biography and Personality;Writing and Teaching" || d.category == "Writing and Teaching;Biography and Personality"){return true}})
+      .classed("apartment", function(d){if(d.category == "Apartment"){return true}})
+      .classed("graphic", function(d){if(d.category == "Graphic Art"){return true}})
+      .classed("allcat", function(d){if(d.category == "Biography and Personality;Cinema and Theatre;Writing and Teaching"){return true}})
       .classed("filteredin",true)
       .text(function(d) {
         return d.title + " (" + d.start + "–" + d.end + ")"
       })
 
 
-    //console.log(d3.select("#eventList").selectAll("p")
+    //console.log(d3.select("#eventList").selectAll("li")
     //   .filter(function(d) {
     //     return d3.select(this).node().getBoundingClientRect().top >= 0 && d3.select(this).node().getBoundingClientRect().bottom <= (window.innerHeight || document.documentElement.clientHeight)
     //   })._groups[0].length
@@ -588,17 +599,17 @@ $("#search").select2({
 
 
     function itemSelection() {
-      let firstItem = new Date(d3.select("#eventList").selectAll("p").filter(".filteredin")
+      let firstItem = new Date(d3.select("#eventList").selectAll("li").filter(".filteredin")
         .filter(function(d) {
           return d3.select(this).node().getBoundingClientRect().top >= 0 && d3.select(this).node().getBoundingClientRect().bottom <= (window.innerHeight || document.documentElement.clientHeight)
         })._groups[0][0].__data__.vstart)
 
-      let visibleItemCount = d3.select("#eventList").selectAll("p").filter(".filteredin")
+      let visibleItemCount = d3.select("#eventList").selectAll("li").filter(".filteredin")
         .filter(function(d) {
           return d3.select(this).node().getBoundingClientRect().top >= 0 && d3.select(this).node().getBoundingClientRect().bottom <= (window.innerHeight || document.documentElement.clientHeight)
         })._groups[0].length
 
-      let lastItem = new Date(d3.select("#eventList").selectAll("p").filter(".filteredin")
+      let lastItem = new Date(d3.select("#eventList").selectAll("li").filter(".filteredin")
         .filter(function(d) {
           return d3.select(this).node().getBoundingClientRect().top >= 0 && d3.select(this).node().getBoundingClientRect().bottom <= (window.innerHeight || document.documentElement.clientHeight)
         })._groups[0][visibleItemCount - 1].__data__.vstart)
