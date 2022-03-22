@@ -571,9 +571,7 @@ $("#search").select2({
       .data(networkData)
       .join("li")
       .classed("cinema", function(d){if(d.category == "Cinema and Theatre"){return true}})
-      .classed("biography", function(d){console.log(d.category)
-        if(d.category == "Biography and Personality"){
-        return true}})
+      .classed("biography", function(d){if(d.category == "Biography and Personality"){return true}})
       .classed("writing", function(d){if(d.category == "Writing and Teaching"){return true}})
       .classed("cinewrit", function(d){if(d.category == "Cinema and Theatre;Writing and Teaching" || d.category== "Writing and Teaching;Cinema and Theatre"){return true}})
       .classed("cinebio", function(d){if(d.category == "Cinema and Theatre;Biography and Personality" || d.category == "Biography and Personality;Cinema and Theatre" ){return true}})
@@ -583,7 +581,7 @@ $("#search").select2({
       .classed("allcat", function(d){if(d.category == "Biography and Personality;Cinema and Theatre;Writing and Teaching"){return true}})
       .classed("filteredin",true)
       .text(function(d) {
-        return d.title + " (" + d.start + "–" + d.end + ")"
+        return d.displayTemporal + ": " +d.title//+ " (" + d.start + "–" + d.end + ")"
       })
 
 
