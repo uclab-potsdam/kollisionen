@@ -82,7 +82,13 @@ d3.select("#chart").call(zoom);
 
 function zoomed(event, d) {
   d3.select(".zoomG").attr("transform", event.transform);
-  d3.selectAll("path").style("stroke-width", 2/event.transform.k)
+  d3.select(".pathG").selectAll("path").style("display", "none")
+
+setTimeout(function () {
+    d3.selectAll("path").style("display", "block").style("stroke-width", 2/event.transform.k)
+}, 200);
+
+
   //d3.selectAll("circle").attr("r", function(){return d3.select(this).attr("r")/event.transform.k})
 }
 
@@ -267,7 +273,7 @@ if (spiralData[i]["uncertaintyend"] == 2) spiralData[i]["vend"] = endA[0] + "-12
       d3.csv(urlHighlights), //data
     ])
       .then(([highlightsData]) => {
-         
+
 //create a p class for each of the 'identifier's and insert into into the div class="highlights" in index.html
 
 for (let i = 0; i < highlightsData.length; i++) {
@@ -280,7 +286,7 @@ for (let i = 0; i < highlightsData.length; i++) {
 }
 
           console.log(highlightsData);
-          
+
       // });
 
     // The mapping of visual variables starts here
@@ -1422,9 +1428,9 @@ d3.selectAll(".highlights p")
     d3.selectAll(".pathG").selectAll("path").filter(function(d,i){return highlightsData.filter(function(D){return D.identifier ==  selectedIdentifier})[0].events.includes(spiralData[i]["Event_ID"]) == true
   }).transition().style("opacity", "1")
     d3.selectAll(".pathG").selectAll("path").filter(function(d,i){return highlightsData.filter(function(D){return D.identifier ==  selectedIdentifier})[0].events.includes(spiralData[i]["Event_ID"]) == false
-  }).transition().style("opacity", "0")    
+  }).transition().style("opacity", "0")
     d3.select("#closedsidebar").style("display", "block")
-    
+
 /// sidebar for spans
 sidebar
 .html(`
