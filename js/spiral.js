@@ -1155,7 +1155,6 @@ function stringSplit(data, keywordSplitter) {
                 ${stringSplit(d.works, (works) => `<p class="works"<b><b>Works: </b>${works}</p>`)}
                 ${stringSplit(d.artistic, (artistic) => `<p class="artistic"><b>Artistic concepts: </b>${artistic}</p>`)}
                 ${stringSplit(d.additional, (additional) => `<p class="misc"><b>Misc: </b>${additional}</p>`)}
-                // ${stringSplit(d.image, (image) => `<p class="objects"><b>Additonal items: <br> </b><img src="images/objects/${image}.png" alt="${image}" width = "25%" height = "auto"  class="image"></p><br>`)}
                 ${conditionalReturn(d.source, (source) => `<p class="source"><b>Source: </b>${source}</p>`)}
                 ${conditionalReturn(d.reference, (reference) => `<p class="reference"><b>Further references: </b>${reference}</p>`)}
                 <br/>
@@ -1170,13 +1169,13 @@ function stringSplit(data, keywordSplitter) {
       })
       .on('mouseout', function (d) {
         tooltip.style('display', 'none');
-        tooltip.style('opacity', 0);
+        // tooltip.style('opacity', 0);
 
         d3.selectAll(".circles")
-        .style("opacity", 1)
+        .style("display", "block")
 
         d3.selectAll(".pathGs")
-        .style("opacity", 1)
+        .style("display", "block")
 
         // d3.selectAll(".timeLabels")
         // .style("opacity", function(D){if(D== firstYearforLabel || D == lastYearforLabel){return 1}else{return 0}})
@@ -1232,7 +1231,6 @@ function stringSplit(data, keywordSplitter) {
           ${stringSplit(d.works, (works) => `<p class="works"<b><b>Works: </b>${works}</p>`)}
           ${stringSplit(d.artistic, (artistic) => `<p class="artistic"><b>Artistic concepts: </b>${artistic}</p>`)}
           ${stringSplit(d.additional, (additional) => `<p class="misc"><b>Misc: </b>${additional}</p>`)}
-          ${conditionalReturn(d.image, (image) => `<p class="objects"><b>Additonal items: <br> </b><img src="images/objects/${image}.png" alt="${image} width = "25%" height = "auto" class="image"></p><br>`)}
           ${conditionalReturn(d.source, (source) => `<p class="source"><b>Source: </b>${source}</p>`)}
           ${conditionalReturn(d.reference, (reference) => `<p class="reference"><b>Further references: </b>${reference}</p>`)}
           <br/>
@@ -1251,12 +1249,14 @@ function stringSplit(data, keywordSplitter) {
       }})
       .on('mouseout', function (d) {
         tooltip.style('display', 'none');
-        tooltip.style('opacity', 0);
+        // tooltip.style('opacity', 0);
 
         d3.selectAll(".circles")
+
         .style("opacity", 1)
 
         d3.selectAll(".pathGs")
+
         .style("opacity", 1)
 
         d3.selectAll(".timeLabels")
@@ -1306,14 +1306,14 @@ function stringSplit(data, keywordSplitter) {
         if (d3.select(this).style("font-weight") != "bold") {
           d3.selectAll(".filter").style("font-weight", 400)
           d3.select(this).style("font-weight", "bold")
-          d3.selectAll("circle.cinema").transition().style("opacity", "1")
-          d3.selectAll("circle:not(.cinema)").transition().style("opacity", "0")
-          d3.selectAll(".pathG").selectAll("path.cinema").transition().style("opacity", "1")
-          d3.selectAll(".pathG").selectAll("path:not(.cinema)").transition().style("opacity", "0")
+          d3.selectAll("circle.cinema").transition().style("display", "block")
+          d3.selectAll("circle:not(.cinema)").transition().style("display", "none")
+          d3.selectAll(".pathG").selectAll("path.cinema").transition().style("display", "block")
+          d3.selectAll(".pathG").selectAll("path:not(.cinema)").transition().style("display", "none")
         } else {
           d3.select(this).style("font-weight", 400)
-          d3.selectAll("circle").transition().style("opacity", "1")
-          d3.selectAll(".pathG").selectAll("path").transition().style("opacity", "1")
+          d3.selectAll("circle").transition().style("display", "block")
+          d3.selectAll(".pathG").selectAll("path").transition().style("display", "block")
         }
 
       })
@@ -1322,14 +1322,14 @@ function stringSplit(data, keywordSplitter) {
         if (d3.select(this).style("font-weight") != "bold") {
           d3.selectAll(".filter").style("font-weight", 400)
           d3.select(this).style("font-weight", "bold")
-          d3.selectAll("circle.biography").transition().style("opacity", "1")
-          d3.selectAll("circle:not(.biography)").transition().style("opacity", "0")
-          d3.selectAll(".pathG").selectAll("path.biography").transition().style("opacity", "1")
-          d3.selectAll(".pathG").selectAll("path:not(.biography)").transition().style("opacity", "0")
+          d3.selectAll("circle.biography").transition().style("display", "block")
+          d3.selectAll("circle:not(.biography)").transition().style("display", "none")
+          d3.selectAll(".pathG").selectAll("path.biography").transition().style("display", "block")
+          d3.selectAll(".pathG").selectAll("path:not(.biography)").transition().style("display", "none")
         } else {
           d3.select(this).style("font-weight", 400)
-          d3.selectAll("circle").transition().style("opacity", "1")
-          d3.selectAll(".pathG").selectAll("path").transition().style("opacity", "1")
+          d3.selectAll("circle").transition().style("display", "block")
+          d3.selectAll(".pathG").selectAll("path").transition().style("display", "block")
         }
       })
 
@@ -1338,14 +1338,14 @@ function stringSplit(data, keywordSplitter) {
         if (d3.select(this).style("font-weight") != "bold") {
           d3.selectAll(".filter").style("font-weight", 400)
           d3.select(this).style("font-weight", "bold")
-          d3.selectAll("circle.writing").transition().style("opacity", "1")
-          d3.selectAll("circle:not(.writing)").transition().style("opacity", "0")
-          d3.selectAll(".pathG").selectAll("path.writing").transition().style("opacity", "1")
-          d3.selectAll(".pathG").selectAll("path:not(.writing)").transition().style("opacity", "0")
+          d3.selectAll("circle.writing").transition().style("display", "block")
+          d3.selectAll("circle:not(.writing)").transition().style("display", "none")
+          d3.selectAll(".pathG").selectAll("path.writing").transition().style("display", "block")
+          d3.selectAll(".pathG").selectAll("path:not(.writing)").transition().style("display", "none")
         } else {
           d3.select(this).style("font-weight", 400)
-          d3.selectAll("circle").transition().style("opacity", "1")
-          d3.selectAll(".pathG").selectAll("path").transition().style("opacity", "1")
+          d3.selectAll("circle").transition().style("display", "block")
+          d3.selectAll(".pathG").selectAll("path").transition().style("display", "block")
         }
       })
 
@@ -1353,14 +1353,14 @@ function stringSplit(data, keywordSplitter) {
         if (d3.select(this).style("font-weight") != "bold") {
           d3.selectAll(".filter").style("font-weight", 400)
           d3.select(this).style("font-weight", "bold")
-          d3.selectAll("circle.cinewrit").transition().style("opacity", "1")
-          d3.selectAll("circle:not(.cinewrit)").transition().style("opacity", "0")
-          d3.selectAll(".pathG").selectAll("path.cinewrit").transition().style("opacity", "1")
-          d3.selectAll(".pathG").selectAll("path:not(.cinewrit)").transition().style("opacity", "0")
+          d3.selectAll("circle.cinewrit").transition().style("display", "block")
+          d3.selectAll("circle:not(.cinewrit)").transition().style("display", "none")
+          d3.selectAll(".pathG").selectAll("path.cinewrit").transition().style("display", "block")
+          d3.selectAll(".pathG").selectAll("path:not(.cinewrit)").transition().style("display", "none")
         } else {
           d3.select(this).style("font-weight", 400)
-          d3.selectAll("circle").transition().style("opacity", "1")
-          d3.selectAll(".pathG").selectAll("path").transition().style("opacity", "1")
+          d3.selectAll("circle").transition().style("display", "block")
+          d3.selectAll(".pathG").selectAll("path").transition().style("display", "block")
         }
       })
 
@@ -1368,14 +1368,14 @@ function stringSplit(data, keywordSplitter) {
         if (d3.select(this).style("font-weight") != "bold") {
           d3.selectAll(".filter").style("font-weight", 400)
           d3.select(this).style("font-weight", "bold")
-          d3.selectAll("circle.cinebio").transition().style("opacity", "1")
-          d3.selectAll("circle:not(.cinebio)").transition().style("opacity", "0")
-          d3.selectAll(".pathG").selectAll("path.cinebio").transition().style("opacity", "1")
-          d3.selectAll(".pathG").selectAll("path:not(.cinebio)").transition().style("opacity", "0")
+          d3.selectAll("circle.cinebio").transition().style("display", "block")
+          d3.selectAll("circle:not(.cinebio)").transition().style("display", "none")
+          d3.selectAll(".pathG").selectAll("path.cinebio").transition().style("display", "block")
+          d3.selectAll(".pathG").selectAll("path:not(.cinebio)").transition().style("display", "none")
         } else {
           d3.select(this).style("font-weight", 400)
-          d3.selectAll("circle").transition().style("opacity", "1")
-          d3.selectAll(".pathG").selectAll("path").transition().style("opacity", "1")
+          d3.selectAll("circle").transition().style("display", "block")
+          d3.selectAll(".pathG").selectAll("path").transition().style("display", "block")
         }
       })
 
@@ -1383,14 +1383,14 @@ function stringSplit(data, keywordSplitter) {
         if (d3.select(this).style("font-weight") != "bold") {
           d3.selectAll(".filter").style("font-weight", 400)
           d3.select(this).style("font-weight", "bold")
-          d3.selectAll("circle.biowrit").transition().style("opacity", "1")
-          d3.selectAll("circle:not(.biowrit)").transition().style("opacity", "0")
-          d3.selectAll(".pathG").selectAll("path.biowrit").transition().style("opacity", "1")
-          d3.selectAll(".pathG").selectAll("path:not(.apartment)").transition().style("opacity", "0")
+          d3.selectAll("circle.biowrit").transition().style("display", "block")
+          d3.selectAll("circle:not(.biowrit)").transition().style("display", "none")
+          d3.selectAll(".pathG").selectAll("path.biowrit").transition().style("display", "block")
+          d3.selectAll(".pathG").selectAll("path:not(.apartment)").transition().style("display", "none")
         } else {
           d3.select(this).style("font-weight", 400)
-          d3.selectAll("circle").transition().style("opacity", "1")
-          d3.selectAll(".pathG").selectAll("path").transition().style("opacity", "1")
+          d3.selectAll("circle").transition().style("display", "block")
+          d3.selectAll(".pathG").selectAll("path").transition().style("display", "block")
         }
       })
 
@@ -1398,14 +1398,14 @@ function stringSplit(data, keywordSplitter) {
         if (d3.select(this).style("font-weight") != "bold") {
           d3.selectAll(".filter").style("font-weight", 400)
           d3.select(this).style("font-weight", "bold")
-          d3.selectAll("circle.allacat").transition().style("opacity", "1")
-          d3.selectAll("circle:not(.allcat)").transition().style("opacity", "0")
-          d3.selectAll(".pathG").selectAll("path.allcat").transition().style("opacity", "1")
-          d3.selectAll(".pathG").selectAll("path:not(.allcat)").transition().style("opacity", "0")
+          d3.selectAll("circle.allacat").transition().style("display", "block")
+          d3.selectAll("circle:not(.allcat)").transition().style("display", "none")
+          d3.selectAll(".pathG").selectAll("path.allcat").transition().style("display", "block")
+          d3.selectAll(".pathG").selectAll("path:not(.allcat)").transition().style("display", "none")
         } else {
           d3.select(this).style("font-weight", 400)
-          d3.selectAll("circle").transition().style("opacity", "1")
-          d3.selectAll(".pathG").selectAll("path").transition().style("opacity", "1")
+          d3.selectAll("circle").transition().style("display", "block")
+          d3.selectAll(".pathG").selectAll("path").transition().style("display", "block")
         }
       })
 
@@ -1422,13 +1422,13 @@ d3.selectAll(".highlights p")
     let selectedIdentifier = d3.select(this).attr("class") // get the class of the p tag that was clicked on
 
     d3.selectAll("circle").filter(function(X,Y){return highlightsData.filter(function(D){return D.identifier ==  selectedIdentifier})[0].events.includes(X.Event_ID) == true
-  }).transition().style("opacity", "1")
+  }).transition().style("display", "block")
     d3.selectAll("circle").filter(function(X,Y){return highlightsData.filter(function(D){return D.identifier ==  selectedIdentifier})[0].events.includes(X.Event_ID) == false
-  }).transition().style("opacity", "0")
+  }).transition().style("display", "none")
     d3.selectAll(".pathG").selectAll("path").filter(function(d,i){return highlightsData.filter(function(D){return D.identifier ==  selectedIdentifier})[0].events.includes(spiralData[i]["Event_ID"]) == true
-  }).transition().style("opacity", "1")
+  }).transition().style("display", "block")
     d3.selectAll(".pathG").selectAll("path").filter(function(d,i){return highlightsData.filter(function(D){return D.identifier ==  selectedIdentifier})[0].events.includes(spiralData[i]["Event_ID"]) == false
-  }).transition().style("opacity", "0")
+  }).transition().style("display", "none")
     d3.select("#closedsidebar").style("display", "block")
 
 /// sidebar for spans
@@ -1445,8 +1445,8 @@ sidebar
 .style('display', 'block')
   } else {
     d3.select(this).style("font-weight", 400)
-    d3.selectAll("circle").transition().style("opacity", "1")
-    d3.selectAll(".pathG").selectAll("path").transition().style("opacity", "1")
+    d3.selectAll("circle").transition().style("display", "block")
+    d3.selectAll(".pathG").selectAll("path").transition().style("display", "block")
   }
 })
 d3.selectAll("#closedsidebar")
@@ -1454,8 +1454,8 @@ d3.selectAll("#closedsidebar")
 
         d3.select(".sidebar")
           .style("display", "none")
-          d3.selectAll("circle").transition().style("opacity", "1")
-          d3.selectAll(".pathG").selectAll("path").transition().style("opacity", "1")
+          d3.selectAll("circle").transition().style("display", "block")
+          d3.selectAll(".pathG").selectAll("path").transition().style("display", "block")
           d3.select("#closedsidebar").style("display", "none")
 
 
