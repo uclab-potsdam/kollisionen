@@ -1103,12 +1103,18 @@ function stringSplit(data, keywordSplitter) {
         var [year, month, day] = d.vstart.split('-', 3)
         d3.selectAll(".circles")
         .style("opacity", function(D){if(D.vstart.includes(year) == true){return 1}else{ return 0}})
+        // .style('display', function(D){if(D.vstart.includes(year) == true){return 'block'}else{ return 'none'}})
+
 
         d3.selectAll(".pathGs")
         .style("opacity", function(D){if(D.vstart.includes(year) == true || D.vend.includes(year) == true){return 1}else{ return 0}})
+        // .style('display', function(D){if(D.vstart.includes(year) == true || D.vend.includes(year) == true){return 'block'}else{ return 'none'}})
+
 
         d3.selectAll(".timeLabels")
         .style("opacity", function(D){if(D == year){return 1}else{ return 0}})
+        // .style('display', function(D){if(D == year){return 'block'}else{ return 'none'}})
+
 
         //tooltip
         tooltip
@@ -1168,14 +1174,16 @@ function stringSplit(data, keywordSplitter) {
 
       })
       .on('mouseout', function (d) {
-        tooltip.style('display', 'none');
-        // tooltip.style('opacity', 0);
+        // tooltip.style('display', 'none');
+        tooltip.style('opacity', 0);
 
         d3.selectAll(".circles")
-        .style("display", "block")
+        .style("opacity", 1)
+        // .style("display", "block")
 
         d3.selectAll(".pathGs")
-        .style("display", "block")
+        .style("opacity", 1)
+        // .style("display", "block")
 
         // d3.selectAll(".timeLabels")
         // .style("opacity", function(D){if(D== firstYearforLabel || D == lastYearforLabel){return 1}else{return 0}})
@@ -1189,12 +1197,17 @@ function stringSplit(data, keywordSplitter) {
         console.log(year)
         d3.selectAll(".circles")
         .style("opacity", function(D){if(D.vstart.includes(year) == true){return 1}else{ return 0}})
+        // .style('display', function(D){if(D.vstart.includes(year) == true){return 'block'}else{ return 'none'}})
+
 
         d3.selectAll(".pathGs")
         .style("opacity", function(D){if(D.vstart.includes(year) == true || D.vend.includes(year) == true){return 1}else{ return 0}})
+        // .style('display', function(D){if(D.vstart.includes(year) == true || D.vend.includes(year) == true){return 'block'}else{ return 'none'}})
+
 
         d3.selectAll(".timeLabels")
         .style("opacity", function(D){if(D == year){return 1}else{ return 0}})
+        // .style('display', function(D){if(D == year){return 'block'}else{ return 'none'}})
 
 
         tooltip
@@ -1252,15 +1265,16 @@ function stringSplit(data, keywordSplitter) {
         // tooltip.style('opacity', 0);
 
         d3.selectAll(".circles")
-
         .style("opacity", 1)
+        // .style('display', 'block')
 
         d3.selectAll(".pathGs")
-
         .style("opacity", 1)
+        // .style('display', 'block')
 
         d3.selectAll(".timeLabels")
         .style("opacity", function(D){if(D== firstYearforLabel || D == lastYearforLabel){return 1}else{return 0}})
+        // .style('display', function(D){if(D== firstYearforLabel || D == lastYearforLabel){return 'block'}else{return 'none'}})
 
       });
 
