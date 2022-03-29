@@ -1470,6 +1470,7 @@ d3.selectAll("#closedsidebar")
           .style("display", "none")
           d3.selectAll("circle").transition().style("display", "block")
           d3.selectAll(".pathG").selectAll("path").transition().style("display", "block")
+          d3.selectAll(".highlights p").style("font-weight", 400)
           d3.select("#closedsidebar").style("display", "none")
 
 
