@@ -1316,112 +1316,7 @@ function stringSplit(data, keywordSplitter) {
 
       });
 
-      d3.select(".f_c").on("click", function() {
-        if (d3.select(this).style("font-weight") != "bold") {
-          d3.selectAll(".filter").style("font-weight", 400)
-          d3.select(this).style("font-weight", "bold")
-          d3.selectAll("circle.cinema").transition().style("display", "block")
-          d3.selectAll("circle:not(.cinema)").transition().style("display", "none")
-          d3.selectAll(".pathG").selectAll("path.cinema").transition().style("display", "block")
-          d3.selectAll(".pathG").selectAll("path:not(.cinema)").transition().style("display", "none")
-        } else {
-          d3.select(this).style("font-weight", 400)
-          d3.selectAll("circle").transition().style("display", "block")
-          d3.selectAll(".pathG").selectAll("path").transition().style("display", "block")
-        }
 
-      })
-
-      d3.select(".f_b").on("click", function() {
-        if (d3.select(this).style("font-weight") != "bold") {
-          d3.selectAll(".filter").style("font-weight", 400)
-          d3.select(this).style("font-weight", "bold")
-          d3.selectAll("circle.biography").transition().style("display", "block")
-          d3.selectAll("circle:not(.biography)").transition().style("display", "none")
-          d3.selectAll(".pathG").selectAll("path.biography").transition().style("display", "block")
-          d3.selectAll(".pathG").selectAll("path:not(.biography)").transition().style("display", "none")
-        } else {
-          d3.select(this).style("font-weight", 400)
-          d3.selectAll("circle").transition().style("display", "block")
-          d3.selectAll(".pathG").selectAll("path").transition().style("display", "block")
-        }
-      })
-
-      d3.select(".f_w").on("click", function() {
-
-        if (d3.select(this).style("font-weight") != "bold") {
-          d3.selectAll(".filter").style("font-weight", 400)
-          d3.select(this).style("font-weight", "bold")
-          d3.selectAll("circle.writing").transition().style("display", "block")
-          d3.selectAll("circle:not(.writing)").transition().style("display", "none")
-          d3.selectAll(".pathG").selectAll("path.writing").transition().style("display", "block")
-          d3.selectAll(".pathG").selectAll("path:not(.writing)").transition().style("display", "none")
-        } else {
-          d3.select(this).style("font-weight", 400)
-          d3.selectAll("circle").transition().style("display", "block")
-          d3.selectAll(".pathG").selectAll("path").transition().style("display", "block")
-        }
-      })
-
-      d3.select(".f_cw").on("click", function() {
-        if (d3.select(this).style("font-weight") != "bold") {
-          d3.selectAll(".filter").style("font-weight", 400)
-          d3.select(this).style("font-weight", "bold")
-          d3.selectAll("circle.cinewrit").transition().style("display", "block")
-          d3.selectAll("circle:not(.cinewrit)").transition().style("display", "none")
-          d3.selectAll(".pathG").selectAll("path.cinewrit").transition().style("display", "block")
-          d3.selectAll(".pathG").selectAll("path:not(.cinewrit)").transition().style("display", "none")
-        } else {
-          d3.select(this).style("font-weight", 400)
-          d3.selectAll("circle").transition().style("display", "block")
-          d3.selectAll(".pathG").selectAll("path").transition().style("display", "block")
-        }
-      })
-
-      d3.select(".f_cb").on("click", function() {
-        if (d3.select(this).style("font-weight") != "bold") {
-          d3.selectAll(".filter").style("font-weight", 400)
-          d3.select(this).style("font-weight", "bold")
-          d3.selectAll("circle.cinebio").transition().style("display", "block")
-          d3.selectAll("circle:not(.cinebio)").transition().style("display", "none")
-          d3.selectAll(".pathG").selectAll("path.cinebio").transition().style("display", "block")
-          d3.selectAll(".pathG").selectAll("path:not(.cinebio)").transition().style("display", "none")
-        } else {
-          d3.select(this).style("font-weight", 400)
-          d3.selectAll("circle").transition().style("display", "block")
-          d3.selectAll(".pathG").selectAll("path").transition().style("display", "block")
-        }
-      })
-
-      d3.select(".f_wb").on("click", function() {
-        if (d3.select(this).style("font-weight") != "bold") {
-          d3.selectAll(".filter").style("font-weight", 400)
-          d3.select(this).style("font-weight", "bold")
-          d3.selectAll("circle.biowrit").transition().style("display", "block")
-          d3.selectAll("circle:not(.biowrit)").transition().style("display", "none")
-          d3.selectAll(".pathG").selectAll("path.biowrit").transition().style("display", "block")
-          d3.selectAll(".pathG").selectAll("path:not(.apartment)").transition().style("display", "none")
-        } else {
-          d3.select(this).style("font-weight", 400)
-          d3.selectAll("circle").transition().style("display", "block")
-          d3.selectAll(".pathG").selectAll("path").transition().style("display", "block")
-        }
-      })
-
-      d3.select(".f_ac").on("click", function() {
-        if (d3.select(this).style("font-weight") != "bold") {
-          d3.selectAll(".filter").style("font-weight", 400)
-          d3.select(this).style("font-weight", "bold")
-          d3.selectAll("circle.allacat").transition().style("display", "block")
-          d3.selectAll("circle:not(.allcat)").transition().style("display", "none")
-          d3.selectAll(".pathG").selectAll("path.allcat").transition().style("display", "block")
-          d3.selectAll(".pathG").selectAll("path:not(.allcat)").transition().style("display", "none")
-        } else {
-          d3.select(this).style("font-weight", 400)
-          d3.selectAll("circle").transition().style("display", "block")
-          d3.selectAll(".pathG").selectAll("path").transition().style("display", "block")
-        }
-      })
 
 // filters for 'highlights'
 
@@ -1473,8 +1368,120 @@ d3.selectAll("#closedsidebar")
           d3.selectAll(".highlights p").style("font-weight", 400)
           d3.select("#closedsidebar").style("display", "none")
 
-
       })
+
+      // if (d3.select(".highlights p").style("font-weight") != "bold") {
+
+        d3.select(".f_c").on("click", function() {
+          if (d3.select(this).style("font-weight") != "bold") {
+            d3.selectAll(".filter").style("font-weight", 400)
+            d3.select(this).style("font-weight", "bold")
+            d3.selectAll("circle.cinema").transition().style("display", "block")
+            d3.selectAll("circle:not(.cinema)").transition().style("display", "none")
+            d3.selectAll(".pathG").selectAll("path.cinema").transition().style("display", "block")
+            d3.selectAll(".pathG").selectAll("path:not(.cinema)").transition().style("display", "none")
+          } else {
+            d3.select(this).style("font-weight", 400)
+            d3.selectAll("circle").transition().style("display", "block")
+            d3.selectAll(".pathG").selectAll("path").transition().style("display", "block")
+          }
+  
+        })
+  
+        d3.select(".f_b").on("click", function() {
+          if (d3.select(this).style("font-weight") != "bold") {
+            d3.selectAll(".filter").style("font-weight", 400)
+            d3.select(this).style("font-weight", "bold")
+            d3.selectAll("circle.biography").transition().style("display", "block")
+            d3.selectAll("circle:not(.biography)").transition().style("display", "none")
+            d3.selectAll(".pathG").selectAll("path.biography").transition().style("display", "block")
+            d3.selectAll(".pathG").selectAll("path:not(.biography)").transition().style("display", "none")
+          } else {
+            d3.select(this).style("font-weight", 400)
+            d3.selectAll("circle").transition().style("display", "block")
+            d3.selectAll(".pathG").selectAll("path").transition().style("display", "block")
+          }
+        })
+  
+        d3.select(".f_w").on("click", function() {
+  
+          if (d3.select(this).style("font-weight") != "bold") {
+            d3.selectAll(".filter").style("font-weight", 400)
+            d3.select(this).style("font-weight", "bold")
+            d3.selectAll("circle.writing").transition().style("display", "block")
+            d3.selectAll("circle:not(.writing)").transition().style("display", "none")
+            d3.selectAll(".pathG").selectAll("path.writing").transition().style("display", "block")
+            d3.selectAll(".pathG").selectAll("path:not(.writing)").transition().style("display", "none")
+          } else {
+            d3.select(this).style("font-weight", 400)
+            d3.selectAll("circle").transition().style("display", "block")
+            d3.selectAll(".pathG").selectAll("path").transition().style("display", "block")
+          }
+        })
+  
+        // d3.select(".f_cw").on("click", function() {
+        //   if (d3.select(this).style("font-weight") != "bold" && d3.select(".highlights p").style("font-weight") != "bold") {
+        //     d3.selectAll(".filter").style("font-weight", 400)
+        //     d3.select(this).style("font-weight", "bold")
+        //     d3.selectAll("circle.cinewrit").transition().style("display", "block")
+        //     d3.selectAll("circle:not(.cinewrit)").transition().style("display", "none")
+        //     d3.selectAll(".pathG").selectAll("path.cinewrit").transition().style("display", "block")
+        //     d3.selectAll(".pathG").selectAll("path:not(.cinewrit)").transition().style("display", "none")
+        //   } else {
+        //     d3.select(this).style("font-weight", 400)
+        //     d3.selectAll("circle").transition().style("display", "block")
+        //     d3.selectAll(".pathG").selectAll("path").transition().style("display", "block")
+        //   }
+        // })
+  
+        // d3.select(".f_cb").on("click", function() {
+        //   if (d3.select(this).style("font-weight") != "bold" && d3.select(".highlights p").style("font-weight") != "bold") {
+        //     d3.selectAll(".filter").style("font-weight", 400)
+        //     d3.select(this).style("font-weight", "bold")
+        //     d3.selectAll("circle.cinebio").transition().style("display", "block")
+        //     d3.selectAll("circle:not(.cinebio)").transition().style("display", "none")
+        //     d3.selectAll(".pathG").selectAll("path.cinebio").transition().style("display", "block")
+        //     d3.selectAll(".pathG").selectAll("path:not(.cinebio)").transition().style("display", "none")
+        //   } else {
+        //     d3.select(this).style("font-weight", 400)
+        //     d3.selectAll("circle").transition().style("display", "block")
+        //     d3.selectAll(".pathG").selectAll("path").transition().style("display", "block")
+        //   }
+        // })
+  
+        // d3.select(".f_wb").on("click", function() {
+        //   if (d3.select(this).style("font-weight") != "bold" && d3.select(".highlights p").style("font-weight") != "bold") {
+        //     d3.selectAll(".filter").style("font-weight", 400)
+        //     d3.select(this).style("font-weight", "bold")
+        //     d3.selectAll("circle.biowrit").transition().style("display", "block")
+        //     d3.selectAll("circle:not(.biowrit)").transition().style("display", "none")
+        //     d3.selectAll(".pathG").selectAll("path.biowrit").transition().style("display", "block")
+        //     d3.selectAll(".pathG").selectAll("path:not(.apartment)").transition().style("display", "none")
+        //   } else {
+        //     d3.select(this).style("font-weight", 400)
+        //     d3.selectAll("circle").transition().style("display", "block")
+        //     d3.selectAll(".pathG").selectAll("path").transition().style("display", "block")
+        //   }
+        // })
+  
+        d3.select(".f_ac").on("click", function() {
+          if (d3.select(this).style("font-weight") != "bold" && d3.select(".highlights p").style("font-weight") != "bold") {
+            d3.selectAll(".filter").style("font-weight", 400)
+            d3.select(this).style("font-weight", "bold")
+            d3.selectAll("circle.allacat").transition().style("display", "block")
+            d3.selectAll("circle:not(.allcat)").transition().style("display", "none")
+            d3.selectAll(".pathG").selectAll("path.allcat").transition().style("display", "block")
+            d3.selectAll(".pathG").selectAll("path:not(.allcat)").transition().style("display", "none")
+          } else {
+            d3.select(this).style("font-weight", 400)
+            d3.selectAll("circle").transition().style("display", "block")
+            d3.selectAll(".pathG").selectAll("path").transition().style("display", "block")
+          }
+        })
+
+      // }
+
+
 
 // concluding } for the csv promises
 
