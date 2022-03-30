@@ -1,16 +1,21 @@
 body {
     background-image: url("../images/landingpage_background.png");
-    background-size: 100%;
+    background-size: 120%;
+    background-position: center;
+    background-position: bottom 100px;
+    background-repeat: no-repeat;
     font-family: "Inconsolata", monospace;
+    background-attachment: fixed;
 }
 
 .content {
     position: absolute;
     left: 50%;
-    top: 50%;
+    top: 80%;
+    margin-top: 40px;
     transform: translate(-50%, -50%);
     padding: 10px;
-    width: 500px;
+    width: 800px;
     }
 
 #three_viz {
@@ -27,18 +32,21 @@ body {
 #three_viz p{
     margin:0;
     margin-top: 10px;
+    margin-bottom: 20px;
 }
 
 #spiral_viz{
     display: block;
     width: 33%;
     float: left;
+    margin-right:10px ;
 }
 
 #network_viz{
     width: 33%;
     float: left;
     width: 32%;
+    margin-right:10px ;
 }
 
 #timelines_viz{
@@ -51,3 +59,11 @@ body {
     color: black;
 }
 
+#info {
+    margin-top: 50px;
+    display:inline-block;
+}
+
+#guide {
+    display:inline-block;
+}
