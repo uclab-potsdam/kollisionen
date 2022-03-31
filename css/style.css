@@ -96,7 +96,7 @@ path.backgroundspiral {
 }
 
 .sidebar[sidebarType="highlights"] {
-  background-color: rgb(157, 157, 146, 0.25);
+  background-color: rgba(198, 169, 136, 0.2);
 }
 
 .title {
@@ -602,7 +602,7 @@ input:checked + .slider:before {
   height: 100%;
   position: fixed;
   display: block;
-  background-color: rgba(198, 169, 136, 0.2);
+  background-color: rgb(157, 157, 146, 0.25);
   z-index: 200;
   padding: 10px;
   outline: 1px solid grey;
