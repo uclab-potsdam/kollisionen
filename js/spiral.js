@@ -1151,6 +1151,7 @@ function stringSplit(data, keywordSplitter) {
 /// sidebar for single day dates
         sidebar
           .style('display', 'block')
+          .attr('sidebarType', '')
           .html(`
                 ${replaceTemporal(d, (vdateStart) => `<p class="date">${formatTime(d.vdateStart)}</p>`)}
                 ${conditionalReturn(d.displayTemporal, (displayTemporal) => `<p class="displayTemporal"><b>${displayTemporal}</b></p>`)}
@@ -1234,6 +1235,7 @@ function stringSplit(data, keywordSplitter) {
 /// sidebar for spans
         sidebar
           .style('display', 'block')
+          .attr('sidebarType', '')
           .html(`
           ${replaceTemporal(d, (vdateStart) => `<b><p class="date">${formatTime(d.vdateStart)}</b> to <b>${formatTime(d.vdateEnd)}</b></p>`)}
           ${conditionalReturn(d.displayTemporal, (displayTemporal) => `<p class="displayTemporal"><b>${displayTemporal}</b></p>`)}
@@ -1352,6 +1354,7 @@ sidebar
 
 `)
 .style('display', 'block')
+.attr('sidebarType', 'highlights')
   } else {
     d3.select(this).style("font-weight", 400)
     d3.selectAll("circle").transition().style("display", "block")
