@@ -1,16 +1,18 @@
-@import url("https://fonts.googleapis.com/css2?family=Inconsolata:wght@300;400;700;900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700;900&display=swap');
+/* @import url("https://fonts.googleapis.com/css2?family=Inconsolata:wght@300;400;700;900&display=swap"); */
 
 body {
   background-color: #fdf5e6;
-  font-family: "Inconsolata", monospace;
+  /* font-family: "Inconsolata", monospace; */
+  font-family: "Montserrat", roboto;
   margin:0;
   overflow-x: hidden;
 }
 
 :root {
-  --cinema: #002fa7;
-  --biography: #fdd55c;
-  --writing: #ed563b;
+  --cinema: #20638d;
+  --biography:  #ecce86;
+  --writing: #f16834;
   --graphic: #3caea3;
   --apartment: #922598;
   --cinewrit: #774371;
@@ -297,11 +299,15 @@ h2 {
   padding-bottom: 5px;
 }
 
+.landing-page img {
+  margin-right: 10px;
+}
+
 .search-container {
-  float: left;
-  margin-top: 15px;
+  margin-top: 20px;
   z-index: 3;
   display: block;
+  bottom: 0px;
 }
 
 .searchiconbg {
@@ -320,13 +326,14 @@ h2 {
 }
 
 .search {
-  position: relative;
+  position: absolute;
   width: 250px;
   margin-left: 0px;
   margin-top: 20px;
   border: 0;
   color: black;
   font-size: 12pt;
+  float: left;
 }
 
 .highlights {
@@ -348,6 +355,8 @@ h2 {
   float: left;
   z-index: 10;
   font-size: 1em;
+  width: 100%;
+  margin-bottom: 20px;
 }
 
 /* #legend1 h2 {
@@ -668,7 +677,7 @@ background:none;
   color: var(--allcat);
 }
 
-:root {
+/* :root {
   --cinema: #002fa7;
   --biography: #fdd55c;
   --writing: #ed563b;
@@ -678,7 +687,7 @@ background:none;
   --cinebio: #8a9a5b;
   --biowrit: #f5964c;
   --allcat: #000000;
-}
+} */
 
 /*
           * === SEARCH BOX===
