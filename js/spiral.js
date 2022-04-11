@@ -1096,24 +1096,23 @@ function stringSplit(data, keywordSplitter) {
       .on('mousemove', function (event, d) {
 
         // if filters are not selected then show all events
-
-
-
         //display same year nodes/arcs
         var [year, month, day] = d.vstart.split('-', 3)
-        d3.selectAll(".circles")
-        .style("opacity", function(D){if(D.vstart.includes(year) == true){return 1}else{ return 0}})
-        // .style('display', function(D){if(D.vstart.includes(year) == true){return 'block'}else{ return 'none'}})
 
+        d3.selectAll(".circles,.pathGs").classed("notHovered", true).classed("hovered", false)
+        d3.select(this).classed("notHovered", false).classed("hovered", true)
 
-        d3.selectAll(".pathGs")
-        .style("opacity", function(D){if(D.vstart.includes(year) == true || D.vend.includes(year) == true){return 1}else{ return 0}})
-        // .style('display', function(D){if(D.vstart.includes(year) == true || D.vend.includes(year) == true){return 'block'}else{ return 'none'}})
-
+        // d3.selectAll(".circles")
+        // .classed("hoveredYear", function(D){if(D.vstart.includes(year) == true){return true}else{ return false}})
+        // .classed("notHoveredYear", function(D){if(D.vstart.includes(year) == true){return false}else{ return true}})
+        //
+        // d3.selectAll(".pathGs")
+        // .classed("hoveredYear", function(D){if(D.vstart.includes(year) == true || D.vend.includes(year) == true){return true}else{ return false}})
+        // .classed("notHoveredYear", function(D){if(D.vstart.includes(year) == true || D.vend.includes(year) == true){return false}else{ return true}})
 
         d3.selectAll(".timeLabels")
         .style("opacity", function(D){if(D == year){return 1}else{ return 0}})
-        // .style('display', function(D){if(D == year){return 'block'}else{ return 'none'}})
+
 
 
         //tooltip
@@ -1136,12 +1135,12 @@ function stringSplit(data, keywordSplitter) {
         else if(d.category5==true){playAudio(audio5)}
       }})
       .on('click', function (event, d) {
-        if  (d3.select(this).style("stroke") != "black" && d3.select(this).style("stroke-width") != "3px") {
-          d3.selectAll(".circles").style("stroke", "none").style("stroke-width", "0px")
-          d3.select(this).style("stroke", "black").style("stroke-width", "3px")
-        }else{
-        d3.select(this).style("stroke", "none").style("stroke-width", "0px")
-        }
+      //  if  (d3.select(this).style("stroke") != "black" && d3.select(this).style("stroke-width") != "3px") {
+          d3.selectAll(".circles,.pathGs").classed("notSelected", true).classed("selected", false)
+          d3.select(this).classed("selected", true).classed("notSelected", false)
+        // }else{
+        // d3.select(this).style("stroke", "none").style("stroke-width", "0px")
+
         // make not(this) opacity 0.5 when this is clicked
         // d3.selectAll(".circles").filter(function(D){return D != d}).style("opacity", "0.5")
 
@@ -1178,16 +1177,8 @@ function stringSplit(data, keywordSplitter) {
         // tooltip.style('display', 'none');
         tooltip.style('opacity', 0);
 
-        d3.selectAll(".circles")
-        .style("opacity", 1)
-        // .style("display", "block")
+        d3.selectAll(".circles,.pathGs").classed("notHovered", false).classed("hovered", false)
 
-        d3.selectAll(".pathGs")
-        .style("opacity", 1)
-        // .style("display", "block")
-
-        // d3.selectAll(".timeLabels")
-        // .style("opacity", function(D){if(D== firstYearforLabel || D == lastYearforLabel){return 1}else{return 0}})
       })
 /// tooltip for spans
     svg.selectAll(".pathGs")
@@ -1195,20 +1186,20 @@ function stringSplit(data, keywordSplitter) {
 
         //display same year nodes/arcs
         var [year, month, day] = d.vstart.split('-', 3)
-        console.log(year)
-        d3.selectAll(".circles")
-        .style("opacity", function(D){if(D.vstart.includes(year) == true){return 1}else{ return 0}})
-        // .style('display', function(D){if(D.vstart.includes(year) == true){return 'block'}else{ return 'none'}})
 
+        // d3.selectAll(".circles")
+        // .classed("hoveredYear", function(D){if(D.vstart.includes(year) == true){return true}else{ return false}})
+        //
 
-        d3.selectAll(".pathGs")
-        .style("opacity", function(D){if(D.vstart.includes(year) == true || D.vend.includes(year) == true){return 1}else{ return 0}})
-        // .style('display', function(D){if(D.vstart.includes(year) == true || D.vend.includes(year) == true){return 'block'}else{ return 'none'}})
-
+        // d3.selectAll(".pathGs")
+        // .classed("hoveredYear", function(D){if(D.vstart.includes(year) == true || D.vend.includes(year) == true){return true}else{ return false}})
+        //
+        d3.selectAll(".circles,.pathGs").classed("notHovered", true).classed("hovered", false)
+        d3.select(this).classed("notHovered", false).classed("hovered", true)
 
         d3.selectAll(".timeLabels")
         .style("opacity", function(D){if(D == year){return 1}else{ return 0}})
-        // .style('display', function(D){if(D == year){return 'block'}else{ return 'none'}})
+
 
 
         tooltip
@@ -1230,6 +1221,8 @@ function stringSplit(data, keywordSplitter) {
         // }else{
         // d3.select(this).classed("spiralArcs")
         // }
+        d3.selectAll(".circles,.pathGs").classed("notSelected", true).classed("selected", false)
+        d3.select(this).classed("selected", true).classed("notSelected", false)
 
         d3.select("#closedsidebar").style("display", "block")
 /// sidebar for spans
@@ -1266,12 +1259,12 @@ function stringSplit(data, keywordSplitter) {
         tooltip.style('display', 'none');
         // tooltip.style('opacity', 0);
 
-        d3.selectAll(".circles")
-        .style("opacity", 1)
+        d3.selectAll(".circles,.pathGs").classed("notHovered", false).classed("hovered", false)
+        //.style("opacity", 1)
         // .style('display', 'block')
 
-        d3.selectAll(".pathGs")
-        .style("opacity", 1)
+        // d3.selectAll(".pathGs")
+        // .style("opacity", 1)
         // .style('display', 'block')
 
         d3.selectAll(".timeLabels")
@@ -1332,14 +1325,13 @@ d3.selectAll(".highlights p")
     d3.select(this).style("font-weight", "bold")
     let selectedIdentifier = d3.select(this).attr("class") // get the class of the p tag that was clicked on
 
-    d3.selectAll("circle").filter(function(X,Y){return highlightsData.filter(function(D){return D.identifier ==  selectedIdentifier})[0].events.includes(X.Event_ID) == true
-  }).transition().style("display", "block")
-    d3.selectAll("circle").filter(function(X,Y){return highlightsData.filter(function(D){return D.identifier ==  selectedIdentifier})[0].events.includes(X.Event_ID) == false
-  }).transition().style("display", "none")
-    d3.selectAll(".pathG").selectAll("path").filter(function(d,i){return highlightsData.filter(function(D){return D.identifier ==  selectedIdentifier})[0].events.includes(spiralData[i]["Event_ID"]) == true
-  }).transition().style("display", "block")
-    d3.selectAll(".pathG").selectAll("path").filter(function(d,i){return highlightsData.filter(function(D){return D.identifier ==  selectedIdentifier})[0].events.includes(spiralData[i]["Event_ID"]) == false
-  }).transition().style("display", "none")
+    d3.selectAll(".circles,.pathGs").filter(function(X,Y){return highlightsData.filter(function(D){return D.identifier ==  selectedIdentifier})[0].events.includes(X.Event_ID) == true
+  }).classed("catFilteredOut", false)
+    d3.selectAll(".circles,.pathGs").filter(function(X,Y){return highlightsData.filter(function(D){return D.identifier ==  selectedIdentifier})[0].events.includes(X.Event_ID) == false
+  }).classed("catFilteredOut", true)
+
+  d3.selectAll(".filter,.allfilter").style("font-weight", 400)
+
     d3.select("#closedsidebar").style("display", "block")
 
 /// sidebar for spans
@@ -1357,8 +1349,7 @@ sidebar
 .attr('sidebarType', 'highlights')
   } else {
     d3.select(this).style("font-weight", 400)
-    d3.selectAll("circle").transition().style("display", "block")
-    d3.selectAll(".pathG").selectAll("path").transition().style("display", "block")
+    d3.selectAll(".circles,.pathGs").classed("catFilteredOut", false)
   }
 })
 d3.selectAll("#closedsidebar")
@@ -1366,10 +1357,12 @@ d3.selectAll("#closedsidebar")
 
         d3.select(".sidebar")
           .style("display", "none")
-          d3.selectAll("circle").transition().style("display", "block")
-          d3.selectAll(".pathG").selectAll("path").transition().style("display", "block")
+
+          d3.selectAll(".circles,.pathGs").classed("catFilteredOut", false)
+
           d3.selectAll(".highlights p").style("font-weight", 400)
           d3.select("#closedsidebar").style("display", "none")
+
 
       })
 
@@ -1379,49 +1372,44 @@ d3.selectAll("#closedsidebar")
           if (d3.select(this).style("font-weight") != "bold") {
             d3.selectAll(".filter").style("font-weight", 400)
             d3.select(this).style("font-weight", "bold")
-            d3.selectAll("circle.cinema").transition().style("display", "block")
-            d3.selectAll("circle:not(.cinema)").transition().style("display", "none")
-            d3.selectAll(".pathG").selectAll("path.cinema").transition().style("display", "block")
-            d3.selectAll(".pathG").selectAll("path:not(.cinema)").transition().style("display", "none")
+
+            d3.selectAll(".circles,.pathGs").filter(function(d){return d.category.includes("Cinema") || d.category.includes("Graphic")}).classed("catFilteredOut", false)
+            d3.selectAll(".circles,.pathGs").filter(function(d){return d.category.includes("Cinema") == false && d.category.includes("Graphic") == false}).classed("catFilteredOut", true)
+
           } else {
             d3.select(this).style("font-weight", 400)
-            d3.selectAll("circle").transition().style("display", "block")
-            d3.selectAll(".pathG").selectAll("path").transition().style("display", "block")
+            d3.selectAll(".circles,.pathGs").classed("catFilteredOut", false)
+
           }
-  
+
         })
-  
+
         d3.select(".f_b").on("click", function() {
           if (d3.select(this).style("font-weight") != "bold") {
             d3.selectAll(".filter").style("font-weight", 400)
             d3.select(this).style("font-weight", "bold")
-            d3.selectAll("circle.biography").transition().style("display", "block")
-            d3.selectAll("circle:not(.biography)").transition().style("display", "none")
-            d3.selectAll(".pathG").selectAll("path.biography").transition().style("display", "block")
-            d3.selectAll(".pathG").selectAll("path:not(.biography)").transition().style("display", "none")
+            d3.selectAll(".circles,.pathGs").filter(function(d){return d.category.includes("Biography") || d.category.includes("Apartment")}).classed("catFilteredOut", false)
+            d3.selectAll(".circles,.pathGs").filter(function(d){return d.category.includes("Biography") == false && d.category.includes("Apartment") == false }).classed("catFilteredOut", true)
+
           } else {
             d3.select(this).style("font-weight", 400)
-            d3.selectAll("circle").transition().style("display", "block")
-            d3.selectAll(".pathG").selectAll("path").transition().style("display", "block")
+            d3.selectAll(".circles,.pathGs").classed("catFilteredOut", false)
           }
         })
-  
+
         d3.select(".f_w").on("click", function() {
-  
+
           if (d3.select(this).style("font-weight") != "bold") {
             d3.selectAll(".filter").style("font-weight", 400)
             d3.select(this).style("font-weight", "bold")
-            d3.selectAll("circle.writing").transition().style("display", "block")
-            d3.selectAll("circle:not(.writing)").transition().style("display", "none")
-            d3.selectAll(".pathG").selectAll("path.writing").transition().style("display", "block")
-            d3.selectAll(".pathG").selectAll("path:not(.writing)").transition().style("display", "none")
+            d3.selectAll(".circles,.pathGs").filter(function(d){return d.category.includes("Writing")}).classed("catFilteredOut", false)
+            d3.selectAll(".circles,.pathGs").filter(function(d){return d.category.includes("Writing") == false}).classed("catFilteredOut", true)
           } else {
             d3.select(this).style("font-weight", 400)
-            d3.selectAll("circle").transition().style("display", "block")
-            d3.selectAll(".pathG").selectAll("path").transition().style("display", "block")
+            d3.selectAll(".circles,.pathGs").classed("catFilteredOut", false)
           }
         })
-  
+
         // d3.select(".f_cw").on("click", function() {
         //   if (d3.select(this).style("font-weight") != "bold" && d3.select(".highlights p").style("font-weight") != "bold") {
         //     d3.selectAll(".filter").style("font-weight", 400)
@@ -1436,7 +1424,7 @@ d3.selectAll("#closedsidebar")
         //     d3.selectAll(".pathG").selectAll("path").transition().style("display", "block")
         //   }
         // })
-  
+
         // d3.select(".f_cb").on("click", function() {
         //   if (d3.select(this).style("font-weight") != "bold" && d3.select(".highlights p").style("font-weight") != "bold") {
         //     d3.selectAll(".filter").style("font-weight", 400)
@@ -1451,7 +1439,7 @@ d3.selectAll("#closedsidebar")
         //     d3.selectAll(".pathG").selectAll("path").transition().style("display", "block")
         //   }
         // })
-  
+
         // d3.select(".f_wb").on("click", function() {
         //   if (d3.select(this).style("font-weight") != "bold" && d3.select(".highlights p").style("font-weight") != "bold") {
         //     d3.selectAll(".filter").style("font-weight", 400)
@@ -1466,21 +1454,22 @@ d3.selectAll("#closedsidebar")
         //     d3.selectAll(".pathG").selectAll("path").transition().style("display", "block")
         //   }
         // })
-  
-        d3.select(".f_ac").on("click", function() {
-          if (d3.select(this).style("font-weight") != "bold" && d3.select(".highlights p").style("font-weight") != "bold") {
-            d3.selectAll(".filter").style("font-weight", 400)
-            d3.select(this).style("font-weight", "bold")
-            d3.selectAll("circle.allacat").transition().style("display", "block")
-            d3.selectAll("circle:not(.allcat)").transition().style("display", "none")
-            d3.selectAll(".pathG").selectAll("path.allcat").transition().style("display", "block")
-            d3.selectAll(".pathG").selectAll("path:not(.allcat)").transition().style("display", "none")
-          } else {
-            d3.select(this).style("font-weight", 400)
-            d3.selectAll("circle").transition().style("display", "block")
-            d3.selectAll(".pathG").selectAll("path").transition().style("display", "block")
-          }
-        })
+
+        ///filter for multiple categories: deactivated
+        // d3.select(".f_ac").on("click", function() {
+        //   if (d3.select(this).style("font-weight") != "bold" && d3.select(".highlights p").style("font-weight") != "bold") {
+        //     d3.selectAll(".filter").style("font-weight", 400)
+        //     d3.select(this).style("font-weight", "bold")
+        //     d3.selectAll("circle.allacat").transition().style("display", "block")
+        //     d3.selectAll("circle:not(.allcat)").transition().style("display", "none")
+        //     d3.selectAll(".pathG").selectAll("path.allcat").transition().style("display", "block")
+        //     d3.selectAll(".pathG").selectAll("path:not(.allcat)").transition().style("display", "none")
+        //   } else {
+        //     d3.select(this).style("font-weight", 400)
+        //     d3.selectAll("circle").transition().style("display", "block")
+        //     d3.selectAll(".pathG").selectAll("path").transition().style("display", "block")
+        //   }
+        // })
 
       // }
 

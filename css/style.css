@@ -605,6 +605,38 @@ input:checked + .slider:before {
   display: none;
 }
 
+.catFilteredOut {
+  display: none;
+}
+
+.selected{
+  opacity: 1!important;
+}
+
+.notSelected{
+  opacity: 0.05;
+}
+
+.hovered{
+  /* opacity:1!important; */
+}
+
+.notHovered{
+  /* opacity:0.05; */
+}
+
+.hoveredYear{
+  opacity:1;
+}
+
+.hoveredYear{
+  opacity:1;
+}
+
+.notHoveredYear{
+  opacity:0;
+}
+
 #eventList {
   right: 0;
   top: 0;
