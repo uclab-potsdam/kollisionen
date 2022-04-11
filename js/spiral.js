@@ -61,7 +61,7 @@ var svg = d3.select("#chart").append("svg")
   .append("g")
   .classed("zoomG", true)
   .append("g")
-  .attr("transform", "translate(" + width / 2 + "," + (60+height / 2) + ")")
+  .attr("transform", "translate(" + width / 2 + "," + (90+height / 2) + ")")
 
 //blur filter
 const svgFilters = svg.append("defs")
