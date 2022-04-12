@@ -1303,7 +1303,6 @@ Promise.all([
 
                 d3.selectAll(".circles,.pathGs").filter(function (d) { return d.category.includes("Cinema") || d.category.includes("Graphic") }).classed("catFilteredOut", false)
                 d3.selectAll(".circles,.pathGs").filter(function (d) { return d.category.includes("Cinema") == false && d.category.includes("Graphic") == false }).classed("catFilteredOut", true)
-
               } else {
                 d3.select(this).style("font-weight", 400)
                 d3.selectAll(".circles,.pathGs").classed("catFilteredOut", false)
@@ -1318,7 +1317,6 @@ Promise.all([
                 d3.select(this).style("font-weight", "bold")
                 d3.selectAll(".circles,.pathGs").filter(function (d) { return d.category.includes("Biography") || d.category.includes("Apartment") }).classed("catFilteredOut", false)
                 d3.selectAll(".circles,.pathGs").filter(function (d) { return d.category.includes("Biography") == false && d.category.includes("Apartment") == false }).classed("catFilteredOut", true)
-
               } else {
                 d3.select(this).style("font-weight", 400)
                 d3.selectAll(".circles,.pathGs").classed("catFilteredOut", false)
