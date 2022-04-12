@@ -781,11 +781,6 @@ Promise.all([
                   .datum(points)
                   .classed("spiralArcs", true)
                   .attr("d", spiralArcs)
-                  // .classed("cinema", spiralData[i].category1 == true ? true : false)
-                  // .classed("biography", spiralData[i].category2 == true ? true : false)
-                  // .classed("writing", spiralData[i].category3 == true ? true : false)
-                  // .classed("graphic", spiralData[i].category4 == true ? true : false)
-                  // .classed("apartment", spiralData[i].category5 == true ? true : false)
                   .classed("cinema", function () {
                     if (spiralData[i].category1 == true && spiralData[i].category2 == false && spiralData[i].category3 == false) {
                       return true;
@@ -821,23 +816,7 @@ Promise.all([
                       return true;
                     } return false;
                   })
-                  // .attr("filter", function(){if (spiralData[i]["uncertaintystart"] == 0 && spiralData[i]["uncertaintyend"] == 0) {
-                  //     return "none"
-                  //   } else if (spiralData[i]["uncertaintystart"] == 1 && spiralData[i]["uncertaintyend"] == 1) {
-                  //     return "url(#blur)"
-                  //   } else if (spiralData[i]["uncertaintystart"] == 2 && spiralData[i]["uncertaintyend"] == 2) {
-                  //     return "url(#blur)"
-                  //   }})
-                  // .style("opacity", function () {
-                  //   if (spiralData[i]["uncertaintystart"] == 0 && spiralData[i]["uncertaintyend"] == 0) {
-                  //     return 1
-                  //   } else if (spiralData[i]["uncertaintystart"] == 1 && spiralData[i]["uncertaintyend"] == 1) {
-                  //     return 0.66
-                  //   } else if (spiralData[i]["uncertaintystart"] == 2 && spiralData[i]["uncertaintyend"] == 2) {
-                  //     return 0.33
-                  //   }
 
-                  // })
                   .attr("opacity", 1)
                   .attr("transform", "rotate(" + angleStart + ")");
               }
@@ -903,77 +882,6 @@ Promise.all([
               })
               .attr("r", 5) // radius of circle
               .attr("opacity", 1)
-            // .each(function (d, i) { //for each group create circles
-            //   ///create an array of all categories to iterate over this and use the nubmer of iterations for the circle radius
-            //   let localCategories = []
-            //   if (d.category1 == true) {
-            //     localCategories.push("cinema")
-            //   }
-            //   if (d.category2 == true) {
-            //     localCategories.push("biography")
-            //   }
-            //   if (d.category3 == true) {
-            //     localCategories.push("writing")
-            //   }
-            //   if (d.category4 == true) {
-            //     localCategories.push("graphic")
-            //   }
-            //   if (d.category5 == true) {
-            //     localCategories.push("apartment")
-            //   }
-
-            //   //use the array to create the circles
-            //   d3.select(this).selectAll("circle")
-            //     .data(localCategories)
-            //     .join("circle")
-            //     .classed("circle", true)
-            //     .classed("cinema", function (D) {
-            //       return D == "cinema" ? true : false
-            //     })
-            //     .classed("biography", function (D) {
-            //       return D == "biography" ? true : false
-            //     })
-            //     .classed("writing", function (D) {
-            //       return D == "writing" ? true : false
-            //     })
-            //     .classed("graphic", function (D) {
-            //       return D == "graphic" ? true : false
-            //     })
-            //     .classed("apartment", function (D) {
-            //       return D == "apartment" ? true : false
-            //     })
-            //     .attr("cx", function () {
-            //       let [year, month, day] = d.vstart.split('-', 3)
-            //       let eventCoordinate = getEventCoordinate(year, month, day)
-            //       return eventCoordinate.cx
-            //     })
-            //     .attr("cy", function () {
-            //       let [year, month, day] = d.vstart.split('-', 3)
-            //       let eventCoordinate = getEventCoordinate(year, month, day)
-            //       return eventCoordinate.cy
-            //     })
-            //     .attr("r", function (D, I) {
-            //       return 5 - 2 * I
-            //     }) // radius of circle
-            //     .attr("opacity", 1)
-            // })
-
-            //for working out the 'middle colour'
-
-            // var blueRed = d3.scaleLinear().domain([0,10])
-            //   .range(["#002fa7", "#ed563b"])
-
-            // console.log(blueRed(5))
-
-            // var blueYellow = d3.scaleLinear().domain([0,10])
-            //   .range(["#002fa7", "#fdd55c"])
-
-            // console.log(blueYellow(5))
-
-            // var yellowRed = d3.scaleLinear().domain([0,10])
-            //   .range(["#ed563b", "#fdd55c"])
-
-            // console.log(yellowRed(5))
 
             const yearLabelG = svg.append("g").classed("yearLabelG", true)
 
