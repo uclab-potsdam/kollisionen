@@ -61,20 +61,20 @@ var svg = d3.select("#chart").append("svg")
   .append("g")
   .classed("zoomG", true)
   .append("g")
-  .attr("transform", "translate(" + width / 2 + "," + (90+height / 2) + ")")
+  .attr("transform", "translate(" + width / 2 + "," + (90 + height / 2) + ")")
 
 //blur filter
 const svgFilters = svg.append("defs")
 
-      svgFilters.append("filter")
-      .attr("id", "blur")
-      .append("feGaussianBlur")
-      .attr("stdDeviation", 0.5);
+svgFilters.append("filter")
+  .attr("id", "blur")
+  .append("feGaussianBlur")
+  .attr("stdDeviation", 0.5);
 
-      svgFilters.append("filter")
-      .attr("id", "blur2")
-      .append("feGaussianBlur")
-      .attr("stdDeviation", 1.5);
+svgFilters.append("filter")
+  .attr("id", "blur2")
+  .append("feGaussianBlur")
+  .attr("stdDeviation", 1.5);
 
 
 d3.select("#chart").call(zoom);
@@ -84,9 +84,9 @@ function zoomed(event, d) {
   d3.select(".zoomG").attr("transform", event.transform);
   d3.select(".pathG").selectAll("path").style("display", "none")
 
-setTimeout(function () {
-    d3.selectAll("path").style("display", "block").style("stroke-width", 2/event.transform.k)
-}, 200);
+  setTimeout(function () {
+    d3.selectAll("path").style("display", "block").style("stroke-width", 2 / event.transform.k)
+  }, 200);
 
 
   //d3.selectAll("circle").attr("r", function(){return d3.select(this).attr("r")/event.transform.k})
@@ -205,30 +205,30 @@ Promise.all([
         spiralData[i]["vend"] = endA[0] + "-" + endA[1] + "-28";
       } else spiralData[i]["vend"] = spiralData[i]["end"];
 
-    // fix date ranges - 01, 03, 05, 07, 08, 10, 12 = 31
-    // fix date ranges - 04, 06, 09, 11 = 30
-    // else 28 (except leap years)
+      // fix date ranges - 01, 03, 05, 07, 08, 10, 12 = 31
+      // fix date ranges - 04, 06, 09, 11 = 30
+      // else 28 (except leap years)
 
-    if ((spiralData[i]["uncertaintyend"] == 1 && endA[1] == "01") ||
-    (spiralData[i]["uncertaintyend"] == 1 && endA[1] == "03") ||
-    (spiralData[i]["uncertaintyend"] == 1 && endA[1] == "05") ||
-    (spiralData[i]["uncertaintyend"] == 1 && endA[1] == "07") ||
-    (spiralData[i]["uncertaintyend"] == 1 && endA[1] == "08") ||
-    (spiralData[i]["uncertaintyend"] == 1 && endA[1] == "10") ||
-    (spiralData[i]["uncertaintyend"] == 1 && endA[1] == "12"))  {
-   spiralData[i]["vend"] = endA[0] + "-" + endA[1] + "-31";
- } else if ((spiralData[i]["uncertaintyend"] == 1 && endA[1] == "04") ||
-            (spiralData[i]["uncertaintyend"] == 1 && endA[1] == "06") ||
-            (spiralData[i]["uncertaintyend"] == 1 && endA[1] == "09") ||
-            (spiralData[i]["uncertaintyend"] == 1 && endA[1] == "11")) {
-   spiralData[i]["vend"] = endA[0] + "-" + endA[1] + "-30";
- } else if (spiralData[i]["uncertaintyend"] == 1 && endA[1] =="02" && endA[0] % 4 === 0) {
-   spiralData[i]["vend"] = endA[0] + "-" + endA[1] + "-29";
- }
-//  else spiralData[i]["vend"] = endA[0] + "-" + endA[1] + "-28";
+      if ((spiralData[i]["uncertaintyend"] == 1 && endA[1] == "01") ||
+        (spiralData[i]["uncertaintyend"] == 1 && endA[1] == "03") ||
+        (spiralData[i]["uncertaintyend"] == 1 && endA[1] == "05") ||
+        (spiralData[i]["uncertaintyend"] == 1 && endA[1] == "07") ||
+        (spiralData[i]["uncertaintyend"] == 1 && endA[1] == "08") ||
+        (spiralData[i]["uncertaintyend"] == 1 && endA[1] == "10") ||
+        (spiralData[i]["uncertaintyend"] == 1 && endA[1] == "12")) {
+        spiralData[i]["vend"] = endA[0] + "-" + endA[1] + "-31";
+      } else if ((spiralData[i]["uncertaintyend"] == 1 && endA[1] == "04") ||
+        (spiralData[i]["uncertaintyend"] == 1 && endA[1] == "06") ||
+        (spiralData[i]["uncertaintyend"] == 1 && endA[1] == "09") ||
+        (spiralData[i]["uncertaintyend"] == 1 && endA[1] == "11")) {
+        spiralData[i]["vend"] = endA[0] + "-" + endA[1] + "-30";
+      } else if (spiralData[i]["uncertaintyend"] == 1 && endA[1] == "02" && endA[0] % 4 === 0) {
+        spiralData[i]["vend"] = endA[0] + "-" + endA[1] + "-29";
+      }
+      //  else spiralData[i]["vend"] = endA[0] + "-" + endA[1] + "-28";
 
-if (spiralData[i]["uncertaintyend"] == 2) spiralData[i]["vend"] = endA[0] + "-12-31"; // it is currently also doing this "-undefined-28"
-};
+      if (spiralData[i]["uncertaintyend"] == 2) spiralData[i]["vend"] = endA[0] + "-12-31"; // it is currently also doing this "-undefined-28"
+    };
 
     for (let i = 0; i < spiralData.length; i++) {
 
@@ -247,7 +247,7 @@ if (spiralData[i]["uncertaintyend"] == 2) spiralData[i]["vend"] = endA[0] + "-12
     spiralData.forEach(function (d) {
       //   // d.start = +parseDate(d.start);
       //   // d.end = +parseDate(d.end);
-      d.vdateStart = +startParse(d.vstart  + " 00:01AM");
+      d.vdateStart = +startParse(d.vstart + " 00:01AM");
       d.vdateEnd = +endParse(d.vend + " 23:59AM")
     });
 
@@ -258,900 +258,902 @@ if (spiralData[i]["uncertaintyend"] == 2) spiralData[i]["vend"] = endA[0] + "-12
     ])
       .then(([itemsData]) => {
         console.log(itemsData);
-      // });
+        // });
 
-      for (let i = 0; i < spiralData.length; i++) {
+        for (let i = 0; i < spiralData.length; i++) {
 
-      if (spiralData[i]["items"]) {
-        spiralData[i]["items"] = spiralData[i]["items"].split(",");
-      }
-    };
+          if (spiralData[i]["items"]) {
+            spiralData[i]["items"] = spiralData[i]["items"].split(",");
+          }
+        };
 
-// highlights
+        // highlights
 
-    Promise.all([
-      d3.csv(urlHighlights), //data
-    ])
-      .then(([highlightsData]) => {
+        Promise.all([
+          d3.csv(urlHighlights), //data
+        ])
+          .then(([highlightsData]) => {
 
-//create a p class for each of the 'identifier's and insert into into the div class="highlights" in index.html
+            //create a p class for each of the 'identifier's and insert into into the div class="highlights" in index.html
 
-for (let i = 0; i < highlightsData.length; i++) {
-  let identifier = highlightsData[i]["identifier"];
-  let text = highlightsData[i]["name"];
-  let p = document.createElement("p");
-  p.className = identifier;
-  p.innerHTML = text;
-  document.getElementsByClassName("highlights")[0].appendChild(p);
-}
-
-          console.log(highlightsData);
-
-      // });
-
-    // The mapping of visual variables starts here
-
-    //certain one day events - circles
-
-    // scale to get relative position in the year from month and day
-    const startYearForRelativeScale = 1900
-    const relativeInYearScale = d3
-      .scaleTime()
-      .domain([new Date(startYearForRelativeScale, 0, 1), new Date(startYearForRelativeScale + 1, 0, 1)])
-      .range([0, 1])
-
-    // scale to get absolute radius without center and outer margins from year
-    const firstYear = 1898
-    const lastYear = firstYear + numSpirals
-    const absoluteRadiusScale = d3
-      .scaleLinear()
-      .domain([firstYear, lastYear])
-      .range([0, r - 40])
-
-    var getRelativePositionInTheYear = function (month, day) {
-      const date = new Date(startYearForRelativeScale, Math.max(month - 1, 0), Math.max(1, day))
-      return relativeInYearScale(date)
-    }
-
-    var getEventCoordinate = function (year, month, day) {
-      var monthScale = d3.scaleOrdinal()
-        .domain([1,2,3,4,5,6,7,8,9,10,11,12])
-        .range([1/12,2/12,3/12,4/12,5/12,6/12,7/12,8/12,9/12,10/12,11/12,12/12])
-
-      let percentageOfYear
-
-      if (Number(month)==1){
-        percentageOfYear = Number(day)/365
-      }else if (Number(month)==2){
-        percentageOfYear = (31+Number(day))/365
-      }else if (Number(month)==3){
-        percentageOfYear = (31+28+Number(day))/365
-      }else if (Number(month)==4){
-        percentageOfYear = (31+28+31+Number(day))/365
-      }else if (Number(month)==5){
-        percentageOfYear = (31+28+31+30+Number(day))/365
-      }else if (Number(month)==6){
-        percentageOfYear = (31+28+31+30+31+Number(day))/365
-      }else if (Number(month)==7){
-        percentageOfYear = (31+28+31+30+31+30+Number(day))/365
-      }else if (Number(month)==8){
-        percentageOfYear = (31+28+31+30+31+30+31+Number(day))/365
-      }else if (Number(month)==9){
-        percentageOfYear = (31+28+31+30+31+30+31+31+Number(day))/365
-      }else if (Number(month)==10){
-        percentageOfYear = (31+28+31+30+31+30+31+31+30+Number(day))/365
-      }else if (Number(month)==11){
-        percentageOfYear = (31+28+31+30+31+30+31+31+30+31+Number(day))/365
-      }else if (Number(month)==12){
-        percentageOfYear = (31+28+31+30+31+30+31+31+30+31+30+Number(day))/365
-      }
-      var yearWithPercentage = +year+percentageOfYear
-
-      const relativePositionInTheYear = getRelativePositionInTheYear(month, day)
-      const absoluteRadius = absoluteRadiusScale(yearWithPercentage)
-
-      const emptyCenterRadius = 40
-      const radius = emptyCenterRadius + absoluteRadius
-      const topBasedAngle = 2 * Math.PI * relativePositionInTheYear
-      return {
-        'cx': radius * Math.sin(topBasedAngle),
-        'cy': -radius * Math.cos(topBasedAngle)
-      }
-    };
-
-    //Arcs (date ranges)
-
-    /*
-    aStart & aEnd are the angle start and end for the arcs
-    rStart & rEnd are the radius start and end for the arcs
-    */
-
-    spiralData.forEach(function (d) {
-
-      var [year, month, day] = d.vstart.split('-', 3)
-      var eventCoordinate = getEventCoordinate(year, month, day)
-
-      d.aStart = Math.atan2(eventCoordinate.cx, -eventCoordinate.cy);
-      d.rStart = Math.hypot(eventCoordinate.cx, eventCoordinate.cy);
-    });
-
-    spiralData.forEach(function (d) {
-
-      var [year, month, day] = d.vend.split('-', 3)
-      var eventCoordinateEnd = getEventCoordinate(year, month, day)
-
-      d.aEnd = Math.atan2(eventCoordinateEnd.cx, -eventCoordinateEnd.cy);
-      d.rEnd = Math.hypot(eventCoordinateEnd.cx, eventCoordinateEnd.cy);
-    });
-
-    // Making arcs
-
-    /* Arcs are to be split into several category types:
-                                                      For those with a date value in both 'start/vstart' and 'end/vend'
-                                                      0 -> 0 = no uncertainty, a date range
-                                                      1 -> 1 = an uncertain range for months
-                                                      2 -> 2 = an uncertain range for years
-                                                      0 -> 1 = certain date start, uncertain end over a period of a month
-                                                      0 -> 2 = certain date start, uncertain end over a period of a year
-                                                      1 -> 0 = uncertain day in month start, certain date end
-                                                      1 -> 2 = uncertain day in month start, uncertain end over a period of a year
-                                                      2 -> 0 = uncertain date start over a period of a year, certain end date
-                                                      2 -> 1 = uncertain start date over a period of a year, uncertain end over a period of a month
-                                                      And, for those with only a value in 'start/vstart'
-                                                      1 = range from 1st of month to 28th of month
-                                                      2 = range from 1st January to 31st December */
-
-    //This scale maps out the earliest date and latest dates in the data against the number of spirals - 1898 = 0 spirals & 1974 = 77 spirals (numSpirals)
-
-    var numSpiralsThetaScale = d3.scaleLinear()
-      .domain([d3.min(spiralData, function (d) {
-        return startParse(d.vstart + " 00:01AM")
-      }), d3.max(spiralData, function (d) {
-        return endParse(d.vend + " 23:59AM")
-      })])
-      .range([0, numSpirals]);
-
-    /*
-    Scale returns a value between 0 and 77: see manual test above for 24 Jan 1930 - returns '36.27049731995325' which would be from 1896 - 1930
-    min because vstart contains ealiest date and max because vend contains latest date
-    There needs be another step here: This works out this scale but it needs to then work it out for each line between vstart and vend and return a number
-    e.g. 1906-01-01 -> 1908-12-31 = 3 numSpiralsTheta (roughly) as it equals 3 years
-
-    Using this scale numSpiralsThetaScale(d.vend) - numSpiralsThetaScale(d.vstart) -> number of spirals needed
-    */
-
-
-
-    ///////////////////search
-
-
-    let nodes = []
-    let links = []
-
-    spiralData.forEach(function(d, i) {
-
-      let peopleNodes = d.people == "" ? [] : d.people.split(";")
-      let placesNodes = d.places == "" ? [] : d.places.split(";")
-      let worksNodes = d.works == "" ? [] : d.works.split(";")
-      //let projectNodes = d.project == "" ? [] : d.project.split(";")
-      let artisticNodes = d.artistic == "" ? [] : d.artistic.split(";")
-      let additionalNodes = d.additional == "" ? [] : d.additional.split(";")
-
-      //add people to nodes
-      peopleNodes.forEach(function(D) {
-        if (nodes.filter(function(x) {
-            return x.name == D
-          }).length == 0) {
-          nodes.push({
-            name: D,
-            count: 1,
-            category: "people"
-          })
-        } else {
-          nodes.filter(function(x) {
-            return x.name == D
-          })[0].count++
-        }
-      })
-
-
-      //add places to nodes
-      placesNodes.forEach(function(D) {
-        if (nodes.filter(function(x) {
-            return x.name == D
-          }).length == 0) {
-          nodes.push({
-            name: D,
-            count: 1,
-            category: "places"
-          })
-        } else {
-          nodes.filter(function(x) {
-            return x.name == D
-          })[0].count++
-        }
-      })
-
-      //add works to nodes
-      worksNodes.forEach(function(D) {
-        if (nodes.filter(function(x) {
-            return x.name == D
-          }).length == 0) {
-          nodes.push({
-            name: D,
-            count: 1,
-            category: "works"
-          })
-        } else {
-          nodes.filter(function(x) {
-            return x.name == D
-          })[0].count++
-        }
-      })
-
-      // //add project to nodes
-      // projectNodes.forEach(function(D){
-      //   if (nodes.filter(function(x){return x.name == D}).length == 0){
-      //     nodes.push({
-      //       name: D,
-      //       count: 1,
-      //       category: "project"
-      //     })
-      //   }else{
-      //     nodes.filter(function(x){return x.name == D})[0].count++
-      //   }
-      // })
-
-      //add artistic to nodes
-      artisticNodes.forEach(function(D) {
-        if (nodes.filter(function(x) {
-            return x.name == D
-          }).length == 0) {
-          nodes.push({
-            name: D,
-            count: 1,
-            category: "artistic"
-          })
-        } else {
-          nodes.filter(function(x) {
-            return x.name == D
-          })[0].count++
-        }
-      })
-
-      //add additional to nodes
-      additionalNodes.forEach(function(D) {
-        if (nodes.filter(function(x) {
-            return x.name == D
-          }).length == 0) {
-          nodes.push({
-            name: D,
-            count: 1,
-            category: "additional"
-          })
-        } else {
-          nodes.filter(function(x) {
-            return x.name == D
-          })[0].count++
-        }
-      })
-
-      let allNodes = [].concat(peopleNodes, placesNodes, worksNodes, artisticNodes, additionalNodes)
-
-      //create combinations of source+targets out of all "objects"
-      //https://stackoverflow.com/questions/43241174/javascript-generating-all-combinations-of-elements-in-a-single-array-in-pairs
-      allNodes.flatMap(
-        function(v, i) {
-          return allNodes.slice(i + 1).forEach(function(w) {
-            //  console.log( v + '+ ' + w )
-            if (links.filter(function(D) {
-                return (D.source == v && D.target == w) || D.source == w && D.target == v
-              }).length == 0) {
-              links.push({
-                source: v,
-                target: w,
-                children: [{
-                  source: v,
-                  target: w,
-                  category: d.category,
-                  dateStart: new Date(d.vstart),
-                  dateEnd: new Date(d.vend),
-                  relation_source: d.title,
-                  description: d.description
-                }],
-              })
-            } else {
-              links.filter(function(D) {
-                return (D.source == v && D.target == w) || D.source == w && D.target == v
-              })[0].children.push({
-                source: v,
-                target: w,
-                category: d.category,
-                dateStart: new Date(d.vstart),
-                dateEnd: new Date(d.vend),
-                relation_source: d.title,
-                description: d.description
-              })
-
+            for (let i = 0; i < highlightsData.length; i++) {
+              let identifier = highlightsData[i]["identifier"];
+              let text = highlightsData[i]["name"];
+              let p = document.createElement("p");
+              p.className = identifier;
+              p.innerHTML = text;
+              document.getElementsByClassName("highlights")[0].appendChild(p);
             }
 
-          })
-        }
-      )
-
-
-
-    })
-
-    console.log(links)
-    console.log(nodes)
-
-    nodes.sort(function(a, b) {
-      return b.count - a.count;
-    })
-
-    ///////////////////search
-
-
-
-  let searchDaten = [
-  {
-  text: "People",
-  children:[]
-  },
-  {
-  text: "Places",
-  children:[]
-  },
-  {
-  text: "Artistic",
-  children:[]
-  },
-  {
-  text: "Additional",
-  children:[]
-  },
-  {
-  text: "Works",
-  children:[]
-  },
-
-  ];
-
-
-  nodes.filter(function(d){return d.category == "people"}).forEach(function(d,i){
-  searchDaten[0].children.push(
-    {id:i,
-    text:d.name + " ("+d.count+")",
-    name:d.name,
-    category: "people",
-    count:d.count,}
-  )
-  })
-
-  nodes.filter(function(d){return d.category == "places"}).forEach(function(d,i){
-  searchDaten[1].children.push(
-    {id:i,
-      text:d.name + " ("+d.count+")",
-      name:d.name,
-      category: "places",
-    count:d.count,}
-  )
-  })
-
-  nodes.filter(function(d){return d.category == "artistic"}).forEach(function(d,i){
-  searchDaten[2].children.push(
-    {id:i,
-      text:d.name + " ("+d.count+")",
-      name:d.name,
-      category: "artistic",
-    count:d.count,}
-  )
-  })
-
-  nodes.filter(function(d){return d.category == "additional"}).forEach(function(d,i){
-  searchDaten[3].children.push(
-    {id:i,
-      text:d.name + " ("+d.count+")",
-      name:d.name,
-      category: "additional",
-    count:d.count,}
-  )
-  })
-
-  nodes.filter(function(d){return d.category == "works"}).forEach(function(d,i){
-  searchDaten[4].children.push(
-    {id:i,
-      text:d.name + " ("+d.count+")",
-      name:d.name,
-      category: "works",
-      count:d.count,}
-  )
-  })
-
-  ////search
-  $("#search").select2({
-  data: searchDaten,
-  containerCssClass: "search",
-  selectOnClose: true,
-  placeholder: "Search events keywords",
-  allowClear: true
-
-  });
-
-
-  $("#search").on("select2-selecting", function(e) {
-    console.log(e.choice.name)
-    console.log(e.choice.category)
-
-    d3.selectAll("circle").classed("filteredout", function(d){
-      if (e.choice.category == "people"){
-        if(d.people.includes(e.choice.name)){return false}else{return true}
-      }else if (e.choice.category == "places"){
-          if(d.places.includes(e.choice.name)){return false}else{return true}
-        }else if (e.choice.category == "artistic"){
-            if(d.artistic.includes(e.choice.name)){return false}else{return true}
-          }else if (e.choice.category == "additional"){
-              if(d.additional.includes(e.choice.name)){return false}else{return true}
-            }else if (e.choice.category == "works"){
-                if(d.works.includes(e.choice.name)){return false}else{return true}
-              }})
-
-              d3.selectAll(".pathGs").classed("filteredout", function(d){
-                if (e.choice.category == "people"){
-                  if(d.people.includes(e.choice.name)){return false}else{return true}
-                }else if (e.choice.category == "places"){
-                    if(d.places.includes(e.choice.name)){return false}else{return true}
-                  }else if (e.choice.category == "artistic"){
-                      if(d.artistic.includes(e.choice.name)){return false}else{return true}
-                    }else if (e.choice.category == "additional"){
-                        if(d.additional.includes(e.choice.name)){return false}else{return true}
-                      }else if (e.choice.category == "works"){
-                          if(d.works.includes(e.choice.name)){return false}else{return true}
-                        }})
-
-
-  })
-
-
-$("#search").on("select2-clearing", function(e) {
-  d3.selectAll(".pathGs").classed("filteredout",false)
-  d3.selectAll("circle").classed("filteredout",false)
-})
-
-
-
-
-
-
-
-
-
-    //this is the code for the arcs
-
-    const pathG = svg.append("g").classed("pathG", true)
-
-    for (let i = 0; i < spiralData.length; i++) {
-
-      var endSpiralTheta = numSpiralsThetaScale(endParse(spiralData[i].vend  + " 23:59AM"));
-      var startSpiralTheta = numSpiralsThetaScale(startParse(spiralData[i].vstart  + " 00:01AM"))
-      var numSpiralsTheta = (endSpiralTheta - startSpiralTheta) + 0.00121369930219;
-
-      // console.log(numSpiralsThetaScale(-63205260000))
-      // console.log(numSpiralsThetaScale(-94697940000))
-
-      var radiusArc1 = d3.scaleLinear()
-        .domain([start, end])
-        .range([spiralData[i].rStart, spiralData[i].rEnd])
-
-      //console.log(radiusArc1(2))
-
-      var thetaArc = function (r) {
-        return numSpiralsTheta * Math.PI * r;
-      };
-      /*
-              theta still needs to be used to guide the spiral but it needs to have a defined starting point for the spiral
-              the numSpirals needs to be dynamic - based on a scale - to ascertain how much of a spiral is needs to draw between two points
-              there also needs to be a way of adjusting the start point (the starting angle) - this is captured in 'aStart'
-              */
-
-      var spiralArcs = d3.radialLine()
-        .curve(d3.curveCardinal)
-        .angle(thetaArc)
-        .radius(radiusArc1)
-
-      var angleStart = spiralData[i].aStart * (180 / Math.PI)
-
-      if (spiralData[i].vend != "") {
-        d3.select(".pathG").append("g").classed("pathGs", true)
-          .datum(function () { return spiralData[i] })
-          .append("path")
-          .datum(points)
-          .classed("spiralArcs", true)
-          .attr("d", spiralArcs)
-          // .classed("cinema", spiralData[i].category1 == true ? true : false)
-          // .classed("biography", spiralData[i].category2 == true ? true : false)
-          // .classed("writing", spiralData[i].category3 == true ? true : false)
-          // .classed("graphic", spiralData[i].category4 == true ? true : false)
-          // .classed("apartment", spiralData[i].category5 == true ? true : false)
-          .classed("cinema", function () {
-            if (spiralData[i].category1 == true && spiralData[i].category2 == false && spiralData[i].category3 == false)
-            {
-            return true;
-          } return false;
-          })
-          .classed("biography", function () {
-            if (spiralData[i].category2 == true && spiralData[i].category1 == false && spiralData[i].category3 == false)
-            {
-            return true;
-          } return false;
-          })
-          .classed("writing", function () {
-            if (spiralData[i].category3 == true && spiralData[i].category1 == false && spiralData[i].category2 == false)
-            {
-            return true;
-          } return false;
-          })
-          .classed("cinebio", function () {
-            if (spiralData[i].category1 == true && spiralData[i].category2 == true && spiralData[i].category3 == false)
-            {
-            return true;
-          } return false;
-          })
-          .classed("biowrit", function () {
-            if (spiralData[i].category1 == false && spiralData[i].category2 == true && spiralData[i].category3 == true)
-            {
-            return true;
-          } return false;
-          })
-          .classed("cinewrit", function () {
-            if (spiralData[i].category1 == true && spiralData[i].category2 == false && spiralData[i].category3 == true)
-            {
-            return true;
-          } return false;
-          })
-          .classed("allcat", function () {
-            if (spiralData[i].category1 == true && spiralData[i].category2 == true && spiralData[i].category3 == true)
-            {
-            return true;
-          } return false;
-          })
-          // .attr("filter", function(){if (spiralData[i]["uncertaintystart"] == 0 && spiralData[i]["uncertaintyend"] == 0) {
-          //     return "none"
-          //   } else if (spiralData[i]["uncertaintystart"] == 1 && spiralData[i]["uncertaintyend"] == 1) {
-          //     return "url(#blur)"
-          //   } else if (spiralData[i]["uncertaintystart"] == 2 && spiralData[i]["uncertaintyend"] == 2) {
-          //     return "url(#blur)"
-          //   }})
-          // .style("opacity", function () {
-          //   if (spiralData[i]["uncertaintystart"] == 0 && spiralData[i]["uncertaintyend"] == 0) {
-          //     return 1
-          //   } else if (spiralData[i]["uncertaintystart"] == 1 && spiralData[i]["uncertaintyend"] == 1) {
-          //     return 0.66
-          //   } else if (spiralData[i]["uncertaintystart"] == 2 && spiralData[i]["uncertaintyend"] == 2) {
-          //     return 0.33
-          //   }
-
-          // })
-          .attr("opacity", 1)
-          .attr("transform", "rotate(" + angleStart + ")");
-      }
-
-    };
-
-    const circleG = svg.append("g").classed("circleG", true)
-
-let circles = circleG.selectAll("g")
-
-      .data(function (d) {
-        return spiralData.filter(function (d) {
-          return d.uncertaintystart === 0 && d.end === "" && d.start.includes("/") == false && d.start.includes(",") == false && d.start != "" //took out some data points that create errors for now
-        });
-      })
-      .join("g")
-      .append("circle")
-      .classed("circles", true)
-      .classed("cinema", function (d) {
-        if (d.category1 == true && d.category2 == false && d.category3 == false)
-        {
-        return true;
-      } return false;
-      })
-      .classed("biography", function (d) {
-        if (d.category2 == true && d.category1 == false && d.category3 == false)
-        {
-        return true;
-      } return false;
-      })
-      .classed("writing", function (d) {
-        if (d.category3 == true && d.category1 == false && d.category2 == false)
-        {
-        return true;
-      } return false;
-      })
-      .classed("cinebio", function (d) {
-        if (d.category1 == true && d.category2 == true && d.category3 == false)
-        {
-        return true;
-      } return false;
-      })
-      .classed("biowrit", function (d) {
-        if (d.category1 == false && d.category2 == true && d.category3 == true)
-        {
-        return true;
-      } return false;
-      })
-      .classed("cinewrit", function (d) {
-        if (d.category1 == true && d.category2 == false && d.category3 == true)
-        {
-        return true;
-      } return false;
-      })
-      .classed("allcat", function (d) {
-        if (d.category1 == true && d.category2 == true && d.category3 == true)
-        {
-        return true;
-      } return false;
-      })
-      .attr("cx", function (d) {
-            let [year, month, day] = d.vstart.split('-', 3)
-            let eventCoordinate = getEventCoordinate(year, month, day)
-            return eventCoordinate.cx
-          })
-      .attr("cy", function (d) {
-            let [year, month, day] = d.vstart.split('-', 3)
-            let eventCoordinate = getEventCoordinate(year, month, day)
-            return eventCoordinate.cy
-          })
-      .attr("r", 5) // radius of circle
-      .attr("opacity", 1)
-      // .each(function (d, i) { //for each group create circles
-      //   ///create an array of all categories to iterate over this and use the nubmer of iterations for the circle radius
-      //   let localCategories = []
-      //   if (d.category1 == true) {
-      //     localCategories.push("cinema")
-      //   }
-      //   if (d.category2 == true) {
-      //     localCategories.push("biography")
-      //   }
-      //   if (d.category3 == true) {
-      //     localCategories.push("writing")
-      //   }
-      //   if (d.category4 == true) {
-      //     localCategories.push("graphic")
-      //   }
-      //   if (d.category5 == true) {
-      //     localCategories.push("apartment")
-      //   }
-
-      //   //use the array to create the circles
-      //   d3.select(this).selectAll("circle")
-      //     .data(localCategories)
-      //     .join("circle")
-      //     .classed("circle", true)
-      //     .classed("cinema", function (D) {
-      //       return D == "cinema" ? true : false
-      //     })
-      //     .classed("biography", function (D) {
-      //       return D == "biography" ? true : false
-      //     })
-      //     .classed("writing", function (D) {
-      //       return D == "writing" ? true : false
-      //     })
-      //     .classed("graphic", function (D) {
-      //       return D == "graphic" ? true : false
-      //     })
-      //     .classed("apartment", function (D) {
-      //       return D == "apartment" ? true : false
-      //     })
-      //     .attr("cx", function () {
-      //       let [year, month, day] = d.vstart.split('-', 3)
-      //       let eventCoordinate = getEventCoordinate(year, month, day)
-      //       return eventCoordinate.cx
-      //     })
-      //     .attr("cy", function () {
-      //       let [year, month, day] = d.vstart.split('-', 3)
-      //       let eventCoordinate = getEventCoordinate(year, month, day)
-      //       return eventCoordinate.cy
-      //     })
-      //     .attr("r", function (D, I) {
-      //       return 5 - 2 * I
-      //     }) // radius of circle
-      //     .attr("opacity", 1)
-      // })
-
-//for working out the 'middle colour'
-
-// var blueRed = d3.scaleLinear().domain([0,10])
-//   .range(["#002fa7", "#ed563b"])
-
-// console.log(blueRed(5))
-
-// var blueYellow = d3.scaleLinear().domain([0,10])
-//   .range(["#002fa7", "#fdd55c"])
-
-// console.log(blueYellow(5))
-
-// var yellowRed = d3.scaleLinear().domain([0,10])
-//   .range(["#ed563b", "#fdd55c"])
-
-// console.log(yellowRed(5))
-
-      const yearLabelG = svg.append("g").classed("yearLabelG", true)
-
-      let firstYearforLabel = 1898 //we should take this from the data with d3.min()
-      let lastYearforLabel = 1975 //we should take this from the data with d3.max()
-
-      let labelScale = d3.scaleLinear()
-        .domain([firstYearforLabel, lastYearforLabel])
-        .range([-40, -r])
-
-      for (let i = firstYearforLabel; i <= lastYearforLabel; i++) {
-        yearLabelG.append("text").text(i)
-        .classed("timeLabels", true)
-        .datum(i)
-        .attr("y", labelScale(i))
-        .style("text-anchor", "middle")
-        .attr("dy", "0.4em")
-        .style("pointer-events", "none")
-        .style("stroke", "white")
-        .style("stroke-width", 5)
-        .style("opacity", function(){if(i== firstYearforLabel || i == lastYearforLabel){return 1}else{return 0}})
-
-        yearLabelG.append("text").text(i)
-        .classed("timeLabels", true)
-        .datum(i)
-        .attr("y", labelScale(i))
-        .style("text-anchor", "middle")
-        .attr("dy", "0.4em")
-        .style("pointer-events", "none")
-        .style("opacity", function(){if(i== firstYearforLabel || i == lastYearforLabel){return 1}else{return 0}})
-      }
-
-// Set of functions for html formatting in tooltip and sidebar
-
-// htmlRenderer is a function in the form: (data) => htmlText
-// eg. (title) => `<p class="title">${title}</p>`
-// if data exists, it'll return the string with data inside it, otherwise it'll return an empty string
-function conditionalReturn(data, htmlFormatter) {
-  if (data == null || data === '' || data === false) {
-    return '';
-  }
-  return htmlFormatter(data);
-}
-
-// function to compare content of strings and omit repeated strings
-
-function compareDescription(d, descriptionFormat) {
-
-let a = d.description
-
-let b = d.title
-
-  if (a === b) {
-    return '';
-}
- else {
-   return descriptionFormat(d.description);
- }
-};
-
-// function to replace date with optional uncertain date
-
-function replaceTemporal(d, temporalSwap) {
-
-  let a = d.displayTemporal
-  let b = d.vdateStart
-
-  if (a == null || a === '' || a === false) {
-    return temporalSwap(b)}
-      else {
-    }
-  if (a !== null || a !== '' || a !== false) {
-    return '';
-  }};
-
-//function to split keywords by comma
-
-function stringSplit(data, keywordSplitter) {
-
- var kws = data.split(";")
-
- if (data == null || data === '' || data === false) {
-      return '';
-    } else {
-
-      } if (kws.length > 1) { return keywordSplitter(kws.join(", ")) }
-
-      else { return keywordSplitter(kws) }
-
-  };
-
-  //function to split images by comma
-
-
-
-    //tooltip
-    var tooltip = d3.select("body")
-      .append('div')
-      .attr('class', 'tooltip')
-      .style('display', 'none');
-
-    var sidebar = d3.select("#sidebar")
-      .append('div')
-      .attr('class', 'sidebar');
-
-    // tooltip.append('div')
-    //   .attr('class', 'date');
-
-    // tooltip.append('div')
-    //   .attr('class', 'value');
-
-    // sidebar.append('circle')
-    //   .attr('class', 'sidebar_circle')
-    //   .attr('r', 5)
-
-///tooltip for single day events
-    svg.selectAll(".circles")
-      .on('mousemove', function (event, d) {
-
-        // if filters are not selected then show all events
-        //display same year nodes/arcs
-        var [year, month, day] = d.vstart.split('-', 3)
-
-        d3.selectAll(".circles,.pathGs").classed("notHovered", true).classed("hovered", false)
-        d3.select(this).classed("notHovered", false).classed("hovered", true)
-
-        // d3.selectAll(".circles")
-        // .classed("hoveredYear", function(D){if(D.vstart.includes(year) == true){return true}else{ return false}})
-        // .classed("notHoveredYear", function(D){if(D.vstart.includes(year) == true){return false}else{ return true}})
-        //
-        // d3.selectAll(".pathGs")
-        // .classed("hoveredYear", function(D){if(D.vstart.includes(year) == true || D.vend.includes(year) == true){return true}else{ return false}})
-        // .classed("notHoveredYear", function(D){if(D.vstart.includes(year) == true || D.vend.includes(year) == true){return false}else{ return true}})
-
-        d3.selectAll(".timeLabels")
-        .style("opacity", function(D){if(D == year){return 1}else{ return 0}})
-
-
-
-        //tooltip
-        tooltip
-          .style('position', 'absolute')
-          .style('left', `${event.pageX + 5}px`)
-          .style('top', `${event.pageY + 10}px`)
-          .style('display', 'inline-block')
-          .style('opacity', '0.9')
-          .html(`
+            console.log(highlightsData);
+
+            // });
+
+            // The mapping of visual variables starts here
+
+            //certain one day events - circles
+
+            // scale to get relative position in the year from month and day
+            const startYearForRelativeScale = 1900
+            const relativeInYearScale = d3
+              .scaleTime()
+              .domain([new Date(startYearForRelativeScale, 0, 1), new Date(startYearForRelativeScale + 1, 0, 1)])
+              .range([0, 1])
+
+            // scale to get absolute radius without center and outer margins from year
+            const firstYear = 1898
+            const lastYear = firstYear + numSpirals
+            const absoluteRadiusScale = d3
+              .scaleLinear()
+              .domain([firstYear, lastYear])
+              .range([0, r - 40])
+
+            var getRelativePositionInTheYear = function (month, day) {
+              const date = new Date(startYearForRelativeScale, Math.max(month - 1, 0), Math.max(1, day))
+              return relativeInYearScale(date)
+            }
+
+            var getEventCoordinate = function (year, month, day) {
+              var monthScale = d3.scaleOrdinal()
+                .domain([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12])
+                .range([1 / 12, 2 / 12, 3 / 12, 4 / 12, 5 / 12, 6 / 12, 7 / 12, 8 / 12, 9 / 12, 10 / 12, 11 / 12, 12 / 12])
+
+              let percentageOfYear
+
+              if (Number(month) == 1) {
+                percentageOfYear = Number(day) / 365
+              } else if (Number(month) == 2) {
+                percentageOfYear = (31 + Number(day)) / 365
+              } else if (Number(month) == 3) {
+                percentageOfYear = (31 + 28 + Number(day)) / 365
+              } else if (Number(month) == 4) {
+                percentageOfYear = (31 + 28 + 31 + Number(day)) / 365
+              } else if (Number(month) == 5) {
+                percentageOfYear = (31 + 28 + 31 + 30 + Number(day)) / 365
+              } else if (Number(month) == 6) {
+                percentageOfYear = (31 + 28 + 31 + 30 + 31 + Number(day)) / 365
+              } else if (Number(month) == 7) {
+                percentageOfYear = (31 + 28 + 31 + 30 + 31 + 30 + Number(day)) / 365
+              } else if (Number(month) == 8) {
+                percentageOfYear = (31 + 28 + 31 + 30 + 31 + 30 + 31 + Number(day)) / 365
+              } else if (Number(month) == 9) {
+                percentageOfYear = (31 + 28 + 31 + 30 + 31 + 30 + 31 + 31 + Number(day)) / 365
+              } else if (Number(month) == 10) {
+                percentageOfYear = (31 + 28 + 31 + 30 + 31 + 30 + 31 + 31 + 30 + Number(day)) / 365
+              } else if (Number(month) == 11) {
+                percentageOfYear = (31 + 28 + 31 + 30 + 31 + 30 + 31 + 31 + 30 + 31 + Number(day)) / 365
+              } else if (Number(month) == 12) {
+                percentageOfYear = (31 + 28 + 31 + 30 + 31 + 30 + 31 + 31 + 30 + 31 + 30 + Number(day)) / 365
+              }
+              var yearWithPercentage = +year + percentageOfYear
+
+              const relativePositionInTheYear = getRelativePositionInTheYear(month, day)
+              const absoluteRadius = absoluteRadiusScale(yearWithPercentage)
+
+              const emptyCenterRadius = 40
+              const radius = emptyCenterRadius + absoluteRadius
+              const topBasedAngle = 2 * Math.PI * relativePositionInTheYear
+              return {
+                'cx': radius * Math.sin(topBasedAngle),
+                'cy': -radius * Math.cos(topBasedAngle)
+              }
+            };
+
+            //Arcs (date ranges)
+
+            /*
+            aStart & aEnd are the angle start and end for the arcs
+            rStart & rEnd are the radius start and end for the arcs
+            */
+
+            spiralData.forEach(function (d) {
+
+              var [year, month, day] = d.vstart.split('-', 3)
+              var eventCoordinate = getEventCoordinate(year, month, day)
+
+              d.aStart = Math.atan2(eventCoordinate.cx, -eventCoordinate.cy);
+              d.rStart = Math.hypot(eventCoordinate.cx, eventCoordinate.cy);
+            });
+
+            spiralData.forEach(function (d) {
+
+              var [year, month, day] = d.vend.split('-', 3)
+              var eventCoordinateEnd = getEventCoordinate(year, month, day)
+
+              d.aEnd = Math.atan2(eventCoordinateEnd.cx, -eventCoordinateEnd.cy);
+              d.rEnd = Math.hypot(eventCoordinateEnd.cx, eventCoordinateEnd.cy);
+            });
+
+            // Making arcs
+
+            /* Arcs are to be split into several category types:
+                                                              For those with a date value in both 'start/vstart' and 'end/vend'
+                                                              0 -> 0 = no uncertainty, a date range
+                                                              1 -> 1 = an uncertain range for months
+                                                              2 -> 2 = an uncertain range for years
+                                                              0 -> 1 = certain date start, uncertain end over a period of a month
+                                                              0 -> 2 = certain date start, uncertain end over a period of a year
+                                                              1 -> 0 = uncertain day in month start, certain date end
+                                                              1 -> 2 = uncertain day in month start, uncertain end over a period of a year
+                                                              2 -> 0 = uncertain date start over a period of a year, certain end date
+                                                              2 -> 1 = uncertain start date over a period of a year, uncertain end over a period of a month
+                                                              And, for those with only a value in 'start/vstart'
+                                                              1 = range from 1st of month to 28th of month
+                                                              2 = range from 1st January to 31st December */
+
+            //This scale maps out the earliest date and latest dates in the data against the number of spirals - 1898 = 0 spirals & 1974 = 77 spirals (numSpirals)
+
+            var numSpiralsThetaScale = d3.scaleLinear()
+              .domain([d3.min(spiralData, function (d) {
+                return startParse(d.vstart + " 00:01AM")
+              }), d3.max(spiralData, function (d) {
+                return endParse(d.vend + " 23:59AM")
+              })])
+              .range([0, numSpirals]);
+
+            /*
+            Scale returns a value between 0 and 77: see manual test above for 24 Jan 1930 - returns '36.27049731995325' which would be from 1896 - 1930
+            min because vstart contains ealiest date and max because vend contains latest date
+            There needs be another step here: This works out this scale but it needs to then work it out for each line between vstart and vend and return a number
+            e.g. 1906-01-01 -> 1908-12-31 = 3 numSpiralsTheta (roughly) as it equals 3 years
+        
+            Using this scale numSpiralsThetaScale(d.vend) - numSpiralsThetaScale(d.vstart) -> number of spirals needed
+            */
+
+
+
+            ///////////////////search
+
+
+            let nodes = []
+            let links = []
+
+            spiralData.forEach(function (d, i) {
+
+              let peopleNodes = d.people == "" ? [] : d.people.split(";")
+              let placesNodes = d.places == "" ? [] : d.places.split(";")
+              let worksNodes = d.works == "" ? [] : d.works.split(";")
+              //let projectNodes = d.project == "" ? [] : d.project.split(";")
+              let artisticNodes = d.artistic == "" ? [] : d.artistic.split(";")
+              let additionalNodes = d.additional == "" ? [] : d.additional.split(";")
+
+              //add people to nodes
+              peopleNodes.forEach(function (D) {
+                if (nodes.filter(function (x) {
+                  return x.name == D
+                }).length == 0) {
+                  nodes.push({
+                    name: D,
+                    count: 1,
+                    category: "people"
+                  })
+                } else {
+                  nodes.filter(function (x) {
+                    return x.name == D
+                  })[0].count++
+                }
+              })
+
+
+              //add places to nodes
+              placesNodes.forEach(function (D) {
+                if (nodes.filter(function (x) {
+                  return x.name == D
+                }).length == 0) {
+                  nodes.push({
+                    name: D,
+                    count: 1,
+                    category: "places"
+                  })
+                } else {
+                  nodes.filter(function (x) {
+                    return x.name == D
+                  })[0].count++
+                }
+              })
+
+              //add works to nodes
+              worksNodes.forEach(function (D) {
+                if (nodes.filter(function (x) {
+                  return x.name == D
+                }).length == 0) {
+                  nodes.push({
+                    name: D,
+                    count: 1,
+                    category: "works"
+                  })
+                } else {
+                  nodes.filter(function (x) {
+                    return x.name == D
+                  })[0].count++
+                }
+              })
+
+              // //add project to nodes
+              // projectNodes.forEach(function(D){
+              //   if (nodes.filter(function(x){return x.name == D}).length == 0){
+              //     nodes.push({
+              //       name: D,
+              //       count: 1,
+              //       category: "project"
+              //     })
+              //   }else{
+              //     nodes.filter(function(x){return x.name == D})[0].count++
+              //   }
+              // })
+
+              //add artistic to nodes
+              artisticNodes.forEach(function (D) {
+                if (nodes.filter(function (x) {
+                  return x.name == D
+                }).length == 0) {
+                  nodes.push({
+                    name: D,
+                    count: 1,
+                    category: "artistic"
+                  })
+                } else {
+                  nodes.filter(function (x) {
+                    return x.name == D
+                  })[0].count++
+                }
+              })
+
+              //add additional to nodes
+              additionalNodes.forEach(function (D) {
+                if (nodes.filter(function (x) {
+                  return x.name == D
+                }).length == 0) {
+                  nodes.push({
+                    name: D,
+                    count: 1,
+                    category: "additional"
+                  })
+                } else {
+                  nodes.filter(function (x) {
+                    return x.name == D
+                  })[0].count++
+                }
+              })
+
+              let allNodes = [].concat(peopleNodes, placesNodes, worksNodes, artisticNodes, additionalNodes)
+
+              //create combinations of source+targets out of all "objects"
+              //https://stackoverflow.com/questions/43241174/javascript-generating-all-combinations-of-elements-in-a-single-array-in-pairs
+              allNodes.flatMap(
+                function (v, i) {
+                  return allNodes.slice(i + 1).forEach(function (w) {
+                    //  console.log( v + '+ ' + w )
+                    if (links.filter(function (D) {
+                      return (D.source == v && D.target == w) || D.source == w && D.target == v
+                    }).length == 0) {
+                      links.push({
+                        source: v,
+                        target: w,
+                        children: [{
+                          source: v,
+                          target: w,
+                          category: d.category,
+                          dateStart: new Date(d.vstart),
+                          dateEnd: new Date(d.vend),
+                          relation_source: d.title,
+                          description: d.description
+                        }],
+                      })
+                    } else {
+                      links.filter(function (D) {
+                        return (D.source == v && D.target == w) || D.source == w && D.target == v
+                      })[0].children.push({
+                        source: v,
+                        target: w,
+                        category: d.category,
+                        dateStart: new Date(d.vstart),
+                        dateEnd: new Date(d.vend),
+                        relation_source: d.title,
+                        description: d.description
+                      })
+
+                    }
+
+                  })
+                }
+              )
+
+
+
+            })
+
+            console.log(links)
+            console.log(nodes)
+
+            nodes.sort(function (a, b) {
+              return b.count - a.count;
+            })
+
+            ///////////////////search
+
+
+
+            let searchDaten = [
+              {
+                text: "People",
+                children: []
+              },
+              {
+                text: "Places",
+                children: []
+              },
+              {
+                text: "Artistic",
+                children: []
+              },
+              {
+                text: "Additional",
+                children: []
+              },
+              {
+                text: "Works",
+                children: []
+              },
+
+            ];
+
+
+            nodes.filter(function (d) { return d.category == "people" }).forEach(function (d, i) {
+              searchDaten[0].children.push(
+                {
+                  id: i,
+                  text: d.name + " (" + d.count + ")",
+                  name: d.name,
+                  category: "people",
+                  count: d.count,
+                }
+              )
+            })
+
+            nodes.filter(function (d) { return d.category == "places" }).forEach(function (d, i) {
+              searchDaten[1].children.push(
+                {
+                  id: i,
+                  text: d.name + " (" + d.count + ")",
+                  name: d.name,
+                  category: "places",
+                  count: d.count,
+                }
+              )
+            })
+
+            nodes.filter(function (d) { return d.category == "artistic" }).forEach(function (d, i) {
+              searchDaten[2].children.push(
+                {
+                  id: i,
+                  text: d.name + " (" + d.count + ")",
+                  name: d.name,
+                  category: "artistic",
+                  count: d.count,
+                }
+              )
+            })
+
+            nodes.filter(function (d) { return d.category == "additional" }).forEach(function (d, i) {
+              searchDaten[3].children.push(
+                {
+                  id: i,
+                  text: d.name + " (" + d.count + ")",
+                  name: d.name,
+                  category: "additional",
+                  count: d.count,
+                }
+              )
+            })
+
+            nodes.filter(function (d) { return d.category == "works" }).forEach(function (d, i) {
+              searchDaten[4].children.push(
+                {
+                  id: i,
+                  text: d.name + " (" + d.count + ")",
+                  name: d.name,
+                  category: "works",
+                  count: d.count,
+                }
+              )
+            })
+
+            ////search
+            $("#search").select2({
+              data: searchDaten,
+              containerCssClass: "search",
+              selectOnClose: true,
+              placeholder: "Search events keywords",
+              allowClear: true
+
+            });
+
+
+            $("#search").on("select2-selecting", function (e) {
+              console.log(e.choice.name)
+              console.log(e.choice.category)
+
+              d3.selectAll("circle").classed("filteredout", function (d) {
+                if (e.choice.category == "people") {
+                  if (d.people.includes(e.choice.name)) { return false } else { return true }
+                } else if (e.choice.category == "places") {
+                  if (d.places.includes(e.choice.name)) { return false } else { return true }
+                } else if (e.choice.category == "artistic") {
+                  if (d.artistic.includes(e.choice.name)) { return false } else { return true }
+                } else if (e.choice.category == "additional") {
+                  if (d.additional.includes(e.choice.name)) { return false } else { return true }
+                } else if (e.choice.category == "works") {
+                  if (d.works.includes(e.choice.name)) { return false } else { return true }
+                }
+              })
+
+              d3.selectAll(".pathGs").classed("filteredout", function (d) {
+                if (e.choice.category == "people") {
+                  if (d.people.includes(e.choice.name)) { return false } else { return true }
+                } else if (e.choice.category == "places") {
+                  if (d.places.includes(e.choice.name)) { return false } else { return true }
+                } else if (e.choice.category == "artistic") {
+                  if (d.artistic.includes(e.choice.name)) { return false } else { return true }
+                } else if (e.choice.category == "additional") {
+                  if (d.additional.includes(e.choice.name)) { return false } else { return true }
+                } else if (e.choice.category == "works") {
+                  if (d.works.includes(e.choice.name)) { return false } else { return true }
+                }
+              })
+
+
+            })
+
+
+            $("#search").on("select2-clearing", function (e) {
+              d3.selectAll(".pathGs").classed("filteredout", false)
+              d3.selectAll("circle").classed("filteredout", false)
+            })
+
+
+
+
+
+
+
+
+
+            //this is the code for the arcs
+
+            const pathG = svg.append("g").classed("pathG", true)
+
+            for (let i = 0; i < spiralData.length; i++) {
+
+              var endSpiralTheta = numSpiralsThetaScale(endParse(spiralData[i].vend + " 23:59AM"));
+              var startSpiralTheta = numSpiralsThetaScale(startParse(spiralData[i].vstart + " 00:01AM"))
+              var numSpiralsTheta = (endSpiralTheta - startSpiralTheta) + 0.00121369930219;
+
+              // console.log(numSpiralsThetaScale(-63205260000))
+              // console.log(numSpiralsThetaScale(-94697940000))
+
+              var radiusArc1 = d3.scaleLinear()
+                .domain([start, end])
+                .range([spiralData[i].rStart, spiralData[i].rEnd])
+
+              //console.log(radiusArc1(2))
+
+              var thetaArc = function (r) {
+                return numSpiralsTheta * Math.PI * r;
+              };
+              /*
+                      theta still needs to be used to guide the spiral but it needs to have a defined starting point for the spiral
+                      the numSpirals needs to be dynamic - based on a scale - to ascertain how much of a spiral is needs to draw between two points
+                      there also needs to be a way of adjusting the start point (the starting angle) - this is captured in 'aStart'
+                      */
+
+              var spiralArcs = d3.radialLine()
+                .curve(d3.curveCardinal)
+                .angle(thetaArc)
+                .radius(radiusArc1)
+
+              var angleStart = spiralData[i].aStart * (180 / Math.PI)
+
+              if (spiralData[i].vend != "") {
+                d3.select(".pathG").append("g").classed("pathGs", true)
+                  .datum(function () { return spiralData[i] })
+                  .append("path")
+                  .datum(points)
+                  .classed("spiralArcs", true)
+                  .attr("d", spiralArcs)
+                  // .classed("cinema", spiralData[i].category1 == true ? true : false)
+                  // .classed("biography", spiralData[i].category2 == true ? true : false)
+                  // .classed("writing", spiralData[i].category3 == true ? true : false)
+                  // .classed("graphic", spiralData[i].category4 == true ? true : false)
+                  // .classed("apartment", spiralData[i].category5 == true ? true : false)
+                  .classed("cinema", function () {
+                    if (spiralData[i].category1 == true && spiralData[i].category2 == false && spiralData[i].category3 == false) {
+                      return true;
+                    } return false;
+                  })
+                  .classed("biography", function () {
+                    if (spiralData[i].category2 == true && spiralData[i].category1 == false && spiralData[i].category3 == false) {
+                      return true;
+                    } return false;
+                  })
+                  .classed("writing", function () {
+                    if (spiralData[i].category3 == true && spiralData[i].category1 == false && spiralData[i].category2 == false) {
+                      return true;
+                    } return false;
+                  })
+                  .classed("cinebio", function () {
+                    if (spiralData[i].category1 == true && spiralData[i].category2 == true && spiralData[i].category3 == false) {
+                      return true;
+                    } return false;
+                  })
+                  .classed("biowrit", function () {
+                    if (spiralData[i].category1 == false && spiralData[i].category2 == true && spiralData[i].category3 == true) {
+                      return true;
+                    } return false;
+                  })
+                  .classed("cinewrit", function () {
+                    if (spiralData[i].category1 == true && spiralData[i].category2 == false && spiralData[i].category3 == true) {
+                      return true;
+                    } return false;
+                  })
+                  .classed("allcat", function () {
+                    if (spiralData[i].category1 == true && spiralData[i].category2 == true && spiralData[i].category3 == true) {
+                      return true;
+                    } return false;
+                  })
+                  // .attr("filter", function(){if (spiralData[i]["uncertaintystart"] == 0 && spiralData[i]["uncertaintyend"] == 0) {
+                  //     return "none"
+                  //   } else if (spiralData[i]["uncertaintystart"] == 1 && spiralData[i]["uncertaintyend"] == 1) {
+                  //     return "url(#blur)"
+                  //   } else if (spiralData[i]["uncertaintystart"] == 2 && spiralData[i]["uncertaintyend"] == 2) {
+                  //     return "url(#blur)"
+                  //   }})
+                  // .style("opacity", function () {
+                  //   if (spiralData[i]["uncertaintystart"] == 0 && spiralData[i]["uncertaintyend"] == 0) {
+                  //     return 1
+                  //   } else if (spiralData[i]["uncertaintystart"] == 1 && spiralData[i]["uncertaintyend"] == 1) {
+                  //     return 0.66
+                  //   } else if (spiralData[i]["uncertaintystart"] == 2 && spiralData[i]["uncertaintyend"] == 2) {
+                  //     return 0.33
+                  //   }
+
+                  // })
+                  .attr("opacity", 1)
+                  .attr("transform", "rotate(" + angleStart + ")");
+              }
+
+            };
+
+            const circleG = svg.append("g").classed("circleG", true)
+
+            let circles = circleG.selectAll("g")
+
+              .data(function (d) {
+                return spiralData.filter(function (d) {
+                  return d.uncertaintystart === 0 && d.end === "" && d.start.includes("/") == false && d.start.includes(",") == false && d.start != "" //took out some data points that create errors for now
+                });
+              })
+              .join("g")
+              .append("circle")
+              .classed("circles", true)
+              .classed("cinema", function (d) {
+                if (d.category1 == true && d.category2 == false && d.category3 == false) {
+                  return true;
+                } return false;
+              })
+              .classed("biography", function (d) {
+                if (d.category2 == true && d.category1 == false && d.category3 == false) {
+                  return true;
+                } return false;
+              })
+              .classed("writing", function (d) {
+                if (d.category3 == true && d.category1 == false && d.category2 == false) {
+                  return true;
+                } return false;
+              })
+              .classed("cinebio", function (d) {
+                if (d.category1 == true && d.category2 == true && d.category3 == false) {
+                  return true;
+                } return false;
+              })
+              .classed("biowrit", function (d) {
+                if (d.category1 == false && d.category2 == true && d.category3 == true) {
+                  return true;
+                } return false;
+              })
+              .classed("cinewrit", function (d) {
+                if (d.category1 == true && d.category2 == false && d.category3 == true) {
+                  return true;
+                } return false;
+              })
+              .classed("allcat", function (d) {
+                if (d.category1 == true && d.category2 == true && d.category3 == true) {
+                  return true;
+                } return false;
+              })
+              .attr("cx", function (d) {
+                let [year, month, day] = d.vstart.split('-', 3)
+                let eventCoordinate = getEventCoordinate(year, month, day)
+                return eventCoordinate.cx
+              })
+              .attr("cy", function (d) {
+                let [year, month, day] = d.vstart.split('-', 3)
+                let eventCoordinate = getEventCoordinate(year, month, day)
+                return eventCoordinate.cy
+              })
+              .attr("r", 5) // radius of circle
+              .attr("opacity", 1)
+            // .each(function (d, i) { //for each group create circles
+            //   ///create an array of all categories to iterate over this and use the nubmer of iterations for the circle radius
+            //   let localCategories = []
+            //   if (d.category1 == true) {
+            //     localCategories.push("cinema")
+            //   }
+            //   if (d.category2 == true) {
+            //     localCategories.push("biography")
+            //   }
+            //   if (d.category3 == true) {
+            //     localCategories.push("writing")
+            //   }
+            //   if (d.category4 == true) {
+            //     localCategories.push("graphic")
+            //   }
+            //   if (d.category5 == true) {
+            //     localCategories.push("apartment")
+            //   }
+
+            //   //use the array to create the circles
+            //   d3.select(this).selectAll("circle")
+            //     .data(localCategories)
+            //     .join("circle")
+            //     .classed("circle", true)
+            //     .classed("cinema", function (D) {
+            //       return D == "cinema" ? true : false
+            //     })
+            //     .classed("biography", function (D) {
+            //       return D == "biography" ? true : false
+            //     })
+            //     .classed("writing", function (D) {
+            //       return D == "writing" ? true : false
+            //     })
+            //     .classed("graphic", function (D) {
+            //       return D == "graphic" ? true : false
+            //     })
+            //     .classed("apartment", function (D) {
+            //       return D == "apartment" ? true : false
+            //     })
+            //     .attr("cx", function () {
+            //       let [year, month, day] = d.vstart.split('-', 3)
+            //       let eventCoordinate = getEventCoordinate(year, month, day)
+            //       return eventCoordinate.cx
+            //     })
+            //     .attr("cy", function () {
+            //       let [year, month, day] = d.vstart.split('-', 3)
+            //       let eventCoordinate = getEventCoordinate(year, month, day)
+            //       return eventCoordinate.cy
+            //     })
+            //     .attr("r", function (D, I) {
+            //       return 5 - 2 * I
+            //     }) // radius of circle
+            //     .attr("opacity", 1)
+            // })
+
+            //for working out the 'middle colour'
+
+            // var blueRed = d3.scaleLinear().domain([0,10])
+            //   .range(["#002fa7", "#ed563b"])
+
+            // console.log(blueRed(5))
+
+            // var blueYellow = d3.scaleLinear().domain([0,10])
+            //   .range(["#002fa7", "#fdd55c"])
+
+            // console.log(blueYellow(5))
+
+            // var yellowRed = d3.scaleLinear().domain([0,10])
+            //   .range(["#ed563b", "#fdd55c"])
+
+            // console.log(yellowRed(5))
+
+            const yearLabelG = svg.append("g").classed("yearLabelG", true)
+
+            let firstYearforLabel = 1898 //we should take this from the data with d3.min()
+            let lastYearforLabel = 1975 //we should take this from the data with d3.max()
+
+            let labelScale = d3.scaleLinear()
+              .domain([firstYearforLabel, lastYearforLabel])
+              .range([-40, -r])
+
+            for (let i = firstYearforLabel; i <= lastYearforLabel; i++) {
+              yearLabelG.append("text").text(i)
+                .classed("timeLabels", true)
+                .datum(i)
+                .attr("y", labelScale(i))
+                .style("text-anchor", "middle")
+                .attr("dy", "0.4em")
+                .style("pointer-events", "none")
+                .style("stroke", "white")
+                .style("stroke-width", 5)
+                .style("opacity", function () { if (i == firstYearforLabel || i == lastYearforLabel) { return 1 } else { return 0 } })
+
+              yearLabelG.append("text").text(i)
+                .classed("timeLabels", true)
+                .datum(i)
+                .attr("y", labelScale(i))
+                .style("text-anchor", "middle")
+                .attr("dy", "0.4em")
+                .style("pointer-events", "none")
+                .style("opacity", function () { if (i == firstYearforLabel || i == lastYearforLabel) { return 1 } else { return 0 } })
+            }
+
+            // Set of functions for html formatting in tooltip and sidebar
+
+            // htmlRenderer is a function in the form: (data) => htmlText
+            // eg. (title) => `<p class="title">${title}</p>`
+            // if data exists, it'll return the string with data inside it, otherwise it'll return an empty string
+            function conditionalReturn(data, htmlFormatter) {
+              if (data == null || data === '' || data === false) {
+                return '';
+              }
+              return htmlFormatter(data);
+            }
+
+            // function to compare content of strings and omit repeated strings
+
+            function compareDescription(d, descriptionFormat) {
+
+              let a = d.description
+
+              let b = d.title
+
+              if (a === b) {
+                return '';
+              }
+              else {
+                return descriptionFormat(d.description);
+              }
+            };
+
+            // function to replace date with optional uncertain date
+
+            function replaceTemporal(d, temporalSwap) {
+
+              let a = d.displayTemporal
+              let b = d.vdateStart
+
+              if (a == null || a === '' || a === false) {
+                return temporalSwap(b)
+              }
+              else {
+              }
+              if (a !== null || a !== '' || a !== false) {
+                return '';
+              }
+            };
+
+            //function to split keywords by comma
+
+            function stringSplit(data, keywordSplitter) {
+
+              var kws = data.split(";")
+
+              if (data == null || data === '' || data === false) {
+                return '';
+              } else {
+
+              } if (kws.length > 1) { return keywordSplitter(kws.join(", ")) }
+
+              else { return keywordSplitter(kws) }
+
+            };
+
+            //function to split images by comma
+
+
+
+            //tooltip
+            var tooltip = d3.select("body")
+              .append('div')
+              .attr('class', 'tooltip')
+              .style('display', 'none');
+
+            var sidebar = d3.select("#sidebar")
+              .append('div')
+              .attr('class', 'sidebar');
+
+            // tooltip.append('div')
+            //   .attr('class', 'date');
+
+            // tooltip.append('div')
+            //   .attr('class', 'value');
+
+            // sidebar.append('circle')
+            //   .attr('class', 'sidebar_circle')
+            //   .attr('r', 5)
+
+            ///tooltip for single day events
+            svg.selectAll(".circles")
+              .on('mousemove', function (event, d) {
+
+                // if filters are not selected then show all events
+                //display same year nodes/arcs
+                var [year, month, day] = d.vstart.split('-', 3)
+
+                d3.selectAll(".circles,.pathGs").classed("notHovered", true).classed("hovered", false)
+                d3.select(this).classed("notHovered", false).classed("hovered", true)
+
+                // d3.selectAll(".circles")
+                // .classed("hoveredYear", function(D){if(D.vstart.includes(year) == true){return true}else{ return false}})
+                // .classed("notHoveredYear", function(D){if(D.vstart.includes(year) == true){return false}else{ return true}})
+                //
+                // d3.selectAll(".pathGs")
+                // .classed("hoveredYear", function(D){if(D.vstart.includes(year) == true || D.vend.includes(year) == true){return true}else{ return false}})
+                // .classed("notHoveredYear", function(D){if(D.vstart.includes(year) == true || D.vend.includes(year) == true){return false}else{ return true}})
+
+                d3.selectAll(".timeLabels")
+                  .style("opacity", function (D) { if (D == year) { return 1 } else { return 0 } })
+
+
+
+                //tooltip
+                tooltip
+                  .style('position', 'absolute')
+                  .style('left', `${event.pageX + 5}px`)
+                  .style('top', `${event.pageY + 10}px`)
+                  .style('display', 'inline-block')
+                  .style('opacity', '0.9')
+                  .html(`
                 ${replaceTemporal(d, (vdateStart) => `<p class="date">${formatTime(d.vdateStart)}</p>`)}
                 ${conditionalReturn(d.displayTemporal, (displayTemporal) => `<p class="displayTemporal"><b>${displayTemporal}</b></p>`)}
                 <p class="tooltip-title">${d.title}</p>`);
-      })
-      .on("mouseover", function(event, d){if (soundtoggle == true){
-        if (d.category1==true){playAudio(audio1)}
-        else if(d.category2==true){playAudio(audio2)}
-        else if(d.category3==true){playAudio(audio3)}
-        else if(d.category4==true){playAudio(audio4)}
-        else if(d.category5==true){playAudio(audio5)}
-      }})
-      .on('click', function (event, d) {
-      //  if  (d3.select(this).style("stroke") != "black" && d3.select(this).style("stroke-width") != "3px") {
-          d3.selectAll(".circles,.pathGs").classed("notSelected", true).classed("selected", false)
-          d3.select(this).classed("selected", true).classed("notSelected", false)
-        // }else{
-        // d3.select(this).style("stroke", "none").style("stroke-width", "0px")
+              })
+              .on("mouseover", function (event, d) {
+                if (soundtoggle == true) {
+                  if (d.category1 == true) { playAudio(audio1) }
+                  else if (d.category2 == true) { playAudio(audio2) }
+                  else if (d.category3 == true) { playAudio(audio3) }
+                  else if (d.category4 == true) { playAudio(audio4) }
+                  else if (d.category5 == true) { playAudio(audio5) }
+                }
+              })
+              .on('click', function (event, d) {
+                //  if  (d3.select(this).style("stroke") != "black" && d3.select(this).style("stroke-width") != "3px") {
+                d3.selectAll(".circles,.pathGs").classed("notSelected", true).classed("selected", false)
+                d3.select(this).classed("selected", true).classed("notSelected", false)
+                // }else{
+                // d3.select(this).style("stroke", "none").style("stroke-width", "0px")
 
-        // make not(this) opacity 0.5 when this is clicked
-        // d3.selectAll(".circles").filter(function(D){return D != d}).style("opacity", "0.5")
+                // make not(this) opacity 0.5 when this is clicked
+                // d3.selectAll(".circles").filter(function(D){return D != d}).style("opacity", "0.5")
 
-        //display sidebar
+                //display sidebar
 
-        d3.select("#closedsidebar").style("display", "block")
-/// sidebar for single day dates
-        sidebar
-          .style('display', 'block')
-          .attr('sidebarType', '')
-          .html(`
+                d3.select("#closedsidebar").style("display", "block")
+                /// sidebar for single day dates
+                sidebar
+                  .style('display', 'block')
+                  .attr('sidebarType', '')
+                  .html(`
                 ${replaceTemporal(d, (vdateStart) => `<p class="date">${formatTime(d.vdateStart)}</p>`)}
                 ${conditionalReturn(d.displayTemporal, (displayTemporal) => `<p class="displayTemporal"><b>${displayTemporal}</b></p>`)}
                 ${conditionalReturn(d.title, (title) => `<p class="title">${title}</p>`)}
@@ -1172,64 +1174,64 @@ function stringSplit(data, keywordSplitter) {
 
                 `)
 
-      })
-      .on('mouseout', function (d) {
-        // tooltip.style('display', 'none');
-        tooltip.style('opacity', 0);
+              })
+              .on('mouseout', function (d) {
+                // tooltip.style('display', 'none');
+                tooltip.style('opacity', 0);
 
-        d3.selectAll(".circles,.pathGs").classed("notHovered", false).classed("hovered", false)
+                d3.selectAll(".circles,.pathGs").classed("notHovered", false).classed("hovered", false)
 
-      })
-/// tooltip for spans
-    svg.selectAll(".pathGs")
-      .on('mousemove', function (event, d) {
+              })
+            /// tooltip for spans
+            svg.selectAll(".pathGs")
+              .on('mousemove', function (event, d) {
 
-        //display same year nodes/arcs
-        var [year, month, day] = d.vstart.split('-', 3)
+                //display same year nodes/arcs
+                var [year, month, day] = d.vstart.split('-', 3)
 
-        // d3.selectAll(".circles")
-        // .classed("hoveredYear", function(D){if(D.vstart.includes(year) == true){return true}else{ return false}})
-        //
+                // d3.selectAll(".circles")
+                // .classed("hoveredYear", function(D){if(D.vstart.includes(year) == true){return true}else{ return false}})
+                //
 
-        // d3.selectAll(".pathGs")
-        // .classed("hoveredYear", function(D){if(D.vstart.includes(year) == true || D.vend.includes(year) == true){return true}else{ return false}})
-        //
-        d3.selectAll(".circles,.pathGs").classed("notHovered", true).classed("hovered", false)
-        d3.select(this).classed("notHovered", false).classed("hovered", true)
+                // d3.selectAll(".pathGs")
+                // .classed("hoveredYear", function(D){if(D.vstart.includes(year) == true || D.vend.includes(year) == true){return true}else{ return false}})
+                //
+                d3.selectAll(".circles,.pathGs").classed("notHovered", true).classed("hovered", false)
+                d3.select(this).classed("notHovered", false).classed("hovered", true)
 
-        d3.selectAll(".timeLabels")
-        .style("opacity", function(D){if(D == year){return 1}else{ return 0}})
+                d3.selectAll(".timeLabels")
+                  .style("opacity", function (D) { if (D == year) { return 1 } else { return 0 } })
 
 
 
-        tooltip
-          .style('position', 'absolute')
-          .style('left', `${event.pageX + 5}px`)
-          .style('top', `${event.pageY + 10}px`)
-          .style('display', 'inline-block')
-          .style('opacity', '0.9')
-          .html(`
+                tooltip
+                  .style('position', 'absolute')
+                  .style('left', `${event.pageX + 5}px`)
+                  .style('top', `${event.pageY + 10}px`)
+                  .style('display', 'inline-block')
+                  .style('opacity', '0.9')
+                  .html(`
                       ${replaceTemporal(d, (vdateStart) => `<b><p class="date">${formatTime(d.vdateStart)}</b> to <b>${formatTime(d.vdateEnd)}</b></p>`)}
                       ${conditionalReturn(d.displayTemporal, (displayTemporal) => `<p class="displayTemporal"><b>${displayTemporal}</b></p>`)}
                       <p class="tooltip-title">${d.title}</p>`);
-      })
-      .on('click', function (event, d) {
+              })
+              .on('click', function (event, d) {
 
-        // if  (d3.select(this).style("stroke-width") != "3px") {
-        //   d3.selectAll("pathGs").classed("spiralArcs")
-        //   d3.select(this).style("stroke-width", "3px")
-        // }else{
-        // d3.select(this).classed("spiralArcs")
-        // }
-        d3.selectAll(".circles,.pathGs").classed("notSelected", true).classed("selected", false)
-        d3.select(this).classed("selected", true).classed("notSelected", false)
+                // if  (d3.select(this).style("stroke-width") != "3px") {
+                //   d3.selectAll("pathGs").classed("spiralArcs")
+                //   d3.select(this).style("stroke-width", "3px")
+                // }else{
+                // d3.select(this).classed("spiralArcs")
+                // }
+                d3.selectAll(".circles,.pathGs").classed("notSelected", true).classed("selected", false)
+                d3.select(this).classed("selected", true).classed("notSelected", false)
 
-        d3.select("#closedsidebar").style("display", "block")
-/// sidebar for spans
-        sidebar
-          .style('display', 'block')
-          .attr('sidebarType', '')
-          .html(`
+                d3.select("#closedsidebar").style("display", "block")
+                /// sidebar for spans
+                sidebar
+                  .style('display', 'block')
+                  .attr('sidebarType', '')
+                  .html(`
           ${replaceTemporal(d, (vdateStart) => `<b><p class="date">${formatTime(d.vdateStart)}</b> to <b>${formatTime(d.vdateEnd)}</b></p>`)}
           ${conditionalReturn(d.displayTemporal, (displayTemporal) => `<p class="displayTemporal"><b>${displayTemporal}</b></p>`)}
           ${conditionalReturn(d.title, (title) => `<p class="title">${title}</p>`)}
@@ -1247,241 +1249,255 @@ function stringSplit(data, keywordSplitter) {
           ${conditionalReturn(d.category3, (category3) => `<span class="key-dot writing"></span>Writing and Teaching<br>`)}
           `)
 
-      })
-      .on("mouseover", function(event, d){if (soundtoggle == true){
-        if (d.category1==true){playAudio(audio1)}
-        else if(d.category2==true){playAudio(audio2)}
-        else if(d.category3==true){playAudio(audio3)}
-        else if(d.category4==true){playAudio(audio4)}
-        else if(d.category5==true){playAudio(audio5)}
-      }})
-      .on('mouseout', function (d) {
-        tooltip.style('display', 'none');
-        // tooltip.style('opacity', 0);
+              })
+              .on("mouseover", function (event, d) {
+                if (soundtoggle == true) {
+                  if (d.category1 == true) { playAudio(audio1) }
+                  else if (d.category2 == true) { playAudio(audio2) }
+                  else if (d.category3 == true) { playAudio(audio3) }
+                  else if (d.category4 == true) { playAudio(audio4) }
+                  else if (d.category5 == true) { playAudio(audio5) }
+                }
+              })
+              .on('mouseout', function (d) {
+                tooltip.style('display', 'none');
+                // tooltip.style('opacity', 0);
 
-        d3.selectAll(".circles,.pathGs").classed("notHovered", false).classed("hovered", false)
-        //.style("opacity", 1)
-        // .style('display', 'block')
+                d3.selectAll(".circles,.pathGs").classed("notHovered", false).classed("hovered", false)
+                //.style("opacity", 1)
+                // .style('display', 'block')
 
-        // d3.selectAll(".pathGs")
-        // .style("opacity", 1)
-        // .style('display', 'block')
+                // d3.selectAll(".pathGs")
+                // .style("opacity", 1)
+                // .style('display', 'block')
 
-        d3.selectAll(".timeLabels")
-        .style("opacity", function(D){if(D== firstYearforLabel || D == lastYearforLabel){return 1}else{return 0}})
-        // .style('display', function(D){if(D== firstYearforLabel || D == lastYearforLabel){return 'block'}else{return 'none'}})
+                d3.selectAll(".timeLabels")
+                  .style("opacity", function (D) { if (D == firstYearforLabel || D == lastYearforLabel) { return 1 } else { return 0 } })
+                // .style('display', function(D){if(D== firstYearforLabel || D == lastYearforLabel){return 'block'}else{return 'none'}})
 
-      });
+              });
 
-      //closes sidebar using 'x'
+            //closes sidebar using 'x'
 
-      d3.selectAll("#closedsidebar")
-        .on('click', function (d) {
+            d3.selectAll("#closedsidebar")
+              .on('click', function (d) {
 
-          d3.select(".sidebar")
-            .style("display", "none")
+                d3.select(".sidebar")
+                  .style("display", "none")
 
-          d3.selectAll(".circles,.pathGs").classed("selected", false).classed("notSelected", false)
-          
-          d3.select("#closedsidebar").style("display", "none")
+                d3.selectAll(".circles,.pathGs").classed("selected", false).classed("notSelected", false)
 
-        });
+                d3.select("#closedsidebar").style("display", "none")
 
-
-      ///filters
-
-      d3.select("#soundcheckbox").on('change', function() {
-        soundtoggle = !soundtoggle
-      });
-
-      d3.select("#uncertaintycheckbox").on('change', function() {
-        uncertaintytoggle = !uncertaintytoggle
-        if(uncertaintytoggle == true){
-          d3.selectAll(".pathGs").filter(function(d){
-            return d.uncertaintystart == 1 && d.uncertaintyend ==1 })
-          .attr("filter", "url(#blur)")
-
-          d3.selectAll(".pathGs").filter(function(d){
-            return d.uncertaintystart == 2 && d.uncertaintyend == 2 })
-          .attr("filter", "url(#blur2)")
-        }else{
-          d3.selectAll(".pathGs").filter(function(d){
-            return d.uncertaintystart == 2 && d.uncertaintyend == 2 })
-          .attr("filter", null)
-        }
+              });
 
 
-      });
+            ///filters
+
+            d3.select("#soundcheckbox").on('change', function () {
+              if (soundtoggle) {
+                soundtoggle = !soundtoggle;
+                Tone.Transport.stop();
+              }
+              else if (!soundtoggle) {
+                soundtoggle = !soundtoggle;
+                Tone.Transport.start();
+              }
+            });
+
+            d3.select("#uncertaintycheckbox").on('change', function () {
+              uncertaintytoggle = !uncertaintytoggle
+              if (uncertaintytoggle == true) {
+                d3.selectAll(".pathGs").filter(function (d) {
+                  return d.uncertaintystart == 1 && d.uncertaintyend == 1
+                })
+                  .attr("filter", "url(#blur)")
+
+                d3.selectAll(".pathGs").filter(function (d) {
+                  return d.uncertaintystart == 2 && d.uncertaintyend == 2
+                })
+                  .attr("filter", "url(#blur2)")
+              } else {
+                d3.selectAll(".pathGs").filter(function (d) {
+                  return d.uncertaintystart == 2 && d.uncertaintyend == 2
+                })
+                  .attr("filter", null)
+              }
 
 
-// filters for 'highlights'
-
-// d3.select the <p class=> that is clicked on in the 'highlights' div class
+            });
 
 
-d3.selectAll(".highlights p")
-.on("click", function(d,i) {
-  if (d3.select(this).style("font-weight") != "bold") {
-    d3.selectAll(".highlights p").style("font-weight", 400)
-    d3.select(this).style("font-weight", "bold")
-    let selectedIdentifier = d3.select(this).attr("class") // get the class of the p tag that was clicked on
+            // filters for 'highlights'
 
-    d3.selectAll(".circles,.pathGs").filter(function(X,Y){return highlightsData.filter(function(D){return D.identifier ==  selectedIdentifier})[0].events.includes(X.Event_ID) == true
-  }).classed("catFilteredOut", false)
-    d3.selectAll(".circles,.pathGs").filter(function(X,Y){return highlightsData.filter(function(D){return D.identifier ==  selectedIdentifier})[0].events.includes(X.Event_ID) == false
-  }).classed("catFilteredOut", true)
+            // d3.select the <p class=> that is clicked on in the 'highlights' div class
 
-  d3.selectAll(".filter,.allfilter").style("font-weight", 400)
 
-    d3.select("#closedsidebar").style("display", "block")
+            d3.selectAll(".highlights p")
+              .on("click", function (d, i) {
+                if (d3.select(this).style("font-weight") != "bold") {
+                  d3.selectAll(".highlights p").style("font-weight", 400)
+                  d3.select(this).style("font-weight", "bold")
+                  let selectedIdentifier = d3.select(this).attr("class") // get the class of the p tag that was clicked on
 
-/// sidebar for spans
-sidebar
-.html(`
-<h1 class="highlightsName">${highlightsData.filter(function(D){return D.identifier ==  selectedIdentifier})[0].name}</h1>
-<p class="highlightsImage"><img src="images/objects/${highlightsData.filter(function(D){return D.identifier ==  selectedIdentifier})[0].identifier}.png" alt="${highlightsData.filter(function(D){return D.identifier ==  selectedIdentifier})[0].identifier}" width = "50%" height = "auto" class="image"></p>
-<p class="highlightsSubtitle">${highlightsData.filter(function(D){return D.identifier ==  selectedIdentifier})[0].subtitle}</p>
-<p class="highlightsDescription">${highlightsData.filter(function(D){return D.identifier ==  selectedIdentifier})[0].description}</p>
-<p class="highlightsDate">${highlightsData.filter(function(D){return D.identifier ==  selectedIdentifier})[0].date}</p>
-<p class="highlightsLink"><a href="${highlightsData.filter(function(D){return D.identifier ==  selectedIdentifier})[0].links}" target="_blank">${highlightsData.filter(function(D){return D.identifier ==  selectedIdentifier})[0].links}</a></p>
+                  d3.selectAll(".circles,.pathGs").filter(function (X, Y) {
+                    return highlightsData.filter(function (D) { return D.identifier == selectedIdentifier })[0].events.includes(X.Event_ID) == true
+                  }).classed("catFilteredOut", false)
+                  d3.selectAll(".circles,.pathGs").filter(function (X, Y) {
+                    return highlightsData.filter(function (D) { return D.identifier == selectedIdentifier })[0].events.includes(X.Event_ID) == false
+                  }).classed("catFilteredOut", true)
+
+                  d3.selectAll(".filter,.allfilter").style("font-weight", 400)
+
+                  d3.select("#closedsidebar").style("display", "block")
+
+                  /// sidebar for spans
+                  sidebar
+                    .html(`
+<h1 class="highlightsName">${highlightsData.filter(function (D) { return D.identifier == selectedIdentifier })[0].name}</h1>
+<p class="highlightsImage"><img src="images/objects/${highlightsData.filter(function (D) { return D.identifier == selectedIdentifier })[0].identifier}.png" alt="${highlightsData.filter(function (D) { return D.identifier == selectedIdentifier })[0].identifier}" width = "50%" height = "auto" class="image"></p>
+<p class="highlightsSubtitle">${highlightsData.filter(function (D) { return D.identifier == selectedIdentifier })[0].subtitle}</p>
+<p class="highlightsDescription">${highlightsData.filter(function (D) { return D.identifier == selectedIdentifier })[0].description}</p>
+<p class="highlightsDate">${highlightsData.filter(function (D) { return D.identifier == selectedIdentifier })[0].date}</p>
+<p class="highlightsLink"><a href="${highlightsData.filter(function (D) { return D.identifier == selectedIdentifier })[0].links}" target="_blank">${highlightsData.filter(function (D) { return D.identifier == selectedIdentifier })[0].links}</a></p>
 
 `)
-.style('display', 'block')
-.attr('sidebarType', 'highlights')
-  } else {
-    d3.select(this).style("font-weight", 400)
-    d3.selectAll(".circles,.pathGs").classed("catFilteredOut", false)
-  }
-})
-d3.selectAll("#closedsidebar")
-      .on('click', function (d) {
+                    .style('display', 'block')
+                    .attr('sidebarType', 'highlights')
+                } else {
+                  d3.select(this).style("font-weight", 400)
+                  d3.selectAll(".circles,.pathGs").classed("catFilteredOut", false)
+                }
+              })
+            d3.selectAll("#closedsidebar")
+              .on('click', function (d) {
 
-        d3.select(".sidebar")
-          .style("display", "none")
+                d3.select(".sidebar")
+                  .style("display", "none")
 
-          d3.selectAll(".circles,.pathGs").classed("catFilteredOut", false)
+                d3.selectAll(".circles,.pathGs").classed("catFilteredOut", false)
 
-          d3.selectAll(".highlights p").style("font-weight", 400)
-          d3.select("#closedsidebar").style("display", "none")
+                d3.selectAll(".highlights p").style("font-weight", 400)
+                d3.select("#closedsidebar").style("display", "none")
 
 
+              })
+
+            // if (d3.select(".highlights p").style("font-weight") != "bold") {
+
+            //if highlights are selected then don't do this
+
+
+            d3.select(".f_c").on("click", function () {
+              if (d3.select(this).style("font-weight") != "bold") {
+                d3.selectAll(".filter").style("font-weight", 400)
+                d3.select(this).style("font-weight", "bold")
+
+                d3.selectAll(".circles,.pathGs").filter(function (d) { return d.category.includes("Cinema") || d.category.includes("Graphic") }).classed("catFilteredOut", false)
+                d3.selectAll(".circles,.pathGs").filter(function (d) { return d.category.includes("Cinema") == false && d.category.includes("Graphic") == false }).classed("catFilteredOut", true)
+
+              } else {
+                d3.select(this).style("font-weight", 400)
+                d3.selectAll(".circles,.pathGs").classed("catFilteredOut", false)
+
+              }
+
+            })
+
+            d3.select(".f_b").on("click", function () {
+              if (d3.select(this).style("font-weight") != "bold") {
+                d3.selectAll(".filter").style("font-weight", 400)
+                d3.select(this).style("font-weight", "bold")
+                d3.selectAll(".circles,.pathGs").filter(function (d) { return d.category.includes("Biography") || d.category.includes("Apartment") }).classed("catFilteredOut", false)
+                d3.selectAll(".circles,.pathGs").filter(function (d) { return d.category.includes("Biography") == false && d.category.includes("Apartment") == false }).classed("catFilteredOut", true)
+
+              } else {
+                d3.select(this).style("font-weight", 400)
+                d3.selectAll(".circles,.pathGs").classed("catFilteredOut", false)
+              }
+            })
+
+            d3.select(".f_w").on("click", function () {
+
+              if (d3.select(this).style("font-weight") != "bold") {
+                d3.selectAll(".filter").style("font-weight", 400)
+                d3.select(this).style("font-weight", "bold")
+                d3.selectAll(".circles,.pathGs").filter(function (d) { return d.category.includes("Writing") }).classed("catFilteredOut", false)
+                d3.selectAll(".circles,.pathGs").filter(function (d) { return d.category.includes("Writing") == false }).classed("catFilteredOut", true)
+              } else {
+                d3.select(this).style("font-weight", 400)
+                d3.selectAll(".circles,.pathGs").classed("catFilteredOut", false)
+              }
+            })
+
+            // d3.select(".f_cw").on("click", function() {
+            //   if (d3.select(this).style("font-weight") != "bold" && d3.select(".highlights p").style("font-weight") != "bold") {
+            //     d3.selectAll(".filter").style("font-weight", 400)
+            //     d3.select(this).style("font-weight", "bold")
+            //     d3.selectAll("circle.cinewrit").transition().style("display", "block")
+            //     d3.selectAll("circle:not(.cinewrit)").transition().style("display", "none")
+            //     d3.selectAll(".pathG").selectAll("path.cinewrit").transition().style("display", "block")
+            //     d3.selectAll(".pathG").selectAll("path:not(.cinewrit)").transition().style("display", "none")
+            //   } else {
+            //     d3.select(this).style("font-weight", 400)
+            //     d3.selectAll("circle").transition().style("display", "block")
+            //     d3.selectAll(".pathG").selectAll("path").transition().style("display", "block")
+            //   }
+            // })
+
+            // d3.select(".f_cb").on("click", function() {
+            //   if (d3.select(this).style("font-weight") != "bold" && d3.select(".highlights p").style("font-weight") != "bold") {
+            //     d3.selectAll(".filter").style("font-weight", 400)
+            //     d3.select(this).style("font-weight", "bold")
+            //     d3.selectAll("circle.cinebio").transition().style("display", "block")
+            //     d3.selectAll("circle:not(.cinebio)").transition().style("display", "none")
+            //     d3.selectAll(".pathG").selectAll("path.cinebio").transition().style("display", "block")
+            //     d3.selectAll(".pathG").selectAll("path:not(.cinebio)").transition().style("display", "none")
+            //   } else {
+            //     d3.select(this).style("font-weight", 400)
+            //     d3.selectAll("circle").transition().style("display", "block")
+            //     d3.selectAll(".pathG").selectAll("path").transition().style("display", "block")
+            //   }
+            // })
+
+            // d3.select(".f_wb").on("click", function() {
+            //   if (d3.select(this).style("font-weight") != "bold" && d3.select(".highlights p").style("font-weight") != "bold") {
+            //     d3.selectAll(".filter").style("font-weight", 400)
+            //     d3.select(this).style("font-weight", "bold")
+            //     d3.selectAll("circle.biowrit").transition().style("display", "block")
+            //     d3.selectAll("circle:not(.biowrit)").transition().style("display", "none")
+            //     d3.selectAll(".pathG").selectAll("path.biowrit").transition().style("display", "block")
+            //     d3.selectAll(".pathG").selectAll("path:not(.apartment)").transition().style("display", "none")
+            //   } else {
+            //     d3.select(this).style("font-weight", 400)
+            //     d3.selectAll("circle").transition().style("display", "block")
+            //     d3.selectAll(".pathG").selectAll("path").transition().style("display", "block")
+            //   }
+            // })
+
+            ///filter for multiple categories: deactivated
+            // d3.select(".f_ac").on("click", function() {
+            //   if (d3.select(this).style("font-weight") != "bold" && d3.select(".highlights p").style("font-weight") != "bold") {
+            //     d3.selectAll(".filter").style("font-weight", 400)
+            //     d3.select(this).style("font-weight", "bold")
+            //     d3.selectAll("circle.allacat").transition().style("display", "block")
+            //     d3.selectAll("circle:not(.allcat)").transition().style("display", "none")
+            //     d3.selectAll(".pathG").selectAll("path.allcat").transition().style("display", "block")
+            //     d3.selectAll(".pathG").selectAll("path:not(.allcat)").transition().style("display", "none")
+            //   } else {
+            //     d3.select(this).style("font-weight", 400)
+            //     d3.selectAll("circle").transition().style("display", "block")
+            //     d3.selectAll(".pathG").selectAll("path").transition().style("display", "block")
+            //   }
+            // })
+
+            // }
+
+
+
+            // concluding } for the csv promises
+
+          })
       })
 
-      // if (d3.select(".highlights p").style("font-weight") != "bold") {
-
-      //if highlights are selected then don't do this
-
-
-        d3.select(".f_c").on("click", function() {
-          if (d3.select(this).style("font-weight") != "bold") {
-            d3.selectAll(".filter").style("font-weight", 400)
-            d3.select(this).style("font-weight", "bold")
-
-            d3.selectAll(".circles,.pathGs").filter(function(d){return d.category.includes("Cinema") || d.category.includes("Graphic")}).classed("catFilteredOut", false)
-            d3.selectAll(".circles,.pathGs").filter(function(d){return d.category.includes("Cinema") == false && d.category.includes("Graphic") == false}).classed("catFilteredOut", true)
-
-          } else {
-            d3.select(this).style("font-weight", 400)
-            d3.selectAll(".circles,.pathGs").classed("catFilteredOut", false)
-
-          }
-
-        })
-
-        d3.select(".f_b").on("click", function() {
-          if (d3.select(this).style("font-weight") != "bold") {
-            d3.selectAll(".filter").style("font-weight", 400)
-            d3.select(this).style("font-weight", "bold")
-            d3.selectAll(".circles,.pathGs").filter(function(d){return d.category.includes("Biography") || d.category.includes("Apartment")}).classed("catFilteredOut", false)
-            d3.selectAll(".circles,.pathGs").filter(function(d){return d.category.includes("Biography") == false && d.category.includes("Apartment") == false }).classed("catFilteredOut", true)
-
-          } else {
-            d3.select(this).style("font-weight", 400)
-            d3.selectAll(".circles,.pathGs").classed("catFilteredOut", false)
-          }
-        })
-
-        d3.select(".f_w").on("click", function() {
-
-          if (d3.select(this).style("font-weight") != "bold") {
-            d3.selectAll(".filter").style("font-weight", 400)
-            d3.select(this).style("font-weight", "bold")
-            d3.selectAll(".circles,.pathGs").filter(function(d){return d.category.includes("Writing")}).classed("catFilteredOut", false)
-            d3.selectAll(".circles,.pathGs").filter(function(d){return d.category.includes("Writing") == false}).classed("catFilteredOut", true)
-          } else {
-            d3.select(this).style("font-weight", 400)
-            d3.selectAll(".circles,.pathGs").classed("catFilteredOut", false)
-          }
-        })
-
-        // d3.select(".f_cw").on("click", function() {
-        //   if (d3.select(this).style("font-weight") != "bold" && d3.select(".highlights p").style("font-weight") != "bold") {
-        //     d3.selectAll(".filter").style("font-weight", 400)
-        //     d3.select(this).style("font-weight", "bold")
-        //     d3.selectAll("circle.cinewrit").transition().style("display", "block")
-        //     d3.selectAll("circle:not(.cinewrit)").transition().style("display", "none")
-        //     d3.selectAll(".pathG").selectAll("path.cinewrit").transition().style("display", "block")
-        //     d3.selectAll(".pathG").selectAll("path:not(.cinewrit)").transition().style("display", "none")
-        //   } else {
-        //     d3.select(this).style("font-weight", 400)
-        //     d3.selectAll("circle").transition().style("display", "block")
-        //     d3.selectAll(".pathG").selectAll("path").transition().style("display", "block")
-        //   }
-        // })
-
-        // d3.select(".f_cb").on("click", function() {
-        //   if (d3.select(this).style("font-weight") != "bold" && d3.select(".highlights p").style("font-weight") != "bold") {
-        //     d3.selectAll(".filter").style("font-weight", 400)
-        //     d3.select(this).style("font-weight", "bold")
-        //     d3.selectAll("circle.cinebio").transition().style("display", "block")
-        //     d3.selectAll("circle:not(.cinebio)").transition().style("display", "none")
-        //     d3.selectAll(".pathG").selectAll("path.cinebio").transition().style("display", "block")
-        //     d3.selectAll(".pathG").selectAll("path:not(.cinebio)").transition().style("display", "none")
-        //   } else {
-        //     d3.select(this).style("font-weight", 400)
-        //     d3.selectAll("circle").transition().style("display", "block")
-        //     d3.selectAll(".pathG").selectAll("path").transition().style("display", "block")
-        //   }
-        // })
-
-        // d3.select(".f_wb").on("click", function() {
-        //   if (d3.select(this).style("font-weight") != "bold" && d3.select(".highlights p").style("font-weight") != "bold") {
-        //     d3.selectAll(".filter").style("font-weight", 400)
-        //     d3.select(this).style("font-weight", "bold")
-        //     d3.selectAll("circle.biowrit").transition().style("display", "block")
-        //     d3.selectAll("circle:not(.biowrit)").transition().style("display", "none")
-        //     d3.selectAll(".pathG").selectAll("path.biowrit").transition().style("display", "block")
-        //     d3.selectAll(".pathG").selectAll("path:not(.apartment)").transition().style("display", "none")
-        //   } else {
-        //     d3.select(this).style("font-weight", 400)
-        //     d3.selectAll("circle").transition().style("display", "block")
-        //     d3.selectAll(".pathG").selectAll("path").transition().style("display", "block")
-        //   }
-        // })
-
-        ///filter for multiple categories: deactivated
-        // d3.select(".f_ac").on("click", function() {
-        //   if (d3.select(this).style("font-weight") != "bold" && d3.select(".highlights p").style("font-weight") != "bold") {
-        //     d3.selectAll(".filter").style("font-weight", 400)
-        //     d3.select(this).style("font-weight", "bold")
-        //     d3.selectAll("circle.allacat").transition().style("display", "block")
-        //     d3.selectAll("circle:not(.allcat)").transition().style("display", "none")
-        //     d3.selectAll(".pathG").selectAll("path.allcat").transition().style("display", "block")
-        //     d3.selectAll(".pathG").selectAll("path:not(.allcat)").transition().style("display", "none")
-        //   } else {
-        //     d3.select(this).style("font-weight", 400)
-        //     d3.selectAll("circle").transition().style("display", "block")
-        //     d3.selectAll(".pathG").selectAll("path").transition().style("display", "block")
-        //   }
-        // })
-
-      // }
-
-
-
-// concluding } for the csv promises
-
-      })
-    })
-
-})
+  })
