@@ -1281,11 +1281,9 @@ function stringSplit(data, keywordSplitter) {
           d3.select(".sidebar")
             .style("display", "none")
 
-          d3.selectAll(".circles,.pathGs").classed("selected", false).classed("notSelected", true)
+          d3.selectAll(".circles,.pathGs").classed("selected", false).classed("notSelected", false)
           
           d3.select("#closedsidebar").style("display", "none")
-
-          
 
         });
 
