@@ -1281,7 +1281,11 @@ function stringSplit(data, keywordSplitter) {
           d3.select(".sidebar")
             .style("display", "none")
 
+          d3.selectAll(".circles,.pathGs").classed("selected", false).classed("notSelected", true)
+          
           d3.select("#closedsidebar").style("display", "none")
+
+          
 
         });
 
@@ -1310,7 +1314,6 @@ function stringSplit(data, keywordSplitter) {
 
 
       });
-
 
 
 // filters for 'highlights'
@@ -1367,6 +1370,9 @@ d3.selectAll("#closedsidebar")
       })
 
       // if (d3.select(".highlights p").style("font-weight") != "bold") {
+
+      //if highlights are selected then don't do this
+
 
         d3.select(".f_c").on("click", function() {
           if (d3.select(this).style("font-weight") != "bold") {
