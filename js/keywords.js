@@ -443,7 +443,9 @@ function stringSplit(data, keywordSplitter) {
     if(d.length >= 20){return d.slice(0, 20) + "[…]"}
     else{return d}}) 
   .attr("x", 320)
-  .attr("y", function(d,i){return 10+i*20})
+  .attr("y", function(d,i){return 10+i*20+3})
+  .attr("font-size", "12px")
+  .attr("text-weight", 400)
   .style("text-anchor", "end")
   .classed("keyword", true)
   .classed("people", function (d) {if (keywordsData.filter(function(D){return D.people == d}).length > 0) {return true} else {return false}})
@@ -1066,13 +1068,22 @@ d3.select('input[value="alphabetical"]').on('change', function() {
     .classed("artistic", function (d) {if (keywordsData.filter(function(D){return D.artistic == d}).length > 0) {return true} else {return false}})
     .classed("additional", function (d) {if (keywordsData.filter(function(D){return D.additional == d}).length > 0) {return true} else {return false}})
 
-timelinesG.append("text")
-.text(function(d){
-if(d.length >= 20){return d.slice(0, 20) + "[…]"}
-else{return d}}) 
-.attr("x", 320)
-.attr("y", function(d,i){return 10+i*20})
-.style("text-anchor", "end")
+    timelinesG.append("text")
+    .text(function(d){
+      if(d.length >= 20){return d.slice(0, 20) + "[…]"}
+      else{return d}}) 
+    .attr("x", 320)
+    .attr("y", function(d,i){return 10+i*20+3})
+    .attr("font-size", "12px")
+    .attr("text-weight", 400)
+    .style("text-anchor", "end")
+    .classed("keyword", true)
+    .classed("people", function (d) {if (keywordsData.filter(function(D){return D.people == d}).length > 0) {return true} else {return false}})
+    .classed("places", function (d) {if (keywordsData.filter(function(D){return D.places == d}).length > 0) {return true} else {return false}})
+    .classed("works", function (d) {if (keywordsData.filter(function(D){return D.works == d}).length > 0) {return true} else {return false}})
+    .classed("artistic", function (d) {if (keywordsData.filter(function(D){return D.artistic == d}).length > 0) {return true} else {return false}})
+    .classed("additional", function (d) {if (keywordsData.filter(function(D){return D.additional == d}).length > 0) {return true} else {return false}})
+  
 
 timelinesG.append("line")
 .attr("x1", 350)  //start of timeline
@@ -1405,13 +1416,22 @@ d3.select('input[value="temporal"]').on('change', function() {
     .classed("artistic", function (d) {if (keywordsData.filter(function(D){return D.artistic == d}).length > 0) {return true} else {return false}})
     .classed("additional", function (d) {if (keywordsData.filter(function(D){return D.additional == d}).length > 0) {return true} else {return false}})
 
-timelinesG.append("text")
-.text(function(d){
-if(d.length >= 20){return d.slice(0, 20) + "[…]"}
-else{return d}}) 
-.attr("x", 320)
-.attr("y", function(d,i){return 10+i*20})
-.style("text-anchor", "end")
+    timelinesG.append("text")
+    .text(function(d){
+      if(d.length >= 20){return d.slice(0, 20) + "[…]"}
+      else{return d}}) 
+    .attr("x", 320)
+    .attr("y", function(d,i){return 10+i*20+3})
+    .attr("font-size", "12px")
+    .attr("text-weight", 400)
+    .style("text-anchor", "end")
+    .classed("keyword", true)
+    .classed("people", function (d) {if (keywordsData.filter(function(D){return D.people == d}).length > 0) {return true} else {return false}})
+    .classed("places", function (d) {if (keywordsData.filter(function(D){return D.places == d}).length > 0) {return true} else {return false}})
+    .classed("works", function (d) {if (keywordsData.filter(function(D){return D.works == d}).length > 0) {return true} else {return false}})
+    .classed("artistic", function (d) {if (keywordsData.filter(function(D){return D.artistic == d}).length > 0) {return true} else {return false}})
+    .classed("additional", function (d) {if (keywordsData.filter(function(D){return D.additional == d}).length > 0) {return true} else {return false}})
+  
 
 timelinesG.append("line")
 .attr("x1", 350)  //start of timeline
@@ -1744,13 +1764,22 @@ d3.select('input[value="frequency"]').on('change', function() {
       .classed("artistic", function (d) {if (keywordsData.filter(function(D){return D.artistic == d}).length > 0) {return true} else {return false}})
       .classed("additional", function (d) {if (keywordsData.filter(function(D){return D.additional == d}).length > 0) {return true} else {return false}})
   
-  timelinesG.append("text")
-  .text(function(d){
-  if(d.length >= 20){return d.slice(0, 20) + "[…]"}
-  else{return d}}) 
-  .attr("x", 320)
-  .attr("y", function(d,i){return 10+i*20})
-  .style("text-anchor", "end")
+      timelinesG.append("text")
+      .text(function(d){
+        if(d.length >= 20){return d.slice(0, 20) + "[…]"}
+        else{return d}}) 
+      .attr("x", 320)
+      .attr("y", function(d,i){return 10+i*20+3})
+      .attr("font-size", "12px")
+      .attr("text-weight", 400)
+      .style("text-anchor", "end")
+      .classed("keyword", true)
+      .classed("people", function (d) {if (keywordsData.filter(function(D){return D.people == d}).length > 0) {return true} else {return false}})
+      .classed("places", function (d) {if (keywordsData.filter(function(D){return D.places == d}).length > 0) {return true} else {return false}})
+      .classed("works", function (d) {if (keywordsData.filter(function(D){return D.works == d}).length > 0) {return true} else {return false}})
+      .classed("artistic", function (d) {if (keywordsData.filter(function(D){return D.artistic == d}).length > 0) {return true} else {return false}})
+      .classed("additional", function (d) {if (keywordsData.filter(function(D){return D.additional == d}).length > 0) {return true} else {return false}})
+    
   
   timelinesG.append("line")
   .attr("x1", 350)  //start of timeline
@@ -2119,51 +2148,6 @@ d3.select(".f_w").on("click", function() {
     d3.selectAll(".timelineLines").classed("catFilteredOut", false)
   }
 })
-
-// d3.select(".f_cw").on("click", function() {
-//   if (d3.select(this).style("font-weight") != "bold") {
-//     d3.selectAll(".filter").style("font-weight", 400)
-//     d3.select(this).style("font-weight", "bold")
-//     d3.selectAll("circle.cinewrit").transition().style("opacity", "1")
-//     d3.selectAll("circle:not(.cinewrit)").transition().style("opacity", "0")
-//     d3.selectAll(".timelineLines").filter(".cinewrit").transition().style("opacity", "1")
-//     d3.selectAll(".timelineLines").filter(":not(.cinewrit)").transition().style("opacity", "0")
-//   } else {
-//     d3.select(this).style("font-weight", 400)
-//     d3.selectAll("circle").transition().style("opacity", "1")
-//     d3.selectAll(".timelineLines").transition().style("opacity", "1")
-//   }
-// })
-
-// d3.select(".f_cb").on("click", function() {
-//   if (d3.select(this).style("font-weight") != "bold") {
-//     d3.selectAll(".filter").style("font-weight", 400)
-//     d3.select(this).style("font-weight", "bold")
-//     d3.selectAll("circle.cinebio").transition().style("opacity", "1")
-//     d3.selectAll("circle:not(.cinebio)").transition().style("opacity", "0")
-//     d3.selectAll(".timelineLines").filter(".cinebio").transition().style("opacity", "1")
-//     d3.selectAll(".timelineLines").filter(":not(.cinebio)").transition().style("opacity", "0")
-//   } else {
-//     d3.select(this).style("font-weight", 400)
-//     d3.selectAll("circle").transition().style("opacity", "1")
-//     d3.selectAll(".timelineLines").transition().style("opacity", "1")
-//   }
-// })
-
-// d3.select(".f_wb").on("click", function() {
-//   if (d3.select(this).style("font-weight") != "bold") {
-//     d3.selectAll(".filter").style("font-weight", 400)
-//     d3.select(this).style("font-weight", "bold")
-//     d3.selectAll("circle.biowrit").transition().style("opacity", "1")
-//     d3.selectAll("circle:not(.biowrit)").transition().style("opacity", "0")
-//     d3.selectAll(".timelineLines").filter(".biowrit").transition().style("opacity", "1")
-//     d3.selectAll(".timelineLines").filter(":not(.apartment)").transition().style("opacity", "0")
-//   } else {
-//     d3.select(this).style("font-weight", 400)
-//     d3.selectAll("circle").transition().style("opacity", "1")
-//     d3.selectAll(".timelineLines").transition().style("opacity", "1")
-//   }
-// })
 
 d3.select(".f_ac").on("click", function() {
   if (d3.select(this).style("font-weight") != "bold") {
