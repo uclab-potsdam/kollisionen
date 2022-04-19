@@ -1,5 +1,6 @@
 var url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvSLkjHvHlPjWLy3ec4UT9AsFsyTy2rbsjKquZgmhCqbsTZ4TLAnWv28Y3PnR/pub?gid=1387341329&single=true&output=csv'
-// url = './minimal.csv' //local backup
+var urlHighlights = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT3XiwLUS9uF0SIvV0QOOTGJv5FY077vEEIiShwtJkEcxDC-Dghp9JEycZxNDAplPetp73-ssUqZ8dv/pub?gid=0&single=true&output=csv'
+
 
 const width = window.innerWidth
 const height = window.innerHeight
@@ -59,10 +60,24 @@ let labelG = networkG.append("g").attr("class", "labelG")
 
 ///load data and preprocessing- metadataschema
 Promise.all([
-    d3.csv(url), //data
+    d3.csv(url),
+    d3.csv(urlHighlights) //data
   ])
-  .then(([networkData]) => {
+  .then(([networkData, highlightsData]) => {
     console.log(networkData)
+    console.log(highlightsData)
+
+    //create a p class for each of the 'identifier's and insert into into the div class="highlights" in index.html
+
+    for (let i = 0; i < highlightsData.length; i++) {
+      let identifier = highlightsData[i]["identifier"];
+      let text = highlightsData[i]["name"];
+      let p = document.createElement("p");
+      p.className = identifier;
+      p.innerHTML = text;
+      document.getElementsByClassName("highlights")[0].appendChild(p);
+    }
+
 
     for (let i = 0; i < networkData.length; i++) {
       networkData[i]["vstart"] = networkData[i]["start"];
@@ -167,6 +182,7 @@ Promise.all([
     });
 
     console.log(networkData)
+
 
     let nodes = []
     let links = []
@@ -459,7 +475,59 @@ $("#search").select2({
   })
 
 
+  d3.select(".f_c").on("click", function () {
+    if (d3.select(this).style("font-weight") != "bold") {
+      d3.selectAll(".filter").style("font-weight", 400)
+      d3.select(this).style("font-weight", "bold")
 
+
+      d3.select("#eventList").selectAll("li").style("display", function(d){
+        if(d.category.includes("Cinema") || d.category.includes("Graphic")){return "block"}else{return "none"}})
+        .classed("filteredin", function(d){
+          if(d.category.includes("Cinema") || d.category.includes("Graphic")){return true}else{return false}})
+
+    } else {
+      d3.select(this).style("font-weight", 400)
+      d3.select("#eventList").selectAll("li").style("display", "block").classed("filteredin", true)
+    }
+itemSelection()
+  })
+
+
+  d3.select(".f_b").on("click", function () {
+    if (d3.select(this).style("font-weight") != "bold") {
+      d3.selectAll(".filter").style("font-weight", 400)
+      d3.select(this).style("font-weight", "bold")
+
+      d3.select("#eventList").selectAll("li").style("display", function(d){
+        if(d.category.includes("Biography") || d.category.includes("Apartment")){return "block"}else{return "none"}})
+        .classed("filteredin", function(d){
+          if(d.category.includes("Biography") || d.category.includes("Apartment")){return true}else{return false}})
+
+    } else {
+      d3.select(this).style("font-weight", 400)
+      d3.select("#eventList").selectAll("li").style("display", "block").classed("filteredin", true)
+    }
+    itemSelection()
+  })
+
+  d3.select(".f_w").on("click", function () {
+
+    if (d3.select(this).style("font-weight") != "bold") {
+      d3.selectAll(".filter").style("font-weight", 400)
+      d3.select(this).style("font-weight", "bold")
+
+      d3.select("#eventList").selectAll("li").style("display", function(d){
+        if(d.category.includes("Writing")){return "block"}else{return "none"}})
+        .classed("filteredin", function(d){
+          if(d.category.includes("Writing")){return true}else{return false}})
+
+          } else {
+      d3.select(this).style("font-weight", 400)
+      d3.select("#eventList").selectAll("li").style("display", "block").classed("filteredin", true)
+    }
+    itemSelection()
+  })
 
 
 
@@ -502,7 +570,7 @@ $("#search").select2({
       })
       .style("opacity", 0.2)
       .on("click", function(event, d, i) {
-        unfoldingEdges(d, i)
+      //  unfoldingEdges(d, i)
       })
 
 
