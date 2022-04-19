@@ -626,6 +626,10 @@ input:checked + .slider:before {
   /* opacity:0.05; */
 }
 
+.entFilteredOut {
+  font-weight: bold;
+}
+
 .hoveredYear{
   opacity:1;
 }

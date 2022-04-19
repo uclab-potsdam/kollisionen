@@ -466,6 +466,28 @@ function stringSplit(data, keywordSplitter) {
   .style("opacity", 0.05)
   .classed("timeline", true)
 
+  //append an axis for the dates of the timeline
+
+  var dateScale = d3.scaleLinear()
+  .domain([new Date("1897-01-01"), new Date("1975-01-01")])
+  .range([350,width-200])
+
+//append a line to 'yearlabel' div
+
+  d3.select("#yearlabel")
+  .append("line")
+  .attr("x1", dateScale(new Date("1897-01-01")))
+  .attr("y1", 50)
+  .attr("x2", dateScale(new Date("1975-01-01")))
+  .attr("y2", 50)
+  .attr("stroke", "black")
+  .attr("stroke-width", 1)
+  
+
+
+
+
+
 // circles for timeline
 
   timelinesG.each(function(D,I){
@@ -737,11 +759,11 @@ var symbolPlaces = d3.symbol()
   var pathDataArtistic = symbolArtistic();
   var pathDataAdditional = symbolAdditional();
 
-        timelinesG.each(function(D,I){
-          d3.select(this).selectAll(".symbols").append("g")
-          .data(keywordsData.filter(function (d) {
-               return (d.people.includes(D) || d.places.includes(D) || d.works.includes(D) || d.artistic.includes(D) ||d.additional.includes(D)) && d.vstart.includes("/") == false && d.vstart.includes(",") == false && d.vstart != "" //took out some data points that create errors for now
-                }))               
+  timelinesG.each(function(D,I){
+  d3.select(this).selectAll(".symbols").append("g")
+  .data(keywordsData.filter(function (d) {
+        return (d.people.includes(D) || d.places.includes(D) || d.works.includes(D) || d.artistic.includes(D) ||d.additional.includes(D)) && d.vstart.includes("/") == false && d.vstart.includes(",") == false && d.vstart != "" //took out some data points that create errors for now
+              }))               
 .join("path")
 .attr("transform", function(d,i){
 return "translate(340," + (10+I*20) + ")"})
@@ -1340,61 +1362,7 @@ d3.select("#closedsidebar").style("display", "none")
 })
 })
 
-//symbols for keyword categories
-
-var symbolPeople = d3.symbol()
-.type(d3.symbolTriangle)
-.size(15);
-
-var symbolPlaces = d3.symbol()
-.type(d3.symbolDiamond)
-.size(15);
-
-var symbolWorks = d3.symbol()
-.type(d3.symbolWye)
-.size(15);
-
-var symbolArtistic = d3.symbol()
-.type(d3.symbolSquare)
-.size(15);
-
-var symbolAdditional = d3.symbol()
-.type(d3.symbolCross)
-.size(15);
-
-var pathDataPlaces = symbolPlaces();
-var pathDataPeople = symbolPeople();
-var pathDataWorks = symbolWorks();
-var pathDataArtistic = symbolArtistic();
-var pathDataAdditional = symbolAdditional();
-
-timelinesG.each(function(D,I){
-d3.select(this).selectAll(".symbols").append("g")
-.data(keywordsData.filter(function (d) {
- return (d.people.includes(D) || d.places.includes(D) || d.works.includes(D) || d.artistic.includes(D) ||d.additional.includes(D)) && d.vstart.includes("/") == false && d.vstart.includes(",") == false && d.vstart != "" //took out some data points that create errors for now
-  }))               
-.join("path")
-.attr("transform", function(d,i){
-return "translate(340," + (10+I*20) + ")"})
-.attr("d", function(d,i){
-if(d.places){
-return pathDataPlaces
-} else if(d.people){
-return pathDataPeople
-} else if(d.works){
-return pathDataWorks
-} else if(d.artistic){
-return pathDataArtistic
-} else if(d.additional){
-return pathDataAdditional
-}
-})
-.attr("fill", "black")
-.attr("stroke", "black")
-.attr("stroke-width", 1)
-.attr("opacity", 1)
-
-})
+//insert symbols
     
   }
 })
@@ -1688,61 +1656,7 @@ d3.select("#closedsidebar").style("display", "none")
 })
 })
 
-//symbols for keyword categories
-
-var symbolPeople = d3.symbol()
-.type(d3.symbolTriangle)
-.size(15);
-
-var symbolPlaces = d3.symbol()
-.type(d3.symbolDiamond)
-.size(15);
-
-var symbolWorks = d3.symbol()
-.type(d3.symbolWye)
-.size(15);
-
-var symbolArtistic = d3.symbol()
-.type(d3.symbolSquare)
-.size(15);
-
-var symbolAdditional = d3.symbol()
-.type(d3.symbolCross)
-.size(15);
-
-var pathDataPlaces = symbolPlaces();
-var pathDataPeople = symbolPeople();
-var pathDataWorks = symbolWorks();
-var pathDataArtistic = symbolArtistic();
-var pathDataAdditional = symbolAdditional();
-
-timelinesG.each(function(D,I){
-d3.select(this).selectAll(".symbols").append("g")
-.data(keywordsData.filter(function (d) {
- return (d.people.includes(D) || d.places.includes(D) || d.works.includes(D) || d.artistic.includes(D) ||d.additional.includes(D)) && d.vstart.includes("/") == false && d.vstart.includes(",") == false && d.vstart != "" //took out some data points that create errors for now
-  }))               
-.join("path")
-.attr("transform", function(d,i){
-return "translate(340," + (10+I*20) + ")"})
-.attr("d", function(d,i){
-if(d.places){
-return pathDataPlaces
-} else if(d.people){
-return pathDataPeople
-} else if(d.works){
-return pathDataWorks
-} else if(d.artistic){
-return pathDataArtistic
-} else if(d.additional){
-return pathDataAdditional
-}
-})
-.attr("fill", "black")
-.attr("stroke", "black")
-.attr("stroke-width", 1)
-.attr("opacity", 1)
-
-})
+//insert symbols
 
   }
 })
@@ -2042,61 +1956,8 @@ d3.select('input[value="frequency"]').on('change', function() {
   })
   })
   
-  //symbols for keyword categories
-  
-  var symbolPeople = d3.symbol()
-  .type(d3.symbolTriangle)
-  .size(15);
-  
-  var symbolPlaces = d3.symbol()
-  .type(d3.symbolDiamond)
-  .size(15);
-  
-  var symbolWorks = d3.symbol()
-  .type(d3.symbolWye)
-  .size(15);
-  
-  var symbolArtistic = d3.symbol()
-  .type(d3.symbolSquare)
-  .size(15);
-  
-  var symbolAdditional = d3.symbol()
-  .type(d3.symbolCross)
-  .size(15);
-  
-  var pathDataPlaces = symbolPlaces();
-  var pathDataPeople = symbolPeople();
-  var pathDataWorks = symbolWorks();
-  var pathDataArtistic = symbolArtistic();
-  var pathDataAdditional = symbolAdditional();
-  
-  timelinesG.each(function(D,I){
-  d3.select(this).selectAll(".symbols").append("g")
-  .data(keywordsData.filter(function (d) {
-   return (d.people.includes(D) || d.places.includes(D) || d.works.includes(D) || d.artistic.includes(D) ||d.additional.includes(D)) && d.vstart.includes("/") == false && d.vstart.includes(",") == false && d.vstart != "" //took out some data points that create errors for now
-    }))               
-  .join("path")
-  .attr("transform", function(d,i){
-  return "translate(340," + (10+I*20) + ")"})
-  .attr("d", function(d,i){
-  if(d.places){
-  return pathDataPlaces
-  } else if(d.people){
-  return pathDataPeople
-  } else if(d.works){
-  return pathDataWorks
-  } else if(d.artistic){
-  return pathDataArtistic
-  } else if(d.additional){
-  return pathDataAdditional
-  }
-  })
-  .attr("fill", "black")
-  .attr("stroke", "black")
-  .attr("stroke-width", 1)
-  .attr("opacity", 1)
-  
-  })   
+  //removed symbols
+
   }
 })
 
@@ -2174,16 +2035,10 @@ d3.select(".triangle").on("click", function() {
   if (d3.select(this).style("font-weight") != "bold") {
     d3.selectAll(".entities p").style("font-weight", 400)
     d3.select(this).style("font-weight", "bold")
-    d3.selectAll("text.people").transition().style("font-weight", "bold")
-    // d3.selectAll("circle").filter(function(d) { return d.people != ""; }).transition().style("opacity", "1")
-    // d3.selectAll("circle").filter(function(d) { return d.people == ""; }).transition().style("opacity", "0")
-    // d3.selectAll(".timelineLines").filter(".cinema").transition().style("opacity", "1")
-    // d3.selectAll(".timelineLines").filter(":not(.cinema)").transition().style("opacity", "0")
+    d3.selectAll("text.people").classed("entFilteredOut", true)
   } else {
     d3.select(this).style("font-weight", 400)
-    d3.selectAll("text.people").transition().style("font-weight", 400)
-    // d3.selectAll("circle").transition().style("opacity", "1")
-    // d3.selectAll(".timelineLines").transition().style("opacity", "1")
+    d3.selectAll("text.people").classed("entFilteredOut", false)
   }
 
 })
@@ -2194,14 +2049,10 @@ d3.select(".diamond").on("click", function() {
   if (d3.select(this).style("font-weight") != "bold") {
     d3.selectAll(".entities p").style("font-weight", 400)
     d3.select(this).style("font-weight", "bold")
-    d3.selectAll("circle").filter(function(d) { return d.places != ""; }).transition().style("opacity", "1")
-    d3.selectAll("circle").filter(function(d) { return d.places == ""; }).transition().style("opacity", "0")
-    // d3.selectAll(".timelineLines").filter(".cinema").transition().style("opacity", "1")
-    // d3.selectAll(".timelineLines").filter(":not(.cinema)").transition().style("opacity", "0")
+    d3.selectAll("text.places").classed("entFilteredOut", true)
   } else {
     d3.select(this).style("font-weight", 400)
-    d3.selectAll("circle").transition().style("opacity", "1")
-    // d3.selectAll(".timelineLines").transition().style("opacity", "1")
+    d3.selectAll("text.places").classed("entFilteredOut", false)
   }
 
 })
@@ -2212,14 +2063,10 @@ d3.select(".threeprong").on("click", function() {
   if (d3.select(this).style("font-weight") != "bold") {
     d3.selectAll(".entities p").style("font-weight", 400)
     d3.select(this).style("font-weight", "bold")
-    d3.selectAll("circle").filter(function(d) { return d.works != ""; }).transition().style("opacity", "1")
-    d3.selectAll("circle").filter(function(d) { return d.works == ""; }).transition().style("opacity", "0")
-    // d3.selectAll(".timelineLines").filter(".cinema").transition().style("opacity", "1")
-    // d3.selectAll(".timelineLines").filter(":not(.cinema)").transition().style("opacity", "0")
+    d3.selectAll("text.works").classed("entFilteredOut", true)
   } else {
     d3.select(this).style("font-weight", 400)
-    d3.selectAll("circle").transition().style("opacity", "1")
-    // d3.selectAll(".timelineLines").transition().style("opacity", "1")
+    d3.selectAll("text.works").classed("entFilteredOut", false)
   }
 
 })
@@ -2230,14 +2077,10 @@ d3.select(".square").on("click", function() {
   if (d3.select(this).style("font-weight") != "bold") {
     d3.selectAll(".entities p").style("font-weight", 400)
     d3.select(this).style("font-weight", "bold")
-    d3.selectAll("circle").filter(function(d) { return d.artistic != ""; }).transition().style("opacity", "1")
-    d3.selectAll("circle").filter(function(d) { return d.artistic == ""; }).transition().style("opacity", "0")
-    // d3.selectAll(".timelineLines").filter(".cinema").transition().style("opacity", "1")
-    // d3.selectAll(".timelineLines").filter(":not(.cinema)").transition().style("opacity", "0")
+    d3.selectAll("text.artistic").classed("entFilteredOut", true)
   } else {
     d3.select(this).style("font-weight", 400)
-    d3.selectAll("circle").transition().style("opacity", "1")
-    // d3.selectAll(".timelineLines").transition().style("opacity", "1")
+    d3.selectAll("text.artistic").classed("entFilteredOut", false)
   }
 
 })
@@ -2248,15 +2091,10 @@ d3.select(".plus").on("click", function() {
   if (d3.select(this).style("font-weight") != "bold") {
     d3.selectAll(".entities p").style("font-weight", 400)
     d3.select(this).style("font-weight", "bold")
-    d3.selectAll(".timelinesG")
-    // d3.selectAll("circle").filter(function(d) { return d.additional != ""; }).transition().style("opacity", "1")
-    // d3.selectAll("circle").filter(function(d) { return d.additional == ""; }).transition().style("opacity", "0")
-    // d3.selectAll(".timelineLines").filter(function(d) { return d.additional != ""; }).transition().style("opacity", "1")
-    // d3.selectAll(".timelineLines").filter(function(d) { return d.additional == ""; }).transition().style("opacity", "0")
+    d3.selectAll("text.additional").classed("entFilteredOut", true)
   } else {
     d3.select(this).style("font-weight", 400)
-    d3.selectAll("circle").transition().style("opacity", "1")
-    d3.selectAll(".timelineLines").transition().style("opacity", "1")
+    d3.selectAll("text.additional").classed("entFilteredOut", false)
   }
 
 })
