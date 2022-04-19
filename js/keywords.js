@@ -472,7 +472,37 @@ function stringSplit(data, keywordSplitter) {
   .domain([new Date("1897-01-01"), new Date("1975-01-01")])
   .range([350,width-200])
 
-//append a line to 'yearlabel' div
+//append a line to 'yearlabel' div below div with the class "sorting"
+
+
+
+  var yearlabel = d3.select("#sorting")
+  .append("div")
+  .attr("class", "yearlabel")
+  .style("left", dateScale(new Date("1926-01-22")) + "px")
+  .style("top", "0px")
+  .style("width", "0px")
+  .style("height", "0px")
+  .style("opacity", 0)
+  .style("position", "absolute")
+  .style("z-index", "1")
+  .style("background-color", "white")
+  .style("border", "1px solid black")
+  .style("border-radius", "5px")
+  .style("padding", "5px")
+  .style("font-size", "12px")
+  .style("text-align", "center")
+  .style("color", "black")
+  .style("font-weight", "bold")
+  .style("text-shadow", "1px 1px 1px #ccc")
+  .style("box-shadow", "1px 1px 1px #ccc")
+  .style("pointer-events", "none")
+  .style("user-select", "none")
+  .style("-webkit-user-select", "none")
+  .style("-moz-user-select", "none")
+  
+
+
 
   d3.select("#yearlabel")
   .append("line")
@@ -482,7 +512,7 @@ function stringSplit(data, keywordSplitter) {
   .attr("y2", 50)
   .attr("stroke", "black")
   .attr("stroke-width", 1)
-  
+
 
 
 
