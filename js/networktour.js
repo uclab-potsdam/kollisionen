@@ -23,9 +23,6 @@ tour.addStep({
         action() {
           return this.back();
         },
-        classes: 'shepherd-button-secondary',
-        text: 'Back'
-      },
       {
         action() {
           return this.next();

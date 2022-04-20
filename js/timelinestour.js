@@ -21,13 +21,6 @@ tour.addStep({
     buttons: [
       {
         action() {
-          return this.back();
-        },
-        classes: 'shepherd-button-secondary',
-        text: 'Back'
-      },
-      {
-        action() {
           return this.next();
         },
         text: 'Next'
