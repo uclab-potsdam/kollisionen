@@ -166,6 +166,38 @@ var keywordsCount = [];
 
     console.log(keywordsCount);
 
+    var keywordsCount1 = [];
+
+    keywordsData.forEach(function(d,i){
+        var keywords = d.people.split(";");
+        keywords.forEach(function(d,i){
+            if (keywordsCount1.indexOf(d) == -1 && d != "") keywordsCount1.push(d);
+        });
+        var keywords = d.places.split(";");
+        keywords.forEach(function(d,i){
+            if (keywordsCount.indexOf(d) == -1 && d != "") keywordsCount1.push(d);
+        });
+        var keywords = d.works.split(";");
+        keywords.forEach(function(d,i){
+            if (keywordsCount1.indexOf(d) == -1 && d != "") keywordsCount1.push(d);
+        });
+        var keywords = d.artistic.split(";");
+        keywords.forEach(function(d,i){
+            if (keywordsCount1.indexOf(d) == -1 && d != "") keywordsCount1.push(d);
+        });
+        var keywords = d.additional.split(";");
+        keywords.forEach(function(d,i){
+            if (keywordsCount1.indexOf(d) == -1 && d != "") keywordsCount1.push(d);
+        });
+
+    });
+
+    console.log(keywordsCount1);
+
+
+
+
+
 //Array of keywords and keyword category
 
     var keywordsArray = [];
@@ -206,14 +238,9 @@ var keywordsCount = [];
         keywordsData[j]["artistic"].includes(keywordsCount[i]) ||
         keywordsData[j]["additional"].includes(keywordsCount[i])) count++;
       }
-      if (count > 1) keywordsCountFiltered.push(keywordsCount[i]);
+      // if (count > 1) 
+      keywordsCountFiltered.push(keywordsCount[i]);
     };
-
-    console.log(keywordsCountFiltered);
-
-    //sort keywordsCountFiltered alphabetically
-
-    keywordsCountFiltered.sort(); // alphabetically sort
 
     console.log(keywordsCountFiltered);
 
@@ -316,20 +343,6 @@ document.getElementsByClassName("highlights")[0].appendChild(p);
 
       console.log(highlightsData);
 
-// for(let i = 0; i < keywordsCountFiltered.length; i++) {
-//
-//     var backgroundTimelineG = svg.append("g").classed("backgroundTimelineG", true)
-//
-//     var timeLine = backgroundTimelineG.append("line")
-//         .attr("x1", 100)  //start of timeline
-//         .attr("y1", yScale(i))
-//         .attr("x2", width)  //end of timeline
-//         .attr("y2", yScale(i))
-//         .attr("stroke", "white")
-//         .attr("stroke-width", 1)
-//         // .attr("stroke-dasharray", "5,5");
-//
-// };
 
   const timelineXScale = d3.scaleTime()
     .domain([new Date("1897-01-01"), new Date("1975-01-01")])
@@ -413,26 +426,33 @@ function stringSplit(data, keywordSplitter) {
 
   // the timelines
 
-  let timelinesG = d3.select("#chart").select("svg").selectAll(".timelines")
-  // .data(keywordsArray.filter(
-  //   function(d) { return d.keyword }
-  // ))
-  .data(keywordsCount)
-  .join("g")
-  .classed("backgroundTimelineG", true)
-  .classed("people", function (d) {if (keywordsData.filter(function(D){return D.people == d}).length > 0) {return true} else {return false}})
-  .classed("places", function (d) {if (keywordsData.filter(function(D){return D.places == d}).length > 0) {return true} else {return false}})
-  .classed("works", function (d) {if (keywordsData.filter(function(D){return D.works == d}).length > 0) {return true} else {return false}})
-  .classed("artistic", function (d) {if (keywordsData.filter(function(D){return D.artistic == d}).length > 0) {return true} else {return false}})
-  .classed("additional", function (d) {if (keywordsData.filter(function(D){return D.additional == d}).length > 0) {return true} else {return false}})
+  let timelinesG = d3.select("#chart")
+                  .select("svg")
+                  .selectAll(".timelines")
+                  .data(keywordsCount1)
+                  .join("g")
+                  .classed("backgroundTimelineG", true)
+                  .classed("people", function (d) {if (keywordsData.filter(function(D){return D.people == d}).length > 0) {return true} else {return false}})
+                  .classed("places", function (d) {if (keywordsData.filter(function(D){return D.places == d}).length > 0) {return true} else {return false}})
+                  .classed("works", function (d) {if (keywordsData.filter(function(D){return D.works == d}).length > 0) {return true} else {return false}})
+                  .classed("artistic", function (d) {if (keywordsData.filter(function(D){return D.artistic == d}).length > 0) {return true} else {return false}})
+                  .classed("additional", function (d) {if (keywordsData.filter(function(D){return D.additional == d}).length > 0) {return true} else {return false}})
 
   timelinesG.append("text")
   .text(function(d){
     if(d.length >= 20){return d.slice(0, 20) + "[…]"}
     else{return d}}) 
   .attr("x", 320)
-  .attr("y", function(d,i){return 10+i*20})
+  .attr("y", function(d,i){return 10+i*20+3})
+  .attr("font-size", "12px")
+  .attr("text-weight", 400)
   .style("text-anchor", "end")
+  .classed("keyword", true)
+  .classed("people", function (d) {if (keywordsData.filter(function(D){return D.people == d}).length > 0) {return true} else {return false}})
+  .classed("places", function (d) {if (keywordsData.filter(function(D){return D.places == d}).length > 0) {return true} else {return false}})
+  .classed("works", function (d) {if (keywordsData.filter(function(D){return D.works == d}).length > 0) {return true} else {return false}})
+  .classed("artistic", function (d) {if (keywordsData.filter(function(D){return D.artistic == d}).length > 0) {return true} else {return false}})
+  .classed("additional", function (d) {if (keywordsData.filter(function(D){return D.additional == d}).length > 0) {return true} else {return false}})
 
   timelinesG.append("line")
   .attr("x1", 350)  //start of timeline
@@ -446,11 +466,27 @@ function stringSplit(data, keywordSplitter) {
   .style("opacity", 0.05)
   .classed("timeline", true)
 
-// fisheye effect
+  //append an axis for the dates of the timeline
 
-var fisheye = d3.fisheye
-    .circular()
-    .radius(10)
+  var dateScale = d3.scaleLinear()
+  .domain([new Date("1897-01-01"), new Date("1975-01-01")])
+  .range([350,width-200])
+
+//append a line to 'yearlabel' div below div with the class "sorting"
+
+  d3.select("#yearlabel")
+  .append("line")
+  .attr("x1", dateScale(new Date("1897-01-01")))
+  .attr("y1", 50)
+  .attr("x2", dateScale(new Date("1975-01-01")))
+  .attr("y2", 50)
+  .attr("stroke", "black")
+  .attr("stroke-width", 1)
+
+
+
+
+
 
 // circles for timeline
 
@@ -506,25 +542,7 @@ var fisheye = d3.fisheye
       return true;
     }  else{return false}
     })
-    //fisheye effect
-    // .on('mouseover', function (event, d) {
-    //   fisheye.focus(d3.select(this));
-
-    //   d3.select(this).each(function(d) { d.fisheye = fisheye(d); })
-    //         .attr("cx", function(d) { return d.fisheye.x; })
-    //         .attr("cy", function(){return 10+I*20})
-    //         .attr("r", function(d) { return d.fisheye.z * 0.3; });
-
-    //         console.log(d)
-    // })
-
-
-
-    // .on('mouseout', function (event, d) {
-    //   fisheye.focus(null);
-
-    // })
-
+  
       //tooltip
     .on('mousemove', function (event, d) {
       tooltip
@@ -741,11 +759,11 @@ var symbolPlaces = d3.symbol()
   var pathDataArtistic = symbolArtistic();
   var pathDataAdditional = symbolAdditional();
 
-        timelinesG.each(function(D,I){
-          d3.select(this).selectAll(".symbols").append("g")
-          .data(keywordsData.filter(function (d) {
-               return (d.people.includes(D) || d.places.includes(D) || d.works.includes(D) || d.artistic.includes(D) ||d.additional.includes(D)) && d.vstart.includes("/") == false && d.vstart.includes(",") == false && d.vstart != "" //took out some data points that create errors for now
-                }))               
+  timelinesG.each(function(D,I){
+  d3.select(this).selectAll(".symbols").append("g")
+  .data(keywordsData.filter(function (d) {
+        return (d.people.includes(D) || d.places.includes(D) || d.works.includes(D) || d.artistic.includes(D) ||d.additional.includes(D)) && d.vstart.includes("/") == false && d.vstart.includes(",") == false && d.vstart != "" //took out some data points that create errors for now
+              }))               
 .join("path")
 .attr("transform", function(d,i){
 return "translate(340," + (10+I*20) + ")"})
@@ -1055,50 +1073,893 @@ d3.selectAll("circle").classed("filteredout",false)
 
 //timelines sorting options
 
-// d3.select(".alphabetical")
-// .on("click", function() {
-//   if (d3.select(this).style("font-weight") != "bold") {
-//     d3.selectAll(".filter").style("font-weight", 400)
-//     d3.select(this).style("font-weight", "bold")
-//     d3.selectAll(".timelineG").sort(function(a, b) {
-//       return d3.ascending(a.name, b.name)
-//     })
-//   }
-// })
-//
+d3.select('input[value="alphabetical"]').on('change', function() {
+  if (this.checked) {
+
+    d3.selectAll("svg > *").remove();
+
+    let timelinesG = d3.select("#chart")
+    .select("svg")
+    .selectAll(".timelines")
+    .data(keywordsCount.sort())
+    .join("g")
+    .classed("backgroundTimelineG", true)
+    .classed("people", function (d) {if (keywordsData.filter(function(D){return D.people == d}).length > 0) {return true} else {return false}})
+    .classed("places", function (d) {if (keywordsData.filter(function(D){return D.places == d}).length > 0) {return true} else {return false}})
+    .classed("works", function (d) {if (keywordsData.filter(function(D){return D.works == d}).length > 0) {return true} else {return false}})
+    .classed("artistic", function (d) {if (keywordsData.filter(function(D){return D.artistic == d}).length > 0) {return true} else {return false}})
+    .classed("additional", function (d) {if (keywordsData.filter(function(D){return D.additional == d}).length > 0) {return true} else {return false}})
+
+    timelinesG.append("text")
+    .text(function(d){
+      if(d.length >= 20){return d.slice(0, 20) + "[…]"}
+      else{return d}}) 
+    .attr("x", 320)
+    .attr("y", function(d,i){return 10+i*20+3})
+    .attr("font-size", "12px")
+    .attr("text-weight", 400)
+    .style("text-anchor", "end")
+    .classed("keyword", true)
+    .classed("people", function (d) {if (keywordsData.filter(function(D){return D.people == d}).length > 0) {return true} else {return false}})
+    .classed("places", function (d) {if (keywordsData.filter(function(D){return D.places == d}).length > 0) {return true} else {return false}})
+    .classed("works", function (d) {if (keywordsData.filter(function(D){return D.works == d}).length > 0) {return true} else {return false}})
+    .classed("artistic", function (d) {if (keywordsData.filter(function(D){return D.artistic == d}).length > 0) {return true} else {return false}})
+    .classed("additional", function (d) {if (keywordsData.filter(function(D){return D.additional == d}).length > 0) {return true} else {return false}})
+  
+
+timelinesG.append("line")
+.attr("x1", 350)  //start of timeline
+.attr("y1", function(d,i){return 10+i*20})
+.attr("x2", width-200)  //end of timeline
+.attr("y2", function(d,i){return 10+i*20})
+// .attr("stroke", "white")
+// .attr("stroke-width", 3)
+.style("stroke", "grey")
+.style("stroke", ("6, 5"))
+.style("opacity", 0.05)
+.classed("timeline", true)
+
+// circles for timeline
+
+timelinesG.each(function(D,I){
+d3.select(this).selectAll(".timelineNodes").append("g")
+.data(keywordsData.filter(function (d) {
+if(d.uncertaintystart === 0 && d.vend === ""){
+return (d.people.includes(D) || d.places.includes(D) || d.works.includes(D) || d.artistic.includes(D) ||d.additional.includes(D)) && d.vstart.includes("/") == false && d.vstart.includes(",") == false && d.vstart != "" //took out some data points that create errors for now
+}}))
+.join("circle")
+.classed("circles", true)
+.attr("r",3)
+.attr("cx", function(d,i){
+let date = new Date (d.vstart)
+//console.log(date + "-" + timelineXScale(date))
+return timelineXScale(date)})
+.attr("cy", function(){return 10+I*20})
+.classed("cinema", function (d) {if (d.category1 == true && d.category2 == false && d.category3 == false)
+{return true}else{return false}})
+.classed("biography", function (d) {
+if (d.category2 == true && d.category1 == false && d.category3 == false)
+{
+return true;
+} else{return false}
+})
+.classed("writing", function (d) {
+if (d.category3 == true && d.category1 == false && d.category2 == false)
+{
+return true;
+} else{return false}
+})
+.classed("cinebio", function (d) {
+if (d.category1 == true && d.category2 == true && d.category3 == false)
+{
+return true;
+}  else{return false}
+})
+.classed("biowrit", function (d) {
+if (d.category1 == false && d.category2 == true && d.category3 == true)
+{
+return true;
+}  else{return false}
+})
+.classed("cinewrit", function (d) {
+if (d.category1 == true && d.category2 == false && d.category3 == true)
+{
+return true;
+}  else{return false}
+})
+.classed("allcat", function (d) {
+if (d.category1 == true && d.category2 == true && d.category3 == true)
+{
+return true;
+}  else{return false}
+})
+
+//tooltip
+.on('mousemove', function (event, d) {
+tooltip
+.style('position', 'absolute')
+.style('left', `${event.pageX + 5}px`)
+.style('top', `${event.pageY + 10}px`)
+.style('display', 'inline-block')
+.style('opacity', '0.9')
+.html(`
+${replaceTemporal(d, (vdateStart) => `<p class="date">${formatTime(d.vdateStart)}</p>`)}
+${conditionalReturn(d.displayTemporal, (displayTemporal) => `<p class="displayTemporal"><b>${displayTemporal}</b></p>`)}
+<p class="tooltip-title">${d.title}</p>`);
+})
+
+.on('click', function (event, d) {
+if  (d3.select(this).style("stroke") != "black" && d3.select(this).style("stroke-width") != "2px") {
+d3.selectAll(".circles").style("stroke", "none").style("stroke-width", "0px")
+d3.select(this).style("stroke", "black").style("stroke-width", "2px")
+}else{
+d3.select(this).style("stroke", "none").style("stroke-width", "0px")
+}
+d3.select("#closedsidebar").style("display", "block")
+sidebar
+.style('display', 'block')
+.html(`
+${replaceTemporal(d, (vdateStart) => `<p class="date">${formatTime(d.vdateStart)}</p>`)}
+${conditionalReturn(d.displayTemporal, (displayTemporal) => `<p class="displayTemporal"><b>${displayTemporal}</b></p>`)}
+${conditionalReturn(d.title, (title) => `<p class="title">${title}</p>`)}
+${compareDescription(d, (description) => `<p class="description"><b>Description: </b>${description}</p>`)}
+${stringSplit(d.people, (people) => `<p class="people"><b>People: </b>${people}</p>`)}
+${stringSplit(d.places, (places) => `<p class="places"><b>Places: </b>${places}</p>`)}
+${stringSplit(d.works, (works) => `<p class="works"<b><b>Works: </b>${works}</p>`)}
+${stringSplit(d.artistic, (artistic) => `<p class="artistic"><b>Artistic concepts: </b>${artistic}</p>`)}
+${stringSplit(d.additional, (additional) => `<p class="misc"><b>Misc: </b>${additional}</p>`)}
+${stringSplit(d.image, (image) => `<p class="objects"><b>Additonal items: <br> </b><img src="images/objects/${image}.png" alt="${image}" width = "25%" height = "auto"  class="image"></p><br>`)}
+${conditionalReturn(d.source, (source) => `<p class="source"><b>Source: </b>${source}</p>`)}
+${conditionalReturn(d.reference, (reference) => `<p class="reference"><b>Further references: </b>${reference}</p>`)}
+<br/>
+${conditionalReturn(d.category1, (category1) => `<span class="key-dot cinema"></span>Cinema and Theatre<br>`)}
+${conditionalReturn(d.category2, (category2) => `<span class="key-dot biography"></span>Biography and Personality<br>`)}
+${conditionalReturn(d.category3, (category3) => `<span class="key-dot writing"></span>Writing and Teaching<br>`)}
+${conditionalReturn(d.category4, (category4) => `<span class="key-dot graphic"></span>Graphic Art<br>`)}
+${conditionalReturn(d.category5, (category5) => `<span class="key-dot apartment"></span>Apartment<br>`)}
+
+`)
+
+})
+.on('mouseout', function (d) {
+tooltip.style('display', 'none');
+tooltip.style('opacity', 0);
+
+d3.selectAll(".circles")
+.style("opacity", 1)
+})
+.on('mouseout', function (d) {
+tooltip.style('display', 'none');
+tooltip.style('opacity', 0);
+
+d3.selectAll(".circles")
+.style("opacity", 1)
+});
+d3.selectAll("#closedsidebar")
+.on('click', function (d) {
+
+d3.select(".sidebar")
+.style("display", "none")
+
+d3.select("#closedsidebar").style("display", "none")
+
+});  
+})
+
+//spans
+
+timelinesG.each(function(D,I){
+d3.select(this).selectAll(".timelineLines").append("g")
+.data(keywordsData.filter(function (d) {
+if (d.vend.includes("-")) {
+return (d.people.includes(D) || d.places.includes(D) || d.works.includes(D) || d.artistic.includes(D) ||d.additional.includes(D)) && d.vstart.includes("/") == false && d.vstart.includes(",") == false && d.vstart != ""//took out some data points that create errors for now
+
+} }))
+.join("line")
+.classed("timelineLines", true)
+.attr("stroke-width", 6)
+.classed("biography", function (d) {
+if (d.category2 == true && d.category1 == false && d.category3 == false)
+{
+return true;
+} else{return false}
+})
+.classed("writing", function (d) {
+if (d.category3 == true && d.category1 == false && d.category2 == false)
+{
+return true;
+} else{return false}
+})
+.classed("cinebio", function (d) {
+if (d.category1 == true && d.category2 == true && d.category3 == false)
+{
+return true;
+}  else{return false}
+})
+.classed("biowrit", function (d) {
+if (d.category1 == false && d.category2 == true && d.category3 == true)
+{
+return true;
+}  else{return false}
+})
+.classed("cinewrit", function (d) {
+if (d.category1 == true && d.category2 == false && d.category3 == true)
+{
+return true;
+}  else{return false}
+})
+.classed("allcat", function (d) {
+if (d.category1 == true && d.category2 == true && d.category3 == true)
+{
+return true;
+}  else{return false}
+})
+  .attr("x1", function(d,i){
+    let date = new Date (d.vstart)
+  // console.log(date + "-" + timelineXScale(date))
+    return timelineXScale(date)})
+  .attr("y1", function(){return 10+I*20})
+  .attr("x2", function(d,i){
+    let date = new Date (d.vend)
+  // console.log(date + "-" + timelineXScale(date))
+  // console.log(d.vend + "-" +date + "-" + timelineXScale(date))
+    return timelineXScale(date)})
+  .attr("y2", function(){return 10+I*20})
+.on('mousemove', function (event, d) {
+tooltip
+.style('position', 'absolute')
+.style('left', `${event.pageX + 5}px`)
+.style('top', `${event.pageY + 10}px`)
+.style('display', 'inline-block')
+.style('opacity', '0.9')
+.html(`
+        ${replaceTemporal(d, (vdateStart) => `<b><p class="date">${formatTime(d.vdateStart)}</b> to <b>${formatTime(d.vdateEnd)}</b></p>`)}
+        ${conditionalReturn(d.displayTemporal, (displayTemporal) => `<p class="displayTemporal"><b>${displayTemporal}</b></p>`)}
+        <p class="tooltip-title">${d.title}</p>`);
+})
+.on('click', function (event, d) {
+d3.select("#closedsidebar").style("display", "block")
+/// sidebar for spans
+sidebar
+.style('display', 'block')
+.html(`
+${replaceTemporal(d, (vdateStart) => `<b><p class="date">${formatTime(d.vdateStart)}</b> to <b>${formatTime(d.vdateEnd)}</b></p>`)}
+${conditionalReturn(d.displayTemporal, (displayTemporal) => `<p class="displayTemporal"><b>${displayTemporal}</b></p>`)}
+${conditionalReturn(d.title, (title) => `<p class="title">${title}</p>`)}
+${compareDescription(d, (description) => `<p class="description"><b>Description: </b>${description}</p>`)}
+${stringSplit(d.people, (people) => `<p class="people"><b>People: </b>${people}</p>`)}
+${stringSplit(d.places, (places) => `<p class="places"><b>Places: </b>${places}</p>`)}
+${stringSplit(d.works, (works) => `<p class="works"<b><b>Works: </b>${works}</p>`)}
+${stringSplit(d.artistic, (artistic) => `<p class="artistic"><b>Artistic concepts: </b>${artistic}</p>`)}
+${stringSplit(d.additional, (additional) => `<p class="misc"><b>Misc: </b>${additional}</p>`)}
+${conditionalReturn(d.image, (image) => `<p class="objects"><b>Additonal items: <br> </b><img src="images/objects/${image}.png" alt="${image} width = "25%" height = "auto" class="image"></p><br>`)}
+${conditionalReturn(d.source, (source) => `<p class="source"><b>Source: </b>${source}</p>`)}
+${conditionalReturn(d.reference, (reference) => `<p class="reference"><b>Further references: </b>${reference}</p>`)}
+<br/>
+${conditionalReturn(d.category1, (category1) => `<span class="key-dot cinema"></span>Cinema and Theatre<br>`)}
+${conditionalReturn(d.category2, (category2) => `<span class="key-dot biography"></span>Biography and Personality<br>`)}
+${conditionalReturn(d.category3, (category3) => `<span class="key-dot writing"></span>Writing and Teaching<br>`)}
+${conditionalReturn(d.category4, (category4) => `<span class="key-dot graphic"></span>Graphic Art<br>`)}
+${conditionalReturn(d.category5, (category5) => `<span class="key-dot apartment"></span>Apartment<br>`)}
+`)
+
+})
+.on('mouseout', function (d) {
+tooltip.style('display', 'none');
+tooltip.style('opacity', 0);
+
+d3.selectAll(".timelineLines")
+.style("opacity", 1)
+})
+d3.selectAll("#closedsidebar")
+.on('click', function (d) {
+
+d3.select(".sidebar")
+.style("display", "none")
+
+d3.select("#closedsidebar").style("display", "none")
+
+})
+})
+
+//insert symbols
+    
+  }
+})
+
+d3.select('input[value="temporal"]').on('change', function() {
+  if (this.checked) {
+
+    d3.selectAll("svg > *").remove();
+
+    let timelinesG = d3.select("#chart")
+    .select("svg")
+    .selectAll(".timelines")
+    .data(keywordsCount1)
+    .join("g")
+    .classed("backgroundTimelineG", true)
+    .classed("people", function (d) {if (keywordsData.filter(function(D){return D.people == d}).length > 0) {return true} else {return false}})
+    .classed("places", function (d) {if (keywordsData.filter(function(D){return D.places == d}).length > 0) {return true} else {return false}})
+    .classed("works", function (d) {if (keywordsData.filter(function(D){return D.works == d}).length > 0) {return true} else {return false}})
+    .classed("artistic", function (d) {if (keywordsData.filter(function(D){return D.artistic == d}).length > 0) {return true} else {return false}})
+    .classed("additional", function (d) {if (keywordsData.filter(function(D){return D.additional == d}).length > 0) {return true} else {return false}})
+
+    timelinesG.append("text")
+    .text(function(d){
+      if(d.length >= 20){return d.slice(0, 20) + "[…]"}
+      else{return d}}) 
+    .attr("x", 320)
+    .attr("y", function(d,i){return 10+i*20+3})
+    .attr("font-size", "12px")
+    .attr("text-weight", 400)
+    .style("text-anchor", "end")
+    .classed("keyword", true)
+    .classed("people", function (d) {if (keywordsData.filter(function(D){return D.people == d}).length > 0) {return true} else {return false}})
+    .classed("places", function (d) {if (keywordsData.filter(function(D){return D.places == d}).length > 0) {return true} else {return false}})
+    .classed("works", function (d) {if (keywordsData.filter(function(D){return D.works == d}).length > 0) {return true} else {return false}})
+    .classed("artistic", function (d) {if (keywordsData.filter(function(D){return D.artistic == d}).length > 0) {return true} else {return false}})
+    .classed("additional", function (d) {if (keywordsData.filter(function(D){return D.additional == d}).length > 0) {return true} else {return false}})
+  
+
+timelinesG.append("line")
+.attr("x1", 350)  //start of timeline
+.attr("y1", function(d,i){return 10+i*20})
+.attr("x2", width-200)  //end of timeline
+.attr("y2", function(d,i){return 10+i*20})
+// .attr("stroke", "white")
+// .attr("stroke-width", 3)
+.style("stroke", "grey")
+.style("stroke", ("6, 5"))
+.style("opacity", 0.05)
+.classed("timeline", true)
+
+// circles for timeline
+
+timelinesG.each(function(D,I){
+d3.select(this).selectAll(".timelineNodes").append("g")
+.data(keywordsData.filter(function (d) {
+if(d.uncertaintystart === 0 && d.vend === ""){
+return (d.people.includes(D) || d.places.includes(D) || d.works.includes(D) || d.artistic.includes(D) ||d.additional.includes(D)) && d.vstart.includes("/") == false && d.vstart.includes(",") == false && d.vstart != "" //took out some data points that create errors for now
+}}))
+.join("circle")
+.classed("circles", true)
+.attr("r",3)
+.attr("cx", function(d,i){
+let date = new Date (d.vstart)
+//console.log(date + "-" + timelineXScale(date))
+return timelineXScale(date)})
+.attr("cy", function(){return 10+I*20})
+.classed("cinema", function (d) {if (d.category1 == true && d.category2 == false && d.category3 == false)
+{return true}else{return false}})
+.classed("biography", function (d) {
+if (d.category2 == true && d.category1 == false && d.category3 == false)
+{
+return true;
+} else{return false}
+})
+.classed("writing", function (d) {
+if (d.category3 == true && d.category1 == false && d.category2 == false)
+{
+return true;
+} else{return false}
+})
+.classed("cinebio", function (d) {
+if (d.category1 == true && d.category2 == true && d.category3 == false)
+{
+return true;
+}  else{return false}
+})
+.classed("biowrit", function (d) {
+if (d.category1 == false && d.category2 == true && d.category3 == true)
+{
+return true;
+}  else{return false}
+})
+.classed("cinewrit", function (d) {
+if (d.category1 == true && d.category2 == false && d.category3 == true)
+{
+return true;
+}  else{return false}
+})
+.classed("allcat", function (d) {
+if (d.category1 == true && d.category2 == true && d.category3 == true)
+{
+return true;
+}  else{return false}
+})
+
+//tooltip
+.on('mousemove', function (event, d) {
+tooltip
+.style('position', 'absolute')
+.style('left', `${event.pageX + 5}px`)
+.style('top', `${event.pageY + 10}px`)
+.style('display', 'inline-block')
+.style('opacity', '0.9')
+.html(`
+${replaceTemporal(d, (vdateStart) => `<p class="date">${formatTime(d.vdateStart)}</p>`)}
+${conditionalReturn(d.displayTemporal, (displayTemporal) => `<p class="displayTemporal"><b>${displayTemporal}</b></p>`)}
+<p class="tooltip-title">${d.title}</p>`);
+})
+
+.on('click', function (event, d) {
+if  (d3.select(this).style("stroke") != "black" && d3.select(this).style("stroke-width") != "2px") {
+d3.selectAll(".circles").style("stroke", "none").style("stroke-width", "0px")
+d3.select(this).style("stroke", "black").style("stroke-width", "2px")
+}else{
+d3.select(this).style("stroke", "none").style("stroke-width", "0px")
+}
+d3.select("#closedsidebar").style("display", "block")
+sidebar
+.style('display', 'block')
+.html(`
+${replaceTemporal(d, (vdateStart) => `<p class="date">${formatTime(d.vdateStart)}</p>`)}
+${conditionalReturn(d.displayTemporal, (displayTemporal) => `<p class="displayTemporal"><b>${displayTemporal}</b></p>`)}
+${conditionalReturn(d.title, (title) => `<p class="title">${title}</p>`)}
+${compareDescription(d, (description) => `<p class="description"><b>Description: </b>${description}</p>`)}
+${stringSplit(d.people, (people) => `<p class="people"><b>People: </b>${people}</p>`)}
+${stringSplit(d.places, (places) => `<p class="places"><b>Places: </b>${places}</p>`)}
+${stringSplit(d.works, (works) => `<p class="works"<b><b>Works: </b>${works}</p>`)}
+${stringSplit(d.artistic, (artistic) => `<p class="artistic"><b>Artistic concepts: </b>${artistic}</p>`)}
+${stringSplit(d.additional, (additional) => `<p class="misc"><b>Misc: </b>${additional}</p>`)}
+${stringSplit(d.image, (image) => `<p class="objects"><b>Additonal items: <br> </b><img src="images/objects/${image}.png" alt="${image}" width = "25%" height = "auto"  class="image"></p><br>`)}
+${conditionalReturn(d.source, (source) => `<p class="source"><b>Source: </b>${source}</p>`)}
+${conditionalReturn(d.reference, (reference) => `<p class="reference"><b>Further references: </b>${reference}</p>`)}
+<br/>
+${conditionalReturn(d.category1, (category1) => `<span class="key-dot cinema"></span>Cinema and Theatre<br>`)}
+${conditionalReturn(d.category2, (category2) => `<span class="key-dot biography"></span>Biography and Personality<br>`)}
+${conditionalReturn(d.category3, (category3) => `<span class="key-dot writing"></span>Writing and Teaching<br>`)}
+${conditionalReturn(d.category4, (category4) => `<span class="key-dot graphic"></span>Graphic Art<br>`)}
+${conditionalReturn(d.category5, (category5) => `<span class="key-dot apartment"></span>Apartment<br>`)}
+
+`)
+
+})
+.on('mouseout', function (d) {
+tooltip.style('display', 'none');
+tooltip.style('opacity', 0);
+
+d3.selectAll(".circles")
+.style("opacity", 1)
+})
+.on('mouseout', function (d) {
+tooltip.style('display', 'none');
+tooltip.style('opacity', 0);
+
+d3.selectAll(".circles")
+.style("opacity", 1)
+});
+d3.selectAll("#closedsidebar")
+.on('click', function (d) {
+
+d3.select(".sidebar")
+.style("display", "none")
+
+d3.select("#closedsidebar").style("display", "none")
+
+});  
+})
+
+//spans
+
+timelinesG.each(function(D,I){
+d3.select(this).selectAll(".timelineLines").append("g")
+.data(keywordsData.filter(function (d) {
+if (d.vend.includes("-")) {
+return (d.people.includes(D) || d.places.includes(D) || d.works.includes(D) || d.artistic.includes(D) ||d.additional.includes(D)) && d.vstart.includes("/") == false && d.vstart.includes(",") == false && d.vstart != ""//took out some data points that create errors for now
+
+} }))
+.join("line")
+.classed("timelineLines", true)
+.attr("stroke-width", 6)
+.classed("biography", function (d) {
+if (d.category2 == true && d.category1 == false && d.category3 == false)
+{
+return true;
+} else{return false}
+})
+.classed("writing", function (d) {
+if (d.category3 == true && d.category1 == false && d.category2 == false)
+{
+return true;
+} else{return false}
+})
+.classed("cinebio", function (d) {
+if (d.category1 == true && d.category2 == true && d.category3 == false)
+{
+return true;
+}  else{return false}
+})
+.classed("biowrit", function (d) {
+if (d.category1 == false && d.category2 == true && d.category3 == true)
+{
+return true;
+}  else{return false}
+})
+.classed("cinewrit", function (d) {
+if (d.category1 == true && d.category2 == false && d.category3 == true)
+{
+return true;
+}  else{return false}
+})
+.classed("allcat", function (d) {
+if (d.category1 == true && d.category2 == true && d.category3 == true)
+{
+return true;
+}  else{return false}
+})
+  .attr("x1", function(d,i){
+    let date = new Date (d.vstart)
+  // console.log(date + "-" + timelineXScale(date))
+    return timelineXScale(date)})
+  .attr("y1", function(){return 10+I*20})
+  .attr("x2", function(d,i){
+    let date = new Date (d.vend)
+  // console.log(date + "-" + timelineXScale(date))
+  // console.log(d.vend + "-" +date + "-" + timelineXScale(date))
+    return timelineXScale(date)})
+  .attr("y2", function(){return 10+I*20})
+.on('mousemove', function (event, d) {
+tooltip
+.style('position', 'absolute')
+.style('left', `${event.pageX + 5}px`)
+.style('top', `${event.pageY + 10}px`)
+.style('display', 'inline-block')
+.style('opacity', '0.9')
+.html(`
+        ${replaceTemporal(d, (vdateStart) => `<b><p class="date">${formatTime(d.vdateStart)}</b> to <b>${formatTime(d.vdateEnd)}</b></p>`)}
+        ${conditionalReturn(d.displayTemporal, (displayTemporal) => `<p class="displayTemporal"><b>${displayTemporal}</b></p>`)}
+        <p class="tooltip-title">${d.title}</p>`);
+})
+.on('click', function (event, d) {
+d3.select("#closedsidebar").style("display", "block")
+/// sidebar for spans
+sidebar
+.style('display', 'block')
+.html(`
+${replaceTemporal(d, (vdateStart) => `<b><p class="date">${formatTime(d.vdateStart)}</b> to <b>${formatTime(d.vdateEnd)}</b></p>`)}
+${conditionalReturn(d.displayTemporal, (displayTemporal) => `<p class="displayTemporal"><b>${displayTemporal}</b></p>`)}
+${conditionalReturn(d.title, (title) => `<p class="title">${title}</p>`)}
+${compareDescription(d, (description) => `<p class="description"><b>Description: </b>${description}</p>`)}
+${stringSplit(d.people, (people) => `<p class="people"><b>People: </b>${people}</p>`)}
+${stringSplit(d.places, (places) => `<p class="places"><b>Places: </b>${places}</p>`)}
+${stringSplit(d.works, (works) => `<p class="works"<b><b>Works: </b>${works}</p>`)}
+${stringSplit(d.artistic, (artistic) => `<p class="artistic"><b>Artistic concepts: </b>${artistic}</p>`)}
+${stringSplit(d.additional, (additional) => `<p class="misc"><b>Misc: </b>${additional}</p>`)}
+${conditionalReturn(d.image, (image) => `<p class="objects"><b>Additonal items: <br> </b><img src="images/objects/${image}.png" alt="${image} width = "25%" height = "auto" class="image"></p><br>`)}
+${conditionalReturn(d.source, (source) => `<p class="source"><b>Source: </b>${source}</p>`)}
+${conditionalReturn(d.reference, (reference) => `<p class="reference"><b>Further references: </b>${reference}</p>`)}
+<br/>
+${conditionalReturn(d.category1, (category1) => `<span class="key-dot cinema"></span>Cinema and Theatre<br>`)}
+${conditionalReturn(d.category2, (category2) => `<span class="key-dot biography"></span>Biography and Personality<br>`)}
+${conditionalReturn(d.category3, (category3) => `<span class="key-dot writing"></span>Writing and Teaching<br>`)}
+${conditionalReturn(d.category4, (category4) => `<span class="key-dot graphic"></span>Graphic Art<br>`)}
+${conditionalReturn(d.category5, (category5) => `<span class="key-dot apartment"></span>Apartment<br>`)}
+`)
+
+})
+.on('mouseout', function (d) {
+tooltip.style('display', 'none');
+tooltip.style('opacity', 0);
+
+d3.selectAll(".timelineLines")
+.style("opacity", 1)
+})
+d3.selectAll("#closedsidebar")
+.on('click', function (d) {
+
+d3.select(".sidebar")
+.style("display", "none")
+
+d3.select("#closedsidebar").style("display", "none")
+
+})
+})
+
+//insert symbols
+
+  }
+})
+
+d3.select('input[value="frequency"]').on('change', function() {
+  if (this.checked) {
+
+      d3.selectAll("svg > *").remove();
+
+      let timelinesG = d3.select("#chart")
+      .select("svg")
+      .selectAll(".timelines")
+      .data(keywordsCountFilteredSorted)
+      .join("g")
+      .classed("backgroundTimelineG", true)
+      .classed("people", function (d) {if (keywordsData.filter(function(D){return D.people == d}).length > 0) {return true} else {return false}})
+      .classed("places", function (d) {if (keywordsData.filter(function(D){return D.places == d}).length > 0) {return true} else {return false}})
+      .classed("works", function (d) {if (keywordsData.filter(function(D){return D.works == d}).length > 0) {return true} else {return false}})
+      .classed("artistic", function (d) {if (keywordsData.filter(function(D){return D.artistic == d}).length > 0) {return true} else {return false}})
+      .classed("additional", function (d) {if (keywordsData.filter(function(D){return D.additional == d}).length > 0) {return true} else {return false}})
+  
+      timelinesG.append("text")
+      .text(function(d){
+        if(d.length >= 20){return d.slice(0, 20) + "[…]"}
+        else{return d}}) 
+      .attr("x", 320)
+      .attr("y", function(d,i){return 10+i*20+3})
+      .attr("font-size", "12px")
+      .attr("text-weight", 400)
+      .style("text-anchor", "end")
+      .classed("keyword", true)
+      .classed("people", function (d) {if (keywordsData.filter(function(D){return D.people == d}).length > 0) {return true} else {return false}})
+      .classed("places", function (d) {if (keywordsData.filter(function(D){return D.places == d}).length > 0) {return true} else {return false}})
+      .classed("works", function (d) {if (keywordsData.filter(function(D){return D.works == d}).length > 0) {return true} else {return false}})
+      .classed("artistic", function (d) {if (keywordsData.filter(function(D){return D.artistic == d}).length > 0) {return true} else {return false}})
+      .classed("additional", function (d) {if (keywordsData.filter(function(D){return D.additional == d}).length > 0) {return true} else {return false}})
+    
+  
+  timelinesG.append("line")
+  .attr("x1", 350)  //start of timeline
+  .attr("y1", function(d,i){return 10+i*20})
+  .attr("x2", width-200)  //end of timeline
+  .attr("y2", function(d,i){return 10+i*20})
+  // .attr("stroke", "white")
+  // .attr("stroke-width", 3)
+  .style("stroke", "grey")
+  .style("stroke", ("6, 5"))
+  .style("opacity", 0.05)
+  .classed("timeline", true)
+  
+  // circles for timeline
+  
+  timelinesG.each(function(D,I){
+  d3.select(this).selectAll(".timelineNodes").append("g")
+  .data(keywordsData.filter(function (d) {
+  if(d.uncertaintystart === 0 && d.vend === ""){
+  return (d.people.includes(D) || d.places.includes(D) || d.works.includes(D) || d.artistic.includes(D) ||d.additional.includes(D)) && d.vstart.includes("/") == false && d.vstart.includes(",") == false && d.vstart != "" //took out some data points that create errors for now
+  }}))
+  .join("circle")
+  .classed("circles", true)
+  .attr("r",3)
+  .attr("cx", function(d,i){
+  let date = new Date (d.vstart)
+  //console.log(date + "-" + timelineXScale(date))
+  return timelineXScale(date)})
+  .attr("cy", function(){return 10+I*20})
+  .classed("cinema", function (d) {if (d.category1 == true && d.category2 == false && d.category3 == false)
+  {return true}else{return false}})
+  .classed("biography", function (d) {
+  if (d.category2 == true && d.category1 == false && d.category3 == false)
+  {
+  return true;
+  } else{return false}
+  })
+  .classed("writing", function (d) {
+  if (d.category3 == true && d.category1 == false && d.category2 == false)
+  {
+  return true;
+  } else{return false}
+  })
+  .classed("cinebio", function (d) {
+  if (d.category1 == true && d.category2 == true && d.category3 == false)
+  {
+  return true;
+  }  else{return false}
+  })
+  .classed("biowrit", function (d) {
+  if (d.category1 == false && d.category2 == true && d.category3 == true)
+  {
+  return true;
+  }  else{return false}
+  })
+  .classed("cinewrit", function (d) {
+  if (d.category1 == true && d.category2 == false && d.category3 == true)
+  {
+  return true;
+  }  else{return false}
+  })
+  .classed("allcat", function (d) {
+  if (d.category1 == true && d.category2 == true && d.category3 == true)
+  {
+  return true;
+  }  else{return false}
+  })
+  
+  //tooltip
+  .on('mousemove', function (event, d) {
+  tooltip
+  .style('position', 'absolute')
+  .style('left', `${event.pageX + 5}px`)
+  .style('top', `${event.pageY + 10}px`)
+  .style('display', 'inline-block')
+  .style('opacity', '0.9')
+  .html(`
+  ${replaceTemporal(d, (vdateStart) => `<p class="date">${formatTime(d.vdateStart)}</p>`)}
+  ${conditionalReturn(d.displayTemporal, (displayTemporal) => `<p class="displayTemporal"><b>${displayTemporal}</b></p>`)}
+  <p class="tooltip-title">${d.title}</p>`);
+  })
+  
+  .on('click', function (event, d) {
+  // if  (d3.select(this).style("stroke") != "black" && d3.select(this).style("stroke-width") != "2px") {
+  // d3.selectAll(".circles").style("stroke", "none").style("stroke-width", "0px")
+  // d3.select(this).style("stroke", "black").style("stroke-width", "2px")
+  // }else{
+  // d3.select(this).style("stroke", "none").style("stroke-width", "0px")
+
+  d3.selectAll(".circles").classed("notSelected", true).classed("selected", false)
+  d3.select(this).classed("selected", true).classed("notSelected", false)
 
 
-//d3.select(".chronological")
-// .on("click", function() {
-//   if (d3.select(this).style("font-weight") != "bold") {
-//     d3.selectAll(".filter").style("font-weight", 400)
-//     d3.select(this).style("font-weight", "bold")
-//     d3.selectAll(".timelineG").sort(function(a, b) {
-//       return a.date > b.date ? 1 : -1
-//     })
-//   }
-// })
 
-// d3.select(".frequency")
-// .on("click", function() {
-//   if (d3.select(this).style("font-weight") != "bold") {
-//     d3.selectAll(".filter").style("font-weight", 400)
-//     d3.select(this).style("font-weight", "bold")
-//     d3.selectAll(".timelineG").sort(function(a, b) {
-//       return a.count > b.count ? -1 : 1
-//     })
+  // }
+  d3.select("#closedsidebar").style("display", "block")
+  sidebar
+  .style('display', 'block')
+  .html(`
+  ${replaceTemporal(d, (vdateStart) => `<p class="date">${formatTime(d.vdateStart)}</p>`)}
+  ${conditionalReturn(d.displayTemporal, (displayTemporal) => `<p class="displayTemporal"><b>${displayTemporal}</b></p>`)}
+  ${conditionalReturn(d.title, (title) => `<p class="title">${title}</p>`)}
+  ${compareDescription(d, (description) => `<p class="description"><b>Description: </b>${description}</p>`)}
+  ${stringSplit(d.people, (people) => `<p class="people"><b>People: </b>${people}</p>`)}
+  ${stringSplit(d.places, (places) => `<p class="places"><b>Places: </b>${places}</p>`)}
+  ${stringSplit(d.works, (works) => `<p class="works"<b><b>Works: </b>${works}</p>`)}
+  ${stringSplit(d.artistic, (artistic) => `<p class="artistic"><b>Artistic concepts: </b>${artistic}</p>`)}
+  ${stringSplit(d.additional, (additional) => `<p class="misc"><b>Misc: </b>${additional}</p>`)}
+  ${stringSplit(d.image, (image) => `<p class="objects"><b>Additonal items: <br> </b><img src="images/objects/${image}.png" alt="${image}" width = "25%" height = "auto"  class="image"></p><br>`)}
+  ${conditionalReturn(d.source, (source) => `<p class="source"><b>Source: </b>${source}</p>`)}
+  ${conditionalReturn(d.reference, (reference) => `<p class="reference"><b>Further references: </b>${reference}</p>`)}
+  <br/>
+  ${conditionalReturn(d.category1, (category1) => `<span class="key-dot cinema"></span>Cinema and Theatre<br>`)}
+  ${conditionalReturn(d.category2, (category2) => `<span class="key-dot biography"></span>Biography and Personality<br>`)}
+  ${conditionalReturn(d.category3, (category3) => `<span class="key-dot writing"></span>Writing and Teaching<br>`)}
+  ${conditionalReturn(d.category4, (category4) => `<span class="key-dot graphic"></span>Graphic Art<br>`)}
+  ${conditionalReturn(d.category5, (category5) => `<span class="key-dot apartment"></span>Apartment<br>`)}
+  
+  `)
+  
+  })
+  .on('mouseout', function (d) {
+  tooltip.style('display', 'none');
+  tooltip.style('opacity', 0);
+  
+  d3.selectAll(".circles")
+  .style("opacity", 1)
+  })
+  .on('mouseout', function (d) {
+  tooltip.style('display', 'none');
+  tooltip.style('opacity', 0);
+  
+  d3.selectAll(".circles")
+  .style("opacity", 1)
+  });
+  d3.selectAll("#closedsidebar")
+  .on('click', function (d) {
+  
+  d3.select(".sidebar")
+  .style("display", "none")
+  
+  d3.select("#closedsidebar").style("display", "none")
+  
+  });  
+  })
+  
+  //spans
+  
+  timelinesG.each(function(D,I){
+  d3.select(this).selectAll(".timelineLines").append("g")
+  .data(keywordsData.filter(function (d) {
+  if (d.vend.includes("-")) {
+  return (d.people.includes(D) || d.places.includes(D) || d.works.includes(D) || d.artistic.includes(D) ||d.additional.includes(D)) && d.vstart.includes("/") == false && d.vstart.includes(",") == false && d.vstart != ""//took out some data points that create errors for now
+  
+  } }))
+  .join("line")
+  .classed("timelineLines", true)
+  .attr("stroke-width", 6)
+  .classed("biography", function (d) {
+  if (d.category2 == true && d.category1 == false && d.category3 == false)
+  {
+  return true;
+  } else{return false}
+  })
+  .classed("writing", function (d) {
+  if (d.category3 == true && d.category1 == false && d.category2 == false)
+  {
+  return true;
+  } else{return false}
+  })
+  .classed("cinebio", function (d) {
+  if (d.category1 == true && d.category2 == true && d.category3 == false)
+  {
+  return true;
+  }  else{return false}
+  })
+  .classed("biowrit", function (d) {
+  if (d.category1 == false && d.category2 == true && d.category3 == true)
+  {
+  return true;
+  }  else{return false}
+  })
+  .classed("cinewrit", function (d) {
+  if (d.category1 == true && d.category2 == false && d.category3 == true)
+  {
+  return true;
+  }  else{return false}
+  })
+  .classed("allcat", function (d) {
+  if (d.category1 == true && d.category2 == true && d.category3 == true)
+  {
+  return true;
+  }  else{return false}
+  })
+    .attr("x1", function(d,i){
+      let date = new Date (d.vstart)
+    // console.log(date + "-" + timelineXScale(date))
+      return timelineXScale(date)})
+    .attr("y1", function(){return 10+I*20})
+    .attr("x2", function(d,i){
+      let date = new Date (d.vend)
+    // console.log(date + "-" + timelineXScale(date))
+    // console.log(d.vend + "-" +date + "-" + timelineXScale(date))
+      return timelineXScale(date)})
+    .attr("y2", function(){return 10+I*20})
+  .on('mousemove', function (event, d) {
+  tooltip
+  .style('position', 'absolute')
+  .style('left', `${event.pageX + 5}px`)
+  .style('top', `${event.pageY + 10}px`)
+  .style('display', 'inline-block')
+  .style('opacity', '0.9')
+  .html(`
+          ${replaceTemporal(d, (vdateStart) => `<b><p class="date">${formatTime(d.vdateStart)}</b> to <b>${formatTime(d.vdateEnd)}</b></p>`)}
+          ${conditionalReturn(d.displayTemporal, (displayTemporal) => `<p class="displayTemporal"><b>${displayTemporal}</b></p>`)}
+          <p class="tooltip-title">${d.title}</p>`);
+  })
+  .on('click', function (event, d) {
+  d3.select("#closedsidebar").style("display", "block")
+  /// sidebar for spans
+  sidebar
+  .style('display', 'block')
+  .html(`
+  ${replaceTemporal(d, (vdateStart) => `<b><p class="date">${formatTime(d.vdateStart)}</b> to <b>${formatTime(d.vdateEnd)}</b></p>`)}
+  ${conditionalReturn(d.displayTemporal, (displayTemporal) => `<p class="displayTemporal"><b>${displayTemporal}</b></p>`)}
+  ${conditionalReturn(d.title, (title) => `<p class="title">${title}</p>`)}
+  ${compareDescription(d, (description) => `<p class="description"><b>Description: </b>${description}</p>`)}
+  ${stringSplit(d.people, (people) => `<p class="people"><b>People: </b>${people}</p>`)}
+  ${stringSplit(d.places, (places) => `<p class="places"><b>Places: </b>${places}</p>`)}
+  ${stringSplit(d.works, (works) => `<p class="works"<b><b>Works: </b>${works}</p>`)}
+  ${stringSplit(d.artistic, (artistic) => `<p class="artistic"><b>Artistic concepts: </b>${artistic}</p>`)}
+  ${stringSplit(d.additional, (additional) => `<p class="misc"><b>Misc: </b>${additional}</p>`)}
+  ${conditionalReturn(d.image, (image) => `<p class="objects"><b>Additonal items: <br> </b><img src="images/objects/${image}.png" alt="${image} width = "25%" height = "auto" class="image"></p><br>`)}
+  ${conditionalReturn(d.source, (source) => `<p class="source"><b>Source: </b>${source}</p>`)}
+  ${conditionalReturn(d.reference, (reference) => `<p class="reference"><b>Further references: </b>${reference}</p>`)}
+  <br/>
+  ${conditionalReturn(d.category1, (category1) => `<span class="key-dot cinema"></span>Cinema and Theatre<br>`)}
+  ${conditionalReturn(d.category2, (category2) => `<span class="key-dot biography"></span>Biography and Personality<br>`)}
+  ${conditionalReturn(d.category3, (category3) => `<span class="key-dot writing"></span>Writing and Teaching<br>`)}
+  ${conditionalReturn(d.category4, (category4) => `<span class="key-dot graphic"></span>Graphic Art<br>`)}
+  ${conditionalReturn(d.category5, (category5) => `<span class="key-dot apartment"></span>Apartment<br>`)}
+  `)
+  
+  })
+  .on('mouseout', function (d) {
+  tooltip.style('display', 'none');
+  tooltip.style('opacity', 0);
+  
+  d3.selectAll(".timelineLines")
+  .style("opacity", 1)
+  })
+  d3.selectAll("#closedsidebar")
+  .on('click', function (d) {
+  
+  d3.select(".sidebar")
+  .style("display", "none")
+  
+  d3.select("#closedsidebar").style("display", "none")
+  
+  })
+  })
+  
+  //removed symbols
 
-
-
-//   }else {
-//     d3.select(this).style("font-weight", 400)
-//   }
-//   });
-
-
-
-
-// })
+  }
+})
 
 // filter for categories
 
@@ -1106,14 +1967,14 @@ d3.select(".f_c").on("click", function() {
   if (d3.select(this).style("font-weight") != "bold") {
     d3.selectAll(".filter").style("font-weight", 400)
     d3.select(this).style("font-weight", "bold")
-    d3.selectAll("circle.cinema").transition().style("opacity", "1")
-    d3.selectAll("circle:not(.cinema)").transition().style("opacity", "0")
-    d3.selectAll(".timelineLines").filter(".cinema").transition().style("opacity", "1")
-    d3.selectAll(".timelineLines").filter(":not(.cinema)").transition().style("opacity", "0")
+    d3.selectAll("circle.cinema").classed("catFilteredOut", false)
+    d3.selectAll("circle:not(.cinema)").classed("catFilteredOut", true)
+    d3.selectAll(".timelineLines").filter(".cinema").classed("catFilteredOut", false)
+    d3.selectAll(".timelineLines").filter(":not(.cinema)").classed("catFilteredOut", true)
   } else {
     d3.select(this).style("font-weight", 400)
-    d3.selectAll("circle").transition().style("opacity", "1")
-    d3.selectAll(".timelineLines").transition().style("opacity", "1")
+    d3.selectAll("circle").classed("catFilteredOut", false)
+    d3.selectAll(".timelineLines").classed("catFilteredOut", false)
   }
 })
 
@@ -1121,15 +1982,15 @@ d3.select(".f_b").on("click", function() {
   if (d3.select(this).style("font-weight") != "bold") {
     d3.selectAll(".filter").style("font-weight", 400)
     d3.select(this).style("font-weight", "bold")
-    d3.selectAll("circle.biography").transition().style("opacity", "1")
-    d3.selectAll("circle:not(.biography)").transition().style("opacity", "0")
-    d3.selectAll(".timelineLines").filter(".biography").transition().style("opacity", 1)
-    d3.selectAll(".timelineLines").filter(":not(.biography)").transition().style("opacity", 0)
+    d3.selectAll("circle.biography").classed("catFilteredOut", false)
+    d3.selectAll("circle:not(.biography)").classed("catFilteredOut", true)
+    d3.selectAll(".timelineLines").filter(".biography").classed("catFilteredOut", false)
+    d3.selectAll(".timelineLines").filter(":not(.biography)").classed("catFilteredOut", true)
 
   } else {
     d3.select(this).style("font-weight", 400)
-    d3.selectAll("circle").transition().style("opacity", "1")
-    d3.selectAll(".timelineLines").transition().style("opacity", "1")
+    d3.selectAll("circle").classed("catFilteredOut", false)
+    d3.selectAll(".timelineLines").classed("catFilteredOut", false)
   }
 })
 
@@ -1138,59 +1999,14 @@ d3.select(".f_w").on("click", function() {
   if (d3.select(this).style("font-weight") != "bold") {
     d3.selectAll(".filter").style("font-weight", 400)
     d3.select(this).style("font-weight", "bold")
-    d3.selectAll("circle.writing").transition().style("opacity", "1")
-    d3.selectAll("circle:not(.writing)").transition().style("opacity", "0")
-    d3.selectAll(".timelineLines").filter(".writing").transition().style("opacity", "1")
-    d3.selectAll(".timelineLines").filter(":not(.writing)").transition().style("opacity", "0")
+    d3.selectAll("circle.writing").classed("catFilteredOut", false)
+    d3.selectAll("circle:not(.writing)").classed("catFilteredOut", true)
+    d3.selectAll(".timelineLines").filter(".writing").classed("catFilteredOut", false)
+    d3.selectAll(".timelineLines").filter(":not(.writing)").classed("catFilteredOut", true)
   } else {
     d3.select(this).style("font-weight", 400)
-    d3.selectAll("circle").transition().style("opacity", "1")
-    d3.selectAll(".timelineLines").transition().style("opacity", "1")
-  }
-})
-
-d3.select(".f_cw").on("click", function() {
-  if (d3.select(this).style("font-weight") != "bold") {
-    d3.selectAll(".filter").style("font-weight", 400)
-    d3.select(this).style("font-weight", "bold")
-    d3.selectAll("circle.cinewrit").transition().style("opacity", "1")
-    d3.selectAll("circle:not(.cinewrit)").transition().style("opacity", "0")
-    d3.selectAll(".timelineLines").filter(".cinewrit").transition().style("opacity", "1")
-    d3.selectAll(".timelineLines").filter(":not(.cinewrit)").transition().style("opacity", "0")
-  } else {
-    d3.select(this).style("font-weight", 400)
-    d3.selectAll("circle").transition().style("opacity", "1")
-    d3.selectAll(".timelineLines").transition().style("opacity", "1")
-  }
-})
-
-d3.select(".f_cb").on("click", function() {
-  if (d3.select(this).style("font-weight") != "bold") {
-    d3.selectAll(".filter").style("font-weight", 400)
-    d3.select(this).style("font-weight", "bold")
-    d3.selectAll("circle.cinebio").transition().style("opacity", "1")
-    d3.selectAll("circle:not(.cinebio)").transition().style("opacity", "0")
-    d3.selectAll(".timelineLines").filter(".cinebio").transition().style("opacity", "1")
-    d3.selectAll(".timelineLines").filter(":not(.cinebio)").transition().style("opacity", "0")
-  } else {
-    d3.select(this).style("font-weight", 400)
-    d3.selectAll("circle").transition().style("opacity", "1")
-    d3.selectAll(".timelineLines").transition().style("opacity", "1")
-  }
-})
-
-d3.select(".f_wb").on("click", function() {
-  if (d3.select(this).style("font-weight") != "bold") {
-    d3.selectAll(".filter").style("font-weight", 400)
-    d3.select(this).style("font-weight", "bold")
-    d3.selectAll("circle.biowrit").transition().style("opacity", "1")
-    d3.selectAll("circle:not(.biowrit)").transition().style("opacity", "0")
-    d3.selectAll(".timelineLines").filter(".biowrit").transition().style("opacity", "1")
-    d3.selectAll(".timelineLines").filter(":not(.apartment)").transition().style("opacity", "0")
-  } else {
-    d3.select(this).style("font-weight", 400)
-    d3.selectAll("circle").transition().style("opacity", "1")
-    d3.selectAll(".timelineLines").transition().style("opacity", "1")
+    d3.selectAll("circle").classed("catFilteredOut", false)
+    d3.selectAll(".timelineLines").classed("catFilteredOut", false)
   }
 })
 
@@ -1198,14 +2014,15 @@ d3.select(".f_ac").on("click", function() {
   if (d3.select(this).style("font-weight") != "bold") {
     d3.selectAll(".filter").style("font-weight", 400)
     d3.select(this).style("font-weight", "bold")
-    d3.selectAll("circle.allacat").transition().style("opacity", "1")
-    d3.selectAll("circle:not(.allcat)").transition().style("opacity", "0")
-    d3.selectAll(".timelineLines").filter(".allcat").transition().style("opacity", "1")
-    d3.selectAll(".timelineLines").filter(":not(.allcat)").transition().style("opacity", "0")
+    d3.selectAll("circle.allacat", "circle.cinewrit", "circle.cinebio", "circle.biowrit").classed("catFilteredOut", false)
+    d3.selectAll("circle.allacat, .cinewrit, .cinebio, .biowrit").classed("catFilteredOut", false)
+    d3.selectAll("circle:not(.allcat, .cinewrit, .cinebio, .biowrit)").classed("catFilteredOut", true)
+    d3.selectAll(".timelineLines").filter(".allcat, .cinewrit, .cinebio, .biowrit").classed("catFilteredOut", false)
+    d3.selectAll(".timelineLines").filter(":not(.allcat, .cinewrit, .cinebio, .biowrit").classed("catFilteredOut", true)
   } else {
     d3.select(this).style("font-weight", 400)
-    d3.selectAll("circle").transition().style("opacity", "1")
-    d3.selectAll(".timelineLines").transition().style("opacity", "1")
+    d3.selectAll("circle").classed("catFilteredOut", false)
+    d3.selectAll(".timelineLines").classed("catFilteredOut", false)
   }
 })
 // };
@@ -1218,18 +2035,10 @@ d3.select(".triangle").on("click", function() {
   if (d3.select(this).style("font-weight") != "bold") {
     d3.selectAll(".entities p").style("font-weight", 400)
     d3.select(this).style("font-weight", "bold")
-    d3.selectAll("backgroundTimelineG.person").transition().style("opacity", "1")
-
-    .select(".people").transition().style("opacity", "1")
-    d3.selectAll(".people:not(.people)").transition().style("opacity", "0")
-    // d3.selectAll("circle").filter(function(d) { return d.people != ""; }).transition().style("opacity", "1")
-    // d3.selectAll("circle").filter(function(d) { return d.people == ""; }).transition().style("opacity", "0")
-    // d3.selectAll(".timelineLines").filter(".cinema").transition().style("opacity", "1")
-    // d3.selectAll(".timelineLines").filter(":not(.cinema)").transition().style("opacity", "0")
+    d3.selectAll("text.people").classed("entFilteredOut", true)
   } else {
     d3.select(this).style("font-weight", 400)
-    d3.selectAll("circle").transition().style("opacity", "1")
-    // d3.selectAll(".timelineLines").transition().style("opacity", "1")
+    d3.selectAll("text.people").classed("entFilteredOut", false)
   }
 
 })
@@ -1240,14 +2049,10 @@ d3.select(".diamond").on("click", function() {
   if (d3.select(this).style("font-weight") != "bold") {
     d3.selectAll(".entities p").style("font-weight", 400)
     d3.select(this).style("font-weight", "bold")
-    d3.selectAll("circle").filter(function(d) { return d.places != ""; }).transition().style("opacity", "1")
-    d3.selectAll("circle").filter(function(d) { return d.places == ""; }).transition().style("opacity", "0")
-    // d3.selectAll(".timelineLines").filter(".cinema").transition().style("opacity", "1")
-    // d3.selectAll(".timelineLines").filter(":not(.cinema)").transition().style("opacity", "0")
+    d3.selectAll("text.places").classed("entFilteredOut", true)
   } else {
     d3.select(this).style("font-weight", 400)
-    d3.selectAll("circle").transition().style("opacity", "1")
-    // d3.selectAll(".timelineLines").transition().style("opacity", "1")
+    d3.selectAll("text.places").classed("entFilteredOut", false)
   }
 
 })
@@ -1258,14 +2063,10 @@ d3.select(".threeprong").on("click", function() {
   if (d3.select(this).style("font-weight") != "bold") {
     d3.selectAll(".entities p").style("font-weight", 400)
     d3.select(this).style("font-weight", "bold")
-    d3.selectAll("circle").filter(function(d) { return d.works != ""; }).transition().style("opacity", "1")
-    d3.selectAll("circle").filter(function(d) { return d.works == ""; }).transition().style("opacity", "0")
-    // d3.selectAll(".timelineLines").filter(".cinema").transition().style("opacity", "1")
-    // d3.selectAll(".timelineLines").filter(":not(.cinema)").transition().style("opacity", "0")
+    d3.selectAll("text.works").classed("entFilteredOut", true)
   } else {
     d3.select(this).style("font-weight", 400)
-    d3.selectAll("circle").transition().style("opacity", "1")
-    // d3.selectAll(".timelineLines").transition().style("opacity", "1")
+    d3.selectAll("text.works").classed("entFilteredOut", false)
   }
 
 })
@@ -1276,14 +2077,10 @@ d3.select(".square").on("click", function() {
   if (d3.select(this).style("font-weight") != "bold") {
     d3.selectAll(".entities p").style("font-weight", 400)
     d3.select(this).style("font-weight", "bold")
-    d3.selectAll("circle").filter(function(d) { return d.artistic != ""; }).transition().style("opacity", "1")
-    d3.selectAll("circle").filter(function(d) { return d.artistic == ""; }).transition().style("opacity", "0")
-    // d3.selectAll(".timelineLines").filter(".cinema").transition().style("opacity", "1")
-    // d3.selectAll(".timelineLines").filter(":not(.cinema)").transition().style("opacity", "0")
+    d3.selectAll("text.artistic").classed("entFilteredOut", true)
   } else {
     d3.select(this).style("font-weight", 400)
-    d3.selectAll("circle").transition().style("opacity", "1")
-    // d3.selectAll(".timelineLines").transition().style("opacity", "1")
+    d3.selectAll("text.artistic").classed("entFilteredOut", false)
   }
 
 })
@@ -1294,14 +2091,10 @@ d3.select(".plus").on("click", function() {
   if (d3.select(this).style("font-weight") != "bold") {
     d3.selectAll(".entities p").style("font-weight", 400)
     d3.select(this).style("font-weight", "bold")
-    d3.selectAll("circle").filter(function(d) { return d.additional != ""; }).transition().style("opacity", "1")
-    d3.selectAll("circle").filter(function(d) { return d.additional == ""; }).transition().style("opacity", "0")
-    d3.selectAll(".timelineLines").filter(function(d) { return d.additional != ""; }).transition().style("opacity", "1")
-    d3.selectAll(".timelineLines").filter(function(d) { return d.additional == ""; }).transition().style("opacity", "0")
+    d3.selectAll("text.additional").classed("entFilteredOut", true)
   } else {
     d3.select(this).style("font-weight", 400)
-    d3.selectAll("circle").transition().style("opacity", "1")
-    d3.selectAll(".timelineLines").transition().style("opacity", "1")
+    d3.selectAll("text.additional").classed("entFilteredOut", false)
   }
 
 })
@@ -1316,13 +2109,15 @@ d3.selectAll(".highlights p")
     let selectedIdentifier = d3.select(this).attr("class") // get the class of the p tag that was clicked on
 
     d3.selectAll("circle").filter(function(X,Y){return highlightsData.filter(function(D){return D.identifier ==  selectedIdentifier})[0].events.includes(X.Event_ID) == true
-  }).transition().style("opacity", "1")
+  }).classed("catFilteredOut", false)
     d3.selectAll("circle").filter(function(X,Y){return highlightsData.filter(function(D){return D.identifier ==  selectedIdentifier})[0].events.includes(X.Event_ID) == false
-  }).transition().style("opacity", "0")
+  }).classed("catFilteredOut", true)
     d3.selectAll(".timelineLines").filter(function(X,Y){return highlightsData.filter(function(D){return D.identifier ==  selectedIdentifier})[0].events.includes(X.Event_ID) == true
-  }).transition().style("opacity", "1")
+  }).classed("catFilteredOut", false)
     d3.selectAll(".timelineLines").filter(function(X,Y){return highlightsData.filter(function(D){return D.identifier ==  selectedIdentifier})[0].events.includes(X.Event_ID) == false
-  }).transition().style("opacity", "0")    
+  }).classed("catFilteredOut", true)   
+
+    d3.selectAll(".filter,.allfilter").style("font-weight", 400)
     d3.select("#closedsidebar").style("display", "block")
     
         // insert 'name' from highlightsData as a html element
@@ -1340,10 +2135,11 @@ d3.selectAll(".highlights p")
 
         `)
           .style('display', 'block')
+          .attr('sidebarType', 'highlights')
   } else {
     d3.select(this).style("font-weight", 400)
-    d3.selectAll("circle").transition().style("opacity", "1")
-    d3.selectAll(".pathG").selectAll("path").transition().style("opacity", "1")
+    d3.selectAll("circle").classed("catFilteredOut", false)
+    d3.selectAll(".pathG").selectAll("path").classed("catFilteredOut", false)
   }
 })
 d3.selectAll("#closedsidebar")
@@ -1351,8 +2147,8 @@ d3.selectAll("#closedsidebar")
 
         d3.select(".sidebar")
           .style("display", "none")
-          d3.selectAll("circle").transition().style("opacity", "1")
-        d3.selectAll(".timelineLines").transition().style("opacity", "1")
+          d3.selectAll("circle").classed("catFilteredOut", false)
+        d3.selectAll(".timelineLines").classed("catFilteredOut", false)
         d3.select("#closedsidebar").style("display", "none")
 
       })
