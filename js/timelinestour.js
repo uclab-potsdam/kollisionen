@@ -124,6 +124,9 @@ tour.addStep({
       element: '.sidebar',
       on: 'right'
     },
+      popperOptions: {
+      modifiers: [{ name: 'offset', options: { offset: [0, 15] } }]
+    },
     buttons: [
       {
         action() {
