@@ -97,6 +97,10 @@ path.backgroundspiral {
   backdrop-filter: blur(8px);
 }
 
+.sidebar p {
+  line-height: 1.4em;
+}
+
 .highlightbar {
   background-color: rgba(255, 255, 255, 0.5);
   outline: 1px solid grey;
@@ -122,7 +126,7 @@ path.backgroundspiral {
 }
 
 .title {
-  font-size: 25px;
+  font-size: 1.5em;
   font-weight: bold;
 }
 
@@ -301,10 +305,12 @@ width: 10px;
 p {
   margin: 5;
   margin-left: 0px;
+  font-size: 0.9em;
+  line-height: 1.28em;
 }
 
 h2 {
-  font-size: 1em;
+  font-size: 0.85em;
   margin-bottom: 0.4em;
 }
 
@@ -370,6 +376,10 @@ h2 {
 .entities {
   float: left;
   width: 300px;
+}
+
+p {
+  line-height: 1.1em;
 }
 
 #legend1 {
@@ -463,6 +473,10 @@ h2 {
   z-index: 5;
 }
 
+p {
+  font-size: 0.9em;
+}
+
 .spiralviz {
   float: left;
   padding-top: 30px;
@@ -487,8 +501,8 @@ h2 {
   position: absolute;
 }
 
-.modalbuttons img {
-  padding: 4px;
+.modal-guide img {
+  padding-left: 8px;
   opacity: 0.8;
 }
 
@@ -710,6 +724,7 @@ input:checked + .slider:before {
 #eventList li{
 margin-bottom: 1em;
 background:none;
+font-size: 0.9em;
 }
 
 #eventList li::before {
