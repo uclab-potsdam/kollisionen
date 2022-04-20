@@ -21,10 +21,6 @@ tour.addStep({
     buttons: [
       {
         action() {
-          return this.back();
-        },
-      {
-        action() {
           return this.next();
         },
         text: 'Next'
