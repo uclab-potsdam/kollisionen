@@ -310,20 +310,20 @@ h2 {
   bottom: 0px;
 }
 
-.searchiconbg {
+/* .searchiconbg {
   background-color: lightgray;
   height: 24px;
   margin-top: 10px;
   margin-left: 13px;
-}
+} */
 
-#search-icon {
+/* #search-icon {
   position: relative;
   margin-top: 3px;
   padding-left: 5px;
   padding-right: 5px;
   color: black;
-}
+} */
 
 .search {
   position: absolute;
@@ -331,7 +331,7 @@ h2 {
   margin-left: 0px;
   margin-top: 20px;
   border: 0;
-  color: black;
+  /* color: black; */
   font-size: 12pt;
   float: left;
 }
