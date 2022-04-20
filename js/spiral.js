@@ -839,6 +839,7 @@ Promise.all([
               .classed("cinema", function (d) {
                 if (d.category1 == true && d.category2 == false && d.category3 == false) {
                   return true;
+                  
                 } return false;
               })
               .classed("biography", function (d) {
@@ -1277,6 +1278,9 @@ Promise.all([
 
 
             d3.select(".f_c").on("click", function () {
+              twGain.gain.rampTo(-0.3,0.5);
+              projGain.gain.rampTo(3.0,0.5);
+              therGain.gain.rampTo(-0.5,0.5);
               if (d3.select(this).style("font-weight") != "bold") {
                 d3.selectAll(".filter").style("font-weight", 400)
                 d3.selectAll(".highlights p").style("font-weight", 400)
@@ -1295,6 +1299,9 @@ Promise.all([
             })
 
             d3.select(".f_b").on("click", function () {
+              twGain.gain.rampTo(-0.1,0.5);
+              projGain.gain.rampTo(0.1,0.5);
+              therGain.gain.rampTo(0.3,0.5);
               if (d3.select(this).style("font-weight") != "bold") {
                 d3.selectAll(".filter").style("font-weight", 400)
                 d3.selectAll(".highlights p").style("font-weight", 400)
@@ -1312,7 +1319,9 @@ Promise.all([
             })
 
             d3.select(".f_w").on("click", function () {
-
+              twGain.gain.rampTo(3.5,1);
+              projGain.gain.rampTo(0.1,1);
+              therGain.gain.rampTo(-0.5,1);
               if (d3.select(this).style("font-weight") != "bold") {
                 d3.selectAll(".filter").style("font-weight", 400)
                 d3.selectAll(".highlights p").style("font-weight", 400)
