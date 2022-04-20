@@ -121,7 +121,8 @@ tour.addStep({
   tour.addStep({
     text: `The right panel of timelines visualization displays detailed information corresponding to selections in the visualization such as collection highlights and events.`,
     attachTo: {
-      element: '#eventList',
+      element: '.sidebar',
+      on: 'right'
     },
     buttons: [
       {
@@ -141,4 +142,8 @@ tour.addStep({
     id: 'creating'
   });
   
+  const div = document.querySelector('.modal-guide');
+
+div.addEventListener('click', (event) => {
   tour.start();
+});

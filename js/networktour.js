@@ -122,6 +122,7 @@ tour.addStep({
     text: `The right panel of this network view contains a list of all the events; scrolling through them alters the networks according to the visible events.`,
     attachTo: {
       element: '#eventList',
+      on: 'right'
     },
     buttons: [
       {
@@ -140,5 +141,10 @@ tour.addStep({
     ],
     id: 'creating'
   });
-  
+
+  const div = document.querySelector('.modal-guide');
+
+div.addEventListener('click', (event) => {
   tour.start();
+});
+  
