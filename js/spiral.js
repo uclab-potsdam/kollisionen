@@ -416,7 +416,7 @@ Promise.all([
             min because vstart contains ealiest date and max because vend contains latest date
             There needs be another step here: This works out this scale but it needs to then work it out for each line between vstart and vend and return a number
             e.g. 1906-01-01 -> 1908-12-31 = 3 numSpiralsTheta (roughly) as it equals 3 years
-        
+
             Using this scale numSpiralsThetaScale(d.vend) - numSpiralsThetaScale(d.vstart) -> number of spirals needed
             */
 
@@ -986,9 +986,14 @@ Promise.all([
               .attr('class', 'tooltip')
               .style('display', 'none');
 
+              var highlightbar = d3.select("#sidebar")
+                .append('div')
+                .attr('class', 'highlightbar');
+
             var sidebar = d3.select("#sidebar")
               .append('div')
               .attr('class', 'sidebar');
+
 
             // tooltip.append('div')
             //   .attr('class', 'date');
@@ -1011,13 +1016,7 @@ Promise.all([
                 d3.selectAll(".circles,.pathGs").classed("notHovered", true).classed("hovered", false)
                 d3.select(this).classed("notHovered", false).classed("hovered", true)
 
-                // d3.selectAll(".circles")
-                // .classed("hoveredYear", function(D){if(D.vstart.includes(year) == true){return true}else{ return false}})
-                // .classed("notHoveredYear", function(D){if(D.vstart.includes(year) == true){return false}else{ return true}})
-                //
-                // d3.selectAll(".pathGs")
-                // .classed("hoveredYear", function(D){if(D.vstart.includes(year) == true || D.vend.includes(year) == true){return true}else{ return false}})
-                // .classed("notHoveredYear", function(D){if(D.vstart.includes(year) == true || D.vend.includes(year) == true){return false}else{ return true}})
+
 
                 d3.selectAll(".timeLabels")
                   .style("opacity", function (D) { if (D == year) { return 1 } else { return 0 } })
@@ -1049,11 +1048,7 @@ Promise.all([
                 //  if  (d3.select(this).style("stroke") != "black" && d3.select(this).style("stroke-width") != "3px") {
                 d3.selectAll(".circles,.pathGs").classed("notSelected", true).classed("selected", false)
                 d3.select(this).classed("selected", true).classed("notSelected", false)
-                // }else{
-                // d3.select(this).style("stroke", "none").style("stroke-width", "0px")
 
-                // make not(this) opacity 0.5 when this is clicked
-                // d3.selectAll(".circles").filter(function(D){return D != d}).style("opacity", "0.5")
 
                 //display sidebar
 
@@ -1098,13 +1093,6 @@ Promise.all([
                 //display same year nodes/arcs
                 var [year, month, day] = d.vstart.split('-', 3)
 
-                // d3.selectAll(".circles")
-                // .classed("hoveredYear", function(D){if(D.vstart.includes(year) == true){return true}else{ return false}})
-                //
-
-                // d3.selectAll(".pathGs")
-                // .classed("hoveredYear", function(D){if(D.vstart.includes(year) == true || D.vend.includes(year) == true){return true}else{ return false}})
-                //
                 d3.selectAll(".circles,.pathGs").classed("notHovered", true).classed("hovered", false)
                 d3.select(this).classed("notHovered", false).classed("hovered", true)
 
@@ -1126,12 +1114,7 @@ Promise.all([
               })
               .on('click', function (event, d) {
 
-                // if  (d3.select(this).style("stroke-width") != "3px") {
-                //   d3.selectAll("pathGs").classed("spiralArcs")
-                //   d3.select(this).style("stroke-width", "3px")
-                // }else{
-                // d3.select(this).classed("spiralArcs")
-                // }
+
                 d3.selectAll(".circles,.pathGs").classed("notSelected", true).classed("selected", false)
                 d3.select(this).classed("selected", true).classed("notSelected", false)
 
@@ -1173,12 +1156,6 @@ Promise.all([
                 // tooltip.style('opacity', 0);
 
                 d3.selectAll(".circles,.pathGs").classed("notHovered", false).classed("hovered", false)
-                //.style("opacity", 1)
-                // .style('display', 'block')
-
-                // d3.selectAll(".pathGs")
-                // .style("opacity", 1)
-                // .style('display', 'block')
 
                 d3.selectAll(".timeLabels")
                   .style("opacity", function (D) { if (D == firstYearforLabel || D == lastYearforLabel) { return 1 } else { return 0 } })
@@ -1187,10 +1164,23 @@ Promise.all([
               });
 
             //closes sidebar using 'x'
-
-            d3.selectAll("#closedsidebar")
+            d3.selectAll("#closedhighlightbar")
               .on('click', function (d) {
 
+                d3.select(".highlightbar")
+                  .style("display", "none")
+
+                d3.selectAll(".circles,.pathGs").classed("catFilteredOut", false)
+
+                d3.selectAll(".highlights p").style("font-weight", 400)
+                d3.select("#closedhighlightbar").style("display", "none")
+
+
+              })
+
+            d3.selectAll("#closedsidebar")
+              .on('click', function (event,d) {
+                event.stopPropagation()
                 d3.select(".sidebar")
                   .style("display", "none")
 
@@ -1258,10 +1248,10 @@ Promise.all([
 
                   d3.selectAll(".filter,.allfilter").style("font-weight", 400)
 
-                  d3.select("#closedsidebar").style("display", "block")
+                  d3.select("#closedhighlightbar").style("display", "block")
 
                   /// sidebar for spans
-                  sidebar
+                  highlightbar
                     .html(`
 <h1 class="highlightsName">${highlightsData.filter(function (D) { return D.identifier == selectedIdentifier })[0].name}</h1>
 <p class="highlightsImage"><img src="images/objects/${highlightsData.filter(function (D) { return D.identifier == selectedIdentifier })[0].identifier}.png" alt="${highlightsData.filter(function (D) { return D.identifier == selectedIdentifier })[0].identifier}" width = "50%" height = "auto" class="image"></p>
@@ -1278,19 +1268,8 @@ Promise.all([
                   d3.selectAll(".circles,.pathGs").classed("catFilteredOut", false)
                 }
               })
-            d3.selectAll("#closedsidebar")
-              .on('click', function (d) {
-
-                d3.select(".sidebar")
-                  .style("display", "none")
-
-                d3.selectAll(".circles,.pathGs").classed("catFilteredOut", false)
-
-                d3.selectAll(".highlights p").style("font-weight", 400)
-                d3.select("#closedsidebar").style("display", "none")
 
 
-              })
 
             // if (d3.select(".highlights p").style("font-weight") != "bold") {
 
@@ -1300,7 +1279,10 @@ Promise.all([
             d3.select(".f_c").on("click", function () {
               if (d3.select(this).style("font-weight") != "bold") {
                 d3.selectAll(".filter").style("font-weight", 400)
+                d3.selectAll(".highlights p").style("font-weight", 400)
                 d3.select(this).style("font-weight", "bold")
+                d3.select(".highlightbar").style("display", "none")
+                d3.select("#closedhighlightbar").style("display", "none")
 
                 d3.selectAll(".circles,.pathGs").filter(function (d) { return d.category.includes("Cinema") || d.category.includes("Graphic") }).classed("catFilteredOut", false)
                 d3.selectAll(".circles,.pathGs").filter(function (d) { return d.category.includes("Cinema") == false && d.category.includes("Graphic") == false }).classed("catFilteredOut", true)
@@ -1315,7 +1297,12 @@ Promise.all([
             d3.select(".f_b").on("click", function () {
               if (d3.select(this).style("font-weight") != "bold") {
                 d3.selectAll(".filter").style("font-weight", 400)
+                d3.selectAll(".highlights p").style("font-weight", 400)
                 d3.select(this).style("font-weight", "bold")
+
+                d3.select(".highlightbar").style("display", "none")
+                d3.select("#closedhighlightbar").style("display", "none")
+
                 d3.selectAll(".circles,.pathGs").filter(function (d) { return d.category.includes("Biography") || d.category.includes("Apartment") }).classed("catFilteredOut", false)
                 d3.selectAll(".circles,.pathGs").filter(function (d) { return d.category.includes("Biography") == false && d.category.includes("Apartment") == false }).classed("catFilteredOut", true)
               } else {
@@ -1328,7 +1315,12 @@ Promise.all([
 
               if (d3.select(this).style("font-weight") != "bold") {
                 d3.selectAll(".filter").style("font-weight", 400)
+                d3.selectAll(".highlights p").style("font-weight", 400)
                 d3.select(this).style("font-weight", "bold")
+
+                d3.select(".highlightbar").style("display", "none")
+                d3.select("#closedhighlightbar").style("display", "none")
+
                 d3.selectAll(".circles,.pathGs").filter(function (d) { return d.category.includes("Writing") }).classed("catFilteredOut", false)
                 d3.selectAll(".circles,.pathGs").filter(function (d) { return d.category.includes("Writing") == false }).classed("catFilteredOut", true)
               } else {
@@ -1336,69 +1328,6 @@ Promise.all([
                 d3.selectAll(".circles,.pathGs").classed("catFilteredOut", false)
               }
             })
-
-            // d3.select(".f_cw").on("click", function() {
-            //   if (d3.select(this).style("font-weight") != "bold" && d3.select(".highlights p").style("font-weight") != "bold") {
-            //     d3.selectAll(".filter").style("font-weight", 400)
-            //     d3.select(this).style("font-weight", "bold")
-            //     d3.selectAll("circle.cinewrit").transition().style("display", "block")
-            //     d3.selectAll("circle:not(.cinewrit)").transition().style("display", "none")
-            //     d3.selectAll(".pathG").selectAll("path.cinewrit").transition().style("display", "block")
-            //     d3.selectAll(".pathG").selectAll("path:not(.cinewrit)").transition().style("display", "none")
-            //   } else {
-            //     d3.select(this).style("font-weight", 400)
-            //     d3.selectAll("circle").transition().style("display", "block")
-            //     d3.selectAll(".pathG").selectAll("path").transition().style("display", "block")
-            //   }
-            // })
-
-            // d3.select(".f_cb").on("click", function() {
-            //   if (d3.select(this).style("font-weight") != "bold" && d3.select(".highlights p").style("font-weight") != "bold") {
-            //     d3.selectAll(".filter").style("font-weight", 400)
-            //     d3.select(this).style("font-weight", "bold")
-            //     d3.selectAll("circle.cinebio").transition().style("display", "block")
-            //     d3.selectAll("circle:not(.cinebio)").transition().style("display", "none")
-            //     d3.selectAll(".pathG").selectAll("path.cinebio").transition().style("display", "block")
-            //     d3.selectAll(".pathG").selectAll("path:not(.cinebio)").transition().style("display", "none")
-            //   } else {
-            //     d3.select(this).style("font-weight", 400)
-            //     d3.selectAll("circle").transition().style("display", "block")
-            //     d3.selectAll(".pathG").selectAll("path").transition().style("display", "block")
-            //   }
-            // })
-
-            // d3.select(".f_wb").on("click", function() {
-            //   if (d3.select(this).style("font-weight") != "bold" && d3.select(".highlights p").style("font-weight") != "bold") {
-            //     d3.selectAll(".filter").style("font-weight", 400)
-            //     d3.select(this).style("font-weight", "bold")
-            //     d3.selectAll("circle.biowrit").transition().style("display", "block")
-            //     d3.selectAll("circle:not(.biowrit)").transition().style("display", "none")
-            //     d3.selectAll(".pathG").selectAll("path.biowrit").transition().style("display", "block")
-            //     d3.selectAll(".pathG").selectAll("path:not(.apartment)").transition().style("display", "none")
-            //   } else {
-            //     d3.select(this).style("font-weight", 400)
-            //     d3.selectAll("circle").transition().style("display", "block")
-            //     d3.selectAll(".pathG").selectAll("path").transition().style("display", "block")
-            //   }
-            // })
-
-            ///filter for multiple categories: deactivated
-            // d3.select(".f_ac").on("click", function() {
-            //   if (d3.select(this).style("font-weight") != "bold" && d3.select(".highlights p").style("font-weight") != "bold") {
-            //     d3.selectAll(".filter").style("font-weight", 400)
-            //     d3.select(this).style("font-weight", "bold")
-            //     d3.selectAll("circle.allacat").transition().style("display", "block")
-            //     d3.selectAll("circle:not(.allcat)").transition().style("display", "none")
-            //     d3.selectAll(".pathG").selectAll("path.allcat").transition().style("display", "block")
-            //     d3.selectAll(".pathG").selectAll("path:not(.allcat)").transition().style("display", "none")
-            //   } else {
-            //     d3.select(this).style("font-weight", 400)
-            //     d3.selectAll("circle").transition().style("display", "block")
-            //     d3.selectAll(".pathG").selectAll("path").transition().style("display", "block")
-            //   }
-            // })
-
-            // }
 
 
 
