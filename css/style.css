@@ -489,6 +489,7 @@ h2 {
 
 .modalbuttons img {
   padding: 4px;
+  opacity: 0.8;
 }
 
 .modal-guide img {
