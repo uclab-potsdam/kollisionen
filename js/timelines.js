@@ -1025,7 +1025,7 @@ $("#search").select2({
 data: searchDaten,
 containerCssClass: "search",
 selectOnClose: true,
-placeholder: "Search events keywords",
+placeholder: "Search",
 allowClear: true
 
 });
