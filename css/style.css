@@ -299,9 +299,9 @@ h2 {
   padding-bottom: 5px;
 }
 
-.landing-page img {
+/* .landing-page img {
   margin-right: 10px;
-}
+} */
 
 .search-container {
   margin-top: 20px;
@@ -339,11 +339,12 @@ h2 {
 .highlights {
   float: left;
   padding-top: 10px;
+  width: 300px;
 }
 
 .categories {
   float: left;
-  width: 400px;
+  width: 300px;
 }
 
 .entities {
@@ -357,6 +358,7 @@ h2 {
   font-size: 1em;
   width: 100%;
   margin-bottom: 20px;
+  width:300px
 }
 
 /* #legend1 h2 {
@@ -446,6 +448,10 @@ h2 {
 
 .modalbuttons img {
   padding: 4px;
+}
+
+.modal-guide img {
+  margin-top: 1px;
 }
 
 
