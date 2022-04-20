@@ -97,7 +97,26 @@ path.backgroundspiral {
   backdrop-filter: blur(8px);
 }
 
-.sidebar[sidebarType="highlights"] {
+.highlightbar {
+  background-color: rgba(255, 255, 255, 0.5);
+  outline: 1px solid grey;
+  margin: 0px;
+  font-size: 0.9em;
+  position: fixed;
+  overflow-y: auto;
+  top: 0;
+  right: 0;
+  width: 350px;
+  height: 100%;
+  display: none;
+  text-align: left;
+  padding: 40px;
+  padding-top: 50px;
+  z-index: 10;
+  backdrop-filter: blur(8px);
+}
+
+.highlightbar[sidebarType="highlights"] {
   background-color: rgb(0, 0, 0, 0.65);
   color: white;
 }
@@ -405,6 +424,17 @@ h2 {
   margin: 5px;
 }
 
+#closedhighlightbar {
+  position: fixed;
+  right: 10px;
+  top: 0;
+  font-size: 30;
+  color: white;
+  cursor: pointer;
+  z-index: 30;
+  margin: 5px;
+}
+
 .toppanel {
   display: flex;
   justify-content: center;
@@ -621,7 +651,12 @@ input:checked + .slider:before {
 }
 
 .notSelected{
-  opacity: 0.05;
+  opacity: 1;
+  fill:white!important;
+}
+
+.pathGs.notSelected > path{
+  stroke:white!important;
 }
 
 .hovered{
@@ -655,9 +690,10 @@ input:checked + .slider:before {
   height: 100%;
   position: fixed;
   display: block;
-  background-color: rgb(157, 157, 146, 0.25);
+  background-color: rgba(222, 211, 196, 0.25);
   z-index: 200;
-  padding: 10px;
+  padding: 40px;
+  padding-top: 50px;
   outline: 1px solid grey;
   overflow-y: auto;
   backdrop-filter: blur(8px);
