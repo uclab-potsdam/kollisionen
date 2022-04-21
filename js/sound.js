@@ -32,13 +32,13 @@ let projplayer = new Tone.Player({
     therplayer.connect(thermelody).connect(therGain);
     therGain.gain.rampTo(0.05,5);
 
-  let synth = new Tone.Channel(1).toDestination();
-//typewriter.mute = true;
-let synthplayer = new Tone.Player({
-    url: "sounds/synth.wav",
-    loop: true,
-  }).sync().start(0);
+//   let synth = new Tone.Channel(1).toDestination();
+// //typewriter.mute = true;
+// let synthplayer = new Tone.Player({
+//     url: "sounds/synth.wav",
+//     loop: true,
+//   }).sync().start(0);
 
-  synthplayer.connect(synthplayer);
+//   synthplayer.connect(synthplayer);
 
 

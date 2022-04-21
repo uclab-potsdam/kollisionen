@@ -450,11 +450,11 @@ function stringSplit(data, keywordSplitter) {
                   .data(keywordsCount1)
                   .join("g")
                   .classed("backgroundTimelineG", true)
-                  .classed("people", function (d) {if (keywordsData.filter(function(D){return D.people == d}).length > 0) {return true} else {return false}})
-                  .classed("places", function (d) {if (keywordsData.filter(function(D){return D.places == d}).length > 0) {return true} else {return false}})
-                  .classed("works", function (d) {if (keywordsData.filter(function(D){return D.works == d}).length > 0) {return true} else {return false}})
-                  .classed("artistic", function (d) {if (keywordsData.filter(function(D){return D.artistic == d}).length > 0) {return true} else {return false}})
-                  .classed("additional", function (d) {if (keywordsData.filter(function(D){return D.additional == d}).length > 0) {return true} else {return false}})
+                  .classed("people", function (d) {if (keywordsData.filter(function(D){return D.people.includes(d)}).length > 0) {return true} else {return false}})
+                  .classed("places", function (d) {if (keywordsData.filter(function(D){return D.places.includes(d)}).length > 0) {return true} else {return false}})
+                  .classed("works", function (d) {if (keywordsData.filter(function(D){return D.works.includes(d)}).length > 0) {return true} else {return false}})
+                  .classed("artistic", function (d) {if (keywordsData.filter(function(D){return D.artistic.includes(d)}).length > 0) {return true} else {return false}})
+                  .classed("additional", function (d) {if (keywordsData.filter(function(D){return D.additional.includes(d)}).length > 0) {return true} else {return false}})
 
   timelinesG.append("text")
   .text(function(d){
@@ -466,12 +466,12 @@ function stringSplit(data, keywordSplitter) {
   .attr("text-weight", 400)
   .style("text-anchor", "end")
   .classed("keyword", true)
-  .classed("people", function (d) {if (keywordsData.filter(function(D){return D.people == d}).length > 0) {return true} else {return false}})
-  .classed("places", function (d) {if (keywordsData.filter(function(D){return D.places == d}).length > 0) {return true} else {return false}})
-  .classed("works", function (d) {if (keywordsData.filter(function(D){return D.works == d}).length > 0) {return true} else {return false}})
-  .classed("artistic", function (d) {if (keywordsData.filter(function(D){return D.artistic == d}).length > 0) {return true} else {return false}})
-  .classed("additional", function (d) {if (keywordsData.filter(function(D){return D.additional == d}).length > 0) {return true} else {return false}})
-
+  .classed("people", function (d) {if (keywordsData.filter(function(D){return D.people.includes(d)}).length > 0) {return true} else {return false}})
+                  .classed("places", function (d) {if (keywordsData.filter(function(D){return D.places.includes(d)}).length > 0) {return true} else {return false}})
+                  .classed("works", function (d) {if (keywordsData.filter(function(D){return D.works.includes(d)}).length > 0) {return true} else {return false}})
+                  .classed("artistic", function (d) {if (keywordsData.filter(function(D){return D.artistic.includes(d)}).length > 0) {return true} else {return false}})
+                  .classed("additional", function (d) {if (keywordsData.filter(function(D){return D.additional.includes(d)}).length > 0) {return true} else {return false}})
+  
   timelinesG.append("line")
   .attr("x1", 350)  //start of timeline
   .attr("y1", function(d,i){return 10+i*20})
@@ -614,7 +614,6 @@ function stringSplit(data, keywordSplitter) {
             ${stringSplit(d.works, (works) => `<p class="works"<b><b>Works: </b>${works}</p>`)}
             ${stringSplit(d.artistic, (artistic) => `<p class="artistic"><b>Artistic concepts: </b>${artistic}</p>`)}
             ${stringSplit(d.additional, (additional) => `<p class="misc"><b>Misc: </b>${additional}</p>`)}
-            ${stringSplit(d.image, (image) => `<p class="objects"><b>Additonal items: <br> </b><img src="images/objects/${image}.png" alt="${image}" width = "25%" height = "auto"  class="image"></p><br>`)}
             ${conditionalReturn(d.source, (source) => `<p class="source"><b>Source: </b>${source}</p>`)}
             ${conditionalReturn(d.reference, (reference) => `<p class="reference"><b>Further references: </b>${reference}</p>`)}
             <br/>
@@ -664,6 +663,11 @@ function stringSplit(data, keywordSplitter) {
     .join("line")
     .classed("timelineLines", true)
     .attr("stroke-width", 6)
+    .classed("cinema", function (d) {
+      if (d.category1 == true && d.category2 == false && d.category3 == false) {
+        return true;
+      } return false;
+    })
     .classed("biography", function (d) {
       if (d.category2 == true && d.category1 == false && d.category3 == false)
       {
@@ -709,7 +713,16 @@ function stringSplit(data, keywordSplitter) {
                   let date = new Date (d.vend)
                 // console.log(date + "-" + timelineXScale(date))
                 // console.log(d.vend + "-" +date + "-" + timelineXScale(date))
-                  return timelineXScale(date)})
+
+                // if x2-x1 is less than 5, then it is a single point, so we want to make it a little bigger
+                if (timelineXScale(date) - timelineXScale(date) < 5) {
+                  return timelineXScale(date) + 5
+                } else {
+                  return timelineXScale(date) 
+                }
+                })
+
+                  // return timelineXScale(date)})
                 .attr("y2", function(){return 10+I*20})
       .on('mousemove', function (event, d) {
         tooltip
@@ -738,7 +751,6 @@ function stringSplit(data, keywordSplitter) {
           ${stringSplit(d.works, (works) => `<p class="works"<b><b>Works: </b>${works}</p>`)}
           ${stringSplit(d.artistic, (artistic) => `<p class="artistic"><b>Artistic concepts: </b>${artistic}</p>`)}
           ${stringSplit(d.additional, (additional) => `<p class="misc"><b>Misc: </b>${additional}</p>`)}
-          ${conditionalReturn(d.image, (image) => `<p class="objects"><b>Additonal items: <br> </b><img src="images/objects/${image}.png" alt="${image} width = "25%" height = "auto" class="image"></p><br>`)}
           ${conditionalReturn(d.source, (source) => `<p class="source"><b>Source: </b>${source}</p>`)}
           ${conditionalReturn(d.reference, (reference) => `<p class="reference"><b>Further references: </b>${reference}</p>`)}
           <br/>
@@ -1138,7 +1150,6 @@ d3.select('input[value="alphabetical"]').on('change', function() {
     d3.select("#closedsidebar").style("display", "none") 
     d3.select(".sidebar").style("display", "none")
     
-
     d3.selectAll("svg > *").remove();
 
     let timelinesG = d3.select("#chart")
@@ -1147,11 +1158,11 @@ d3.select('input[value="alphabetical"]').on('change', function() {
     .data(keywordsCount.sort())
     .join("g")
     .classed("backgroundTimelineG", true)
-    .classed("people", function (d) {if (keywordsData.filter(function(D){return D.people == d}).length > 0) {return true} else {return false}})
-    .classed("places", function (d) {if (keywordsData.filter(function(D){return D.places == d}).length > 0) {return true} else {return false}})
-    .classed("works", function (d) {if (keywordsData.filter(function(D){return D.works == d}).length > 0) {return true} else {return false}})
-    .classed("artistic", function (d) {if (keywordsData.filter(function(D){return D.artistic == d}).length > 0) {return true} else {return false}})
-    .classed("additional", function (d) {if (keywordsData.filter(function(D){return D.additional == d}).length > 0) {return true} else {return false}})
+    .classed("people", function (d) {if (keywordsData.filter(function(D){return D.people.split(";" || "; " ) == d}).length > 0) {return true} else {return false}})
+    .classed("places", function (d) {if (keywordsData.filter(function(D){return D.places.split(";") == d}).length > 0) {return true} else {return false}})
+    .classed("works", function (d) {if (keywordsData.filter(function(D){return D.works.split(";") == d}).length > 0) {return true} else {return false}})
+    .classed("artistic", function (d) {if (keywordsData.filter(function(D){return D.artistic.split(";") == d}).length > 0) {return true} else {return false}})
+    .classed("additional", function (d) {if (keywordsData.filter(function(D){return D.additional.split(";") == d}).length > 0) {return true} else {return false}})
 
     timelinesG.append("text")
     .text(function(d){
@@ -1271,7 +1282,6 @@ ${stringSplit(d.places, (places) => `<p class="places"><b>Places: </b>${places}<
 ${stringSplit(d.works, (works) => `<p class="works"<b><b>Works: </b>${works}</p>`)}
 ${stringSplit(d.artistic, (artistic) => `<p class="artistic"><b>Artistic concepts: </b>${artistic}</p>`)}
 ${stringSplit(d.additional, (additional) => `<p class="misc"><b>Misc: </b>${additional}</p>`)}
-${stringSplit(d.image, (image) => `<p class="objects"><b>Additonal items: <br> </b><img src="images/objects/${image}.png" alt="${image}" width = "25%" height = "auto"  class="image"></p><br>`)}
 ${conditionalReturn(d.source, (source) => `<p class="source"><b>Source: </b>${source}</p>`)}
 ${conditionalReturn(d.reference, (reference) => `<p class="reference"><b>Further references: </b>${reference}</p>`)}
 <br/>
@@ -1321,6 +1331,11 @@ return (d.people.includes(D) || d.places.includes(D) || d.works.includes(D) || d
 .join("line")
 .classed("timelineLines", true)
 .attr("stroke-width", 6)
+.classed("cinema", function (d) {
+  if (d.category1 == true && d.category2 == false && d.category3 == false) {
+    return true;
+  } return false;
+})
 .classed("biography", function (d) {
 if (d.category2 == true && d.category1 == false && d.category3 == false)
 {
@@ -1366,7 +1381,13 @@ return true;
     let date = new Date (d.vend)
   // console.log(date + "-" + timelineXScale(date))
   // console.log(d.vend + "-" +date + "-" + timelineXScale(date))
-    return timelineXScale(date)})
+  if (timelineXScale(date) - timelineXScale(date) < 5) {
+    return timelineXScale(date) + 5
+  } else {
+    return timelineXScale(date) 
+  }
+  })
+    // return timelineXScale(date)})
   .attr("y2", function(){return 10+I*20})
 .on('mousemove', function (event, d) {
 tooltip
@@ -1395,7 +1416,6 @@ ${stringSplit(d.places, (places) => `<p class="places"><b>Places: </b>${places}<
 ${stringSplit(d.works, (works) => `<p class="works"<b><b>Works: </b>${works}</p>`)}
 ${stringSplit(d.artistic, (artistic) => `<p class="artistic"><b>Artistic concepts: </b>${artistic}</p>`)}
 ${stringSplit(d.additional, (additional) => `<p class="misc"><b>Misc: </b>${additional}</p>`)}
-${conditionalReturn(d.image, (image) => `<p class="objects"><b>Additonal items: <br> </b><img src="images/objects/${image}.png" alt="${image} width = "25%" height = "auto" class="image"></p><br>`)}
 ${conditionalReturn(d.source, (source) => `<p class="source"><b>Source: </b>${source}</p>`)}
 ${conditionalReturn(d.reference, (reference) => `<p class="reference"><b>Further references: </b>${reference}</p>`)}
 <br/>
@@ -1574,7 +1594,6 @@ ${stringSplit(d.places, (places) => `<p class="places"><b>Places: </b>${places}<
 ${stringSplit(d.works, (works) => `<p class="works"<b><b>Works: </b>${works}</p>`)}
 ${stringSplit(d.artistic, (artistic) => `<p class="artistic"><b>Artistic concepts: </b>${artistic}</p>`)}
 ${stringSplit(d.additional, (additional) => `<p class="misc"><b>Misc: </b>${additional}</p>`)}
-${stringSplit(d.image, (image) => `<p class="objects"><b>Additonal items: <br> </b><img src="images/objects/${image}.png" alt="${image}" width = "25%" height = "auto"  class="image"></p><br>`)}
 ${conditionalReturn(d.source, (source) => `<p class="source"><b>Source: </b>${source}</p>`)}
 ${conditionalReturn(d.reference, (reference) => `<p class="reference"><b>Further references: </b>${reference}</p>`)}
 <br/>
@@ -1624,6 +1643,11 @@ return (d.people.includes(D) || d.places.includes(D) || d.works.includes(D) || d
 .join("line")
 .classed("timelineLines", true)
 .attr("stroke-width", 6)
+.classed("cinema", function (d) {
+  if (d.category1 == true && d.category2 == false && d.category3 == false) {
+    return true;
+  } return false;
+})
 .classed("biography", function (d) {
 if (d.category2 == true && d.category1 == false && d.category3 == false)
 {
@@ -1669,7 +1693,13 @@ return true;
     let date = new Date (d.vend)
   // console.log(date + "-" + timelineXScale(date))
   // console.log(d.vend + "-" +date + "-" + timelineXScale(date))
-    return timelineXScale(date)})
+  if (timelineXScale(date) - timelineXScale(date) < 5) {
+    return timelineXScale(date) + 5
+  } else {
+    return timelineXScale(date) 
+  }
+  })
+    // return timelineXScale(date)})
   .attr("y2", function(){return 10+I*20})
 .on('mousemove', function (event, d) {
 tooltip
@@ -1698,7 +1728,6 @@ ${stringSplit(d.places, (places) => `<p class="places"><b>Places: </b>${places}<
 ${stringSplit(d.works, (works) => `<p class="works"<b><b>Works: </b>${works}</p>`)}
 ${stringSplit(d.artistic, (artistic) => `<p class="artistic"><b>Artistic concepts: </b>${artistic}</p>`)}
 ${stringSplit(d.additional, (additional) => `<p class="misc"><b>Misc: </b>${additional}</p>`)}
-${conditionalReturn(d.image, (image) => `<p class="objects"><b>Additonal items: <br> </b><img src="images/objects/${image}.png" alt="${image} width = "25%" height = "auto" class="image"></p><br>`)}
 ${conditionalReturn(d.source, (source) => `<p class="source"><b>Source: </b>${source}</p>`)}
 ${conditionalReturn(d.reference, (reference) => `<p class="reference"><b>Further references: </b>${reference}</p>`)}
 <br/>
@@ -1884,7 +1913,6 @@ d3.select('input[value="frequency"]').on('change', function() {
   ${stringSplit(d.works, (works) => `<p class="works"<b><b>Works: </b>${works}</p>`)}
   ${stringSplit(d.artistic, (artistic) => `<p class="artistic"><b>Artistic concepts: </b>${artistic}</p>`)}
   ${stringSplit(d.additional, (additional) => `<p class="misc"><b>Misc: </b>${additional}</p>`)}
-  ${stringSplit(d.image, (image) => `<p class="objects"><b>Additonal items: <br> </b><img src="images/objects/${image}.png" alt="${image}" width = "25%" height = "auto"  class="image"></p><br>`)}
   ${conditionalReturn(d.source, (source) => `<p class="source"><b>Source: </b>${source}</p>`)}
   ${conditionalReturn(d.reference, (reference) => `<p class="reference"><b>Further references: </b>${reference}</p>`)}
   <br/>
@@ -1934,6 +1962,11 @@ d3.select('input[value="frequency"]').on('change', function() {
   .join("line")
   .classed("timelineLines", true)
   .attr("stroke-width", 6)
+  .classed("cinema", function (d) {
+    if (d.category1 == true && d.category2 == false && d.category3 == false) {
+      return true;
+    } return false;
+  })
   .classed("biography", function (d) {
   if (d.category2 == true && d.category1 == false && d.category3 == false)
   {
@@ -1979,7 +2012,13 @@ d3.select('input[value="frequency"]').on('change', function() {
       let date = new Date (d.vend)
     // console.log(date + "-" + timelineXScale(date))
     // console.log(d.vend + "-" +date + "-" + timelineXScale(date))
-      return timelineXScale(date)})
+    if (timelineXScale(date) - timelineXScale(date) < 5) {
+      return timelineXScale(date) + 5
+    } else {
+      return timelineXScale(date) 
+    }
+    })
+      // return timelineXScale(date)})
     .attr("y2", function(){return 10+I*20})
   .on('mousemove', function (event, d) {
   tooltip
@@ -2008,7 +2047,6 @@ d3.select('input[value="frequency"]').on('change', function() {
   ${stringSplit(d.works, (works) => `<p class="works"<b><b>Works: </b>${works}</p>`)}
   ${stringSplit(d.artistic, (artistic) => `<p class="artistic"><b>Artistic concepts: </b>${artistic}</p>`)}
   ${stringSplit(d.additional, (additional) => `<p class="misc"><b>Misc: </b>${additional}</p>`)}
-  ${conditionalReturn(d.image, (image) => `<p class="objects"><b>Additonal items: <br> </b><img src="images/objects/${image}.png" alt="${image} width = "25%" height = "auto" class="image"></p><br>`)}
   ${conditionalReturn(d.source, (source) => `<p class="source"><b>Source: </b>${source}</p>`)}
   ${conditionalReturn(d.reference, (reference) => `<p class="reference"><b>Further references: </b>${reference}</p>`)}
   <br/>
@@ -2063,6 +2101,9 @@ d3.select(".f_c").on("click", function() {
     d3.select(this).style("font-weight", 400)
     d3.selectAll("circle").classed("catFilteredOut", false)
     d3.selectAll(".timelineLines").classed("catFilteredOut", false)
+    twGain.gain.rampTo(0.2,30)
+    projGain.gain.rampTo(0.2,30);
+    therGain.gain.rampTo(0.05,5);
   }
 })
 
@@ -2085,6 +2126,9 @@ d3.select(".f_b").on("click", function() {
     d3.select(this).style("font-weight", 400)
     d3.selectAll("circle").classed("catFilteredOut", false)
     d3.selectAll(".timelineLines").classed("catFilteredOut", false)
+    twGain.gain.rampTo(0.2,30)
+    projGain.gain.rampTo(0.2,30);
+    therGain.gain.rampTo(0.05,5);
   }
 })
 
@@ -2125,6 +2169,9 @@ d3.select(".f_ac").on("click", function() {
     d3.select(this).style("font-weight", 400)
     d3.selectAll("circle").classed("catFilteredOut", false)
     d3.selectAll(".timelineLines").classed("catFilteredOut", false)
+    twGain.gain.rampTo(0.2,30)
+    projGain.gain.rampTo(0.2,30);
+    therGain.gain.rampTo(0.05,5);
   }
 })
 // };
