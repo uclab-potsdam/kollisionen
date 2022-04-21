@@ -325,6 +325,11 @@ h2 {
   padding-bottom: 5px;
 }
 
+.logo img {
+  height: 75px;
+
+}
+
 /* .landing-page img {
   margin-right: 10px;
 } */
