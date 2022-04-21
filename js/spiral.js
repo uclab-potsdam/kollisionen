@@ -839,7 +839,7 @@ Promise.all([
               .classed("cinema", function (d) {
                 if (d.category1 == true && d.category2 == false && d.category3 == false) {
                   return true;
-                  
+
                 } return false;
               })
               .classed("biography", function (d) {
@@ -1175,8 +1175,6 @@ Promise.all([
 
                 d3.selectAll(".highlights p").style("font-weight", 400)
                 d3.select("#closedhighlightbar").style("display", "none")
-
-
               })
 
             d3.selectAll("#closedsidebar")
@@ -1267,6 +1265,8 @@ Promise.all([
                 } else {
                   d3.select(this).style("font-weight", 400)
                   d3.selectAll(".circles,.pathGs").classed("catFilteredOut", false)
+                  d3.select(".highlightbar").style("display", "none")
+                  d3.select("#closedhighlightbar").style("display", "none")
                 }
               })
 
@@ -1285,10 +1285,10 @@ Promise.all([
                 d3.selectAll(".filter").style("font-weight", 400)
                 d3.selectAll(".highlights p").style("font-weight", 400)
                 d3.select(this).style("font-weight", "bold")
-                
+
                 d3.select(".highlightbar").style("display", "none")
                 d3.select("#closedhighlightbar").style("display", "none")
-                
+
                 d3.selectAll(".circles,.pathGs").filter(function (d) { return d.category.includes("Cinema") || d.category.includes("Graphic") }).classed("catFilteredOut", false)
                 d3.selectAll(".circles,.pathGs").filter(function (d) { return d.category.includes("Cinema") == false && d.category.includes("Graphic") == false }).classed("catFilteredOut", true)
               } else {
