@@ -212,8 +212,6 @@ var keywordsCount = [];
 
 
 
-
-
 //Array of keywords and keyword category
 
     var keywordsArray = [];
@@ -363,7 +361,6 @@ document.getElementsByClassName("highlights")[0].appendChild(p);
   const timelineXScale = d3.scaleTime()
     .domain([new Date("1897-01-01"), new Date("1975-01-01")])
     .range([350,width-200])
-    .clamp(true);
 
 console.log(new Date("1926-01-22"))
 console.log(timelineXScale(new Date(1926)))
@@ -489,20 +486,39 @@ function stringSplit(data, keywordSplitter) {
 
   //append an axis for the dates of the timeline
 
-  var dateScale = d3.scaleLinear()
-  .domain([new Date("1897-01-01"), new Date("1975-01-01")])
-  .range([350,width-200])
+//   var dateScale = d3.scaleLinear()
+//   .domain([new Date("1897-01-01"), new Date("1975-01-01")])
+//   .range([350,width-200])
 
-//append a line to 'yearlabel' div below div with the class "sorting"
+// //append a line to 'yearlabel' div below div with the class "sorting"
 
-  d3.select("#yearlabel")
-  .append("line")
-  .attr("x1", dateScale(new Date("1897-01-01")))
-  .attr("y1", 50)
-  .attr("x2", dateScale(new Date("1975-01-01")))
-  .attr("y2", 50)
-  .attr("stroke", "black")
-  .attr("stroke-width", 1)
+// var svgDate = d3.select("#yearlabel")
+// .append("svg")
+// .attr("width", dateScale(new Date("1897-01-01")))
+// .attr("height", 150)
+// .append("g")
+
+// //append a line to 'yearlabel' div below div with the class "sorting"
+
+//   svgDate.append("line")
+//   .attr("x1", dateScale(new Date("1897-01-01")))  //start of timeline
+//   .attr("y1", 25)
+//   .attr("x2", dateScale(new Date("1897-01-01")))  //end of timeline
+//   .attr("y2", 25)
+//   .attr("stroke", "grey")
+//   .attr("stroke-width", 3)
+//   .style("opacity", 0.05)
+
+
+
+  // d3.select("#yearlabel")
+  // .append("line")
+  // .attr("x1", dateScale(new Date("1897-01-01")))
+  // .attr("y1", 20)
+  // .attr("x2", dateScale(new Date("1975-01-01")))
+  // .attr("y2", 20)
+  // .attr("stroke", "black")
+  // .attr("stroke-width", 1)
 
 
 
