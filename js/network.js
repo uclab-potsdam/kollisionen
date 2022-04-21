@@ -34,6 +34,14 @@ let tooltip = d3.select("body")
   .attr('class', 'tooltip')
   .style('display', 'none');
 
+let highlightbar = d3.select("#sidebar")
+    .append('div')
+    .attr('class', 'highlightbar');
+
+let sidebar = d3.select("#sidebar")
+  .append('div')
+  .attr('class', 'sidebar');
+
 const simulation = d3.forceSimulation()
   .force("link", d3.forceLink().id(function(d, i) {
     return d.name;
@@ -77,6 +85,43 @@ Promise.all([
       p.innerHTML = text;
       document.getElementsByClassName("highlights")[0].appendChild(p);
     }
+
+    d3.selectAll(".highlights p")
+      .on("click", function (d, i) {
+        if (d3.select(this).style("font-weight") != "bold") {
+          d3.selectAll(".highlights p").style("font-weight", 400)
+          d3.select(this).style("font-weight", "bold")
+          let selectedIdentifier = d3.select(this).attr("class") // get the class of the p tag that was clicked on
+
+          d3.selectAll(".circles,.pathGs").filter(function (X, Y) {
+            return highlightsData.filter(function (D) { return D.identifier == selectedIdentifier })[0].events.includes(X.Event_ID) == true
+          }).classed("catFilteredOut", false)
+          d3.selectAll(".circles,.pathGs").filter(function (X, Y) {
+            return highlightsData.filter(function (D) { return D.identifier == selectedIdentifier })[0].events.includes(X.Event_ID) == false
+          }).classed("catFilteredOut", true)
+
+          d3.selectAll(".filter,.allfilter").style("font-weight", 400)
+
+          d3.select("#closedhighlightbar").style("display", "block")
+
+          /// sidebar for spans
+          highlightbar
+            .html(`
+<h1 class="highlightsName">${highlightsData.filter(function (D) { return D.identifier == selectedIdentifier })[0].name}</h1>
+<p class="highlightsImage"><img src="images/objects/${highlightsData.filter(function (D) { return D.identifier == selectedIdentifier })[0].identifier}.png" alt="${highlightsData.filter(function (D) { return D.identifier == selectedIdentifier })[0].identifier}" width = "50%" height = "auto" class="image"></p>
+<p class="highlightsSubtitle">${highlightsData.filter(function (D) { return D.identifier == selectedIdentifier })[0].subtitle}</p>
+<p class="highlightsDescription">${highlightsData.filter(function (D) { return D.identifier == selectedIdentifier })[0].description}</p>
+<p class="highlightsDate">${highlightsData.filter(function (D) { return D.identifier == selectedIdentifier })[0].date}</p>
+<p class="highlightsLink"><a href="${highlightsData.filter(function (D) { return D.identifier == selectedIdentifier })[0].links}" target="_blank">${highlightsData.filter(function (D) { return D.identifier == selectedIdentifier })[0].links}</a></p>
+
+`)
+            .style('display', 'block')
+            .attr('sidebarType', 'highlights')
+        } else {
+          d3.select(this).style("font-weight", 400)
+          d3.selectAll(".circles,.pathGs").classed("catFilteredOut", false)
+        }
+      })
 
 
     for (let i = 0; i < networkData.length; i++) {
@@ -995,6 +1040,34 @@ itemSelection()
     }
     //Intersect2Circles function end
     ////////////////////////////////
+
+
+    //closes sidebar using 'x'
+    d3.selectAll("#closedhighlightbar")
+      .on('click', function (d) {
+
+        d3.select(".highlightbar")
+          .style("display", "none")
+
+        d3.selectAll(".circles,.pathGs").classed("catFilteredOut", false)
+
+        d3.selectAll(".highlights p").style("font-weight", 400)
+        d3.select("#closedhighlightbar").style("display", "none")
+      })
+
+    d3.selectAll("#closedsidebar")
+      .on('click', function (event,d) {
+        event.stopPropagation()
+        d3.select(".sidebar")
+          .style("display", "none")
+
+        d3.selectAll(".circles,.pathGs").classed("selected", false).classed("notSelected", false)
+
+        d3.select("#closedsidebar").style("display", "none")
+
+      });
+
+
 
 
     function ticked(d) {

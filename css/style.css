@@ -723,7 +723,6 @@ input:checked + .slider:before {
   position: fixed;
   display: block;
   background-color: rgba(222, 211, 196, 0.25);
-  z-index: 200;
   padding: 40px;
   padding-top: 50px;
   outline: 1px solid grey;
