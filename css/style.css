@@ -461,6 +461,10 @@ p {
   background-color: #fdf5e6;
 }
 
+.toppanelt a {
+  color: black;
+}
+
 .toppanel {
   display: flex;
   justify-content: center;
