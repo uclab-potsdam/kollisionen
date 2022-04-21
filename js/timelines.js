@@ -191,7 +191,7 @@ var keywordsCount = [];
         });
         var keywords = d.places.split(";");
         keywords.forEach(function(d,i){
-            if (keywordsCount.indexOf(d) == -1 && d != "") keywordsCount1.push(d);
+            if (keywordsCount1.indexOf(d) == -1 && d != "") keywordsCount1.push(d);
         });
         var keywords = d.works.split(";");
         keywords.forEach(function(d,i){
