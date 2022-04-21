@@ -77,8 +77,8 @@ Promise.all([
     d3.csv(urlHighlights) //data
   ])
   .then(([networkData, highlightsData]) => {
-    console.log(networkData)
-    console.log(highlightsData)
+  //  console.log(networkData)
+  //  console.log(highlightsData)
 
     //create a p class for each of the 'identifier's and insert into into the div class="highlights" in index.html
 
@@ -98,12 +98,25 @@ Promise.all([
           d3.select(this).style("font-weight", "bold")
           let selectedIdentifier = d3.select(this).attr("class") // get the class of the p tag that was clicked on
 
-          d3.selectAll(".circles,.pathGs").filter(function (X, Y) {
-            return highlightsData.filter(function (D) { return D.identifier == selectedIdentifier })[0].events.includes(X.Event_ID) == true
-          }).classed("catFilteredOut", false)
-          d3.selectAll(".circles,.pathGs").filter(function (X, Y) {
-            return highlightsData.filter(function (D) { return D.identifier == selectedIdentifier })[0].events.includes(X.Event_ID) == false
-          }).classed("catFilteredOut", true)
+          d3.select("#eventList").selectAll("li").filter(function (X, Y) {
+            return highlightsData.filter(function (D) {
+            //  console.log(D)
+              return D.identifier == selectedIdentifier })[0].events.includes(X.Event_ID) == false
+          }).style("display", "none").classed("filteredin", false)
+
+          d3.select("#eventList").selectAll("li").filter(function (X, Y) {
+            return highlightsData.filter(function (D) {
+            //  console.log(D)
+              return D.identifier == selectedIdentifier })[0].events.includes(X.Event_ID) == true
+          }).style("display", "block").classed("filteredin", true)
+
+
+          // d3.selectAll(".circles,.pathGs").filter(function (X, Y) {
+          //   return highlightsData.filter(function (D) { return D.identifier == selectedIdentifier })[0].events.includes(X.Event_ID) == true
+          // }).classed("catFilteredOut", false)
+          // d3.selectAll(".circles,.pathGs").filter(function (X, Y) {
+          //   return highlightsData.filter(function (D) { return D.identifier == selectedIdentifier })[0].events.includes(X.Event_ID) == false
+          // }).classed("catFilteredOut", true)
 
           d3.selectAll(".filter,.allfilter").style("font-weight", 400)
 
@@ -124,10 +137,14 @@ Promise.all([
             .attr('sidebarType', 'highlights')
         } else {
           d3.select(this).style("font-weight", 400)
-          d3.selectAll(".circles,.pathGs").classed("catFilteredOut", false)
+
           d3.select(".highlightbar").style("display", "none")
           d3.select("#closedhighlightbar").style("display", "none")
+
+          d3.select("#eventList").selectAll("li").style("display", "block").classed("filteredin", true)
+
         }
+        itemSelection()
       })
 
 
@@ -233,7 +250,7 @@ Promise.all([
       d.vdateEnd = +endParse(d.vend + " 23:59AM")
     });
 
-    console.log(networkData)
+    //console.log(networkData)
 
 
     let nodes = []
@@ -394,8 +411,8 @@ Promise.all([
 
     })
 
-    console.log(links)
-    console.log(nodes)
+    //console.log(links)
+  //  console.log(nodes)
 
     nodes.sort(function(a, b) {
       return b.count - a.count;
@@ -491,8 +508,8 @@ $("#search").select2({
 });
 
   $("#search").on("select2-selecting", function(e) {
-    console.log(e.choice.name)
-    console.log(e.choice.category)
+    //console.log(e.choice.name)
+    // console.log(e.choice.category)
     d3.select("#eventList").selectAll("li").classed("filteredin",false)
 
     if (e.choice.category == "people"){
@@ -604,7 +621,7 @@ itemSelection()
       .force("link")
       .links(links)
 
-    console.log(links)
+    //console.log(links)
 
     linkG.selectAll(".link") //we create lines based on the links data
       .data(links)
@@ -636,6 +653,13 @@ itemSelection()
       .on("click", function(event, d, i) {
       //  unfoldingEdges(d, i)
       })
+      .on("mouseover", function(event, d){
+        d3.select(this).style("opacity", 1)
+      })
+      .on("mouseout", function(event, d){
+        d3.select(this).style("opacity", 0.4)
+      })
+      .style("cursor", "pointer")
 
 
 
@@ -713,17 +737,14 @@ itemSelection()
 
     //create Event List
     d3.select("#eventList").append("ul").selectAll("li")
-      .data(networkData)
+      .data(networkData.filter(function(d){return d.title != ""}))
       .join("li")
       .classed("cinema", function(d){if(d.category == "Cinema and Theatre" || d.category == "Cinema and theatre" || d.category == "Cinema and Theatre;Graphic Art" || d.category == "Graphic Art;Cinema and Theatre" || d.category == "Graphic Art"){return true}})
-      //.classed("cinema", function(d){if(d.category == "Cinema and Theatre;Graphic Art" || d.category == "Graphic Art;Cinema and Theatre"){return true}})
       .classed("biography", function(d){if(d.category == "Biography and Personality" || d.category == "Apartment"){return true}})
       .classed("writing", function(d){if(d.category == "Writing and Teaching"){return true}})
       .classed("cinewrit", function(d){if(d.category == "Cinema and Theatre;Writing and Teaching" || d.category== "Writing and Teaching;Cinema and Theatre"){return true}})
       .classed("cinebio", function(d){if(d.category == "Cinema and Theatre;Biography and Personality" || d.category == "Graphic Art;Biography and Personality" || d.category == "Biography and Personality;Cinema and Theatre" ){return true}})
       .classed("biowrit", function(d){if(d.category == "Biography and Personality;Writing and Teaching" || d.category == "Writing and Teaching;Biography and Personality"){return true}})
-      //.classed("apartment", function(d){if(d.category == "Apartment"){return true}})
-      //.classed("cinema", function(d){if(d.category == "Graphic Art"){return true}})
       .classed("allcat", function(d){if(d.category.includes("Biography and Personality") == true && (d.category.includes("Cinema and Theatre") == true ||d.category.includes("Graphic Art") == true) && d.category.includes("Writing and Teaching") == true){return true}})
       .classed("filteredin",true)
       .text(function(d) {
@@ -743,6 +764,7 @@ itemSelection()
 
 
     function itemSelection() {
+
       let firstItem = new Date(d3.select("#eventList").selectAll("li").filter(".filteredin")
         .filter(function(d) {
           return d3.select(this).node().getBoundingClientRect().top >= 0 && d3.select(this).node().getBoundingClientRect().bottom <= (window.innerHeight || document.documentElement.clientHeight)
@@ -758,8 +780,9 @@ itemSelection()
           return d3.select(this).node().getBoundingClientRect().top >= 0 && d3.select(this).node().getBoundingClientRect().bottom <= (window.innerHeight || document.documentElement.clientHeight)
         })._groups[0][visibleItemCount - 1].__data__.vstart)
 
-     console.log(firstItem)
-     console.log(lastItem)
+      //  console.log(visibleItemCount)
+     //console.log(firstItem)
+    // console.log(lastItem)
 
       //d3.selectAll(".node").style("display", "none")
       d3.selectAll(".link").style("display", function(d) {
@@ -1075,10 +1098,11 @@ itemSelection()
         d3.select(".highlightbar")
           .style("display", "none")
 
-        d3.selectAll(".circles,.pathGs").classed("catFilteredOut", false)
+        d3.select("#eventList").selectAll("li").style("display", "block").classed("filteredin", true)
 
         d3.selectAll(".highlights p").style("font-weight", 400)
         d3.select("#closedhighlightbar").style("display", "none")
+        itemSelection()
       })
 
     d3.selectAll("#closedsidebar")
