@@ -452,11 +452,13 @@ p {
   position: fixed;
   clear: both;
   width: 100%;
-  height: 40px;
+  /* height: 40px; */
+  height: 150px;
   /* height: 100%; */
-  margin-top: 5px;
+  margin-top: 0px;
   z-index: 5;
-  background-color: none;
+  /* background-color: none; */
+  background-color: #fdf5e6;
 }
 
 .toppanel a {

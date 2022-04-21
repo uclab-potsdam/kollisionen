@@ -25,7 +25,8 @@
   height: 22000px;
   position: absolute;
   width: calc(100% - 150px);
-  margin-left: 150px
+  margin-left: 150px;
+  margin-top: 10px;
 }
 
 #chart svg{
@@ -41,7 +42,7 @@
     <div class="spiralviz"> <a href="index.html"><h2>Spiral</h2></a></div>
     <div class="networkviz"> <a href="network.html"><h2>Network</h2></a></div>
     <div class="timelinesviz"> <a href="timelines.html"><h2>Timelines</h2></a></div>
-  </div>
+  
 
   <div class="sorting">
     <p style="margin: 15px;">Sort the keywords</p>
@@ -59,6 +60,7 @@
       <input type="radio" name="sorting" id="frequency" value="frequency">
       <label for="frequency">Frequency-wise</label>
     </div>
+  </div>
 
 
   <div id="yearlabel">
@@ -141,6 +143,7 @@
 
 
 <div id="sidebar">  <p id="closedsidebar" style="display:none">✕</p></div>
+<p id="closedhighlightbar" style="display:none">✕</p>
 <script type="text/javascript" src="js/timelinestour.js"></script>
 
   
