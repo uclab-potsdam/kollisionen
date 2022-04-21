@@ -1036,15 +1036,15 @@ Promise.all([
                 ${conditionalReturn(d.displayTemporal, (displayTemporal) => `<p class="displayTemporal"><b>${displayTemporal}</b></p>`)}
                 <p class="tooltip-title">${d.title}</p>`);
               })
-              .on("mouseover", function (event, d) {
-                if (soundtoggle == true) {
-                  if (d.category1 == true) { playAudio(audio1) }
-                  else if (d.category2 == true) { playAudio(audio2) }
-                  else if (d.category3 == true) { playAudio(audio3) }
-                  else if (d.category4 == true) { playAudio(audio4) }
-                  else if (d.category5 == true) { playAudio(audio5) }
-                }
-              })
+              // .on("mouseover", function (event, d) {
+              //   if (soundtoggle == true) {
+              //     if (d.category1 == true) { playAudio(audio1) }
+              //     else if (d.category2 == true) { playAudio(audio2) }
+              //     else if (d.category3 == true) { playAudio(audio3) }
+              //     else if (d.category4 == true) { playAudio(audio4) }
+              //     else if (d.category5 == true) { playAudio(audio5) }
+              //   }
+              // })
               .on('click', function (event, d) {
                 //  if  (d3.select(this).style("stroke") != "black" && d3.select(this).style("stroke-width") != "3px") {
                 d3.selectAll(".circles,.pathGs").classed("notSelected", true).classed("selected", false)
@@ -1143,15 +1143,15 @@ Promise.all([
           `)
 
               })
-              .on("mouseover", function (event, d) {
-                if (soundtoggle == true) {
-                  if (d.category1 == true) { playAudio(audio1) }
-                  else if (d.category2 == true) { playAudio(audio2) }
-                  else if (d.category3 == true) { playAudio(audio3) }
-                  else if (d.category4 == true) { playAudio(audio4) }
-                  else if (d.category5 == true) { playAudio(audio5) }
-                }
-              })
+              // .on("mouseover", function (event, d) {
+              //   if (soundtoggle == true) {
+              //     if (d.category1 == true) { playAudio(audio1) }
+              //     else if (d.category2 == true) { playAudio(audio2) }
+              //     else if (d.category3 == true) { playAudio(audio3) }
+              //     else if (d.category4 == true) { playAudio(audio4) }
+              //     else if (d.category5 == true) { playAudio(audio5) }
+              //   }
+              // })
               .on('mouseout', function (d) {
                 tooltip.style('display', 'none');
                 // tooltip.style('opacity', 0);
@@ -1288,13 +1288,15 @@ Promise.all([
                 
                 d3.select(".highlightbar").style("display", "none")
                 d3.select("#closedhighlightbar").style("display", "none")
-                
+
                 d3.selectAll(".circles,.pathGs").filter(function (d) { return d.category.includes("Cinema") || d.category.includes("Graphic") }).classed("catFilteredOut", false)
                 d3.selectAll(".circles,.pathGs").filter(function (d) { return d.category.includes("Cinema") == false && d.category.includes("Graphic") == false }).classed("catFilteredOut", true)
               } else {
                 d3.select(this).style("font-weight", 400)
                 d3.selectAll(".circles,.pathGs").classed("catFilteredOut", false)
-
+                twGain.gain.rampTo(0.2,30)
+                projGain.gain.rampTo(0.2,30);
+                therGain.gain.rampTo(0.05,5);
               }
 
             })
@@ -1316,6 +1318,9 @@ Promise.all([
               } else {
                 d3.select(this).style("font-weight", 400)
                 d3.selectAll(".circles,.pathGs").classed("catFilteredOut", false)
+                twGain.gain.rampTo(0.2,30)
+                projGain.gain.rampTo(0.2,30);
+                therGain.gain.rampTo(0.05,5);
               }
             })
 
@@ -1336,6 +1341,9 @@ Promise.all([
               } else {
                 d3.select(this).style("font-weight", 400)
                 d3.selectAll(".circles,.pathGs").classed("catFilteredOut", false)
+                twGain.gain.rampTo(0.2,30)
+                projGain.gain.rampTo(0.2,30);
+                therGain.gain.rampTo(0.05,5);
               }
             })
 
