@@ -1,10 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700;900&display=swap');
+
 body {
     background-image: url("../images/landingpage_background.png");
-    background-size: 120%;
+    background-size: 140%;
     background-position: center;
     background-position: bottom 100px;
     background-repeat: no-repeat;
-    font-family: "Inconsolata", monospace;
+    font-family: "Montserrat", roboto;
     background-attachment: fixed;
 }
 
@@ -12,23 +14,28 @@ body {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    margin-bottom: 20px;
+    margin-bottom: 12px;
 }
 
 .content {
     position: absolute;
     /* left: 50%; */
     /* top: 80%; */
-    margin-top: 150px;
+    margin-top: 100px;
     /* transform: translate(-50%, -50%); */
     padding: 10px;
-    width: 40%;
-    transform:translateX(70%)
+    width: 50%;
+    transform:translateX(50%)
     }
+
+p {
+    font-size: 0.9em;
+}
+
 
 #three_viz {
     width: 100%;
-    margin-top: 40px;
+    margin-top: 10px;
 }
 
 #three_viz img {
@@ -37,7 +44,12 @@ body {
     margin-right: auto
 }
 
-#three_viz p{
+td, th {
+    text-align: left;
+    padding: 10px;
+  }
+
+/* #three_viz p{
     margin:0;
     margin-top: 10px;
     margin-bottom: 20px;
@@ -61,14 +73,14 @@ body {
     width: 33%;
     float: left;
     width: 32%;
-}
+} */
 
 #three_viz a{
     color: black;
 }
 
 #info {
-    margin-top: 50px;
+    margin-top: px;
     display:inline-block;
 }
 
