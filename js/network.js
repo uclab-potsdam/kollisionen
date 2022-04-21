@@ -12,11 +12,16 @@ var endParse = d3.timeParse("%Y-%m-%d %I:%M%p");
 
 let nodeScale = d3.scaleLinear()
   .domain([1, 300])
-  .range([5, 100])
+  .range([15, 80])
+
+  let labelScale = d3.scaleLinear()
+    .domain([1, 300])
+    .range([8, 20])
+
 
 let edgeScale = d3.scaleLinear()
-  .domain([1, 50])
-  .range([0.5, 10])
+  .domain([1, 100])
+  .range([1, 20])
 
 let zoom = d3.zoom()
   .scaleExtent([1 / 3, 8])
@@ -596,24 +601,24 @@ itemSelection()
       })
       .attr("class", "link")
       .style("stroke", function(d, i) {
-        if(d.children.length < 1){
+        if(d.children.length > 1){
           if (d.children[0].category.includes("Cinema and Theatre")== true && d.children[0].category.includes("Biography and Personality") == false && d.children[0].category.includes("Writing and Teaching") == false){
-            return "#002fa7"
+            return "#20638d"
           }else if (d.children[0].category.includes("Cinema and Theatre")== false && d.children[0].category.includes("Biography and Personality") == true && d.children[0].category.includes("Writing and Teaching") == false){
-              return "#fdd55c"
+              return "#ecce86"
             }else if (d.children[0].category.includes("Cinema and Theatre")== false && d.children[0].category.includes("Biography and Personality") == false && d.children[0].category.includes("Writing and Teaching") == true){
                 return "#ed563b"
               }else if (d.children[0].category.includes("Cinema and Theatre")== true && d.children[0].category.includes("Biography and Personality") == false && d.children[0].category.includes("Writing and Teaching") == true){
                   return "#774371"
                 }else if (d.children[0].category.includes("Cinema and Theatre")== true && d.children[0].category.includes("Biography and Personality") == true && d.children[0].category.includes("Writing and Teaching") == false){
-                    return "rgb(96, 167, 105)"
+                    return "#8a9a5b"
                   }else if (d.children[0].category.includes("Cinema and Theatre")== false && d.children[0].category.includes("Biography and Personality") == true && d.children[0].category.includes("Writing and Teaching") == true){
                       return "#f5964c"
                     }else{return "grey"}
-        }else{return "black"
+        }else{return "grey"
       }
       })
-      .style("opacity", 0.2)
+      .style("opacity", 0.4)
       .on("click", function(event, d, i) {
       //  unfoldingEdges(d, i)
       })
@@ -654,6 +659,26 @@ itemSelection()
           .style('display', 'none')
       })
 
+      labelG.selectAll(".labelbg") //we create nodes based on the links data
+        .data(nodes)
+        .join("text")
+        .classed("labelbg", true)
+        .attr("dx", function(d) {
+          return nodeScale(d.count)/2 + 2
+        })
+        .attr("dy", function(d) {
+          return  labelScale(d.count)/3
+        })
+        .style("fill", "white")
+        .text(function(d) {
+          return d.name
+        })
+        .style("stroke", "#fdf5e6")
+        .style("stroke-width", 3)
+        .style("font-size", function(d){return labelScale(d.count)})
+        .classed("hiddenLabel", function(d){if(d.count < 20){return true}})
+
+
     labelG.selectAll(".label") //we create nodes based on the links data
       .data(nodes)
       .join("text")
@@ -662,13 +687,14 @@ itemSelection()
         return nodeScale(d.count)/2 + 2
       })
       .attr("dy", function(d) {
-        return 0
+        return  labelScale(d.count)/3
       })
       .style("fill", "black")
       .text(function(d) {
         return d.name
       })
-      .style("font-size", "6")
+      .style("font-size", function(d){return labelScale(d.count)})
+      .classed("hiddenLabel", function(d){if(d.count < 20){return true}})
 
 
     //create Event List
@@ -765,7 +791,7 @@ itemSelection()
           }
         })
 
-      d3.selectAll(".label")
+      d3.selectAll(".label,.labelbg")
         .style("display", function(D, I) {
           if (connectedNodes.filter(function(d) {
               return d == D.name
@@ -1068,7 +1094,7 @@ itemSelection()
           return d.y;
         })
 
-      d3.selectAll(".label")
+      d3.selectAll(".label,.labelbg")
         .attr("x", function(d) {
           return d.x;
         })
