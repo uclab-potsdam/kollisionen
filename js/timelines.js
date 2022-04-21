@@ -16,6 +16,22 @@ const margin = {
     right: 100
   };
 
+  // let detailview = false;
+let soundtoggle = false;
+// let uncertaintytoggle = false;
+
+///audio
+const audio1 = new Audio("sounds/sound1.mp3")
+const audio2 = new Audio("sounds/sound2.mp3")
+const audio3 = new Audio("sounds/sound3.mp3")
+const audio4 = new Audio("sounds/sound4.mp3")
+const audio5 = new Audio("sounds/sound5.mp3")
+
+
+function playAudio(file) {
+  file.play();
+}
+
 var parseDate = d3.timeParse("%Y-%m-%d"); // further format to correctly position dates ()
 var formatTime = d3.timeFormat("%e %B %Y"); //
 var startParse = d3.timeParse("%Y-%m-%d %I:%M%p");
@@ -1069,6 +1085,20 @@ d3.selectAll(".timelineLines").classed("filteredout",false)
 d3.selectAll("circle").classed("filteredout",false)
 })
 
+//sound
+
+d3.select("#soundcheckbox").on('change', function () {
+  if (soundtoggle) {
+    soundtoggle = !soundtoggle;
+    Tone.Transport.stop();
+  }
+  else if (!soundtoggle) {
+    soundtoggle = !soundtoggle;
+    Tone.Transport.start();
+  }
+});
+
+
 // filters and sorting
 
 //timelines sorting options
@@ -1964,6 +1994,9 @@ d3.select('input[value="frequency"]').on('change', function() {
 // filter for categories
 
 d3.select(".f_c").on("click", function() {
+  twGain.gain.rampTo(-0.3,0.5);
+  projGain.gain.rampTo(3.0,0.5);
+  therGain.gain.rampTo(-0.5,0.5);
   if (d3.select(this).style("font-weight") != "bold") {
     d3.selectAll(".filter").style("font-weight", 400)
     d3.select(this).style("font-weight", "bold")
@@ -1979,6 +2012,9 @@ d3.select(".f_c").on("click", function() {
 })
 
 d3.select(".f_b").on("click", function() {
+  twGain.gain.rampTo(-0.1,0.5);
+  projGain.gain.rampTo(0.1,0.5);
+  therGain.gain.rampTo(0.3,0.5);
   if (d3.select(this).style("font-weight") != "bold") {
     d3.selectAll(".filter").style("font-weight", 400)
     d3.select(this).style("font-weight", "bold")
@@ -1995,7 +2031,9 @@ d3.select(".f_b").on("click", function() {
 })
 
 d3.select(".f_w").on("click", function() {
-
+  twGain.gain.rampTo(3.5,1);
+  projGain.gain.rampTo(0.1,1);
+  therGain.gain.rampTo(-0.5,1);
   if (d3.select(this).style("font-weight") != "bold") {
     d3.selectAll(".filter").style("font-weight", 400)
     d3.select(this).style("font-weight", "bold")
