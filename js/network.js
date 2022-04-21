@@ -125,6 +125,8 @@ Promise.all([
         } else {
           d3.select(this).style("font-weight", 400)
           d3.selectAll(".circles,.pathGs").classed("catFilteredOut", false)
+          d3.select(".highlightbar").style("display", "none")
+          d3.select("#closedhighlightbar").style("display", "none")
         }
       })
 
@@ -528,7 +530,11 @@ $("#search").select2({
   d3.select(".f_c").on("click", function () {
     if (d3.select(this).style("font-weight") != "bold") {
       d3.selectAll(".filter").style("font-weight", 400)
+      d3.selectAll(".highlights p").style("font-weight", 400)
       d3.select(this).style("font-weight", "bold")
+
+      d3.select(".highlightbar").style("display", "none")
+      d3.select("#closedhighlightbar").style("display", "none")
 
 
       d3.select("#eventList").selectAll("li").style("display", function(d){
@@ -547,7 +553,11 @@ itemSelection()
   d3.select(".f_b").on("click", function () {
     if (d3.select(this).style("font-weight") != "bold") {
       d3.selectAll(".filter").style("font-weight", 400)
+      d3.selectAll(".highlights p").style("font-weight", 400)
       d3.select(this).style("font-weight", "bold")
+
+      d3.select(".highlightbar").style("display", "none")
+      d3.select("#closedhighlightbar").style("display", "none")
 
       d3.select("#eventList").selectAll("li").style("display", function(d){
         if(d.category.includes("Biography") || d.category.includes("Apartment")){return "block"}else{return "none"}})
@@ -565,7 +575,11 @@ itemSelection()
 
     if (d3.select(this).style("font-weight") != "bold") {
       d3.selectAll(".filter").style("font-weight", 400)
+      d3.selectAll(".highlights p").style("font-weight", 400)
       d3.select(this).style("font-weight", "bold")
+
+      d3.select(".highlightbar").style("display", "none")
+      d3.select("#closedhighlightbar").style("display", "none")
 
       d3.select("#eventList").selectAll("li").style("display", function(d){
         if(d.category.includes("Writing")){return "block"}else{return "none"}})
