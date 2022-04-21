@@ -619,36 +619,22 @@ itemSelection()
       })
 
 
-    // networkG.selectAll(".node") //we create nodes based on the links data
-    //   .data(nodes)
-    //   .join("circle")
-    //   .classed("node", true)
-    //   .attr("r", function(d){return nodeScale(d.count)})
-    //   .style("stroke", "white")
-    //   .style("stroke-width", 1)
-    //   .style("fill", function(d) {
-    //     return color(d.category)
-    //   })
 
-    const symbolScale = d3.scaleOrdinal()
-      .domain(["people", "places", "artistic", "works", "additional"])
-      .range([5, 2, 3, 6, 1])
-      // Dreieck: 5
-      // Kreis: 0
-      // Diamand: 2
-      // Atom-Ding: 6
-      // Quadrat: 3
-
-
-    nodeG.selectAll(".nodeSymbol") //we create nodes based on the links data
-      .data(nodes)
-      .join("path")
-      .classed("nodeSymbol", true)
-      .attr('d', d3.symbol().type(function(d, i) {
-        return d3.symbols[symbolScale(d.category)]
-      }).size(function(d) {
-        return nodeScale(d.count) * 5
-      }))
+      nodeG.selectAll(".nodeSymbol") //we create nodes based on the links data
+        .data(nodes)
+        .join("image")
+        .classed("nodeSymbol", true)
+        .attr("xlink:href", function(d) {
+          if(d.category == "people"){return "images/entities_icons/triangle.svg"}
+          else if(d.category == "places"){return "images/entities_icons/diamond.svg"}
+          else if(d.category == "artistic"){return "images/entities_icons/threeprong.svg"}
+          else if(d.category == "works"){return "images/entities_icons/square.svg"}
+          else if(d.category == "additional"){return "images/entities_icons/plus.svg"}
+          })
+        .attr("width", function(d){return nodeScale(d.count) + "px"})
+        .attr("height", function(d){return nodeScale(d.count) + "px"})
+        .attr("x", function(d){return -nodeScale(d.count)/2 + "px"})
+        .attr("y", function(d){return -nodeScale(d.count)/2 + "px"})
       .on("mousemove", function(event, d) {
         tooltip
           .style('position', 'absolute')
@@ -673,10 +659,10 @@ itemSelection()
       .join("text")
       .classed("label", true)
       .attr("dx", function(d) {
-        return nodeScale(d.count) / 5 + 2
+        return nodeScale(d.count)/2 + 2
       })
       .attr("dy", function(d) {
-        return nodeScale(d.count) / 5 + 2
+        return 0
       })
       .style("fill", "black")
       .text(function(d) {
