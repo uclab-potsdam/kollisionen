@@ -312,7 +312,7 @@ p {
 }
 
 h2 {
-  font-size: 0.85em;
+  font-size: 0.9em;
   margin-bottom: 0.4em;
 }
 
@@ -463,8 +463,13 @@ p {
   /* height: 100%; */
   margin-top: 0px;
   z-index: 5;
+  top:0;
   /* background-color: none; */
   background-color: #fdf5e6;
+}
+
+.toppanelt label{
+  font-size:0.9em;
 }
 
 .toppanelt a {
@@ -506,6 +511,10 @@ p {
   top: 100px;
   position: fixed;
   z-index: 5;
+}
+
+.sorting p{
+  margin-top: 17px!important;
 }
 
 p {
@@ -832,3 +841,7 @@ font-size: 0.9em;
 /*
           * === SEARCH BOX===
           */
+
+/* .select2-container .select2-choice{
+  padding-left: 0!important;
+} */
