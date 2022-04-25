@@ -113,10 +113,6 @@ tour.addStep({
 
   tour.addStep({
     text: `The right panel of timelines visualization displays detailed information corresponding to selections in the visualization such as collection highlights and events.`,
-    attachTo: {
-      element: '.sidebar',
-      on: 'right'
-    },
       popperOptions: {
       modifiers: [{ name: 'offset', options: { offset: [0, 15] } }]
     },
