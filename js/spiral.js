@@ -58,12 +58,12 @@ var radius = d3.scaleLinear()
 // inserts svg into the DOM
 
 let zoom = d3.zoom()
-  .scaleExtent([1 / 3, 8])
+  .scaleExtent([1, 6])
   .on("zoom", zoomed)
 
 const zoomRadiusScale = d3.scaleSqrt()
   .domain([1,8])
-  .range([5,5/8])
+  .range([5,5/6])
 
 var svg = d3.select("#chart").append("svg")
   .attr("width", "100%")
@@ -94,15 +94,15 @@ d3.select("#chart").call(zoom);
 
 function zoomed(event, d) {
   d3.select(".zoomG").attr("transform", event.transform);
-  d3.select(".pathG").selectAll("path").style("display", "none")
-  d3.selectAll(".circles").style("display", "none")
+  d3.select(".pathG").selectAll("path").classed("zooming", true)
+  d3.selectAll(".circles").classed("zooming", true)
 
 console.log(event.transform)
 
 
   setTimeout(function () {
-    d3.select(".pathG").selectAll("path").style("display", "block")//.style("stroke-width", 2 / event.transform.k)
-    d3.selectAll(".circles").style("display", "block").attr("r", zoomRadiusScale(event.transform.k))
+    d3.select(".pathG").selectAll("path").classed("zooming", false)//.style("stroke-width", 2 / event.transform.k)
+    d3.selectAll(".circles").classed("zooming", false).attr("r", zoomRadiusScale(event.transform.k))
   //  .attr("transform", function(){return "scale("+-event.transform.k+")"});
   //scale = event.transform.k;
   // console.log(scale);
