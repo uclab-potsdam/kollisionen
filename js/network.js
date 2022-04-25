@@ -96,6 +96,9 @@ Promise.all([
         if (d3.select(this).style("font-weight") != "bold") {
           d3.selectAll(".highlights p").style("font-weight", 400)
           d3.select(this).style("font-weight", "bold")
+          d3.selectAll(".nodeSymbol,.label,.labelbg").classed("entityFilteredOut",false)
+          d3.selectAll(".link").classed("entityFilteredOut",false)
+          d3.selectAll(".entities p").style("font-weight", 400)
           let selectedIdentifier = d3.select(this).attr("class") // get the class of the p tag that was clicked on
 
           d3.select("#eventList").selectAll("li").filter(function (X, Y) {
@@ -511,6 +514,9 @@ $("#search").select2({
     //console.log(e.choice.name)
     // console.log(e.choice.category)
     d3.select("#eventList").selectAll("li").classed("filteredin",false)
+    d3.selectAll(".nodeSymbol,.label,.labelbg").classed("entityFilteredOut",false)
+    d3.selectAll(".link").classed("entityFilteredOut",false)
+    d3.selectAll(".entities p").style("font-weight", 400)
 
     if (e.choice.category == "people"){
       d3.select("#eventList").selectAll("li").style("display", function(d){
@@ -549,6 +555,9 @@ $("#search").select2({
       d3.selectAll(".filter").style("font-weight", 400)
       d3.selectAll(".highlights p").style("font-weight", 400)
       d3.select(this).style("font-weight", "bold")
+      d3.selectAll(".nodeSymbol,.label,.labelbg").classed("entityFilteredOut",false)
+      d3.selectAll(".link").classed("entityFilteredOut",false)
+      d3.selectAll(".entities p").style("font-weight", 400)
 
       d3.select(".highlightbar").style("display", "none")
       d3.select("#closedhighlightbar").style("display", "none")
@@ -572,6 +581,9 @@ itemSelection()
       d3.selectAll(".filter").style("font-weight", 400)
       d3.selectAll(".highlights p").style("font-weight", 400)
       d3.select(this).style("font-weight", "bold")
+      d3.selectAll(".nodeSymbol,.label,.labelbg").classed("entityFilteredOut",false)
+      d3.selectAll(".link").classed("entityFilteredOut",false)
+      d3.selectAll(".entities p").style("font-weight", 400)
 
       d3.select(".highlightbar").style("display", "none")
       d3.select("#closedhighlightbar").style("display", "none")
@@ -594,6 +606,9 @@ itemSelection()
       d3.selectAll(".filter").style("font-weight", 400)
       d3.selectAll(".highlights p").style("font-weight", 400)
       d3.select(this).style("font-weight", "bold")
+      d3.selectAll(".nodeSymbol,.label,.labelbg").classed("entityFilteredOut",false)
+      d3.selectAll(".link").classed("entityFilteredOut",false)
+      d3.selectAll(".entities p").style("font-weight", 400)
 
       d3.select(".highlightbar").style("display", "none")
       d3.select("#closedhighlightbar").style("display", "none")
@@ -670,8 +685,8 @@ itemSelection()
         .attr("xlink:href", function(d) {
           if(d.category == "people"){return "images/entities_icons/triangle.svg"}
           else if(d.category == "places"){return "images/entities_icons/diamond.svg"}
-          else if(d.category == "artistic"){return "images/entities_icons/threeprong.svg"}
-          else if(d.category == "works"){return "images/entities_icons/square.svg"}
+          else if(d.category == "artistic"){return "images/entities_icons/square.svg"}
+          else if(d.category == "works"){return "images/entities_icons/threeprong.svg"}
           else if(d.category == "additional"){return "images/entities_icons/plus.svg"}
           })
         .attr("width", function(d){return nodeScale(d.count) + "px"})
@@ -1117,7 +1132,60 @@ itemSelection()
 
       });
 
+  d3.select(".entities").selectAll("p")
+    .on("click", function(event){
+    let type= d3.select(this).attr("type")
+    if (d3.select(this).style("font-weight") != "bold") {
+      d3.select(this).style("font-weight", 400)
+      d3.select("#eventList").selectAll("li").style("display", "block").classed("filteredin", true)
+      itemSelection()
 
+      d3.selectAll(".filter").style("font-weight", 400)
+      d3.selectAll(".highlights p").style("font-weight", 400)
+      d3.selectAll(".entities p").style("font-weight", 400)
+      d3.select(this).style("font-weight", "bold")
+      d3.select(".highlightbar").style("display", "none")
+      d3.select("#closedhighlightbar").style("display", "none")
+
+      //console.log(type)
+      d3.selectAll(".nodeSymbol,.label,.labelbg").classed("entityFilteredOut", function(d){
+        if(d.category == type){return false}else{return true}})
+
+      //  console.log(links)
+        d3.selectAll(".link").classed("entityFilteredOut", function(d){
+          if(d.source.category == type && d.target.category == type){return false}else{return true}})
+      //  .filter(function(d){return d.source.category == type && d.target.category == type})
+
+
+    } else {
+      d3.select(this).style("font-weight", 400)
+
+      d3.selectAll(".nodeSymbol,.label,.labelbg").classed("entityFilteredOut",false)
+      d3.selectAll(".link").classed("entityFilteredOut",false)
+    }
+  })
+
+
+    // function categoryFilter(type){
+    //   if (d3.select(this).style("font-weight") != "bold") {
+    //     d3.selectAll(".filter").style("font-weight", 400)
+    //     d3.selectAll(".highlights p").style("font-weight", 400)
+    //     d3.select(this).style("font-weight", "bold")
+    //     d3.select(".highlightbar").style("display", "none")
+    //     d3.select("#closedhighlightbar").style("display", "none")
+    //
+    //     console.log(type)
+    //     d3.selectAll(".nodeSymbol").classed("entityFilteredOut", function(d){
+    //       if(d.category == type){return false}else{return true}})
+    //
+    //   } else {
+    //     d3.select(this).style("font-weight", 400)
+    //
+    //     d3.selectAll(".nodeSymbol").classed("entityFilteredOut",false)
+    //   }
+    //
+    //
+    // }
 
 
     function ticked(d) {

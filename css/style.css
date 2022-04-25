@@ -714,6 +714,10 @@ input:checked + .slider:before {
   display: none;
 }
 
+.entityFilteredOut {
+  visibility: hidden;
+}
+
 .selected{
   opacity: 1!important;
 }
