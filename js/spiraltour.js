@@ -88,10 +88,6 @@ tour.addStep({
 
 tour.addStep({
   text: `The right panel of spiral visualization displays detailed information corresponding to selections in the visualization such as collection highlights and events.`,
-  attachTo: {
-    element: '.sidebar',
-    on: 'right'
-  },
   popperOptions: {
     modifiers: [{ name: 'offset', options: { offset: [0, 15] } }]
   },
@@ -107,7 +103,7 @@ tour.addStep({
       action() {
         return this.next();
       },
-      text: 'End Tour'
+      text: 'Next'
     }
   ],
   id: 'creating'

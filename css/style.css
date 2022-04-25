@@ -97,6 +97,7 @@ path.backgroundspiral {
   backdrop-filter: blur(8px);
 }
 
+
 .sidebar p {
   line-height: 1.4em;
 }
@@ -451,6 +452,7 @@ p {
   z-index: 30;
   margin: 5px;
 }
+
 
 .toppanelt {
   display: flex;
