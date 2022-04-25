@@ -50,7 +50,7 @@ let sidebar = d3.select("#sidebar")
 const simulation = d3.forceSimulation()
   .force("link", d3.forceLink().id(function(d, i) {
     return d.name;
-  }).distance(100))
+  }))
   .force("charge", d3.forceManyBody().strength(-20)) //how much should elements attract or repell each other?
   .force("center", d3.forceCenter(width / 2, height / 2))
   .force("collision", d3.forceCollide(function(d) {
@@ -1121,8 +1121,10 @@ itemSelection()
 
 
     function ticked(d) {
-      //if (simulation.alpha() == 1) {
-      //    simulation.stop()
+    //  console.log(simulation.alpha())
+      if (simulation.alpha() < 0.15) {
+
+         simulation.stop()}
       //  position the nodes based on the simulated x y
       d3.selectAll(".node")
         .attr("cx", function(d) {
