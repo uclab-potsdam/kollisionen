@@ -469,6 +469,11 @@ p {
 
 .toppanelt a {
   color: black;
+  text-decoration: none;
+}
+
+.toppanelt h2{
+  font-weight: 400;
 }
 
 .toppanel {
@@ -482,11 +487,15 @@ p {
   margin-top: 0px;
   z-index: 5;
   background-color: none;
-  /* background-color: #fdf5e6; */
 }
 
 .toppanel a {
   color: black;
+  text-decoration: none;
+}
+
+.toppanel h2{
+  font-weight: 400;
 }
 
 .sorting {
