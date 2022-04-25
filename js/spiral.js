@@ -13,6 +13,14 @@ var width = 1000,
     right: 50
   };
 
+  let scale
+
+  function transform(t) {
+    return function(d) {
+      return "translate(" + t.apply(d) + ")";
+    }
+  }
+
 let detailview = false;
 let soundtoggle = false;
 let uncertaintytoggle = false;
@@ -53,6 +61,10 @@ let zoom = d3.zoom()
   .scaleExtent([1 / 3, 8])
   .on("zoom", zoomed)
 
+const zoomRadiusScale = d3.scaleSqrt()
+  .domain([1,8])
+  .range([5,5/8])
+
 var svg = d3.select("#chart").append("svg")
   .attr("width", "100%")
   .attr("height", "100%")
@@ -83,14 +95,26 @@ d3.select("#chart").call(zoom);
 function zoomed(event, d) {
   d3.select(".zoomG").attr("transform", event.transform);
   d3.select(".pathG").selectAll("path").style("display", "none")
+  d3.selectAll(".circles").style("display", "none")
+
+console.log(event.transform)
+
 
   setTimeout(function () {
-    d3.selectAll("path").style("display", "block").style("stroke-width", 2 / event.transform.k)
-  }, 200);
+    d3.select(".pathG").selectAll("path").style("display", "block")//.style("stroke-width", 2 / event.transform.k)
+    d3.selectAll(".circles").style("display", "block").attr("r", zoomRadiusScale(event.transform.k))
+  //  .attr("transform", function(){return "scale("+-event.transform.k+")"});
+  //scale = event.transform.k;
+  // console.log(scale);
+  // document.getElementById('scale').value = scale;
+
+
+}, 600);
 
 
   //d3.selectAll("circle").attr("r", function(){return d3.select(this).attr("r")/event.transform.k})
 }
+
 
 
 // The path to draw the spiral needs data to inform it, points generates this, and is used in .datum(points) below
@@ -884,6 +908,7 @@ Promise.all([
               })
               .attr("r", 5) // radius of circle
               .attr("opacity", 1)
+              .attr("transform", console.log(d3.zoomIdentity))
 
             const yearLabelG = svg.append("g").classed("yearLabelG", true)
 
@@ -1019,8 +1044,8 @@ Promise.all([
 
 
 
-                d3.selectAll(".timeLabels")
-                  .style("opacity", function (D) { if (D == year) { return 1 } else { return 0 } })
+                // d3.selectAll(".timeLabels")
+                //   .style("opacity", function (D) { if (D == year) { return 1 } else { return 0 } })
 
 
 
@@ -1097,8 +1122,8 @@ Promise.all([
                 d3.selectAll(".circles,.pathGs").classed("notHovered", true).classed("hovered", false)
                 d3.select(this).classed("notHovered", false).classed("hovered", true)
 
-                d3.selectAll(".timeLabels")
-                  .style("opacity", function (D) { if (D == year) { return 1 } else { return 0 } })
+                // d3.selectAll(".timeLabels")
+                //   .style("opacity", function (D) { if (D == year) { return 1 } else { return 0 } })
 
 
 
