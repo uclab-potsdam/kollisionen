@@ -1,5 +1,5 @@
 .shepherd-button{
-    background:#3288e6;
+    background:#20638d;
     border:0;border-radius:3px;
     color:hsla(0,0%,100%,.75);
     cursor:pointer;
@@ -8,7 +8,7 @@
     transition:all .5s ease
 }
 
-.shepherd-button:not(:disabled):hover{background:#196fcc;
+.shepherd-button:not(:disabled):hover{background:#20638d;
     color:hsla(0,0%,100%,.75)
 }
 
@@ -41,7 +41,7 @@
     background:transparent;
     border:none;
     color:hsla(0,0%,50.2%,.75);
-    font-size:2em;
+    font-size:0.9em;
     cursor:pointer;
     font-weight:400;
     margin:0;
@@ -87,7 +87,7 @@
 
 .shepherd-text{
     color:rgba(0,0,0,.75);
-    font-size:1rem;
+    font-size:0.9rem;
     line-height:1.3em;
     padding:.75em
 }
