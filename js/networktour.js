@@ -9,6 +9,27 @@ const tour = new Shepherd.Tour({
     scrollTo: { behavior: 'smooth', block: 'center' },
     }
 });
+
+tour.addStep({
+  title: 'Search',
+  text: `Type name of an entity in the search bar or explore the entities through search dropdown menu.`,
+  attachTo: {
+    element: '.search',
+    on: 'left'
+  },
+  buttons: [
+    {
+      action() {
+        return this.next();
+      },
+      text: 'Next'
+    }
+  ],
+  popperOptions: {
+    modifiers: [{ name: 'offset', options: { offset: [0, 20] } }]
+  },
+  id: 'creating'
+});
   
 tour.addStep({
   title: 'Highlights',
