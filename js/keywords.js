@@ -782,6 +782,11 @@ d3.select('input[value="temporal"]').on('change', function() {
     // .classed("works", function (d) {if (keywordsData.filter(function(D){return D.works == d}).length > 0) {return true} else {return false}})
     // .classed("artistic", function (d) {if (keywordsData.filter(function(D){return D.artistic == d}).length > 0) {return true} else {return false}})
     // .classed("additional", function (d) {if (keywordsData.filter(function(D){return D.additional == d}).length > 0) {return true} else {return false}})
+    .classed("people", function (d) {if (keywordsData.filter(function(D){return D.people.includes(d)}).length > 0) {return true} else {return false}})
+    .classed("places", function (d) {if (keywordsData.filter(function(D){return D.places.includes(d)}).length > 0) {return true} else {return false}})
+    .classed("works", function (d) {if (keywordsData.filter(function(D){return D.works.includes(d)}).length > 0) {return true} else {return false}})
+    .classed("artistic", function (d) {if (keywordsData.filter(function(D){return D.artistic.includes(d)}).length > 0) {return true} else {return false}})
+    .classed("additional", function (d) {if (keywordsData.filter(function(D){return D.additional.includes(d)}).length > 0) {return true} else {return false}})
 
     timelinesG.append("text")
     .text(function(d){
@@ -939,6 +944,7 @@ d3.select("#closedsidebar").style("display", "none")
 });  
 })
 
+
 //spans
 
 timelinesG.each(function(D,I){
@@ -1076,7 +1082,12 @@ d3.select('input[value="frequency"]').on('change', function() {
       // .classed("works", function (d) {if (keywordsData.filter(function(D){return D.works == d}).length > 0) {return true} else {return false}})
       // .classed("artistic", function (d) {if (keywordsData.filter(function(D){return D.artistic == d}).length > 0) {return true} else {return false}})
       // .classed("additional", function (d) {if (keywordsData.filter(function(D){return D.additional == d}).length > 0) {return true} else {return false}})
-  
+      .classed("people", function (d) {if (keywordsData.filter(function(D){return D.people.includes(d)}).length > 0) {return true} else {return false}})
+      .classed("places", function (d) {if (keywordsData.filter(function(D){return D.places.includes(d)}).length > 0) {return true} else {return false}})
+      .classed("works", function (d) {if (keywordsData.filter(function(D){return D.works.includes(d)}).length > 0) {return true} else {return false}})
+      .classed("artistic", function (d) {if (keywordsData.filter(function(D){return D.artistic.includes(d)}).length > 0) {return true} else {return false}})
+      .classed("additional", function (d) {if (keywordsData.filter(function(D){return D.additional.includes(d)}).length > 0) {return true} else {return false}})
+
       timelinesG.append("text")
       .text(function(d){
         if(d.length >= 20){return d.slice(0, 20) + "[…]"}
