@@ -169,6 +169,10 @@ Promise.all([
   .then(([spiralData]) => {
     console.log(spiralData);
 
+    // spiralData = spiralData.filter(function(d){return 
+    
+    // })
+
 
     // 1. add properties 'vstart' and 'vend' for inferred dates
     //    and uncertainty property
@@ -277,19 +281,19 @@ Promise.all([
 
     // load the data - items
 
-    Promise.all([
-      d3.csv(itemsUrl), //data
-    ])
-      .then(([itemsData]) => {
-        console.log(itemsData);
-        // });
+    // Promise.all([
+    //   d3.csv(itemsUrl), //data
+    // ])
+    //   .then(([itemsData]) => {
+    //     console.log(itemsData);
+    //     // });
 
-        for (let i = 0; i < spiralData.length; i++) {
+    //     for (let i = 0; i < spiralData.length; i++) {
 
-          if (spiralData[i]["items"]) {
-            spiralData[i]["items"] = spiralData[i]["items"].split(",");
-          }
-        };
+    //       if (spiralData[i]["items"]) {
+    //         spiralData[i]["items"] = spiralData[i]["items"].split(",");
+    //       }
+    //     };
 
         // highlights
 
@@ -1379,4 +1383,4 @@ Promise.all([
           })
       })
 
-  })
+  // })
