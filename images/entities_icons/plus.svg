@@ -4,7 +4,12 @@
 	 viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve">
 <style type="text/css">
 	.st0{fill:#1D1D1B;}
+	.st1{fill:#FDF5E6;}
 </style>
-<rect x="17.5" class="st0" width="15" height="50"/>
-<rect x="17.5" y="0" transform="matrix(4.511064e-11 -1 1 4.511064e-11 -1.126857e-09 50)" class="st0" width="15" height="50"/>
+<g>
+	<polygon class="st0" points="17.6,49.9 17.6,32.4 0.1,32.4 0.1,17.6 17.6,17.6 17.6,0.1 32.4,0.1 32.4,17.6 49.9,17.6 49.9,32.4 
+		32.4,32.4 32.4,49.9 	"/>
+	<path class="st1" d="M32.2,0.2v17.2v0.2h0.2h17.2v14.5H32.5h-0.2v0.2v17.2H17.8V32.5v-0.2h-0.2H0.2V17.8h17.2h0.2v-0.2V0.2H32.2
+		 M32.5,0h-15v17.5H0v15h17.5V50h15V32.5H50v-15H32.5V0L32.5,0z"/>
+</g>
 </svg>

@@ -4,6 +4,11 @@
 	 viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve">
 <style type="text/css">
 	.st0{fill:#1D1D1B;}
+	.st1{fill:#FDF5E6;}
 </style>
-<rect x="7.6" y="7.6" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -10.3553 25)" class="st0" width="34.7" height="34.7"/>
+<g>
+	
+		<rect x="7.7" y="7.8" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -10.3761 24.9496)" class="st0" width="34.4" height="34.4"/>
+	<path class="st1" d="M24.9,0.8L49.1,25L24.9,49.2L0.7,25L24.9,0.8 M24.9,0.5L0.4,25l24.5,24.5L49.5,25L24.9,0.5L24.9,0.5z"/>
+</g>
 </svg>
