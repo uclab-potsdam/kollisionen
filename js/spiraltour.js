@@ -11,6 +11,7 @@ const tour = new Shepherd.Tour({
   });
   
 tour.addStep({
+  title: 'Highlights',
   text: `Highlights are the objects linked to selected themes of Eisenstein’s life. 
   Selecting objects highlights all events and categories that fall under these theme. 
   The highlights can also be experienced in the VR and 3D environment.`,
@@ -30,6 +31,7 @@ tour.addStep({
 });
 
 tour.addStep({
+  title: 'Categories',
   text: ` The different events are assigned to at least one of three main categories: 
   1) Cinema and Theatre, 2) Biography and Personality, and 3) Writing and Teaching. 
   Selecting a category highlights the relevant data points in the visualization.`,
@@ -60,6 +62,7 @@ tour.addStep({
 
 
 tour.addStep({
+  title: 'Sound',
   text: `Sound is mapped to each of the event which can be turned on and off using this trigger`,
   attachTo: {
     element: '#legend1',
@@ -87,6 +90,7 @@ tour.addStep({
 });
 
 tour.addStep({
+  title: 'Right Panel',
   text: `The right panel of spiral visualization displays detailed information corresponding to selections in the visualization such as collection highlights and events.`,
   popperOptions: {
     modifiers: [{ name: 'offset', options: { offset: [0, 15] } }]
@@ -103,7 +107,7 @@ tour.addStep({
       action() {
         return this.next();
       },
-      text: 'Next'
+      text: 'End Tour'
     }
   ],
   id: 'creating'
