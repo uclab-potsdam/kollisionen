@@ -80,6 +80,8 @@ Promise.all([
   //  console.log(networkData)
   //  console.log(highlightsData)
 
+networkData = networkData.filter(function(d){return d.start < '1948-12-31' && d.end < '1948-12-31' })
+
     //create a p class for each of the 'identifier's and insert into into the div class="highlights" in index.html
 
     for (let i = 0; i < highlightsData.length; i++) {
