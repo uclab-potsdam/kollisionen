@@ -4,8 +4,9 @@ var width = 1000,
   height = 1000,
   start = 0, //centre point
   end = 2, //outer of the spiral
-  numSpirals = 77, //number of years in dataset - could be made dynamic to respond to the dataset - first year in data and last year
-  // numAxis = 1,
+  // numSpirals = 77, //number of years in dataset - could be made dynamic to respond to the dataset - first year in data and last year
+  // // numAxis = 1,
+  numSpirals = 51,
   margin = {
     top: 50,
     bottom: 50,
@@ -111,7 +112,6 @@ console.log(event.transform)
 
 }, 600);
 
-
   //d3.selectAll("circle").attr("r", function(){return d3.select(this).attr("r")/event.transform.k})
 }
 
@@ -169,9 +169,8 @@ Promise.all([
   .then(([spiralData]) => {
     console.log(spiralData);
 
-    // spiralData = spiralData.filter(function(d){return 
-    
-    // })
+
+spiralData = spiralData.filter(function(d){return d.start < '1948-12-31' && d.end < '1948-12-31' })
 
 
     // 1. add properties 'vstart' and 'vend' for inferred dates
@@ -448,6 +447,17 @@ Promise.all([
             Using this scale numSpiralsThetaScale(d.vend) - numSpiralsThetaScale(d.vstart) -> number of spirals needed
             */
 
+
+            //scale for width of timeline
+
+var dateStart = d3.min(spiralData, function(d) { return d.vdateStart; });
+var dateEnd = d3.max(spiralData, function(d) { return d.vdateEnd; });
+
+var dateRange = d3.timeYear.range(dateStart, dateEnd);
+
+var dateRangeLength = dateRange.length;
+
+console.log(dateRangeLength); //number of years
 
 
             ///////////////////search
@@ -803,7 +813,7 @@ Promise.all([
 
               var angleStart = spiralData[i].aStart * (180 / Math.PI)
 
-              if (spiralData[i].vend != "") {
+              if (spiralData[i].vend != "" && spiralData[i].vstart < '1948-12-31') {
                 d3.select(".pathG").append("g").classed("pathGs", true)
                   .datum(function () { return spiralData[i] })
                   .append("path")
@@ -859,6 +869,7 @@ Promise.all([
               .data(function (d) {
                 return spiralData.filter(function (d) {
                   return d.uncertaintystart === 0 && d.end === "" && d.start.includes("/") == false && d.start.includes(",") == false && d.start != "" //took out some data points that create errors for now
+                  && d.start < '1948-12-31' && d.end < '1948-12-31'
                 });
               })
               .join("g")

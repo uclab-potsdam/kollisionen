@@ -21,7 +21,7 @@ var formatTime = d3.timeFormat("%e %B %Y"); //
 var startParse = d3.timeParse("%Y-%m-%d %I:%M%p");
 var endParse = d3.timeParse("%Y-%m-%d %I:%M%p");
 
-let color =  d3.scaleOrdinal(d3.schemeCategory10)
+// let color =  d3.scaleOrdinal(d3.schemeCategory10)
 
 ///load data and preprocessing
 Promise.all([
