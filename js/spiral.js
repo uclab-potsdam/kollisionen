@@ -928,7 +928,7 @@ console.log(dateRangeLength); //number of years
             const yearLabelG = svg.append("g").classed("yearLabelG", true)
 
             let firstYearforLabel = 1898 //we should take this from the data with d3.min()
-            let lastYearforLabel = 1975 //we should take this from the data with d3.max()
+            let lastYearforLabel = 1948 //we should take this from the data with d3.max()
 
             let labelScale = d3.scaleLinear()
               .domain([firstYearforLabel, lastYearforLabel])
