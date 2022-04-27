@@ -16,6 +16,9 @@
   <script src="https://uclab.fh-potsdam.de/ff/js/select2.min.js"></script>
   <script type="text/javascript" src="js/shepherd-bundle.js"></script>
   <link rel="stylesheet" href="css/popup.css"/>
+    <!-- tone.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.32/Tone.min.js" type="text/javascript"></script>
+  </head>
 </head>
 
 <body>
@@ -89,13 +92,6 @@
   <p class="plus" type="additional"><img src="images/entities_icons/plus.svg" height="12px" width="12px">Additional</p>
 </div>
 
-<div id="legend1">
-  <h2 id="soundheadline">Sound</h2>
-  <label class="switch">
-  <input type="checkbox" id="soundcheckbox">
-  <span class="slider"></span>
-  </label>
-</div>
 
 <div class="modalbuttons">
 
@@ -105,8 +101,15 @@
     </a>
   </div>
 
-  <div class="modal-guide">
+  <div class="tour">
     <img id="guide-button" src="images/modal-guide.svg" alt="guide icon" height="37px">
+  </div>
+
+  <div id="legend1">
+      <label class="switch">
+      <input type="checkbox" id="soundcheckbox">
+      <span class="slider"></span>
+    </label>
   </div>
 
 </div>

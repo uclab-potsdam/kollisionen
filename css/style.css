@@ -631,8 +631,8 @@ p {
 input[type="checkbox"]:before {
   content: url('../images/sound-off.svg');
   display: block;
-  width: 38px;
-  height: 38px;
+  width: 36px;
+  height: 36px;
   overflow: hidden;
 }
 
