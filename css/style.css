@@ -547,12 +547,12 @@ p {
   position: absolute;
 }
 
-.modal-guide img {
+.tour img {
   padding-left: 8px;
   opacity: 0.8;
 }
 
-.modal-guide img {
+.tour img {
   margin-top: 1px;
 }
 
@@ -619,7 +619,28 @@ p {
   margin-top: 1em;
 }
 
-.switch {
+.switch input[type="checkbox"] {
+  width: 0;
+  height: 0;
+  margin: 0;
+  border: 0 none;
+  margin-left: 8px;
+  opacity: 0.8;
+}
+
+input[type="checkbox"]:before {
+  content: url('../images/sound-off.svg');
+  display: block;
+  width: 38px;
+  height: 38px;
+  overflow: hidden;
+}
+
+input[type="checkbox"]:checked:before {
+  content: url('../images/sound-on.svg');
+}
+
+/* .switch {
   position: relative;
   display: inline-block;
   margin-top: 0.25em;
@@ -632,8 +653,10 @@ p {
   width: 0;
   height: 0;
 }
+ */
 
-.slider {
+
+/* .slider {
   position: absolute;
   cursor: pointer;
   top: 0;
@@ -669,7 +692,7 @@ input:checked + .slider:before {
   -webkit-transform: translateX(13px);
   -ms-transform: translateX(13px);
   transform: translateX(13px);
-}
+} */
 
 /*
         * === SEARCH BOX===

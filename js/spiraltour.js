@@ -90,11 +90,11 @@ tour.addStep({
   title: 'Sound',
   text: `Sound is mapped to each of the event which can be turned on and off using this trigger.`,
   attachTo: {
-    element: '#legend1',
-    on: 'left'
+    element: '.switch',
+    on: 'left-end'
   },
   popperOptions: {
-      modifiers: [{ name: 'offset', options: { offset: [50, -100] } }]
+      modifiers: [{ name: 'offset', options: { offset: [40, 60] } }]
     },
   buttons: [
     {
@@ -139,7 +139,7 @@ tour.addStep({
 });
 
 
-const div = document.querySelector('.modal-guide');
+const div = document.querySelector('.tour');
 
 div.addEventListener('click', (event) => {
   tour.start();
