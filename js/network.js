@@ -28,7 +28,7 @@ let zoom = d3.zoom()
   .on("zoom", zoomed)
 
 function zoomed(event, d) {
-  console.log(event.transform.k)
+  //console.log(event.transform.k)
   d3.select(".networkG").attr("transform", event.transform);
 
   d3.selectAll(".label,.labelbg")
