@@ -921,8 +921,9 @@ Promise.all([
 
             let labelScale = d3.scaleLinear()
               .domain([firstYearforLabel, lastYearforLabel])
-              .range([-40, -r])
+              .range([-20, -r])
 
+            // for (let i = firstYearforLabel; i <= lastYearforLabel; i++) {
             for (let i = firstYearforLabel; i <= lastYearforLabel; i++) {
               yearLabelG.append("text").text(i)
                 .classed("timeLabels", true)
