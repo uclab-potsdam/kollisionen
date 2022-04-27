@@ -28,7 +28,29 @@ let zoom = d3.zoom()
   .on("zoom", zoomed)
 
 function zoomed(event, d) {
+  console.log(event.transform.k)
   d3.select(".networkG").attr("transform", event.transform);
+
+  d3.selectAll(".label,.labelbg")
+  .style("font-size", function(d){return labelScale(d.count)/event.transform.k})
+  .style("stroke-width", function(d){return 3/event.transform.k})
+
+  if(event.transform.k < 1.2){
+    d3.selectAll(".label,.labelbg")
+    .classed("hiddenLabel", function(d){if(d.count < 20){return true}else{return false}})
+  }
+  else if(event.transform.k >= 1.2  && event.transform.k < 1.3 ){
+    d3.selectAll(".label,.labelbg")
+    .classed("hiddenLabel", function(d){if(d.count < 3){return true}else{return false}})
+  }  else if(event.transform.k >= 1.3  && event.transform.k < 2){
+      d3.selectAll(".label,.labelbg")
+      .classed("hiddenLabel", function(d){if(d.count < 2){return true}else{return false}})
+  }else if(event.transform.k >= 2){
+      d3.selectAll(".label,.labelbg")
+      .classed("hiddenLabel", function(d){return false})
+  }
+
+
   //d3.selectAll("circle").attr("r", function(){return d3.select(this).attr("r")/event.transform.k})
 }
 
