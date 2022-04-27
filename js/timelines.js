@@ -212,6 +212,68 @@ var keywordsCount = [];
 
     console.log(keywordsCount1);
 
+//arrays for keyword categories
+
+    var keywordsPlaces = [];
+
+    keywordsData.forEach(function(d,i){
+        var keywords = d.places.split(";");
+        keywords.forEach(function(d,i){
+            if (keywordsPlaces.indexOf(d) == -1 && d != "") keywordsPlaces.push(d);
+        });
+    });
+
+    console.log(keywordsPlaces);
+
+    var keywordsPeople = []; 
+
+    keywordsData.forEach(function(d,i){
+        var keywords = d.people.split(";");
+        keywords.forEach(function(d,i){
+            if (keywordsPeople.indexOf(d) == -1 && d != "") keywordsPeople.push(d);
+        });
+    });
+
+    console.log(keywordsPeople);
+
+    var keywordsWorks = [];
+
+    keywordsData.forEach(function(d,i){
+        var keywords = d.works.split(";");
+        keywords.forEach(function(d,i){
+            if (keywordsWorks.indexOf(d) == -1 && d != "") keywordsWorks.push(d);
+        });
+    });
+
+    console.log(keywordsWorks);
+
+    var keywordsArtistic = [];
+
+    keywordsData.forEach(function(d,i){
+
+        var keywords = d.artistic.split(";");
+        keywords.forEach(function(d,i){
+
+            if (keywordsArtistic.indexOf(d) == -1 && d != "") keywordsArtistic.push(d);
+        });
+    });
+
+    console.log(keywordsArtistic);
+
+    var keywordsAdditional = [];
+
+    keywordsData.forEach(function(d,i){
+
+        var keywords = d.additional.split(";");
+        keywords.forEach(function(d,i){
+
+            if (keywordsAdditional.indexOf(d) == -1 && d != "") keywordsAdditional.push(d);
+        });
+    });
+
+    console.log(keywordsAdditional);
+
+
 
 
 //Array of keywords and keyword category
@@ -451,12 +513,12 @@ function stringSplit(data, keywordSplitter) {
                   .selectAll(".timelines")
                   .data(keywordsCount1)
                   .join("g")
-                  .classed("backgroundTimelineG", true)
-                  .classed("people", function (d) {if (keywordsData.filter(function(D){return D.people.includes(d)}).length > 0) {return true} else {return false}})
-                  .classed("places", function (d) {if (keywordsData.filter(function(D){return D.places.includes(d)}).length > 0) {return true} else {return false}})
-                  .classed("works", function (d) {if (keywordsData.filter(function(D){return D.works.includes(d)}).length > 0) {return true} else {return false}})
-                  .classed("artistic", function (d) {if (keywordsData.filter(function(D){return D.artistic.includes(d)}).length > 0) {return true} else {return false}})
-                  .classed("additional", function (d) {if (keywordsData.filter(function(D){return D.additional.includes(d)}).length > 0) {return true} else {return false}})
+                  .classed("backgroundTimelineG", true)               
+  .classed("people", function (d) { if (keywordsPeople.filter(function(D){return D==d}).length >0){return true}else{return false}})
+  .classed("places", function (d) { if (keywordsPlaces.filter(function(D){return D==d}).length >0){return true}else{return false}})
+  .classed("works", function (d) { if (keywordsWorks.filter(function(D){return D==d}).length >0){return true}else{return false}})
+  .classed("artistic", function (d) { if (keywordsArtistic.filter(function(D){return D==d}).length >0){return true}else{return false}})
+  .classed("additional", function (d) { if (keywordsAdditional.filter(function(D){return D==d}).length >0){return true}else{return false}})
 
   timelinesG.append("text")
   .text(function(d){
@@ -468,12 +530,12 @@ function stringSplit(data, keywordSplitter) {
   .attr("text-weight", 400)
   .style("text-anchor", "end")
   .classed("keyword", true)
-  .classed("people", function (d) {if (keywordsData.filter(function(D){return D.people.includes(d)}).length > 0) {return true} else {return false}})
-                  .classed("places", function (d) {if (keywordsData.filter(function(D){return D.places.includes(d)}).length > 0) {return true} else {return false}})
-                  .classed("works", function (d) {if (keywordsData.filter(function(D){return D.works.includes(d)}).length > 0) {return true} else {return false}})
-                  .classed("artistic", function (d) {if (keywordsData.filter(function(D){return D.artistic.includes(d)}).length > 0) {return true} else {return false}})
-                  .classed("additional", function (d) {if (keywordsData.filter(function(D){return D.additional.includes(d)}).length > 0) {return true} else {return false}})
-  
+  .classed("people", function (d) { if (keywordsPeople.filter(function(D){return D==d}).length >0){return true}else{return false}})
+  .classed("places", function (d) { if (keywordsPlaces.filter(function(D){return D==d}).length >0){return true}else{return false}})
+  .classed("works", function (d) { if (keywordsWorks.filter(function(D){return D==d}).length >0){return true}else{return false}})
+  .classed("artistic", function (d) { if (keywordsArtistic.filter(function(D){return D==d}).length >0){return true}else{return false}})
+  .classed("additional", function (d) { if (keywordsAdditional.filter(function(D){return D==d}).length >0){return true}else{return false}})
+
   timelinesG.append("line")
   .attr("x1", 350)  //start of timeline
   .attr("y1", function(d,i){return 10+i*20})
@@ -1158,11 +1220,11 @@ d3.select('input[value="temporal"]').on('change', function() {
     .data(keywordsCount1)
     .join("g")
     .classed("backgroundTimelineG", true)
-    .classed("people", function (d) {if (keywordsData.filter(function(D){return D.people.includes(d)}).length > 0) {return true} else {return false}})
-                  .classed("places", function (d) {if (keywordsData.filter(function(D){return D.places.includes(d)}).length > 0) {return true} else {return false}})
-                  .classed("works", function (d) {if (keywordsData.filter(function(D){return D.works.includes(d)}).length > 0) {return true} else {return false}})
-                  .classed("artistic", function (d) {if (keywordsData.filter(function(D){return D.artistic.includes(d)}).length > 0) {return true} else {return false}})
-                  .classed("additional", function (d) {if (keywordsData.filter(function(D){return D.additional.includes(d)}).length > 0) {return true} else {return false}})
+    .classed("people", function (d) { if (keywordsPeople.filter(function(D){return D==d}).length >0){return true}else{return false}})
+  .classed("places", function (d) { if (keywordsPlaces.filter(function(D){return D==d}).length >0){return true}else{return false}})
+  .classed("works", function (d) { if (keywordsWorks.filter(function(D){return D==d}).length >0){return true}else{return false}})
+  .classed("artistic", function (d) { if (keywordsArtistic.filter(function(D){return D==d}).length >0){return true}else{return false}})
+  .classed("additional", function (d) { if (keywordsAdditional.filter(function(D){return D==d}).length >0){return true}else{return false}})
 
     timelinesG.append("text")
     .text(function(d){
@@ -1174,13 +1236,12 @@ d3.select('input[value="temporal"]').on('change', function() {
     .attr("text-weight", 400)
     .style("text-anchor", "end")
     .classed("keyword", true)
-  .classed("people", function (d) {if (keywordsData.filter(function(D){return D.people.includes(d)}).length > 0) {return true} else {return false}})
-                  .classed("places", function (d) {if (keywordsData.filter(function(D){return D.places.includes(d)}).length > 0) {return true} else {return false}})
-                  .classed("works", function (d) {if (keywordsData.filter(function(D){return D.works.includes(d)}).length > 0) {return true} else {return false}})
-                  .classed("artistic", function (d) {if (keywordsData.filter(function(D){return D.artistic.includes(d)}).length > 0) {return true} else {return false}})
-                  .classed("additional", function (d) {if (keywordsData.filter(function(D){return D.additional.includes(d)}).length > 0) {return true} else {return false}})
+    .classed("people", function (d) { if (keywordsPeople.filter(function(D){return D==d}).length >0){return true}else{return false}})
+    .classed("places", function (d) { if (keywordsPlaces.filter(function(D){return D==d}).length >0){return true}else{return false}})
+    .classed("works", function (d) { if (keywordsWorks.filter(function(D){return D==d}).length >0){return true}else{return false}})
+    .classed("artistic", function (d) { if (keywordsArtistic.filter(function(D){return D==d}).length >0){return true}else{return false}})
+    .classed("additional", function (d) { if (keywordsAdditional.filter(function(D){return D==d}).length >0){return true}else{return false}})
   
-
 timelinesG.append("line")
 .attr("x1", 350)  //start of timeline
 .attr("y1", function(d,i){return 10+i*20})
@@ -1471,11 +1532,11 @@ d3.select('input[value="frequency"]').on('change', function() {
       .data(keywordsCountFilteredSorted)
       .join("g")
       .classed("backgroundTimelineG", true)
-      .classed("people", function (d) {if (keywordsData.filter(function(D){return D.people.includes(d)}).length > 0) {return true} else {return false}})
-                  .classed("places", function (d) {if (keywordsData.filter(function(D){return D.places.includes(d)}).length > 0) {return true} else {return false}})
-                  .classed("works", function (d) {if (keywordsData.filter(function(D){return D.works.includes(d)}).length > 0) {return true} else {return false}})
-                  .classed("artistic", function (d) {if (keywordsData.filter(function(D){return D.artistic.includes(d)}).length > 0) {return true} else {return false}})
-                  .classed("additional", function (d) {if (keywordsData.filter(function(D){return D.additional.includes(d)}).length > 0) {return true} else {return false}})
+      .classed("people", function (d) { if (keywordsPeople.filter(function(D){return D==d}).length >0){return true}else{return false}})
+  .classed("places", function (d) { if (keywordsPlaces.filter(function(D){return D==d}).length >0){return true}else{return false}})
+  .classed("works", function (d) { if (keywordsWorks.filter(function(D){return D==d}).length >0){return true}else{return false}})
+  .classed("artistic", function (d) { if (keywordsArtistic.filter(function(D){return D==d}).length >0){return true}else{return false}})
+  .classed("additional", function (d) { if (keywordsAdditional.filter(function(D){return D==d}).length >0){return true}else{return false}})
 
       timelinesG.append("text")
       .text(function(d){
@@ -1487,13 +1548,12 @@ d3.select('input[value="frequency"]').on('change', function() {
       .attr("text-weight", 400)
       .style("text-anchor", "end")
       .classed("keyword", true)
-  .classed("people", function (d) {if (keywordsData.filter(function(D){return D.people.includes(d)}).length > 0) {return true} else {return false}})
-                  .classed("places", function (d) {if (keywordsData.filter(function(D){return D.places.includes(d)}).length > 0) {return true} else {return false}})
-                  .classed("works", function (d) {if (keywordsData.filter(function(D){return D.works.includes(d)}).length > 0) {return true} else {return false}})
-                  .classed("artistic", function (d) {if (keywordsData.filter(function(D){return D.artistic.includes(d)}).length > 0) {return true} else {return false}})
-                  .classed("additional", function (d) {if (keywordsData.filter(function(D){return D.additional.includes(d)}).length > 0) {return true} else {return false}})
-  
-  
+      .classed("people", function (d) { if (keywordsPeople.filter(function(D){return D==d}).length >0){return true}else{return false}})
+      .classed("places", function (d) { if (keywordsPlaces.filter(function(D){return D==d}).length >0){return true}else{return false}})
+      .classed("works", function (d) { if (keywordsWorks.filter(function(D){return D==d}).length >0){return true}else{return false}})
+      .classed("artistic", function (d) { if (keywordsArtistic.filter(function(D){return D==d}).length >0){return true}else{return false}})
+      .classed("additional", function (d) { if (keywordsAdditional.filter(function(D){return D==d}).length >0){return true}else{return false}})
+    
   timelinesG.append("line")
   .attr("x1", 350)  //start of timeline
   .attr("y1", function(d,i){return 10+i*20})
