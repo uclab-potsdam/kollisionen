@@ -78,6 +78,22 @@ path.backgroundspiral {
   font-size: 12;
 }
 
+.tooltipEdges {
+  background: white;
+  border-radius: 4px;
+  width: 300px;
+  box-shadow: 0 0 1px #999999;
+  color: #333;
+  font-size: 12px;
+  left: 130px;
+  padding: 10px;
+  position: absolute;
+  text-align: left;
+  top: 95px;
+  z-index: 10;
+  display: inline-block;
+}
+
 .sidebar {
   background-color: rgba(255, 255, 255, 0.5);
   outline: 1px solid grey;

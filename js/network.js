@@ -61,6 +61,12 @@ let tooltip = d3.select("body")
   .attr('class', 'tooltip')
   .style('display', 'none');
 
+  let tooltipEdges = d3.select("body")
+    .append('div')
+    .attr('class', 'tooltipEdges')
+    .style('display', 'none');
+
+
 let highlightbar = d3.select("#sidebar")
     .append('div')
     .attr('class', 'highlightbar');
@@ -663,7 +669,16 @@ itemSelection()
     //console.log(links)
 
     linkG.selectAll(".link") //we create lines based on the links data
-      .data(links)
+    .data(links.filter(function(d){return d.children.length > 2 &&
+      (d.source.name != "Soviet Union" && d.target.name !="Russia") &&
+      (d.source.name != "Russia" && d.target.name !="Moscow") &&
+      (d.source.name != "Soviet Union" && d.target.name !="Moscow")&&
+      (d.source.name != "Germany" && d.target.name !="Berlin")&&
+      (d.source.name != "France" && d.target.name !="Paris")&&
+      (d.source.name != "Russia" && d.target.name !="St. Petersburg")&&
+      (d.source.name != "Mexico" && d.target.name !="Mexico City")&&
+      (d.source.name != "New York" && d.target.name !="United States of America")
+      }))
       .join("line")
       .style("fill", "none")
       .attr("stroke-width", function(d) {
@@ -695,8 +710,29 @@ itemSelection()
       .on("mouseover", function(event, d){
         d3.select(this).style("opacity", 1)
       })
+      .on("mousemove", function(event, d) {
+        tooltipEdges
+          .style('position', 'absolute')
+          .style('left', `${event.pageX + 5}px`)
+          .style('top', `${event.pageY + 10}px`)
+          .style('display', 'inline-block')
+          .style('opacity', '0.9')
+          .html(function() {
+
+
+            return `<p class="tooltip-title"><strong>${d.source.name} – ${d.target.name}</strong></p></p>`
+          })
+
+          tooltipEdges.append("ul").classed("tooltipEventList", true)
+          d.children.forEach(function(D){
+            d3.select(".tooltipEventList").append("li").text(function(){return D.relation_source})
+          })
+          console.log(d.children)
+      })
       .on("mouseout", function(event, d){
         d3.select(this).style("opacity", 0.4)
+
+        tooltipEdges.style('display', 'none')
       })
       .style("cursor", "pointer")
 
