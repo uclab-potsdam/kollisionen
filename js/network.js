@@ -669,7 +669,7 @@ itemSelection()
     //console.log(links)
 
     linkG.selectAll(".link") //we create lines based on the links data
-    .data(links.filter(function(d){return d.children.length > 2 &&
+    .data(links.filter(function(d){return d.children.length > 0 &&
       (d.source.name != "Soviet Union" && d.target.name !="Russia") &&
       (d.source.name != "Russia" && d.target.name !="Moscow") &&
       (d.source.name != "Soviet Union" && d.target.name !="Moscow")&&
@@ -708,7 +708,8 @@ itemSelection()
       //  unfoldingEdges(d, i)
       })
       .on("mouseover", function(event, d){
-        d3.select(this).style("opacity", 1)
+        d3.select(this).style("opacity"
+        , 1)
       })
       .on("mousemove", function(event, d) {
         tooltipEdges
