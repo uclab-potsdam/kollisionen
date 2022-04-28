@@ -659,12 +659,11 @@ function stringSplit(data, keywordSplitter) {
     })
 
       .on('click', function (event, d) {
-        if  (d3.select(this).style("stroke") != "black" && d3.select(this).style("stroke-width") != "2px") {
-          d3.selectAll(".circles").style("stroke", "none").style("stroke-width", "0px")
-          d3.select(this).style("stroke", "black").style("stroke-width", "2px")
-        }else{
-        d3.select(this).style("stroke", "none").style("stroke-width", "0px")
-        }
+
+        d3.selectAll(".circles").classed("notSelected", true).classed("selected", false)
+        d3.selectAll(".timelineLines").classed("notSelectedLine", true).classed("selectedLine", false)
+        d3.select(this).classed("selected", true).classed("notSelected", false)
+
       d3.select("#closedsidebar").style("display", "block")
       sidebar
       .style('display', 'block')
@@ -710,7 +709,11 @@ function stringSplit(data, keywordSplitter) {
       d3.select(".sidebar")
         .style("display", "none")
 
+        d3.selectAll(".circles").classed("selected", false).classed("notSelected", false)
+        d3.selectAll(".timelineLines").classed("selectedLine", false).classed("notSelectedLine", false)
+
       d3.select("#closedsidebar").style("display", "none")
+
 
     });  
   })
@@ -801,6 +804,11 @@ function stringSplit(data, keywordSplitter) {
                       <p class="tooltip-title">${d.title}</p>`);
       })
       .on('click', function (event, d) {
+
+        d3.selectAll(".timelineLines").classed("notSelectedLine", true).classed("selectedLine", false)
+        d3.selectAll(".circles").classed("notSelected", true).classed("selected", false)
+        d3.select(this).classed("selectedLine", true).classed("notSelectedLine", false)
+
         d3.select("#closedsidebar").style("display", "block")
 /// sidebar for spans
         sidebar
@@ -839,7 +847,9 @@ function stringSplit(data, keywordSplitter) {
         d3.select(".sidebar")
           .style("display", "none")
 
-          d3.selectAll(".circles,.timelineLines").classed("selected", false).classed("notSelected", false)
+          d3.selectAll(".timelineLines").classed("selectedLine", false).classed("notSelectedLine", false)
+          d3.selectAll(".circles").classed("selected", false).classed("notSelected", false)
+
 
         d3.select("#closedsidebar").style("display", "none")
 
@@ -1324,12 +1334,11 @@ ${conditionalReturn(d.displayTemporal, (displayTemporal) => `<p class="displayTe
 })
 
 .on('click', function (event, d) {
-if  (d3.select(this).style("stroke") != "black" && d3.select(this).style("stroke-width") != "2px") {
-d3.selectAll(".circles").style("stroke", "none").style("stroke-width", "0px")
-d3.select(this).style("stroke", "black").style("stroke-width", "2px")
-}else{
-d3.select(this).style("stroke", "none").style("stroke-width", "0px")
-}
+
+  d3.selectAll(".timelineLines").classed("notSelectedLine", true).classed("selectedLine", false)
+  d3.selectAll(".circles").classed("notSelected", true).classed("selected", false)
+  d3.select(this).classed("selectedLine", true).classed("notSelectedLine", false)
+
 d3.select("#closedsidebar").style("display", "block")
 sidebar
 .style('display', 'block')
@@ -1374,6 +1383,9 @@ d3.selectAll("#closedsidebar")
 
 d3.select(".sidebar")
 .style("display", "none")
+
+d3.selectAll(".circles").classed("notSelected", false).classed("selected", false)
+d3.selectAll(".timelineLines").classed("notSelectedLine", false).classed("selectedLine", false)
 
 d3.select("#closedsidebar").style("display", "none")
 
@@ -1463,6 +1475,11 @@ tooltip
         <p class="tooltip-title">${d.title}</p>`);
 })
 .on('click', function (event, d) {
+
+  d3.selectAll(".timelineLines").classed("notSelectedLine", true).classed("selectedLine", false)
+  d3.selectAll(".circles").classed("notSelected", true).classed("selected", false)
+  d3.select(this).classed("selectedLine", true).classed("notSelectedLine", false)
+
 d3.select("#closedsidebar").style("display", "block")
 /// sidebar for spans
 sidebar
@@ -1500,6 +1517,9 @@ d3.selectAll("#closedsidebar")
 
 d3.select(".sidebar")
 .style("display", "none")
+
+d3.selectAll(".circles").classed("notSelected", false).classed("selected", false)
+d3.selectAll(".timelineLines").classed("notSelectedLine", false).classed("selectedLine", false)
 
 d3.select("#closedsidebar").style("display", "none")
 
@@ -1636,19 +1656,13 @@ d3.select('input[value="frequency"]').on('change', function() {
   })
   
   .on('click', function (event, d) {
-  // if  (d3.select(this).style("stroke") != "black" && d3.select(this).style("stroke-width") != "2px") {
-  // d3.selectAll(".circles").style("stroke", "none").style("stroke-width", "0px")
-  // d3.select(this).style("stroke", "black").style("stroke-width", "2px")
-  // }else{
-  // d3.select(this).style("stroke", "none").style("stroke-width", "0px")
 
-  d3.selectAll(".circles").classed("notSelected", true).classed("selected", false)
-  d3.select(this).classed("selected", true).classed("notSelected", false)
-
-
-
-  // }
+    d3.selectAll(".timelineLines").classed("notSelectedLine", true).classed("selectedLine", false)
+    d3.selectAll(".circles").classed("notSelected", true).classed("selected", false)
+    d3.select(this).classed("selectedLine", true).classed("notSelectedLine", false)
+ 
   d3.select("#closedsidebar").style("display", "block")
+
   sidebar
   .style('display', 'block')
   .html(`
@@ -1692,6 +1706,9 @@ d3.select('input[value="frequency"]').on('change', function() {
   
   d3.select(".sidebar")
   .style("display", "none")
+
+  d3.selectAll(".circles").classed("notSelected", false).classed("selected", false)
+  d3.selectAll(".timelineLines").classed("notSelectedLine", false).classed("selectedLine", false)
   
   d3.select("#closedsidebar").style("display", "none")
   
@@ -1781,6 +1798,12 @@ d3.select('input[value="frequency"]').on('change', function() {
           <p class="tooltip-title">${d.title}</p>`);
   })
   .on('click', function (event, d) {
+
+    d3.selectAll(".timelineLines").classed("notSelectedLine", true).classed("selectedLine", false)
+    d3.selectAll(".circles").classed("notSelected", true).classed("selected", false)
+    d3.select(this).classed("selectedLine", true).classed("notSelectedLine", false)
+
+
   d3.select("#closedsidebar").style("display", "block")
   /// sidebar for spans
   sidebar
@@ -1818,6 +1841,11 @@ d3.select('input[value="frequency"]').on('change', function() {
   
   d3.select(".sidebar")
   .style("display", "none")
+
+  
+  d3.selectAll(".circles").classed("notSelected", false).classed("selected", false)
+  d3.selectAll(".timelineLines").classed("notSelectedLine", false).classed("selectedLine", false)
+  
   
   d3.select("#closedsidebar").style("display", "none")
   
