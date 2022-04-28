@@ -857,6 +857,15 @@ input:checked + .slider:before {
   fill:white!important;
 }
 
+.selectedLine {
+  opacity: 1!important;
+}
+
+.notselectedLine {
+  stroke: white!important;
+  opacity: 1;
+}
+
 .pathGs.notSelected > path{
   stroke:white!important;
 }
