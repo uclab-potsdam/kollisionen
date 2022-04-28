@@ -130,11 +130,11 @@ font-size: 0.8em;
 }
 
 .tooltipEdges li.graphic::before{
-  color: var(--graphic);
+  color: var(--cinema);
 }
 
 .tooltipEdges li.apartment::before{
-  color: var(--apartment);
+  color: var(--biography);
 }
 
 .tooltipEdges li.cinewrit::before{
@@ -151,6 +151,38 @@ font-size: 0.8em;
 
 .tooltipEdges li.allcat::before{
   color: var(--allcat);
+}
+
+
+.link{
+  stroke: grey;
+}
+
+.link.biography{
+  stroke: var(--biography);
+}
+
+.link.writing{
+  stroke: var(--writing);
+}
+
+.link.cinema{
+  stroke: var(--cinema);
+}
+
+.link.cinewrit{
+  stroke: var(--cinewrit);
+}
+
+.link.biowrit{
+  stroke: var(--biowrit);
+}
+
+.link.cinebio{
+  stroke: var(--cinebio);
+}
+.link.allcat{
+  stroke: grey;
 }
 
 .sidebar {
