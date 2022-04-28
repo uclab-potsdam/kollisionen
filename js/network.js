@@ -682,27 +682,65 @@ itemSelection()
       .join("line")
       .style("fill", "none")
       .attr("stroke-width", function(d) {
+        let categoryArr = []
+        d.children.forEach((item, i) => {
+          categoryArr.push(item.category.split(";"))
+        })
+
+      d.categories = [...new Set(categoryArr.flat(1))]
+
         return edgeScale(d.children.length)
       })
       .attr("class", "link")
-      .style("stroke", function(d, i) {
-        if(d.children.length > 1){
-          if (d.children[0].category.includes("Cinema and Theatre")== true && d.children[0].category.includes("Biography and Personality") == false && d.children[0].category.includes("Writing and Teaching") == false){
-            return "#20638d"
-          }else if (d.children[0].category.includes("Cinema and Theatre")== false && d.children[0].category.includes("Biography and Personality") == true && d.children[0].category.includes("Writing and Teaching") == false){
-              return "#ecce86"
-            }else if (d.children[0].category.includes("Cinema and Theatre")== false && d.children[0].category.includes("Biography and Personality") == false && d.children[0].category.includes("Writing and Teaching") == true){
-                return "#ed563b"
-              }else if (d.children[0].category.includes("Cinema and Theatre")== true && d.children[0].category.includes("Biography and Personality") == false && d.children[0].category.includes("Writing and Teaching") == true){
-                  return "#774371"
-                }else if (d.children[0].category.includes("Cinema and Theatre")== true && d.children[0].category.includes("Biography and Personality") == true && d.children[0].category.includes("Writing and Teaching") == false){
-                    return "#8a9a5b"
-                  }else if (d.children[0].category.includes("Cinema and Theatre")== false && d.children[0].category.includes("Biography and Personality") == true && d.children[0].category.includes("Writing and Teaching") == true){
-                      return "#f5964c"
-                    }else{return "grey"}
-        }else{return "grey"
-      }
-      })
+      .classed("biography", function(d){if(d.categories.length == 1 && d.categories[0] == "Biography and Personality" || d.categories.length == 1 && d.categories[0] == "Apartment" || d.categories.length == 2 && (d.categories.includes("Biography and Personality")== true && d.categories.includes("Apartment")== true)){
+        return true
+      }else{return false}})
+      .classed("cinema", function(d){if(d.categories.length == 1 &&  d.categories[0] == "Cinema and Theatre" || d.categories.length == 1 && d.categories[0] == "Graphic Art" || d.categories.length == 2 && (d.categories.includes("Cinema and Theatre")== true && d.categories.includes("Graphic Art")== true)){
+        return true
+      }else{return false}})
+      .classed("writing", function(d){if(d.categories.length == 1 &&  d.categories[0] == "Writing and Teaching"){
+        return true
+      }else{return false}})
+      .classed("cinewrit", function(d){
+        if(d.categories.includes("Writing and Teaching") == true && (d.categories.includes("Cinema and Theatre")== true || d.categories.includes("Graphic Art")== true) && d.categories.includes("Biography and Personality") == false && d.categories.includes("Apartment")== false  ){
+        return true
+      }else{return false}})
+      .classed("biowrit", function(d){
+        if(d.categories.includes("Writing and Teaching") == true && (d.categories.includes("Biography and Personality")== true || d.categories.includes("Apartment")== true) && d.categories.includes("Cinema and Theatre") == false && d.categories.includes("Graphic Art")== false  ){
+        return true
+      }else{return false}})
+      .classed("cinebio", function(d){
+        if( (d.categories.includes("Cinema and Theatre")== true || d.categories.includes("Graphic Art")== true) && (d.categories.includes("Biography and Personality")== true || d.categories.includes("Apartment")== true) && d.categories.includes("Writing and Teaching") == false  ){
+        return true
+      }else{return false}})
+      .classed("allcat", function(d){
+        if( (d.categories.includes("Cinema and Theatre")== true || d.categories.includes("Graphic Art")== true) && (d.categories.includes("Biography and Personality")== true || d.categories.includes("Apartment")== true) && d.categories.includes("Writing and Teaching") == true){
+        return true
+      }else{return false}})
+      // .style("stroke", function(d, i) {
+      //   if(d.children.length > 0){
+      //     let categoryArr = []
+      //     d.children.forEach((item, i) => {
+      //       categoryArr.push(item.category.split(";"))
+      //     })
+      //
+      //   d.categories = [...new Set(categoryArr.flat(1))]
+      //     if (d.category.includes("Cinema and Theatre")== true && d.children[0].category.includes("Biography and Personality") == false && d.children[0].category.includes("Writing and Teaching") == false){
+      //       return "#20638d"
+      //     }else if (d.children[0].category.includes("Cinema and Theatre")== false && d.children[0].category.includes("Biography and Personality") == true && d.children[0].category.includes("Writing and Teaching") == false){
+      //         return "#ecce86"
+      //       }else if (d.children[0].category.includes("Cinema and Theatre")== false && d.children[0].category.includes("Biography and Personality") == false && d.children[0].category.includes("Writing and Teaching") == true){
+      //           return "#ed563b"
+      //         }else if (d.children[0].category.includes("Cinema and Theatre")== true && d.children[0].category.includes("Biography and Personality") == false && d.children[0].category.includes("Writing and Teaching") == true){
+      //             return "#774371"
+      //           }else if (d.children[0].category.includes("Cinema and Theatre")== true && d.children[0].category.includes("Biography and Personality") == true && d.children[0].category.includes("Writing and Teaching") == false){
+      //               return "#8a9a5b"
+      //             }else if (d.children[0].category.includes("Cinema and Theatre")== false && d.children[0].category.includes("Biography and Personality") == true && d.children[0].category.includes("Writing and Teaching") == true){
+      //                 return "#f5964c"
+      //               }else{return "grey"}
+      //   }else{return "grey"
+      // }
+      // })
       .style("opacity", 0.4)
       .on("click", function(event, d, i) {
       //  unfoldingEdges(d, i)
@@ -726,7 +764,8 @@ itemSelection()
 
           tooltipEdges.append("ul").classed("tooltipEventList", true)
           d.children.forEach(function(D){
-            d3.select(".tooltipEventList").append("li").text(function(){return D.relation_source})
+            d3.select(".tooltipEventList").append("li").text(function(){//(D.dateEnd ? D.dateStart+" to "+D.dateEnd : D.dateStart) + ": " +
+               return D.relation_source})
             .classed("cinema", function(){if(D.category == "Cinema and Theatre" || D.category == "Cinema and theatre" || D.category == "Cinema and Theatre;Graphic Art" || D.category == "Graphic Art;Cinema and Theatre" || D.category == "Graphic Art"){return true}})
             .classed("biography", function(){if(D.category == "Biography and Personality" || D.category == "Apartment"){return true}})
             .classed("writing", function(){if(D.category == "Cinema and Theatre;Writing and Teaching" || D.category== "Writing and Teaching;Cinema and Theatre" || D.category== "Cinema and Theatre;Writing and Teaching;Graphic Art"){return true}})
@@ -734,7 +773,7 @@ itemSelection()
             .classed("biowrit", function(){if(D.category == "Biography and Personality;Writing and Teaching" || D.category == "Writing and Teaching;Biography and Personality"){return true}})
             .classed("allcat", function(){if(D.category.includes("Biography and Personality") == true && (D.category.includes("Cinema and Theatre") == true ||D.category.includes("Graphic Art") == true) && D.category.includes("Writing and Teaching") == true){return true}})
           })
-          console.log(d.children)
+          //console.log(d.children)
       })
       .on("mouseout", function(event, d){
         d3.select(this).style("opacity", 0.4)
