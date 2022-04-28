@@ -15,13 +15,13 @@ let nodeScale = d3.scaleLinear()
   .range([15, 80])
 
   let labelScale = d3.scaleLinear()
-    .domain([1, 300])
-    .range([8, 20])
+    .domain([1, 30])
+    .range([8, 10])
 
 
 let edgeScale = d3.scaleLinear()
-  .domain([1, 100])
-  .range([1, 20])
+  .domain([1, 30])
+  .range([1, 10])
 
 let zoom = d3.zoom()
   .scaleExtent([1 / 3, 8])
