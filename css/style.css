@@ -81,7 +81,7 @@ path.backgroundspiral {
 .tooltipEdges {
   background: white;
   border-radius: 4px;
-  width: 300px;
+  width: 350px;
   box-shadow: 0 0 1px #999999;
   color: #333;
   font-size: 12px;
@@ -92,6 +92,65 @@ path.backgroundspiral {
   top: 95px;
   z-index: 10;
   display: inline-block;
+}
+
+.tooltipEdges ul{
+  padding-left:30;
+  margin:0;
+  list-style: none;
+}
+
+.tooltipEdges li{
+margin-bottom: 0.5em;
+background:none;
+font-size: 0.8em;
+}
+
+.tooltipEdges li::before {
+  font-size:0.6em;
+  content: "\2B24";  /* Add content: \2022 is the CSS Code/unicode for a bullet */
+  color: white;
+  font-weight: bold; /* If you want it to be bold */
+  display: inline-block; /* Needed to add space between the bullet and the text */
+  width: 2em; /* Also needed for space (tweak if needed) */
+  margin-left: -2em; /* Also needed for space (tweak if needed) */
+  color: black;
+}
+
+.tooltipEdges li.cinema::before{
+  color: var(--cinema);
+}
+
+.tooltipEdges li.biography::before{
+  color: var(--biography);
+}
+
+.tooltipEdges li.writing::before{
+  color: var(--writing);
+}
+
+.tooltipEdges li.graphic::before{
+  color: var(--graphic);
+}
+
+.tooltipEdges li.apartment::before{
+  color: var(--apartment);
+}
+
+.tooltipEdges li.cinewrit::before{
+  color: var(--cinewrit);
+}
+
+.tooltipEdges li.cinebio::before{
+  color: var(--cinebio);
+}
+
+.tooltipEdges li.biowrit::before{
+  color: var(--biowrit);
+}
+
+.tooltipEdges li.allcat::before{
+  color: var(--allcat);
 }
 
 .sidebar {
