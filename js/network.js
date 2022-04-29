@@ -717,30 +717,6 @@ itemSelection()
         if( (d.categories.includes("Cinema and Theatre")== true || d.categories.includes("Graphic Art")== true) && (d.categories.includes("Biography and Personality")== true || d.categories.includes("Apartment")== true) && d.categories.includes("Writing and Teaching") == true){
         return true
       }else{return false}})
-      // .style("stroke", function(d, i) {
-      //   if(d.children.length > 0){
-      //     let categoryArr = []
-      //     d.children.forEach((item, i) => {
-      //       categoryArr.push(item.category.split(";"))
-      //     })
-      //
-      //   d.categories = [...new Set(categoryArr.flat(1))]
-      //     if (d.category.includes("Cinema and Theatre")== true && d.children[0].category.includes("Biography and Personality") == false && d.children[0].category.includes("Writing and Teaching") == false){
-      //       return "#20638d"
-      //     }else if (d.children[0].category.includes("Cinema and Theatre")== false && d.children[0].category.includes("Biography and Personality") == true && d.children[0].category.includes("Writing and Teaching") == false){
-      //         return "#ecce86"
-      //       }else if (d.children[0].category.includes("Cinema and Theatre")== false && d.children[0].category.includes("Biography and Personality") == false && d.children[0].category.includes("Writing and Teaching") == true){
-      //           return "#ed563b"
-      //         }else if (d.children[0].category.includes("Cinema and Theatre")== true && d.children[0].category.includes("Biography and Personality") == false && d.children[0].category.includes("Writing and Teaching") == true){
-      //             return "#774371"
-      //           }else if (d.children[0].category.includes("Cinema and Theatre")== true && d.children[0].category.includes("Biography and Personality") == true && d.children[0].category.includes("Writing and Teaching") == false){
-      //               return "#8a9a5b"
-      //             }else if (d.children[0].category.includes("Cinema and Theatre")== false && d.children[0].category.includes("Biography and Personality") == true && d.children[0].category.includes("Writing and Teaching") == true){
-      //                 return "#f5964c"
-      //               }else{return "grey"}
-      //   }else{return "grey"
-      // }
-      // })
       .style("opacity", 0.4)
       .on("click", function(event, d, i) {
       //  unfoldingEdges(d, i)
@@ -781,7 +757,7 @@ itemSelection()
 
         tooltipEdges.style('display', 'none')
       })
-      .style("cursor", "pointer")
+      .style("cursor", "default")
 
 
 
@@ -800,6 +776,7 @@ itemSelection()
         .attr("height", function(d){return nodeScale(d.count) + "px"})
         .attr("x", function(d){return -nodeScale(d.count)/2 + "px"})
         .attr("y", function(d){return -nodeScale(d.count)/2 + "px"})
+        .style("cursor", "pointer")
       .on("mousemove", function(event, d) {
         tooltip
           .style('position', 'absolute')
