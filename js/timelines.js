@@ -884,33 +884,34 @@ var symbolPlaces = d3.symbol()
   var pathDataArtistic = symbolArtistic();
   var pathDataAdditional = symbolAdditional();
 
-//   timelinesG.each(function(D,I){
-//   d3.select(this).selectAll(".symbols").append("g")
-//   .data(keywordsData.filter(function (d) {
-//         return (d.people.includes(D) || d.places.includes(D) || d.works.includes(D) || d.artistic.includes(D) ||d.additional.includes(D)) && d.vstart.includes("/") == false && d.vstart.includes(",") == false && d.vstart != "" //took out some data points that create errors for now
-//               }))               
-// .join("path")
-// .attr("transform", function(d,i){
-// return "translate(340," + (10+I*20) + ")"})
-// .attr("d", function(d,i){
-//         if(d.places){
-//           return pathDataPlaces
-//         } else if(d.people){
-//           return pathDataPeople
-//         } else if(d.works){
-//           return pathDataWorks
-//         } else if(d.artistic){
-//           return pathDataArtistic
-//         } else if(d.additional){
-//           return pathDataAdditional
-//         }
-//          })
-// .attr("fill", "black")
-// .attr("stroke", "black")
-// .attr("stroke-width", 1)
-// .attr("opacity", 1)
+  timelinesG.each(function(D,I){
+  d3.select(this).selectAll(".symbols").append("g")
+  .data(keywordsData.filter(function (d) {
+        return (d.people == D || d.places == D || d.works == D || d.artistic == D ||d.additional == D) && d.vstart.includes("/") == false && d.vstart.includes(",") == false && d.vstart != "" //took out some data points that create errors for now
+              }))        
+      
+.join("path")
+.attr("transform", function(d,i){
+return "translate(340," + (10+I*20) + ")"})
+.attr("d", function(d,i){
+        if(d.places){
+          return pathDataPlaces
+        } else if(d.people){
+          return pathDataPeople
+        } else if(d.works){
+          return pathDataWorks
+        } else if(d.artistic){
+          return pathDataArtistic
+        } else if(d.additional){
+          return pathDataAdditional
+        }
+         })
+.attr("fill", "black")
+.attr("stroke", "black")
+.attr("stroke-width", 1)
+.attr("opacity", 1)
 
-// })
+})
 
 ///////////////////search
 
@@ -1659,7 +1660,7 @@ d3.select('input[value="frequency"]').on('change', function() {
 
     d3.selectAll(".timelineLines").classed("notSelectedLine", true).classed("selectedLine", false)
     d3.selectAll(".circles").classed("notSelected", true).classed("selected", false)
-    d3.select(this).classed("selectedLine", true).classed("notSelectedLine", false)
+    d3.select(this).classed("selected", true).classed("notSelected", false)
  
   d3.select("#closedsidebar").style("display", "block")
 
