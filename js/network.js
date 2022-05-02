@@ -28,6 +28,68 @@ let edgeScale = d3.scaleLinear()
   .domain([1, 30])
   .range([1, 10])
 
+
+  // Set of functions for html formatting in tooltip and sidebar
+
+  // htmlRenderer is a function in the form: (data) => htmlText
+  // eg. (title) => `<p class="title">${title}</p>`
+  // if data exists, it'll return the string with data inside it, otherwise it'll return an empty string
+  function conditionalReturn(data, htmlFormatter) {
+    if (data == null || data === '' || data === false) {
+      return '';
+    }
+    return htmlFormatter(data);
+  }
+
+  // function to compare content of strings and omit repeated strings
+
+  function compareDescription(d, descriptionFormat) {
+
+    let a = d.description
+
+    let b = d.title
+
+    if (a === b) {
+      return '';
+    }
+    else {
+      return descriptionFormat(d.description);
+    }
+  };
+
+  // function to replace date with optional uncertain date
+
+  function replaceTemporal(d, temporalSwap) {
+
+    let a = d.displayTemporal
+    let b = d.vdateStart
+
+    if (a == null || a === '' || a === false) {
+      return temporalSwap(b)
+    }
+    else {
+    }
+    if (a !== null || a !== '' || a !== false) {
+      return '';
+    }
+  };
+
+  //function to split keywords by comma
+
+  function stringSplit(data, keywordSplitter) {
+
+    var kws = data.split(";")
+
+    if (data == null || data === '' || data === false) {
+      return '';
+    } else {
+
+    } if (kws.length > 1) { return keywordSplitter(kws.join(", ")) }
+
+    else { return keywordSplitter(kws) }
+
+  };
+
 let zoom = d3.zoom()
   .scaleExtent([1 / 3, 8])
   .on("zoom", zoomed)
@@ -220,6 +282,13 @@ Promise.all([
       networkData[i]["category3"] = false;
       networkData[i]["category4"] = false;
       networkData[i]["category5"] = false;
+
+      networkData[i]["peopleSplit"] = networkData[i]["people"].split(";")
+      networkData[i]["placesSplit"] = networkData[i]["places"].split(";")
+      networkData[i]["artisticSplit"] = networkData[i]["artistic"].split(";")
+      networkData[i]["worksSplit"] = networkData[i]["works"].split(";")
+      networkData[i]["additionalSplit"] = networkData[i]["additional"].split(";")
+
     };
 
     for (let i = 0; i < networkData.length; i++) {
@@ -591,14 +660,14 @@ Promise.all([
 
       if (e.choice.category == "people") {
         d3.select("#eventList").selectAll("li").style("display", function(d) {
-            if (d.people.includes(e.choice.name)) {
+            if (d.peopleSplit.filter(function(key){return key == e.choice.name}).length > 0){
               return "block"
             } else {
               return "none"
             }
           })
           .classed("filteredin", function(d) {
-            if (d.people.includes(e.choice.name)) {
+            if (d.peopleSplit.filter(function(key){return key == e.choice.name}).length > 0){
               return true
             } else {
               return false
@@ -606,14 +675,14 @@ Promise.all([
           })
       } else if (e.choice.category == "places") {
         d3.select("#eventList").selectAll("li").style("display", function(d) {
-            if (d.places.includes(e.choice.name)) {
+            if (d.placesSplit.filter(function(key){return key == e.choice.name}).length > 0){
               return "block"
             } else {
               return "none"
             }
           })
           .classed("filteredin", function(d) {
-            if (d.places.includes(e.choice.name)) {
+            if (d.placesSplit.filter(function(key){return key == e.choice.name}).length > 0){
               return true
             } else {
               return false
@@ -621,14 +690,14 @@ Promise.all([
           })
       } else if (e.choice.category == "artistic") {
         d3.select("#eventList").selectAll("li").style("display", function(d) {
-            if (d.artistic.includes(e.choice.name)) {
+            if (d.artisticSplit.filter(function(key){return key == e.choice.name}).length > 0){
               return "block"
             } else {
               return "none"
             }
           })
           .classed("filteredin", function(d) {
-            if (d.artistic.includes(e.choice.name)) {
+            if (d.artisticSplit.filter(function(key){return key == e.choice.name}).length > 0){
               return true
             } else {
               return false
@@ -636,14 +705,14 @@ Promise.all([
           })
       } else if (e.choice.category == "additional") {
         d3.select("#eventList").selectAll("li").style("display", function(d) {
-            if (d.additional.includes(e.choice.name)) {
+            if (d.additionalSplit.filter(function(key){return key == e.choice.name}).length > 0){
               return "block"
             } else {
               return "none"
             }
           })
           .classed("filteredin", function(d) {
-            if (d.additional.includes(e.choice.name)) {
+            if (d.additionalSplit.filter(function(key){return key == e.choice.name}).length > 0){
               return true
             } else {
               return false
@@ -651,14 +720,14 @@ Promise.all([
           })
       } else if (e.choice.category == "works") {
         d3.select("#eventList").selectAll("li").style("display", function(d) {
-            if (d.works.includes(e.choice.name)) {
+            if (d.worksSplit.filter(function(key){return key == e.choice.name}).length > 0){
               return "block"
             } else {
               return "none"
             }
           })
           .classed("filteredin", function(d) {
-            if (d.works.includes(e.choice.name)) {
+            if (d.worksSplit.filter(function(key){return key == e.choice.name}).length > 0){
               return true
             } else {
               return false
@@ -791,6 +860,7 @@ Promise.all([
 
 
 
+
     simulation
       .nodes(nodes) //we use nodes from our json (look into the file to understand that)
       .on("tick", ticked)
@@ -803,7 +873,8 @@ Promise.all([
 
     linkG.selectAll(".link") //we create lines based on the links data
       .data(links.filter(function(d) {
-        return d.children.length > 0 &&
+        return d.children.length > 0
+        &&
           (d.source.name != "Soviet Union" && d.target.name != "Russia") &&
           (d.source.name != "Russia" && d.target.name != "Moscow") &&
           (d.source.name != "Soviet Union" && d.target.name != "Moscow") &&
@@ -876,9 +947,6 @@ Promise.all([
         }
       })
       .style("opacity", 0.4)
-      .on("click", function(event, d, i) {
-        //  unfoldingEdges(d, i)
-      })
       .on("mouseover", function(event, d) {
         d3.select(this).style("opacity", 1)
       })
@@ -1090,6 +1158,37 @@ Promise.all([
       .classed("filteredin", true)
       .text(function(d) {
         return (d.displayTemporal ? d.displayTemporal : (d.end ? d.start + " to " + d.end : d.start)) + ": " + d.title //+ " (" + d.start + "–" + d.end + ")"
+      })
+      .style("cursor", "pointer")
+      .on("click", function(event,d){
+        d3.select("#closedsidebar").style("display", "block")
+
+
+        sidebar
+          .style('display', 'block')
+          .attr('sidebarType', '')
+          .html(`
+        ${replaceTemporal(d, (vdateStart) => `<p class="date">${formatTime(d.vdateStart)}</p>`)}
+        ${conditionalReturn(d.displayTemporal, (displayTemporal) => `<p class="displayTemporal"><b>${displayTemporal}</b></p>`)}
+        ${conditionalReturn(d.title, (title) => `<p class="title">${title}</p>`)}
+        ${compareDescription(d, (description) => `<p class="description"><b>Description: </b>${description}</p>`)}
+        ${stringSplit(d.people, (people) => `<p class="people"><b>People: </b>${people}</p>`)}
+        ${stringSplit(d.places, (places) => `<p class="places"><b>Places: </b>${places}</p>`)}
+        ${stringSplit(d.works, (works) => `<p class="works"<b><b>Works: </b>${works}</p>`)}
+        ${stringSplit(d.artistic, (artistic) => `<p class="artistic"><b>Artistic concepts: </b>${artistic}</p>`)}
+        ${stringSplit(d.additional, (additional) => `<p class="misc"><b>Misc: </b>${additional}</p>`)}
+        ${conditionalReturn(d.source, (source) => `<p class="source"><b>Source: </b>${source}</p>`)}
+        ${conditionalReturn(d.reference, (reference) => `<p class="reference"><b>Further references: </b>${reference}</p>`)}
+        <br/>
+        ${conditionalReturn(d.category1, (category1) => `<span class="key-dot cinema"></span>Cinema and Theatre<br>`)}
+        ${conditionalReturn(d.category2, (category2) => `<span class="key-dot biography"></span>Biography and Personality<br>`)}
+        ${conditionalReturn(d.category3, (category3) => `<span class="key-dot writing"></span>Writing and Teaching<br>`)}
+        ${conditionalReturn(d.category4, (category4) => `<span class="key-dot graphic"></span>Graphic Art<br>`)}
+        ${conditionalReturn(d.category5, (category5) => `<span class="key-dot apartment"></span>Apartment<br>`)}
+        `)
+
+
+
       })
 
 
@@ -1427,11 +1526,13 @@ else if(filter == "search" ){
   let connectedNodes = []
 console.log(searchFilter)
 if(searchFilter.category == "places"){
+  //console.log("problem?")
+
   d3.selectAll(".link").style("display", function(d) {
-    // console.log(d.children)
-    // console.log(highlightFilter)
+
     if (d.children[0].dateStart >= firstItem && d.children[0].dateStart <= lastItem
-    && (d.children.filter(function(D){return D.places == searchFilter.name}).length >0)
+    && (d.children.filter(function(D){//console.log(D.places)
+      return D.places == searchFilter.name}).length >0)
   ) {
       return "block"
     } else {
@@ -1648,7 +1749,9 @@ simulation.alpha(1).restart();
 
 
 
-    d3.select("#eventList").on("scroll", itemSelection)
+    d3.select("#eventList").on("scroll", function(){
+      d3.select(".scrollerBg").transition().duration(1000).style("opacity", 0)//.style("display", "none")
+      itemSelection()})
 
     itemSelection()
 
@@ -1724,6 +1827,95 @@ simulation.alpha(1).restart();
           d3.selectAll(".link").classed("entityFilteredOut", false)
         }
       })
+
+///mouseclick for nodes
+      d3.selectAll(".nodeSymbol,.label").on("click", function(event,D){
+        console.log(D)
+        filter = "search"
+        searchFilter = {category: D.category, name: D.name}
+        d3.select("#select2-chosen-1").text(D.name)
+        d3.select(".select2-search-choice-close").style("display", "block")
+
+        if (D.category == "people") {
+          d3.select("#eventList").selectAll("li").style("display", function(d) {
+              if (d.peopleSplit.filter(function(key){return key == D.name}).length > 0){
+                return "block"
+              } else {
+                return "none"
+              }
+            })
+            .classed("filteredin", function(d) {
+              if (d.peopleSplit.filter(function(key){return key == D.name}).length > 0){
+                return true
+              } else {
+                return false
+              }
+            })
+        } else if (D.category == "places") {
+          d3.select("#eventList").selectAll("li").style("display", function(d) {
+              if (d.placesSplit.filter(function(key){return key == D.name}).length > 0){
+                return "block"
+              } else {
+                return "none"
+              }
+            })
+            .classed("filteredin", function(d) {
+              if (d.placesSplit.filter(function(key){return key == D.name}).length > 0){
+                return true
+              } else {
+                return false
+              }
+            })
+        } else if (D.category == "artistic") {
+          d3.select("#eventList").selectAll("li").style("display", function(d) {
+              if (d.artisticSplit.filter(function(key){return key == D.name}).length > 0){
+                return "block"
+              } else {
+                return "none"
+              }
+            })
+            .classed("filteredin", function(d) {
+              if (d.artisticSplit.filter(function(key){return key == D.name}).length > 0){
+                return true
+              } else {
+                return false
+              }
+            })
+        } else if (D.category == "additional") {
+          d3.select("#eventList").selectAll("li").style("display", function(d) {
+              if (d.additionalSplit.filter(function(key){return key == D.name}).length > 0){
+                return "block"
+              } else {
+                return "none"
+              }
+            })
+            .classed("filteredin", function(d) {
+              if (d.additionalSplit.filter(function(key){return key == D.name}).length > 0){
+                return true
+              } else {
+                return false
+              }
+            })
+        } else if (D.category == "works") {
+          d3.select("#eventList").selectAll("li").style("display", function(d) {
+              if (d.worksSplit.filter(function(key){return key == D.name}).length > 0){
+                return "block"
+              } else {
+                return "none"
+              }
+            })
+            .classed("filteredin", function(d) {
+              if (d.worksSplit.filter(function(key){return key == D.name}).length > 0){
+                return true
+              } else {
+                return false
+              }
+            })
+      }
+itemSelection()
+
+    })
+
 
 
 

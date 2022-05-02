@@ -990,3 +990,83 @@ font-size: 0.9em;
 /* .select2-container .select2-choice{
   padding-left: 0!important;
 } */
+
+.scrollerBg{
+  width: 430px;
+  height: 100px;
+  position: fixed;
+  display: block;
+  right: 0;
+  bottom: 0;
+  padding: 0px;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(245,237,222,0) 0%, rgba(245,237,222,0.96) 35%);
+}
+
+.scrolllegend{
+  text-align: center;
+  margin-top: 45px;
+  font-size: 11px;
+  font-weight: bold;
+  text-shadow: 0 0 5px #f5edde;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-name: scrollarrowtext;
+}
+
+.scrollarrowdown,
+.scrollarrowdown:before {
+  cursor: pointer;
+  position: fixed;
+  z-index: 100;
+  right: 205px;
+}
+
+.scrollarrowdown{
+  z-index: 100;
+  width: 30px;
+  height: 30px;
+  bottom: 15px;
+  margin: -20px 0 0 -20px;
+  -webkit-transform: rotate(45deg);
+  border-left: none;
+  border-top: none;
+  border-right: 5px black solid;
+  border-bottom: 5px black solid;
+}
+
+
+.scrollarrowdown:before {
+  content: "";
+  width: 15px;
+  height: 15px;
+  top: 50%;
+  left: 50%;
+  margin: -10px 0 0 -10px;
+  border-left: none;
+  border-top: none;
+  border-right: 2px black solid;
+  border-bottom: 2px black solid;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-name: scrollarrowdown;
+}
+
+@keyframes scrollarrowdown {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(5px, 5px);
+  }
+}
+
+@keyframes scrollarrowtext {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
