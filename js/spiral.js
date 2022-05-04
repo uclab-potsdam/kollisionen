@@ -16,6 +16,7 @@ var width = 1000,
 
   let scale
 
+
   function transform(t) {
     return function(d) {
       return "translate(" + t.apply(d) + ")";
@@ -25,6 +26,9 @@ var width = 1000,
 let detailview = false;
 let soundtoggle = false;
 let uncertaintytoggle = false;
+
+let firstYearforLabel = 1898 //we should take this from the data with d3.min()
+let lastYearforLabel = 1948 //we should take this from the data with d3.max()
 
 ///audio
 const audio1 = new Audio("sounds/sound1.mp3")
@@ -97,17 +101,30 @@ function zoomed(event, d) {
   d3.select(".zoomG").attr("transform", event.transform);
   d3.select(".pathG").selectAll("path").classed("zooming", true)
   d3.selectAll(".circles").classed("zooming", true)
+  d3.selectAll(".timeLabels").style("font-size", function(){return 1/event.transform.k +"em"}).style("stroke-width", 4/event.transform.k)
 
-console.log(event.transform)
 
 
   setTimeout(function () {
     d3.select(".pathG").selectAll("path").classed("zooming", false)//.style("stroke-width", 2 / event.transform.k)
     d3.selectAll(".circles").classed("zooming", false).attr("r", zoomRadiusScale(event.transform.k))
-  //  .attr("transform", function(){return "scale("+-event.transform.k+")"});
-  //scale = event.transform.k;
-  // console.log(scale);
-  // document.getElementById('scale').value = scale;
+
+    if (event.transform.k > 1.2 && event.transform.k <= 1.8) {
+      d3.selectAll(".timeLabels").style("display", function (d) {
+         if (d == firstYearforLabel || d == lastYearforLabel || (d % 5) == 0) { return "block" } else { return "none" } })
+
+  }else if (event.transform.k > 1.8 && event.transform.k <= 2.4) {
+    d3.selectAll(".timeLabels").style("display", function (d) {
+       if (d == firstYearforLabel || d == lastYearforLabel || (d % 2) == 0) { return "block" } else { return "none" } })
+
+  }else if (event.transform.k > 2.4) {
+    d3.selectAll(".timeLabels").style("display", function (d) { return "block" })
+
+  }else{
+
+    d3.selectAll(".timeLabels").style("display", function (d) {
+       if (d == firstYearforLabel || d == lastYearforLabel) { return "block" } else { return "none" } })
+  }
 
 
 }, 600);
@@ -927,12 +944,11 @@ console.log(dateRangeLength); //number of years
 
             const yearLabelG = svg.append("g").classed("yearLabelG", true)
 
-            let firstYearforLabel = 1898 //we should take this from the data with d3.min()
-            let lastYearforLabel = 1948 //we should take this from the data with d3.max()
+
 
             let labelScale = d3.scaleLinear()
               .domain([firstYearforLabel, lastYearforLabel])
-              .range([-20, -r])
+              .range([-40, -r])
 
             // for (let i = firstYearforLabel; i <= lastYearforLabel; i++) {
             for (let i = firstYearforLabel; i <= lastYearforLabel; i++) {
@@ -944,8 +960,8 @@ console.log(dateRangeLength); //number of years
                 .attr("dy", "0.4em")
                 .style("pointer-events", "none")
                 .style("stroke", "white")
-                .style("stroke-width", 5)
-                .style("opacity", function () { if (i == firstYearforLabel || i == lastYearforLabel) { return 1 } else { return 0 } })
+                .style("stroke-width", 4)
+                .style("display", function () { if (i == firstYearforLabel || i == lastYearforLabel) { return "block" } else { return "none" } })
 
               yearLabelG.append("text").text(i)
                 .classed("timeLabels", true)
@@ -954,7 +970,7 @@ console.log(dateRangeLength); //number of years
                 .style("text-anchor", "middle")
                 .attr("dy", "0.4em")
                 .style("pointer-events", "none")
-                .style("opacity", function () { if (i == firstYearforLabel || i == lastYearforLabel) { return 1 } else { return 0 } })
+                .style("display", function () { if (i == firstYearforLabel || i == lastYearforLabel) { return "block" } else { return "none" } })
             }
 
             // Set of functions for html formatting in tooltip and sidebar
@@ -1199,8 +1215,8 @@ console.log(dateRangeLength); //number of years
 
                 d3.selectAll(".circles,.pathGs").classed("notHovered", false).classed("hovered", false)
 
-                d3.selectAll(".timeLabels")
-                  .style("opacity", function (D) { if (D == firstYearforLabel || D == lastYearforLabel) { return 1 } else { return 0 } })
+          //      d3.selectAll(".timeLabels")
+                  //.style("opacity", function (D) { if (D == firstYearforLabel || D == lastYearforLabel) { return 1 } else { return 0 } })
                 // .style('display', function(D){if(D== firstYearforLabel || D == lastYearforLabel){return 'block'}else{return 'none'}})
 
               });
