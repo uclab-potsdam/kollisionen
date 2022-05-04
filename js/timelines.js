@@ -643,6 +643,31 @@ function stringSplit(data, keywordSplitter) {
       return true;
     }  else{return false}
     })
+    .classed("people", function (d) {   
+      if (d.people.includes(D)) {
+        return true;
+        }else{ return false};
+        })
+    .classed("places", function (d) {
+      if (d.places.includes(D)) {
+        return true;
+        }else{ return false};
+        })
+    .classed("works", function (d) {
+      if (d.works.includes(D)) {
+        return true;
+        }else{ return false};
+        })
+    .classed("artistic", function (d) {
+      if (d.artistic.includes(D)) {
+        return true;
+        }else{ return false};
+        })
+    .classed("additional", function (d) {
+      if (d.additional.includes(D)) {
+        return true;
+        }else{ return false};
+        })
   
       //tooltip
     .on('mousemove', function (event, d) {
@@ -771,6 +796,32 @@ function stringSplit(data, keywordSplitter) {
       return true;
     }  else{return false}
     })
+    .classed("people", function (d) {   
+      if (d.people.includes(D)) {
+        return true;
+        }else{ return false};
+        })
+    .classed("places", function (d) {
+      if (d.places.includes(D)) {
+        return true;
+        }else{ return false};
+        })
+    .classed("works", function (d) {
+      if (d.works.includes(D)) {
+        return true;
+        }else{ return false};
+        })
+    .classed("artistic", function (d) {
+      if (d.artistic.includes(D)) {
+        return true;
+        }else{ return false};
+        })
+    .classed("additional", function (d) {
+      if (d.additional.includes(D)) {
+        return true;
+        }else{ return false};
+        })
+
                 .attr("x1", function(d,i){
                   let date = new Date (d.vstart)
                 // console.log(date + "-" + timelineXScale(date))
@@ -1319,6 +1370,31 @@ if (d.category1 == true && d.category2 == true && d.category3 == true)
 return true;
 }  else{return false}
 })
+.classed("people", function (d) {   
+  if (d.people.includes(D)) {
+    return true;
+    }else{ return false};
+    })
+.classed("places", function (d) {
+  if (d.places.includes(D)) {
+    return true;
+    }else{ return false};
+    })
+.classed("works", function (d) {
+  if (d.works.includes(D)) {
+    return true;
+    }else{ return false};
+    })
+.classed("artistic", function (d) {
+  if (d.artistic.includes(D)) {
+    return true;
+    }else{ return false};
+    })
+.classed("additional", function (d) {
+  if (d.additional.includes(D)) {
+    return true;
+    }else{ return false};
+    })
 
 //tooltip
 .on('mousemove', function (event, d) {
@@ -1446,6 +1522,31 @@ if (d.category1 == true && d.category2 == true && d.category3 == true)
 return true;
 }  else{return false}
 })
+.classed("people", function (d) {   
+  if (d.people.includes(D)) {
+    return true;
+    }else{ return false};
+    })
+.classed("places", function (d) {
+  if (d.places.includes(D)) {
+    return true;
+    }else{ return false};
+    })
+.classed("works", function (d) {
+  if (d.works.includes(D)) {
+    return true;
+    }else{ return false};
+    })
+.classed("artistic", function (d) {
+  if (d.artistic.includes(D)) {
+    return true;
+    }else{ return false};
+    })
+.classed("additional", function (d) {
+  if (d.additional.includes(D)) {
+    return true;
+    }else{ return false};
+    })
   .attr("x1", function(d,i){
     let date = new Date (d.vstart)
   // console.log(date + "-" + timelineXScale(date))
@@ -1501,8 +1602,7 @@ ${conditionalReturn(d.reference, (reference) => `<p class="reference"><b>Further
 ${conditionalReturn(d.category1, (category1) => `<span class="key-dot cinema"></span>Cinema and Theatre<br>`)}
 ${conditionalReturn(d.category2, (category2) => `<span class="key-dot biography"></span>Biography and Personality<br>`)}
 ${conditionalReturn(d.category3, (category3) => `<span class="key-dot writing"></span>Writing and Teaching<br>`)}
-${conditionalReturn(d.category4, (category4) => `<span class="key-dot graphic"></span>Graphic Art<br>`)}
-${conditionalReturn(d.category5, (category5) => `<span class="key-dot apartment"></span>Apartment<br>`)}
+
 `)
 
 })
@@ -1641,6 +1741,31 @@ d3.select('input[value="frequency"]').on('change', function() {
   return true;
   }  else{return false}
   })
+  .classed("people", function (d) {   
+    if (d.people.includes(D)) {
+      return true;
+      }else{ return false};
+      })
+  .classed("places", function (d) {
+    if (d.places.includes(D)) {
+      return true;
+      }else{ return false};
+      })
+  .classed("works", function (d) {
+    if (d.works.includes(D)) {
+      return true;
+      }else{ return false};
+      })
+  .classed("artistic", function (d) {
+    if (d.artistic.includes(D)) {
+      return true;
+      }else{ return false};
+      })
+  .classed("additional", function (d) {
+    if (d.additional.includes(D)) {
+      return true;
+      }else{ return false};
+      })
   
   //tooltip
   .on('mousemove', function (event, d) {
@@ -1682,8 +1807,6 @@ d3.select('input[value="frequency"]').on('change', function() {
   ${conditionalReturn(d.category1, (category1) => `<span class="key-dot cinema"></span>Cinema and Theatre<br>`)}
   ${conditionalReturn(d.category2, (category2) => `<span class="key-dot biography"></span>Biography and Personality<br>`)}
   ${conditionalReturn(d.category3, (category3) => `<span class="key-dot writing"></span>Writing and Teaching<br>`)}
-  ${conditionalReturn(d.category4, (category4) => `<span class="key-dot graphic"></span>Graphic Art<br>`)}
-  ${conditionalReturn(d.category5, (category5) => `<span class="key-dot apartment"></span>Apartment<br>`)}
   
   `)
   
@@ -1769,6 +1892,31 @@ d3.select('input[value="frequency"]').on('change', function() {
   return true;
   }  else{return false}
   })
+  .classed("people", function (d) {   
+    if (d.people.includes(D)) {
+      return true;
+      }else{ return false};
+      })
+  .classed("places", function (d) {
+    if (d.places.includes(D)) {
+      return true;
+      }else{ return false};
+      })
+  .classed("works", function (d) {
+    if (d.works.includes(D)) {
+      return true;
+      }else{ return false};
+      })
+  .classed("artistic", function (d) {
+    if (d.artistic.includes(D)) {
+      return true;
+      }else{ return false};
+      })
+  .classed("additional", function (d) {
+    if (d.additional.includes(D)) {
+      return true;
+      }else{ return false};
+      })
     .attr("x1", function(d,i){
       let date = new Date (d.vstart)
     // console.log(date + "-" + timelineXScale(date))
@@ -1825,8 +1973,6 @@ d3.select('input[value="frequency"]').on('change', function() {
   ${conditionalReturn(d.category1, (category1) => `<span class="key-dot cinema"></span>Cinema and Theatre<br>`)}
   ${conditionalReturn(d.category2, (category2) => `<span class="key-dot biography"></span>Biography and Personality<br>`)}
   ${conditionalReturn(d.category3, (category3) => `<span class="key-dot writing"></span>Writing and Teaching<br>`)}
-  ${conditionalReturn(d.category4, (category4) => `<span class="key-dot graphic"></span>Graphic Art<br>`)}
-  ${conditionalReturn(d.category5, (category5) => `<span class="key-dot apartment"></span>Apartment<br>`)}
   `)
   
   })
@@ -1930,27 +2076,27 @@ d3.select(".f_w").on("click", function() {
   }
 })
 
-d3.select(".f_ac").on("click", function() {
-  if (d3.select(this).style("font-weight") != "bold") {
-    d3.selectAll(".filter").style("font-weight", 400)
-    d3.selectAll(".highlights p").style("font-weight", 400)
-    d3.select(this).style("font-weight", "bold")
-    d3.select(".highlightbar").style("display", "none")
-    d3.select("#closedhighlightbar").style("display", "none")
-    d3.selectAll("circle.allacat", "circle.cinewrit", "circle.cinebio", "circle.biowrit").classed("catFilteredOut", false)
-    d3.selectAll("circle.allacat, .cinewrit, .cinebio, .biowrit").classed("catFilteredOut", false)
-    d3.selectAll("circle:not(.allcat, .cinewrit, .cinebio, .biowrit)").classed("catFilteredOut", true)
-    d3.selectAll(".timelineLines").filter(".allcat, .cinewrit, .cinebio, .biowrit").classed("catFilteredOut", false)
-    d3.selectAll(".timelineLines").filter(":not(.allcat, .cinewrit, .cinebio, .biowrit").classed("catFilteredOut", true)
-  } else {
-    d3.select(this).style("font-weight", 400)
-    d3.selectAll("circle").classed("catFilteredOut", false)
-    d3.selectAll(".timelineLines").classed("catFilteredOut", false)
-    twGain.gain.rampTo(0.2,30)
-    projGain.gain.rampTo(0.2,30);
-    therGain.gain.rampTo(0.05,5);
-  }
-})
+// d3.select(".f_ac").on("click", function() {
+//   if (d3.select(this).style("font-weight") != "bold") {
+//     d3.selectAll(".filter").style("font-weight", 400)
+//     d3.selectAll(".highlights p").style("font-weight", 400)
+//     d3.select(this).style("font-weight", "bold")
+//     d3.select(".highlightbar").style("display", "none")
+//     d3.select("#closedhighlightbar").style("display", "none")
+//     d3.selectAll("circle.allacat", "circle.cinewrit", "circle.cinebio", "circle.biowrit").classed("catFilteredOut", false)
+//     d3.selectAll("circle.allacat, .cinewrit, .cinebio, .biowrit").classed("catFilteredOut", false)
+//     d3.selectAll("circle:not(.allcat, .cinewrit, .cinebio, .biowrit)").classed("catFilteredOut", true)
+//     d3.selectAll(".timelineLines").filter(".allcat, .cinewrit, .cinebio, .biowrit").classed("catFilteredOut", false)
+//     d3.selectAll(".timelineLines").filter(":not(.allcat, .cinewrit, .cinebio, .biowrit").classed("catFilteredOut", true)
+//   } else {
+//     d3.select(this).style("font-weight", 400)
+//     d3.selectAll("circle").classed("catFilteredOut", false)
+//     d3.selectAll(".timelineLines").classed("catFilteredOut", false)
+//     twGain.gain.rampTo(0.2,30)
+//     projGain.gain.rampTo(0.2,30);
+//     therGain.gain.rampTo(0.05,5);
+//   }
+// })
 // };
 
 // filters for entities
@@ -1963,9 +2109,16 @@ d3.select(".triangle").on("click", function() {
     d3.select(this).style("font-weight", "bold")
     d3.selectAll("text.people").classed("entFilteredOut", true)
     d3.selectAll("text:not(.people)").classed("entFilteredOut", false)
+    d3.selectAll(".timelineLines").filter(".people").classed("SelectedLine", true).classed("notSelectedLine", false)
+    d3.selectAll(".timelineLines").filter(":not(.people)").classed("notSelectedLine", true).classed("SelectedLine", false)
+    d3.selectAll("circle.people").classed("selected", true).classed("notSelected", false)
+    d3.selectAll("circle:not(.people)").classed("selected", false).classed("notSelected", true)
+
   } else {
     d3.select(this).style("font-weight", 400)
-    d3.selectAll("text.people").classed("entFilteredOut", false)
+    d3.selectAll("text").classed("entFilteredOut", false)
+    d3.selectAll(".timelineLines").classed("notSelectedLine", false).classed("SelectedLine", false)
+    d3.selectAll("circle").classed("selected", false).classed("notSelected", false)
   }
 
 })
@@ -1978,9 +2131,16 @@ d3.select(".diamond").on("click", function() {
     d3.select(this).style("font-weight", "bold")
     d3.selectAll("text.places").classed("entFilteredOut", true)
     d3.selectAll("text:not(.places)").classed("entFilteredOut", false)
+    d3.selectAll(".timelineLines").filter(".places").classed("SelectedLine", true).classed("notSelectedLine", false)
+    d3.selectAll(".timelineLines").filter(":not(.places)").classed("notSelectedLine", true).classed("SelectedLine", false)
+    d3.selectAll("circle.places").classed("selected", true).classed("notSelected", false)
+    d3.selectAll("circle:not(.places)").classed("selected", false).classed("notSelected", true)
+
   } else {
     d3.select(this).style("font-weight", 400)
     d3.selectAll("text.places").classed("entFilteredOut", false)
+    d3.selectAll(".timelineLines").classed("notSelectedLine", false).classed("SelectedLine", false)
+    d3.selectAll("circle").classed("selected", false).classed("notSelected", false)
   }
 
 })
@@ -1993,9 +2153,15 @@ d3.select(".threeprong").on("click", function() {
     d3.select(this).style("font-weight", "bold")
     d3.selectAll("text.works").classed("entFilteredOut", true)
     d3.selectAll("text:not(.works)").classed("entFilteredOut", false)
+    d3.selectAll(".timelineLines").filter(".works").classed("SelectedLine", true).classed("notSelectedLine", false)
+    d3.selectAll(".timelineLines").filter(":not(.works)").classed("notSelectedLine", true).classed("SelectedLine", false)
+    d3.selectAll("circle.works").classed("selected", true).classed("notSelected", false)
+    d3.selectAll("circle:not(.works)").classed("selected", false).classed("notSelected", true)
   } else {
     d3.select(this).style("font-weight", 400)
     d3.selectAll("text.works").classed("entFilteredOut", false)
+    d3.selectAll(".timelineLines").classed("notSelectedLine", false).classed("SelectedLine", false)
+    d3.selectAll("circle").classed("selected", false).classed("notSelected", false)
   }
 
 })
@@ -2008,9 +2174,14 @@ d3.select(".square").on("click", function() {
     d3.select(this).style("font-weight", "bold")
     d3.selectAll("text.artistic").classed("entFilteredOut", true)
     d3.selectAll("text:not(.artistic)").classed("entFilteredOut", false)
+    d3.selectAll(".timelineLines").filter(".artistic").classed("SelectedLine", true).classed("notSelectedLine", false)
+    d3.selectAll(".timelineLines").filter(":not(.artistic)").classed("notSelectedLine", true).classed("SelectedLine", false)
+    d3.selectAll("circle.artistic").classed("selected", true).classed("notSelected", false)
   } else {
     d3.select(this).style("font-weight", 400)
     d3.selectAll("text.artistic").classed("entFilteredOut", false)
+    d3.selectAll(".timelineLines").classed("notSelectedLine", false).classed("SelectedLine", false)
+    d3.selectAll("circle").classed("selected", false).classed("notSelected", false)
   }
 
 })
@@ -2023,9 +2194,14 @@ d3.select(".plus").on("click", function() {
     d3.select(this).style("font-weight", "bold")
     d3.selectAll("text.additional").classed("entFilteredOut", true)
     d3.selectAll("text:not(.additional)").classed("entFilteredOut", false)
+    d3.selectAll(".timelineLines").filter(".additional").classed("SelectedLine", true).classed("notSelectedLine", false)
+    d3.selectAll(".timelineLines").filter(":not(.additional)").classed("notSelectedLine", true).classed("SelectedLine", false)
+    d3.selectAll("circle.additional").classed("selected", true).classed("notSelected", false)
   } else {
     d3.select(this).style("font-weight", 400)
     d3.selectAll("text.additional").classed("entFilteredOut", false)
+    d3.selectAll(".timelineLines").classed("notSelectedLine", false).classed("SelectedLine", false)
+    d3.selectAll("circle").classed("selected", false).classed("notSelected", false)
   }
 
 })

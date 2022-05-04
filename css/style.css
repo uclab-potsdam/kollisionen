@@ -575,6 +575,8 @@ p {
   top:0;
   /* background-color: none; */
   background-color: #fdf5e6;
+  background-color: rgba(252, 245, 230, 0.3);
+  backdrop-filter: blur(8px);
 }
 
 .toppanelt label{
