@@ -230,11 +230,11 @@ font-size: 0.8em;
   overflow-y: auto;
   top: 0;
   right: 0;
-  width: 350px;
+  width: calc(20vw + 2px);
   height: 100%;
   display: none;
   text-align: left;
-  padding: 40px;
+  padding: 30px;
   padding-top: 50px;
   z-index: 10;
   backdrop-filter: blur(8px);
@@ -489,7 +489,7 @@ width: 10px;
 .highlights {
   float: left;
   padding-top: 10px;
-  width: 300px;
+  width: calc(20vw + 2px);
   font-size: clamp(0.8rem, 0.8vw, 1.5rem);
 }
 
@@ -566,7 +566,7 @@ p {
 #closedhighlightbar {
   position: fixed;
   right: 10px;
-  top: 0;
+  top: 10;
   font-size: 30;
   color: white;
   cursor: pointer;
