@@ -69,13 +69,17 @@ path.backgroundspiral {
 }
 
 .tooltip-date {
-  font-weight: 400;
-  font-size: clamp(0.8rem, 0.8vw, 1rem);
+  font-weight: bold;
+  font-size: clamp(0.6rem, 0.7vw, 0.9rem);
 }
 
 .tooltip-title {
-  font-weight: 400;
-  font-size: clamp(0.8rem, 0.8vw, 1rem);
+  font-size: clamp(0.6rem, 0.7vw, 0.9rem);
+}
+
+.tooltip-displayTemporal {
+  font-weight: bold;
+  font-size: clamp(0.6rem, 0.7vw, 0.9rem); 
 }
 
 .tooltipEdges {

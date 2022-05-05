@@ -678,9 +678,9 @@ function stringSplit(data, keywordSplitter) {
         .style('display', 'inline-block')
         .style('opacity', '0.9')
         .html(`
-              ${replaceTemporal(d, (vdateStart) => `<p class="date">${formatTime(d.vdateStart)}</p>`)}
-              ${conditionalReturn(d.displayTemporal, (displayTemporal) => `<p class="displayTemporal"><b>${displayTemporal}</b></p>`)}
-              <p class="tooltip-title">${d.title}</p>`);
+        ${replaceTemporal(d, (vdateStart) => `<p class="tooltip-date">${formatTime(d.vdateStart)}</p>`)}
+        ${conditionalReturn(d.displayTemporal, (displayTemporal) => `<p class="tooltip-displayTemporal"><b>${displayTemporal}</b></p>`)}
+        <p class="tooltip-title">${d.title}</p>`);
     })
 
       .on('click', function (event, d) {
@@ -850,9 +850,9 @@ function stringSplit(data, keywordSplitter) {
           .style('display', 'inline-block')
           .style('opacity', '0.9')
           .html(`
-                      ${replaceTemporal(d, (vdateStart) => `<b><p class="date">${formatTime(d.vdateStart)}</b> to <b>${formatTime(d.vdateEnd)}</b></p>`)}
-                      ${conditionalReturn(d.displayTemporal, (displayTemporal) => `<p class="displayTemporal"><b>${displayTemporal}</b></p>`)}
-                      <p class="tooltip-title">${d.title}</p>`);
+                ${replaceTemporal(d, (vdateStart) => `<p class="tooltip-date">${formatTime(d.vdateStart)} to ${formatTime(d.vdateEnd)}</p>`)}
+                ${conditionalReturn(d.displayTemporal, (displayTemporal) => `<p class="tooltip-displayTemporal"><b>${displayTemporal}</b><p>`)}
+                <p class="tooltip-title">${d.title}</p>`);
       })
       .on('click', function (event, d) {
 
