@@ -411,7 +411,7 @@ width: 10px;
   top: 0px;
   position: fixed;
   z-index: 20;
-  width: 280px;
+  width: calc(20vw + 2px);
   padding-left: 25px;
   padding-top: 25px;
   height: 100%;
@@ -477,13 +477,17 @@ width: 10px;
 
 .search {
   position: absolute;
-  width: 250px;
+  width: calc(20vw + 2px);
   margin-left: 0px;
   margin-top: 20px;
   border: 0;
   /* color: black; */
   font-size: 12pt;
   float: left;
+}
+
+.search p {
+  font-size: clamp(0.8rem, 0.8vw, 1.5rem);
 }
 
 .highlights {
