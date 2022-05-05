@@ -1118,7 +1118,7 @@ console.log(dateRangeLength); //number of years
                   .html(`
                 ${replaceTemporal(d, (vdateStart) => `<p class="date">${formatTime(d.vdateStart)}</p>`)}
                 ${conditionalReturn(d.displayTemporal, (displayTemporal) => `<p class="displayTemporal"><b>${displayTemporal}</b></p>`)}
-                ${conditionalReturn(d.title, (title) => `<p class="title">${title}</p>`)}
+                ${conditionalReturn(d.title, (title) => `<h2 class="title">${title}</h2>`)}
                 ${compareDescription(d, (description) => `<p class="description"><b>Description: </b>${description}</p>`)}
                 ${stringSplit(d.people, (people) => `<p class="people"><b>People: </b>${people}</p>`)}
                 ${stringSplit(d.places, (places) => `<p class="places"><b>Places: </b>${places}</p>`)}
@@ -1128,7 +1128,7 @@ console.log(dateRangeLength); //number of years
                 ${conditionalReturn(d.source, (source) => `<p class="source"><b>Source: </b>${source}</p>`)}
                 ${conditionalReturn(d.reference, (reference) => `<p class="reference"><b>Further references: </b>${reference}</p>`)}
                 <br/>
-                ${conditionalReturn(d.category1, (category1) => `<span class="key-dot cinema"></span>Cinema and Theatre<br>`)}
+                ${conditionalReturn(d.category1, (category1) => `<span class="key-dot cinema"></span> Cinema and Theatre<br>`)}
                 ${conditionalReturn(d.category2, (category2) => `<span class="key-dot biography"></span>Biography and Personality<br>`)}
                 ${conditionalReturn(d.category3, (category3) => `<span class="key-dot writing"></span>Writing and Teaching<br>`)}
                 ${conditionalReturn(d.category4, (category4) => `<span class="key-dot graphic"></span>Graphic Art<br>`)}

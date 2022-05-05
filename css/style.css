@@ -70,12 +70,12 @@ path.backgroundspiral {
 
 .tooltip-date {
   font-weight: 400;
-  font-size: 15px;
+  font-size: clamp(0.8rem, 0.8vw, 1rem);
 }
 
 .tooltip-title {
   font-weight: 400;
-  font-size: 12;
+  font-size: clamp(0.8rem, 0.8vw, 1rem);
 }
 
 .tooltipEdges {
@@ -202,12 +202,20 @@ font-size: 0.8em;
   padding-top: 50px;
   z-index: 10;
   backdrop-filter: blur(8px);
+  padding-bottom: 10px;
+}
+
+.sidebar h2 {
+  font-size: clamp(0.8rem, 0.8vw, 1.5rem);
+  line-height: 1.4em;
 }
 
 
 .sidebar p {
+  font-size: clamp(0.8rem, 0.8vw, 1.5rem);
   line-height: 1.4em;
 }
+
 
 .highlightbar {
   background-color: rgba(255, 255, 255, 0.5);
@@ -234,11 +242,11 @@ font-size: 0.8em;
 }
 
 .title {
-  font-size: 1.5em;
-  font-weight: bold;
+  font-size: clamp(0.6rem, 0.8vw, 1.0rem);
 }
 
 .date {
+  font-size: clamp(0.6rem, 0.8vw, 1.0rem);
   font-weight: bold;
 }
 
@@ -412,15 +420,13 @@ width: 10px;
   z-index: 20;
 }
 
-p {
+ p {
   margin: 5;
   margin-left: 0px;
-  font-size: 0.9em;
-  line-height: 1.28em;
 }
 
-h2 {
-  font-size: 0.9em;
+ h2 {
+  font-size: clamp(0.8rem, 1.0vw, 1.5rem);
   margin-bottom: 0.4em;
 }
 
@@ -428,7 +434,7 @@ h2 {
   text-align: left;
   float: left;
   padding-top: 10px;
-  font-size: 12pt;
+  /* font-size: 12pt; */
 }
 
 .logo {
@@ -480,20 +486,23 @@ h2 {
   float: left;
   padding-top: 10px;
   width: 300px;
+  font-size: clamp(0.8rem, 0.8vw, 1.5rem);
 }
 
 .categories {
   float: left;
   width: 300px;
+  font-size: clamp(0.8rem, 0.8vw, 1.5rem);
 }
 
 .entities {
   float: left;
   width: 300px;
+  font-size: clamp(0.8rem, 0.8vw, 1.5rem);
 }
 
 p {
-  line-height: 1.1em;
+  line-height: clamp(0.8rem, 1vw, 1.5rem);
 }
 
 #legend1 {
@@ -626,11 +635,9 @@ p {
 
 .sorting p{
   margin-top: 17px!important;
-}
-
-p {
   font-size: 0.9em;
 }
+
 
 .spiralviz {
   float: left;
@@ -920,7 +927,7 @@ input:checked + .slider:before {
 #eventList li{
 margin-bottom: 1em;
 background:none;
-font-size: 0.9em;
+font-size: clamp(0.8rem, 0.8vw, 1.5rem);
 }
 
 #eventList li::before {
