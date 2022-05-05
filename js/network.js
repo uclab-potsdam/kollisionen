@@ -739,6 +739,18 @@ Promise.all([
       itemSelection()
     })
 
+    $("#search").on("select2-clearing", function (e) {
+      d3.selectAll(".filter").style("font-weight", 400)
+      d3.selectAll(".highlights p").style("font-weight", 400)
+      d3.selectAll(".nodeSymbol,.label,.labelbg").classed("entityFilteredOut", false)
+      d3.selectAll(".link").classed("entityFilteredOut", false)
+      d3.selectAll(".entities p").style("font-weight", 400)
+      d3.select(".highlightbar").style("display", "none")
+      d3.select("#closedhighlightbar").style("display", "none")
+      d3.select("#eventList").selectAll("li").style("display", "block").classed("filteredin", true)
+      filter = 0
+      itemSelection()
+    })
 
     d3.select(".f_c").on("click", function() {
       if (d3.select(this).style("font-weight") != "bold") {
@@ -1524,15 +1536,14 @@ simulation.alpha(1).restart();
 ///start search filter
 else if(filter == "search" ){
   let connectedNodes = []
-console.log(searchFilter)
+//console.log(searchFilter)
 if(searchFilter.category == "places"){
   //console.log("problem?")
 
   d3.selectAll(".link").style("display", function(d) {
-
+  //  console.log(d.children.filter(function(D){return D.places.filter(function(place){return place == searchFilter.name})}).length)
     if (d.children[0].dateStart >= firstItem && d.children[0].dateStart <= lastItem
-    && (d.children.filter(function(D){//console.log(D.places)
-      return D.places == searchFilter.name}).length >0)
+    && (d.children.filter(function(D){return D.places.filter(function(place){return place == searchFilter.name})}).length >0)
   ) {
       return "block"
     } else {
@@ -1543,7 +1554,7 @@ if(searchFilter.category == "places"){
 
   d3.selectAll(".link").filter(function(d) {
       return d.children[0].dateStart >= firstItem && d.children[0].dateStart <= lastItem
-      && (d.children.filter(function(D){return D.places == searchFilter.name}).length >0)
+      && (d.children.filter(function(D){return D.places.filter(function(place){return place == searchFilter.name})}).length >0)
     })
     .each(function(D, I) {
       if (connectedNodes.filter(function(x) {
@@ -1566,7 +1577,7 @@ if(searchFilter.category == "places"){
     // console.log(d.children)
     // console.log(highlightFilter)
     if (d.children[0].dateStart >= firstItem && d.children[0].dateStart <= lastItem
-    && (d.children.filter(function(D){return D.works == searchFilter.name}).length >0)
+      && (d.children.filter(function(D){return D.works.filter(function(place){return place == searchFilter.name})}).length >0)
   ) {
       return "block"
     } else {
@@ -1577,7 +1588,7 @@ if(searchFilter.category == "places"){
 
   d3.selectAll(".link").filter(function(d) {
       return d.children[0].dateStart >= firstItem && d.children[0].dateStart <= lastItem
-      && (d.children.filter(function(D){return D.works == searchFilter.name}).length >0)
+      && (d.children.filter(function(D){return D.works.filter(function(place){return place == searchFilter.name})}).length >0)
     })
     .each(function(D, I) {
       if (connectedNodes.filter(function(x) {
@@ -1600,7 +1611,7 @@ if(searchFilter.category == "places"){
     // console.log(d.children)
     // console.log(highlightFilter)
     if (d.children[0].dateStart >= firstItem && d.children[0].dateStart <= lastItem
-    && (d.children.filter(function(D){return D.artistic == searchFilter.name}).length >0)
+      && (d.children.filter(function(D){return D.artistic.filter(function(place){return place == searchFilter.name})}).length >0)
   ) {
       return "block"
     } else {
@@ -1611,7 +1622,7 @@ if(searchFilter.category == "places"){
 
   d3.selectAll(".link").filter(function(d) {
       return d.children[0].dateStart >= firstItem && d.children[0].dateStart <= lastItem
-      && (d.children.filter(function(D){return D.artistic == searchFilter.name}).length >0)
+      && (d.children.filter(function(D){return D.artistic.filter(function(place){return place == searchFilter.name})}).length >0)
     })
     .each(function(D, I) {
       if (connectedNodes.filter(function(x) {
@@ -1634,7 +1645,7 @@ if(searchFilter.category == "places"){
     // console.log(d.children)
     // console.log(highlightFilter)
     if (d.children[0].dateStart >= firstItem && d.children[0].dateStart <= lastItem
-    && (d.children.filter(function(D){return D.additional == searchFilter.name}).length >0)
+      && (d.children.filter(function(D){return D.additional.filter(function(place){return place == searchFilter.name})}).length >0)
   ) {
       return "block"
     } else {
@@ -1645,7 +1656,7 @@ if(searchFilter.category == "places"){
 
   d3.selectAll(".link").filter(function(d) {
       return d.children[0].dateStart >= firstItem && d.children[0].dateStart <= lastItem
-      && (d.children.filter(function(D){return D.additional== searchFilter.name}).length >0)
+      && (d.children.filter(function(D){return D.additional.filter(function(place){return place == searchFilter.name})}).length >0)
     })
     .each(function(D, I) {
       if (connectedNodes.filter(function(x) {
@@ -1668,7 +1679,7 @@ if(searchFilter.category == "places"){
     // console.log(d.children)
     // console.log(highlightFilter)
     if (d.children[0].dateStart >= firstItem && d.children[0].dateStart <= lastItem
-    && (d.children.filter(function(D){return D.people == searchFilter.name}).length >0)
+      && (d.children.filter(function(D){return D.people.filter(function(place){return place == searchFilter.name})}).length >0)
   ) {
       return "block"
     } else {
@@ -1679,7 +1690,7 @@ if(searchFilter.category == "places"){
 
   d3.selectAll(".link").filter(function(d) {
       return d.children[0].dateStart >= firstItem && d.children[0].dateStart <= lastItem
-      && (d.children.filter(function(D){return D.people == searchFilter.name}).length >0)
+      && (d.children.filter(function(D){return D.people.filter(function(place){return place == searchFilter.name})}).length >0)
     })
     .each(function(D, I) {
       if (connectedNodes.filter(function(x) {
@@ -1830,7 +1841,7 @@ simulation.alpha(1).restart();
 
 ///mouseclick for nodes
       d3.selectAll(".nodeSymbol,.label").on("click", function(event,D){
-        console.log(D)
+      //  console.log(D)
         filter = "search"
         searchFilter = {category: D.category, name: D.name}
         d3.select("#select2-chosen-1").text(D.name)

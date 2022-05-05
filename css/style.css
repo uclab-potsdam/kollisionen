@@ -79,7 +79,7 @@ path.backgroundspiral {
 
 .tooltip-displayTemporal {
   font-weight: bold;
-  font-size: clamp(0.6rem, 0.7vw, 0.9rem); 
+  font-size: clamp(0.6rem, 0.7vw, 0.9rem);
 }
 
 .tooltipEdges {
@@ -195,7 +195,6 @@ font-size: 0.8em;
   margin: 0px;
   font-size: 0.9em;
   position: fixed;
-  overflow-y: auto;
   top: 0;
   right: 0;
   width: 350px;
@@ -207,6 +206,7 @@ font-size: 0.8em;
   z-index: 10;
   backdrop-filter: blur(8px);
   padding-bottom: 10px;
+  overflow-y: auto;
 }
 
 .sidebar h2 {
