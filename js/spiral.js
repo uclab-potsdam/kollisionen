@@ -28,7 +28,7 @@ let soundtoggle = false;
 let uncertaintytoggle = false;
 
 let firstYearforLabel = 1898 //we should take this from the data with d3.min()
-let lastYearforLabel = 1948 //we should take this from the data with d3.max()
+let lastYearforLabel = 1949 //we should take this from the data with d3.max()
 
 ///audio
 const audio1 = new Audio("sounds/sound1.mp3")
