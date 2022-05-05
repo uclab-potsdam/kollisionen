@@ -197,11 +197,11 @@ font-size: 0.8em;
   position: fixed;
   top: 0;
   right: 0;
-  width: 350px;
+  width: calc(20vw + 2px);
   height: 100%;
   display: none;
   text-align: left;
-  padding: 40px;
+  padding: 30px;
   padding-top: 50px;
   z-index: 10;
   backdrop-filter: blur(8px);
@@ -210,7 +210,7 @@ font-size: 0.8em;
 }
 
 .sidebar h2 {
-  font-size: clamp(0.8rem, 0.8vw, 1.5rem);
+  font-size: clamp(0.8rem, 0.9vw, 1.2rem);
   line-height: 1.4em;
 }
 
@@ -430,7 +430,7 @@ width: 10px;
 }
 
  h2 {
-  font-size: clamp(0.8rem, 1.0vw, 1.5rem);
+  font-size: clamp(0.8rem, 0.9vw, 1.2rem);
   margin-bottom: 0.4em;
 }
 
@@ -555,7 +555,7 @@ p {
 #closedsidebar {
   position: fixed;
   right: 10px;
-  top: 0;
+  top: 10;
   font-size: 30;
   color: black;
   cursor: pointer;
@@ -915,12 +915,12 @@ input:checked + .slider:before {
 #eventList {
   right: 0;
   top: 0;
-  width: 350px;
+  width: calc(20vw + 2px);
   height: 100%;
   position: fixed;
   display: block;
   background-color: rgba(222, 211, 196, 0.25);
-  padding: 40px;
+  padding: 30px;
   padding-top: 50px;
   outline: 1px solid grey;
   overflow-y: auto;
@@ -1010,7 +1010,7 @@ font-size: clamp(0.8rem, 0.8vw, 1.5rem);
 } */
 
 .scrollerBg{
-  width: 430px;
+  width: calc(20vw + 2px);
   height: 100px;
   position: fixed;
   display: block;
