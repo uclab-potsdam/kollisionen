@@ -652,12 +652,12 @@ p {
 .networkviz {
   float: left;
   padding-top: 30px;
+  padding-left: 70px;
 }
 
 .timelinesviz {
   float: left;
   padding-top: 30px;
-  padding-left: 70px;
 }
 
 .modalbuttons {
