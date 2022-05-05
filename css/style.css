@@ -639,8 +639,9 @@ p {
 }
 
 .sorting p{
-  margin-top: 17px!important;
-  font-size: 0.9em;
+  /* margin-top: 17px!important; */
+  font-size: clamp(0.8rem, 0.8vw, 1.5rem);
+  margin: 0px;
 }
 
 
