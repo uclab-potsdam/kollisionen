@@ -516,6 +516,7 @@ p {
   width: 100%;
   margin-bottom: 20px;
   width:300px
+  
 }
 
 /* #legend1 h2 {
@@ -667,14 +668,16 @@ p {
   position: absolute;
 }
 
-.tour img {
-  padding-left: 8px;
-  opacity: 0.8;
+.modalbuttons img {
+  cursor: pointer;
 }
 
 .tour img {
+  padding-left: 8px;
+  opacity: 0.8;
   margin-top: 1px;
 }
+
 
 
 
@@ -754,10 +757,12 @@ input[type="checkbox"]:before {
   width: 36px;
   height: 36px;
   overflow: hidden;
+  cursor: pointer;
 }
 
 input[type="checkbox"]:checked:before {
   content: url('../images/sound-on.svg');
+  cursor: pointer;
 }
 
 /* .switch {
