@@ -1238,12 +1238,34 @@ d3.selectAll("circle").classed("filteredout", function(d){
                       if(d.works.includes(e.choice.name)){return false}else{return true}
                     }})
 
+// find "text" that matches 'e.choice.name'
+
+d3.selectAll("text").classed("entFilteredout", function(d){
+    if(d.text == e.choice.name){return true}else{return false}
+  }
+)
+
+
+// document.getElementById("text").scrollIntoView({behavior: "smooth"})
+
+
+
+//scroll to the selected element (d.text== e.choice.name) on the page
+
+
+
+
+
+
+
+
 })
 
 
 $("#search").on("select2-clearing", function(e) {
 d3.selectAll(".timelineLines").classed("filteredout",false)
 d3.selectAll("circle").classed("filteredout",false)
+d3.selectAll("text").classed("entFilteredout",false)
 })
 
 //sound
