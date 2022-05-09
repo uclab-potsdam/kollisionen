@@ -198,7 +198,7 @@ font-size: 0.8em;
   position: fixed;
   top: 0;
   right: 0;
-  width: calc(20vw + 2px);
+  width: calc(15vw + 2px);
   height: calc(100% - 60px);
   display: none;
   text-align: left;
@@ -231,7 +231,7 @@ font-size: 0.8em;
   overflow-y: auto;
   top: 0;
   right: 0;
-  width: calc(20vw + 2px);
+  width: calc(15vw + 2px);
   height: calc(100% - 60px);
   display: none;
   text-align: left;
@@ -412,7 +412,7 @@ width: 10px;
   top: 0px;
   position: fixed;
   z-index: 20;
-  width: calc(20vw + 2px);
+  width: calc(15vw + 2px);
   padding-left: 25px;
   padding-top: 25px;
   height: 100%;
@@ -478,7 +478,7 @@ width: 10px;
 
 .search {
   position: absolute;
-  width: calc(20vw + 2px);
+  width: calc(12vw + 2px);
   margin-left: 0px;
   margin-top: 20px;
   border: 0;
@@ -494,7 +494,7 @@ width: 10px;
 .highlights {
   float: left;
   padding-top: 10px;
-  width: calc(20vw + 2px);
+  width: calc(15vw + 2px);
   font-size: clamp(0.8rem, 0.8vw, 1.5rem);
 }
 
@@ -921,7 +921,7 @@ input:checked + .slider:before {
 #eventList {
   right: 0;
   top: 0;
-  width: calc(20vw + 2px);
+  width: calc(15vw + 2px);
   height: 100%;
   position: fixed;
   display: block;
@@ -1016,7 +1016,7 @@ font-size: clamp(0.8rem, 0.8vw, 1.5rem);
 } */
 
 .scrollerBg{
-  width: calc(20vw + 2px);
+  width: calc(15vw + 2px);
   height: 100px;
   position: fixed;
   display: block;
@@ -1044,6 +1044,7 @@ font-size: clamp(0.8rem, 0.8vw, 1.5rem);
   position: fixed;
   z-index: 100;
   right: 205px;
+  width: calc(15vw + 2px);
 }
 
 .scrollarrowdown{
