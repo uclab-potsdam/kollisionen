@@ -279,6 +279,12 @@ var keywordsCount = [];
 
     console.log(keywordsAdditional);
 
+    //combine keywordsPeople, keywordsPlaces, keywordsWorks, keywordsArtistic, and keywordsAdditional into one array
+
+    var keywordsAll = keywordsPeople.concat(keywordsPlaces, keywordsWorks, keywordsArtistic, keywordsAdditional);
+
+console.log(keywordsAll);
+
 
 
 
@@ -517,7 +523,13 @@ function stringSplit(data, keywordSplitter) {
   let timelinesG = d3.select("#chart")
                   .select("svg")
                   .selectAll(".timelines")
-                  .data(keywordsCount1)
+                  .data(keywordsAll)
+
+
+                  //make new timelines for each keyword from d.placesSplit, d.peopleSplit, d.worksSplit, d.artisticSplit, d.additionalSplit.
+                  //if there is no data for a keyword, don't make a timeline
+                  //if there is data for a keyword, make a timeline but only make one timeline for each keyword for each of the categories
+
                   .join("g")
                   .classed("backgroundTimelineG", true)               
   .classed("people", function (d) { if (keywordsPeople.filter(function(D){return D==d}).length >0){return true}else{return false}})
@@ -603,7 +615,7 @@ function stringSplit(data, keywordSplitter) {
   //     if(d.uncertaintystart === 0 && d.vend === ""){
   //  return (d.people.includes(D) || d.places.includes(D) || d.works.includes(D) || d.artistic.includes(D) ||d.additional.includes(D)) && d.vstart.includes("/") == false && d.vstart.includes(",") == false && d.vstart != "" //took out some data points that create errors for now
   //   }}))
-    .data(keywordsData.filter(function (D,d) {
+    .data(keywordsData.filter(function (d) {
       if(d.uncertaintystart === 0 && d.vend === ""){
         return (d.placesSplit.filter(function(D){return D==d}).length >0) || (d.peopleSplit.filter(function(D){return D==d}).length >0) || (d.worksSplit.filter(function(D){return D==d}).length >0) || (d.artisticSplit.filter(function(D){return D==d}).length >0) || (d.additionalSplit.filter(function(D){return D==d}).length >0)
          && d.vstart.includes("/") == false && d.vstart.includes(",") == false && d.vstart != "" //took out some data points that create errors for now
