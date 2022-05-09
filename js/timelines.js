@@ -1296,6 +1296,8 @@ d3.select('input[value="temporal"]').on('change', function() {
     d3.select("#closedsidebar").style("display", "none") 
     d3.select(".sidebar").style("display", "none")
 
+    
+
     d3.selectAll("svg > *").remove();
 
     let timelinesG = d3.select("#chart")
@@ -1663,6 +1665,8 @@ d3.select('input[value="frequency"]').on('change', function() {
     d3.select("#closedhighlightbar").style("display", "none")
     d3.select("#closedsidebar").style("display", "none") 
     d3.select(".sidebar").style("display", "none")
+
+
 
 
       d3.selectAll("svg > *").remove();
