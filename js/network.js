@@ -244,16 +244,7 @@ Promise.all([
           }).style("display", "block").classed("filteredin", true)
 
 
-          d3.select("#soundcheckbox").on('change', function () {
-            if (soundtoggle) {
-              soundtoggle = !soundtoggle;
-              Tone.Transport.stop();
-            }
-            else if (!soundtoggle) {
-              soundtoggle = !soundtoggle;
-              Tone.Transport.start();
-            }
-          });
+
 
 
           d3.selectAll(".filter,.allfilter").style("font-weight", 400)
@@ -1961,7 +1952,16 @@ itemSelection()
     })
 
 
-
+    d3.select("#soundcheckbox").on('change', function () {
+      if (soundtoggle) {
+        soundtoggle = !soundtoggle;
+        Tone.Transport.stop();
+      }
+      else if (!soundtoggle) {
+        soundtoggle = !soundtoggle;
+        Tone.Transport.start();
+      }
+    });
 
 
     function ticked(d) {

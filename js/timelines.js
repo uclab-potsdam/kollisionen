@@ -1457,8 +1457,6 @@ ${conditionalReturn(d.reference, (reference) => `<p class="reference"><b>Further
 ${conditionalReturn(d.category1, (category1) => `<p><span class="key-dot cinema"></span>Cinema and Theatre<br></p>`)}
 ${conditionalReturn(d.category2, (category2) => `<p><span class="key-dot biography"></span>Biography and Personality<br></p>`)}
 ${conditionalReturn(d.category3, (category3) => `<p><span class="key-dot writing"></span>Writing and Teaching<br></p>`)}
-${conditionalReturn(d.category4, (category4) => `<p><span class="key-dot graphic"></span>Graphic Art<br></p>`)}
-${conditionalReturn(d.category5, (category5) => `<p><span class="key-dot apartment"></span>Apartment<br></p>`)}
 
 `)
 
