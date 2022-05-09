@@ -19,6 +19,7 @@ body {
   --cinebio: #8a9a5b;
   --biowrit: #f5964c;
   --allcat: #000000;
+  accent-color: var(--cinema);
 }
 
 .m-top-2 {
