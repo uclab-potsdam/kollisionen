@@ -112,6 +112,13 @@ function zoomed(event, d) {
       return 3 / event.transform.k
     })
 
+  // d3.selectAll(".nodeSymbol").attr("width", function(d) {
+  //         return nodeScale(d.count)/ event.transform.k + "px"
+  //       })
+  //       .attr("height", function(d) {
+  //         return nodeScale(d.count)/ event.transform.k + "px"
+  //       })
+
   if (event.transform.k < 1.2) {
     d3.selectAll(".label,.labelbg")
       .classed("hiddenLabel", function(d) {
@@ -1089,7 +1096,7 @@ Promise.all([
           .style('display', 'inline-block')
           .style('opacity', '0.9')
           .html(function() {
-            return `<p class="tooltip-title">${d.name}</p><p class="tooltip-title">Category: ${d.category}</p><p class="tooltip-title">Occurences: ${d.count}</p>`
+            return `<p class="tooltip-title"><strong>${d.name}</strong></p><p class="tooltip-title">Entity type: ${d.category}</p><p class="tooltip-title">Connected events: ${d.count}</p>`
           })
       })
       .on("mouseout", function(event, d) {
@@ -1561,24 +1568,152 @@ simulation.alpha(1).restart();
 else if(filter == "search" ){
   let connectedNodes = []
 //console.log(searchFilter)
-if(searchFilter.category == "places"){
-  //console.log("problem?")
-
+// if(searchFilter.category == "places"){
+//   //console.log("problem?")
+//
+//   d3.selectAll(".link").style("display", function(d) {
+//   //  console.log(d.children.filter(function(D){return D.places.filter(function(place){return place == searchFilter.name})}).length)
+//     if (d.children[0].dateStart >= firstItem && d.children[0].dateStart <= lastItem
+//     && (d.children.filter(function(D){return D.places.filter(function(place){return place == searchFilter.name})}).length >0)
+//   ) {
+//       return "block"
+//     } else {
+//       return "none"
+//     }
+//   })
+//   ///get nodes with edges
+//
+//   d3.selectAll(".link").filter(function(d) {
+//       return d.children[0].dateStart >= firstItem && d.children[0].dateStart <= lastItem
+//       && (d.children.filter(function(D){return D.places.filter(function(place){return place == searchFilter.name})}).length >0)
+//     })
+//     .each(function(D, I) {
+//       if (connectedNodes.filter(function(x) {
+//           return x == D.source.name
+//         }).length == 0) {
+//         connectedNodes.push(
+//           D.source.name
+//         )
+//       }
+//       if (connectedNodes.filter(function(x) {
+//           return x == D.target.name
+//         }).length == 0) {
+//         connectedNodes.push(
+//           D.target.name
+//         )
+//       }
+//     })
+// }else if(searchFilter.category == "works"){
+//   d3.selectAll(".link").style("display", function(d) {
+//     // console.log(d.children)
+//     // console.log(highlightFilter)
+//     if (d.children[0].dateStart >= firstItem && d.children[0].dateStart <= lastItem
+//       && (d.children.filter(function(D){return D.works.filter(function(works){return works == searchFilter.name})}).length >0)
+//   ) {
+//       return "block"
+//     } else {
+//       return "none"
+//     }
+//   })
+//   ///get nodes with edges
+//
+//   d3.selectAll(".link").filter(function(d) {
+//       return d.children[0].dateStart >= firstItem && d.children[0].dateStart <= lastItem
+//       && (d.children.filter(function(D){return D.works.filter(function(works){return works == searchFilter.name})}).length >0)
+//     })
+//     .each(function(D, I) {
+//       if (connectedNodes.filter(function(x) {
+//           return x == D.source.name
+//         }).length == 0) {
+//         connectedNodes.push(
+//           D.source.name
+//         )
+//       }
+//       if (connectedNodes.filter(function(x) {
+//           return x == D.target.name
+//         }).length == 0) {
+//         connectedNodes.push(
+//           D.target.name
+//         )
+//       }
+//     })
+// }else if(searchFilter.category == "artistic"){
+//   d3.selectAll(".link").style("display", function(d) {
+//     // console.log(d.children)
+//     // console.log(highlightFilter)
+//     if (d.children[0].dateStart >= firstItem && d.children[0].dateStart <= lastItem
+//       && (d.children.filter(function(D){return D.artistic.filter(function(artistic){return artistic == searchFilter.name})}).length >0)
+//   ) {
+//       return "block"
+//     } else {
+//       return "none"
+//     }
+//   })
+//   ///get nodes with edges
+//
+//   d3.selectAll(".link").filter(function(d) {
+//       return d.children[0].dateStart >= firstItem && d.children[0].dateStart <= lastItem
+//       && (d.children.filter(function(D){return D.artistic.filter(function(artistic){return artistic == searchFilter.name})}).length >0)
+//     })
+//     .each(function(D, I) {
+//       if (connectedNodes.filter(function(x) {
+//           return x == D.source.name
+//         }).length == 0) {
+//         connectedNodes.push(
+//           D.source.name
+//         )
+//       }
+//       if (connectedNodes.filter(function(x) {
+//           return x == D.target.name
+//         }).length == 0) {
+//         connectedNodes.push(
+//           D.target.name
+//         )
+//       }
+//     })
+// }else if(searchFilter.category == "additional"){
+//   d3.selectAll(".link").style("display", function(d) {
+//     // console.log(d.children)
+//     // console.log(highlightFilter)
+//     if (d.children[0].dateStart >= firstItem && d.children[0].dateStart <= lastItem
+//       && (d.children.filter(function(D){return D.additional.filter(function(additional){return additional == searchFilter.name})}).length >0)
+//   ) {
+//       return "block"
+//     } else {
+//       return "none"
+//     }
+//   })
+//   ///get nodes with edges
+//
+//   d3.selectAll(".link").filter(function(d) {
+//       return d.children[0].dateStart >= firstItem && d.children[0].dateStart <= lastItem
+//       && (d.children.filter(function(D){return D.additional.filter(function(additional){return additional == searchFilter.name})}).length >0)
+//     })
+//     .each(function(D, I) {
+//       if (connectedNodes.filter(function(x) {
+//           return x == D.source.name
+//         }).length == 0) {
+//         connectedNodes.push(
+//           D.source.name
+//         )
+//       }
+//       if (connectedNodes.filter(function(x) {
+//           return x == D.target.name
+//         }).length == 0) {
+//         connectedNodes.push(
+//           D.target.name
+//         )
+//       }
+//     })
+// }else if(searchFilter.category == "people"){
   d3.selectAll(".link").style("display", function(d) {
-  //  console.log(d.children.filter(function(D){return D.places.filter(function(place){return place == searchFilter.name})}).length)
-    if (d.children[0].dateStart >= firstItem && d.children[0].dateStart <= lastItem
-    && (d.children.filter(function(D){return D.places.filter(function(place){return place == searchFilter.name})}).length >0)
-  ) {
-      return "block"
-    } else {
-      return "none"
-    }
-  })
-  ///get nodes with edges
+    if(d.children[0].dateStart >= firstItem && d.children[0].dateStart <= lastItem &&
+      (d.source.name == searchFilter.name || d.target.name == searchFilter.name)){return "block"}else{return "none"}})
 
+  // ///get nodes with edges
   d3.selectAll(".link").filter(function(d) {
       return d.children[0].dateStart >= firstItem && d.children[0].dateStart <= lastItem
-      && (d.children.filter(function(D){return D.places.filter(function(place){return place == searchFilter.name})}).length >0)
+      && (d.source.name == searchFilter.name || d.target.name == searchFilter.name)
     })
     .each(function(D, I) {
       if (connectedNodes.filter(function(x) {
@@ -1596,143 +1731,7 @@ if(searchFilter.category == "places"){
         )
       }
     })
-}else if(searchFilter.category == "works"){
-  d3.selectAll(".link").style("display", function(d) {
-    // console.log(d.children)
-    // console.log(highlightFilter)
-    if (d.children[0].dateStart >= firstItem && d.children[0].dateStart <= lastItem
-      && (d.children.filter(function(D){return D.works.filter(function(place){return place == searchFilter.name})}).length >0)
-  ) {
-      return "block"
-    } else {
-      return "none"
-    }
-  })
-  ///get nodes with edges
 
-  d3.selectAll(".link").filter(function(d) {
-      return d.children[0].dateStart >= firstItem && d.children[0].dateStart <= lastItem
-      && (d.children.filter(function(D){return D.works.filter(function(place){return place == searchFilter.name})}).length >0)
-    })
-    .each(function(D, I) {
-      if (connectedNodes.filter(function(x) {
-          return x == D.source.name
-        }).length == 0) {
-        connectedNodes.push(
-          D.source.name
-        )
-      }
-      if (connectedNodes.filter(function(x) {
-          return x == D.target.name
-        }).length == 0) {
-        connectedNodes.push(
-          D.target.name
-        )
-      }
-    })
-}else if(searchFilter.category == "artistic"){
-  d3.selectAll(".link").style("display", function(d) {
-    // console.log(d.children)
-    // console.log(highlightFilter)
-    if (d.children[0].dateStart >= firstItem && d.children[0].dateStart <= lastItem
-      && (d.children.filter(function(D){return D.artistic.filter(function(place){return place == searchFilter.name})}).length >0)
-  ) {
-      return "block"
-    } else {
-      return "none"
-    }
-  })
-  ///get nodes with edges
-
-  d3.selectAll(".link").filter(function(d) {
-      return d.children[0].dateStart >= firstItem && d.children[0].dateStart <= lastItem
-      && (d.children.filter(function(D){return D.artistic.filter(function(place){return place == searchFilter.name})}).length >0)
-    })
-    .each(function(D, I) {
-      if (connectedNodes.filter(function(x) {
-          return x == D.source.name
-        }).length == 0) {
-        connectedNodes.push(
-          D.source.name
-        )
-      }
-      if (connectedNodes.filter(function(x) {
-          return x == D.target.name
-        }).length == 0) {
-        connectedNodes.push(
-          D.target.name
-        )
-      }
-    })
-}else if(searchFilter.category == "additional"){
-  d3.selectAll(".link").style("display", function(d) {
-    // console.log(d.children)
-    // console.log(highlightFilter)
-    if (d.children[0].dateStart >= firstItem && d.children[0].dateStart <= lastItem
-      && (d.children.filter(function(D){return D.additional.filter(function(place){return place == searchFilter.name})}).length >0)
-  ) {
-      return "block"
-    } else {
-      return "none"
-    }
-  })
-  ///get nodes with edges
-
-  d3.selectAll(".link").filter(function(d) {
-      return d.children[0].dateStart >= firstItem && d.children[0].dateStart <= lastItem
-      && (d.children.filter(function(D){return D.additional.filter(function(place){return place == searchFilter.name})}).length >0)
-    })
-    .each(function(D, I) {
-      if (connectedNodes.filter(function(x) {
-          return x == D.source.name
-        }).length == 0) {
-        connectedNodes.push(
-          D.source.name
-        )
-      }
-      if (connectedNodes.filter(function(x) {
-          return x == D.target.name
-        }).length == 0) {
-        connectedNodes.push(
-          D.target.name
-        )
-      }
-    })
-}else if(searchFilter.category == "people"){
-  d3.selectAll(".link").style("display", function(d) {
-    // console.log(d.children)
-    // console.log(highlightFilter)
-    if (d.children[0].dateStart >= firstItem && d.children[0].dateStart <= lastItem
-      && (d.children.filter(function(D){return D.people.filter(function(place){return place == searchFilter.name})}).length >0)
-  ) {
-      return "block"
-    } else {
-      return "none"
-    }
-  })
-  ///get nodes with edges
-
-  d3.selectAll(".link").filter(function(d) {
-      return d.children[0].dateStart >= firstItem && d.children[0].dateStart <= lastItem
-      && (d.children.filter(function(D){return D.people.filter(function(place){return place == searchFilter.name})}).length >0)
-    })
-    .each(function(D, I) {
-      if (connectedNodes.filter(function(x) {
-          return x == D.source.name
-        }).length == 0) {
-        connectedNodes.push(
-          D.source.name
-        )
-      }
-      if (connectedNodes.filter(function(x) {
-          return x == D.target.name
-        }).length == 0) {
-        connectedNodes.push(
-          D.target.name
-        )
-      }
-    })
-}
 
 
 d3.selectAll(".nodeSymbol")
@@ -1984,7 +1983,7 @@ itemSelection()
           return d.x = Math.max((15/100)*width+50, Math.min(width-2*((15/100)*width) - 50, d.x));
         })
         .attr("y", function(d) {
-          return d.y = Math.max(50, Math.min(height - 100, d.y))
+          return d.y = Math.max(70, Math.min(height - 100, d.y))
         })
 
       d3.selectAll(".nodeSymbol")
