@@ -774,6 +774,14 @@ Promise.all([
       itemSelection()
     })
 
+    d3.selectAll(".select2-search-choice-close").on("click",function(){
+    //  console.log("test")
+      //search reset
+      $(function() {
+        $('#search').select2('data', null)
+      })
+    })
+
     d3.select(".f_c").on("click", function() {
       //reset search
       $(function() {
@@ -1277,13 +1285,7 @@ Promise.all([
     // )
 
 
-    d3.selectAll(".select2-search-choice-close").on("click",function(){
-      console.log("test")
-      //search reset
-      $(function() {
-        $('#search').select2('data', null)
-      })
-    })
+
 
 
     function itemSelection() {
@@ -1911,8 +1913,9 @@ simulation.alpha(1).restart();
       //  console.log(D)
         filter = "search"
         searchFilter = {category: D.category, name: D.name}
+
+        $('#search').select2('data', D.name)
         d3.select("#select2-chosen-1").text(D.name)
-        d3.select(".select2-search-choice-close").style("display", "block")
 
         if (D.category == "people") {
           d3.select("#eventList").selectAll("li").style("display", function(d) {
