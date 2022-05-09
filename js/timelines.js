@@ -2095,6 +2095,9 @@ d3.select(".f_w").on("click", function() {
     d3.select(this).style("font-weight", 400)
     d3.selectAll("circle").classed("catFilteredOut", false)
     d3.selectAll(".timelineLines").classed("catFilteredOut", false)
+    twGain.gain.rampTo(0.2,30)
+    projGain.gain.rampTo(0.2,30);
+    therGain.gain.rampTo(0.05,5);
   }
 })
 

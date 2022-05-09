@@ -29,6 +29,12 @@ let edgeScale = d3.scaleLinear()
   .range([1, 10])
 
 
+  let soundtoggle = false;
+
+  function playAudio(file) {
+    file.play();
+  }
+
   // Set of functions for html formatting in tooltip and sidebar
 
   // htmlRenderer is a function in the form: (data) => htmlText
@@ -238,6 +244,16 @@ Promise.all([
           }).style("display", "block").classed("filteredin", true)
 
 
+          d3.select("#soundcheckbox").on('change', function () {
+            if (soundtoggle) {
+              soundtoggle = !soundtoggle;
+              Tone.Transport.stop();
+            }
+            else if (!soundtoggle) {
+              soundtoggle = !soundtoggle;
+              Tone.Transport.start();
+            }
+          });
 
 
           d3.selectAll(".filter,.allfilter").style("font-weight", 400)
@@ -753,6 +769,9 @@ Promise.all([
     })
 
     d3.select(".f_c").on("click", function() {
+      twGain.gain.rampTo(-0.3,0.5);
+      projGain.gain.rampTo(3.0,0.5);
+      therGain.gain.rampTo(-0.5,0.5);
       if (d3.select(this).style("font-weight") != "bold") {
         filter = "category"
         catFilter = "Cinema and Theatre"
@@ -788,12 +807,18 @@ Promise.all([
 
         d3.select(this).style("font-weight", 400)
         d3.select("#eventList").selectAll("li").style("display", "block").classed("filteredin", true)
+        twGain.gain.rampTo(0.2,30)
+        projGain.gain.rampTo(0.2,30);
+        therGain.gain.rampTo(0.05,5);
       }
       itemSelection()
     })
 
 
     d3.select(".f_b").on("click", function() {
+      twGain.gain.rampTo(-0.1,0.5);
+      projGain.gain.rampTo(0.1,0.5);
+      therGain.gain.rampTo(0.3,0.5);
       if (d3.select(this).style("font-weight") != "bold") {
         filter = "category"
         catFilter = "Biography and Personality"
@@ -827,12 +852,17 @@ Promise.all([
         filter = 0
         d3.select(this).style("font-weight", 400)
         d3.select("#eventList").selectAll("li").style("display", "block").classed("filteredin", true)
+        twGain.gain.rampTo(0.2,30)
+        projGain.gain.rampTo(0.2,30);
+        therGain.gain.rampTo(0.05,5);
       }
       itemSelection()
     })
 
     d3.select(".f_w").on("click", function() {
-
+      twGain.gain.rampTo(3.5,1);
+      projGain.gain.rampTo(0.1,1);
+      therGain.gain.rampTo(-0.5,1);
       if (d3.select(this).style("font-weight") != "bold") {
         filter = "category"
         catFilter = "Writing and Teaching"
@@ -865,6 +895,9 @@ Promise.all([
         filter = 0
         d3.select(this).style("font-weight", 400)
         d3.select("#eventList").selectAll("li").style("display", "block").classed("filteredin", true)
+        twGain.gain.rampTo(0.2,30)
+        projGain.gain.rampTo(0.2,30);
+        therGain.gain.rampTo(0.05,5);
       }
       itemSelection()
     })
