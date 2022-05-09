@@ -160,7 +160,7 @@ tour.addStep({
     id: 'creating'
   });
   
-  const div = document.querySelector('.modal-guide');
+const div = document.querySelector('.tour');
 
 div.addEventListener('click', (event) => {
   tour.start();
