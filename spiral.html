@@ -1,0 +1,126 @@
+<html>
+
+<head>
+  <title>Spiral</title>
+  <meta property="og:title" content="Spiral">
+  <meta property="og:description" content="Biographical data visualisation of Sergei M. Eisenstein.">
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+
+  <!-- <link rel="stylesheet" href="../css/standard-style.css"> -->
+  <!-- <link rel="stylesheet" href="../css/index.css"> -->
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/modal.css" />
+  <!-- <link rel="stylesheet" type="text/css" href="https://uclab.fh-potsdam.de/ff/css/select2.css"> -->
+  <link rel="stylesheet" type="text/css" href="css/search.css">
+  <script src="https://d3js.org/d3.v6.js"></script>
+  <script src="https://uclab.fh-potsdam.de/ff/js/jquery.min.js"></script>
+  <script src="https://uclab.fh-potsdam.de/ff/js/select2.min.js"></script>
+  <script type="text/javascript" src="js/shepherd-bundle.js"></script>
+  <link rel="stylesheet" href="css/popup.css"/>
+  <!-- tone.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.32/Tone.min.js" type="text/javascript"></script>
+</head>
+
+<body>
+
+  <div class="toppanel">
+    <div class="spiralviz"><h2><strong>Spiral</strong></h2></div>
+    <div class="timelinesviz" title="Click to see Timelines view"> <a href="timelines.html"><h2>Timelines</h2></a></div>
+    <div class="networkviz" title="Click to see Network view"> <a href="network.html"><h2>Network</h2></a></div>
+  </div>
+
+  <div id="chart">
+    <script type="text/javascript" src="js/spiral.js"></script>
+  </div>
+  <script type="text/javascript" src="js/sound.js"></script>
+
+  <div id="left-panel">
+    <div class="logo">
+      <a href="index.html">
+        <img src="images/K_logo.png" alt="Kollisionen logo">
+      </a>
+    </div>
+
+    <!-- <div class="intro-text">
+    <p>This visualisation is part of research project <a href="https://collisions-eisensteinshouse.projekte-filmuni.de">KOLLISIONEN</a> at Fachhochschule Potsdam and Filmuniversität Babelsberg.</p>
+    <p>It visualises the life and legacy of Sergej M. Eisenstein.</p>
+  </div> -->
+
+  <div class="search-container">
+    <div id="search"></div>
+  </div>
+
+
+    <div class="highlights"> 
+      <h2 title="Click on the object to see related events in the view">Spiritual Family</h2>
+    </div>
+
+    <div class="categories">
+      <h2 title="Click on any of the following categories to see related events in the view">Categories</h2>
+      <p class="f_c filter" title="Click to view events in this category"> <span class="key-dot cinema"></span>Cinema and Theatre </p>
+      <p class="f_b filter" title="Click to view events in this category"> <span class="key-dot biography"></span>Biography and Personality </p>
+      <p class="f_w filter" title="Click to view events in this category"> <span class="key-dot writing"></span>Writing and Teaching</p>
+      <p class="f_ac f_cb f_wb f_cb allfilter" title="Click to view events in this category">
+        <span class="key-dot biowrit" style="margin-right: -7px;"></span>
+        <span class="key-dot cinewrit" style="margin-right: -6px;"></span>
+        <span class="key-dot cinebio" style="margin-right: -7px;"></span>
+        <span class="key-dot allcat" style="margin-right: 4px;"></span> Multiple</p>
+    </div>
+    
+
+    <div class="modalbuttons">
+
+      <div class="landing-page" title="Click to go to the landing page">
+        <a href="index.html">
+          <img id="landing-page-button" src="images/landing-page.svg" alt="guide icon" height="40px">
+        </a>
+      </div>
+
+      <div class="tour" title="Click to take a tour of the visualisation">
+        <img id="guide-button" src="images/tour.svg" alt="guide icon" height="37px">
+      </div>
+
+      <div id="legend1" title="Click to turn sound on or off" >
+        <label class="switch">
+          <input type="checkbox" id="soundcheckbox">
+          <span class="slider"></span>
+        </label>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+</div>
+
+
+  <!-- <h2 id="soundheadline">Uncertainty Display</h2>
+<label class="switch">
+<input type="checkbox" id="uncertaintycheckbox">
+<span class="slider"></span>
+</label> -->
+  <!--
+    <h2>Categories</h2>
+      <p class="f_c filter"> <span class="key-dot cinema"></span>Cinema and Theatre </p>
+        <p class="f_b filter"> <span class="key-dot biography"></span>Biography and Personality </p>
+        <p class="f_w filter"> <span class="key-dot writing"></span>Writing and Teaching</p>
+        <p class="f_cw filter"> <span class="key-dot cinewrit"></span>Cinema and Theatre & Writing and Teaching</p>
+        <p class="f_cb filter"> <span class="key-dot cinebio"></span>Biography and Personality & Cinema and Theatre </p>
+        <p class="f_wb filter"> <span class="key-dot biowrit"></span>Biography and Personality & Writing and Teaching</p>
+        <p class="f_ac filter"> <span class="key-dot allcat"></span>All Categories</p>
+        <p class="f_g filter"> <span class="key-dot graphic"></span>Graphic Art </p>
+        <p class="f_d filter"> <span class="key-dot apartment"></span>Apartment </p> -->
+
+
+
+
+  <div id="sidebar">
+    <p id="closedhighlightbar" style="display:none">✕</p>
+    <p id="closedsidebar" style="display:none">✕</p>
+
+  </div>
+
+  <script type="text/javascript" src="js/spiraltour.js"></script>
+</body>
+
+</html>

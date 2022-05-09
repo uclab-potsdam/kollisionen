@@ -1,126 +1,85 @@
-<html>
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <title>Spiral</title>
-  <meta property="og:title" content="Spiral">
-  <meta property="og:description" content="Biographical data visualisation of Sergei M. Eisenstein.">
-  <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kollisionen</title>
 
-  <!-- <link rel="stylesheet" href="../css/standard-style.css"> -->
-  <!-- <link rel="stylesheet" href="../css/index.css"> -->
-  <link rel="stylesheet" href="css/style.css" />
-  <link rel="stylesheet" href="css/modal.css" />
-  <!-- <link rel="stylesheet" type="text/css" href="https://uclab.fh-potsdam.de/ff/css/select2.css"> -->
-  <link rel="stylesheet" type="text/css" href="css/search.css">
-  <script src="https://d3js.org/d3.v6.js"></script>
-  <script src="https://uclab.fh-potsdam.de/ff/js/jquery.min.js"></script>
-  <script src="https://uclab.fh-potsdam.de/ff/js/select2.min.js"></script>
-  <script type="text/javascript" src="js/shepherd-bundle.js"></script>
-  <link rel="stylesheet" href="css/popup.css"/>
-  <!-- tone.js -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.32/Tone.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="css/landing_page.css" />
 </head>
-
 <body>
+    <div class="content">
+        <div id="logo">
+                <img src="images/K_logo.png" alt="Kollisionen logo" height="250px">
+            </a>
+        </div>
 
-  <div class="toppanel">
-    <div class="spiralviz"><h2><strong>Spiral</strong></h2></div>
-    <div class="timelinesviz" title="Click to see Timelines view"> <a href="timelines.html"><h2>Timelines</h2></a></div>
-    <div class="networkviz" title="Click to see Network view"> <a href="network.html"><h2>Network</h2></a></div>
-  </div>
+        <div id="text">
+            <p>This visualisation is part of research project Eisenstein's House (previously called KOLLISIONEN)
+                 at Fachhochschule Potsdam and Filmuniversität Babelsberg. It aims to enable exploration of the intellectual cosmos of Sergei Eisenstein
+                through diverse forms of media of Virtual Reality (VR), Information Visualization (InfoVis) and 3D-Sound. 
+            </p>
+            <p>Considering the all encompassing contributions of Eisenstein to the world of cinema and theatre, 
+                this information visualization experience displays his contributions through three visualizations: Spiral, Network and Timelines. 
+                Each of these three visualizations display dimensions of Eisenstein's life with different aspects as the primary focus. 
+                The aim of these three information visualizations is to make the underlying data accessible, 
+                comprehensible and experiential for a broad audience ranging from experts to casual. 
+                The exploration is further explicated by shared design patterns common across information visualization, 3D-Sound and 3D/VR.  
+            </p>
+            <h2 style="text-align:center; margin-bottom: 0px;">Explore Eisenstein's Life!</h2>
+        </div>
 
-  <div id="chart">
-    <script type="text/javascript" src="js/spiral.js"></script>
-  </div>
-  <script type="text/javascript" src="js/sound.js"></script>
+        <div id="three_viz">
+        <table style="margin-top:0px">
+            <tr>
 
-  <div id="left-panel">
-    <div class="logo">
-      <a href="index.html">
-        <img src="images/K_logo.png" alt="Kollisionen logo">
-      </a>
-    </div>
+                <th>
+                    <a href="spiral.html">
+                        <img src="images/three_viz/spiral.png" alt="Kollisionen logo" height="80px">
+                        <p style="text-align: center;">Spiral</p>
+                    </a>
+                </th>
+                <th style="text-align: left;">
+                    <p style="font-weight:400; padding-left: 10px;vertical-align: baseline;">The Spiral is a temporal representation of Eisenstein's personal and artistic endeavours. 
+                        It spans from his birth in 1898 until his demise in 1948, and how the legacy he left has continued until today. 
+                        The shape of this visualization was inspired by Eisenstein’s film theory of a spherical book.</p>
+                </th>
+              </tr>
+              <tr>
+                <th>
+                    <a href="network.html">
+                        <img src="images/three_viz/network.png" alt="Kollisionen logo" height="80px">
+                        <p style="text-align: center;">Network</p>
+                    </a>
+                </th>
+                <th style="text-align: left;">
+                    <p style="font-weight:400; padding-left: 10px;">Eisenstein contributed to the world of film and theatre through his cinematic masterpieces and through his artistic ideas. 
+                        During his life, he travelled the world and connected with several notable people in personal and professional capacity. 
+                        The network view reveals these connections between the people, places, works, and concepts in Eisensten’s life. 
+                        Each of the symbols used in the network and timelines represents a certain type of entity.</p>
+                </th>
+              </tr>
+              <tr>
+                <th>
+                    <a href="timelines.html">
+                        <img src="images/three_viz/timelines.png" alt="Kollisionen logo" height="80px">
+                        <p style="text-align: center;">Timelines</p>
+                    </a>
+                </th>
+                <th style="text-align: left;">
+                    <p style="font-weight:400; padding-left: 10px; vertical-align: top;">This visualization displays how different people, places, concepts, works, and other aspects of Eisenstein's life occurred and recurred throughout his life. 
+                        It displays linear timelines of each of these entities. Each row shows the timeline for a particular entity..</p>
+                </th>
+              </tr>
+        </table>
+        </div>
 
-    <!-- <div class="intro-text">
-    <p>This visualisation is part of research project <a href="https://collisions-eisensteinshouse.projekte-filmuni.de">KOLLISIONEN</a> at Fachhochschule Potsdam and Filmuniversität Babelsberg.</p>
-    <p>It visualises the life and legacy of Sergej M. Eisenstein.</p>
-  </div> -->
-
-  <div class="search-container">
-    <div id="search"></div>
-  </div>
-
-
-    <div class="highlights"> 
-      <h2 title="Click on the object to see related events in the view">Spiritual Family</h2>
-    </div>
-
-    <div class="categories">
-      <h2 title="Click on any of the following categories to see related events in the view">Categories</h2>
-      <p class="f_c filter" title="Click to view events in this category"> <span class="key-dot cinema"></span>Cinema and Theatre </p>
-      <p class="f_b filter" title="Click to view events in this category"> <span class="key-dot biography"></span>Biography and Personality </p>
-      <p class="f_w filter" title="Click to view events in this category"> <span class="key-dot writing"></span>Writing and Teaching</p>
-      <p class="f_ac f_cb f_wb f_cb allfilter" title="Click to view events in this category">
-        <span class="key-dot biowrit" style="margin-right: -7px;"></span>
-        <span class="key-dot cinewrit" style="margin-right: -6px;"></span>
-        <span class="key-dot cinebio" style="margin-right: -7px;"></span>
-        <span class="key-dot allcat" style="margin-right: 4px;"></span> Multiple</p>
-    </div>
-    
-
-    <div class="modalbuttons">
-
-      <div class="landing-page" title="Click to go to the landing page">
-        <a href="landing_page.html">
-          <img id="landing-page-button" src="images/landing-page.svg" alt="guide icon" height="40px">
-        </a>
-      </div>
-
-      <div class="tour" title="Click to take a tour of the visualisation">
-        <img id="guide-button" src="images/tour.svg" alt="guide icon" height="37px">
-      </div>
-
-      <div id="legend1" title="Click to turn sound on or off" >
-        <label class="switch">
-          <input type="checkbox" id="soundcheckbox">
-          <span class="slider"></span>
-        </label>
-      </div>
-
-    </div>
-  </div>
-
-</div>
-</div>
-
-
-  <!-- <h2 id="soundheadline">Uncertainty Display</h2>
-<label class="switch">
-<input type="checkbox" id="uncertaintycheckbox">
-<span class="slider"></span>
-</label> -->
-  <!--
-    <h2>Categories</h2>
-      <p class="f_c filter"> <span class="key-dot cinema"></span>Cinema and Theatre </p>
-        <p class="f_b filter"> <span class="key-dot biography"></span>Biography and Personality </p>
-        <p class="f_w filter"> <span class="key-dot writing"></span>Writing and Teaching</p>
-        <p class="f_cw filter"> <span class="key-dot cinewrit"></span>Cinema and Theatre & Writing and Teaching</p>
-        <p class="f_cb filter"> <span class="key-dot cinebio"></span>Biography and Personality & Cinema and Theatre </p>
-        <p class="f_wb filter"> <span class="key-dot biowrit"></span>Biography and Personality & Writing and Teaching</p>
-        <p class="f_ac filter"> <span class="key-dot allcat"></span>All Categories</p>
-        <p class="f_g filter"> <span class="key-dot graphic"></span>Graphic Art </p>
-        <p class="f_d filter"> <span class="key-dot apartment"></span>Apartment </p> -->
-
-
-
-
-  <div id="sidebar">
-    <p id="closedhighlightbar" style="display:none">✕</p>
-    <p id="closedsidebar" style="display:none">✕</p>
-
-  </div>
-
-  <script type="text/javascript" src="js/spiraltour.js"></script>
+        <div id="info">
+            <p><b>Data Source: </b>The data used for this visualization is primarily from the book <span style="text-decoration: underline;">Sergej M. Eisenstein - Materialien zu Leben und Werk by Werner Sudendorf (1975)</span>.
+                It is further explicated by gathering information and through consultation with film heritage experts Naum Kleiman and Vera Rumyantseva Kleiman.</p>
+            <p><b>Source Code: </b>This visualisation is built with D3.js and Tune.js. The source code and more information can be found <a href="https://github.com/uclab-potsdam/kollisionen">on GitHub</a>.</p>
+        </div>
+    </div>    
 </body>
-
 </html>
