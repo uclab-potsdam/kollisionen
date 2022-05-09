@@ -373,6 +373,8 @@ console.log(keywordsP);
           for (let j = 0; j < keywordsA.length; j++) {
             if (keywordsA[j]["keyword"] == d) {
               keywordsA[j]["count"] += 1;
+              // get the date of the first occurrence of the keyword from keywordsData[i].vstart
+
               if (keywordsA[j]["date"] == "") keywordsA[j]["date"] = keywordsData[i].vstart;
             }
           }
@@ -430,6 +432,7 @@ console.log(keywordsP);
 var keywords = keywordsP.concat(keywordsPl, keywordsW, keywordsA, keywordsAd);
 
     console.log(keywords);
+
 
     var keywordsAll = keywordsPeople.concat(keywordsPlaces, keywordsWorks, keywordsArtistic, keywordsAdditional);
 
