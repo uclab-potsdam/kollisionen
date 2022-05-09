@@ -228,6 +228,11 @@ Promise.all([
     d3.selectAll(".highlights p")
       .on("click", function(d, i) {
         if (d3.select(this).style("font-weight") != "bold") {
+          //reset search
+          $(function() {
+            $('#search').select2('data', null)
+          })
+
           filter = "highlight"
           d3.selectAll(".highlights p").style("font-weight", 400)
           d3.select(this).style("font-weight", "bold")
@@ -651,6 +656,9 @@ Promise.all([
       })
     })
 
+
+
+
     ////search
     $("#search").select2({
       data: searchDaten,
@@ -767,6 +775,11 @@ Promise.all([
     })
 
     d3.select(".f_c").on("click", function() {
+      //reset search
+      $(function() {
+        $('#search').select2('data', null)
+      })
+
       twGain.gain.rampTo(-0.3,0.5);
       projGain.gain.rampTo(3.0,0.5);
       therGain.gain.rampTo(-0.5,0.5);
@@ -814,6 +827,10 @@ Promise.all([
 
 
     d3.select(".f_b").on("click", function() {
+      //reset search
+      $(function() {
+        $('#search').select2('data', null)
+      })
       twGain.gain.rampTo(-0.1,0.5);
       projGain.gain.rampTo(0.1,0.5);
       therGain.gain.rampTo(0.3,0.5);
@@ -858,6 +875,11 @@ Promise.all([
     })
 
     d3.select(".f_w").on("click", function() {
+      //reset search
+      $(function() {
+        $('#search').select2('data', null)
+      })
+
       twGain.gain.rampTo(3.5,1);
       projGain.gain.rampTo(0.1,1);
       therGain.gain.rampTo(-0.5,1);
@@ -1096,7 +1118,19 @@ Promise.all([
           .style('display', 'inline-block')
           .style('opacity', '0.9')
           .html(function() {
-            return `<p class="tooltip-title"><strong>${d.name}</strong></p><p class="tooltip-title">Entity type: ${d.category}</p><p class="tooltip-title">Connected events: ${d.count}</p>`
+            let thisCat
+            if (d.category == "people"){
+             thisCat = "people"
+           }else if (d.category == "places"){
+             thisCat = "place"
+           }else if (d.category == "works"){
+             thisCat = "work"
+           }else if (d.category == "artistic"){
+             thisCat = "concept"
+           }else if (d.category == "additional"){
+             thisCat = "miscellaneous"
+            }
+            return `<p class="tooltip-title"><strong>${d.name}</strong> (${thisCat})</p><p class="tooltip-title">${d.count} connected event(s)</p>`
           })
       })
       .on("mouseout", function(event, d) {
@@ -1243,7 +1277,13 @@ Promise.all([
     // )
 
 
-
+    d3.selectAll(".select2-search-choice-close").on("click",function(){
+      console.log("test")
+      //search reset
+      $(function() {
+        $('#search').select2('data', null)
+      })
+    })
 
 
     function itemSelection() {
@@ -1820,6 +1860,10 @@ simulation.alpha(1).restart();
 
     d3.select(".entities").selectAll("p")
       .on("click", function(event) {
+        //search reset
+        $(function() {
+          $('#search').select2('data', null)
+        })
 
         let type = d3.select(this).attr("type")
         if (d3.select(this).style("font-weight") != "bold") {
