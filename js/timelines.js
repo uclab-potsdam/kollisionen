@@ -62,6 +62,12 @@ keywordsData.forEach(function(d,i){
     keywordsData[i]["category4"] = false;
     keywordsData[i]["category5"] = false;
 
+    keywordsData[i]["peopleSplit"] = keywordsData[i]["people"].split(";")
+    keywordsData[i]["placesSplit"] = keywordsData[i]["places"].split(";")
+    keywordsData[i]["artisticSplit"] = keywordsData[i]["artistic"].split(";")
+    keywordsData[i]["worksSplit"] = keywordsData[i]["works"].split(";")
+    keywordsData[i]["additionalSplit"] = keywordsData[i]["additional"].split(";")
+
 })
 
 for (let i = 0; i < keywordsData.length; i++) {
@@ -593,9 +599,14 @@ function stringSplit(data, keywordSplitter) {
 
   timelinesG.each(function(D,I){
     d3.select(this).selectAll(".timelineNodes").append("g")
-    .data(keywordsData.filter(function (d) {
+  //   .data(keywordsData.filter(function (d) {
+  //     if(d.uncertaintystart === 0 && d.vend === ""){
+  //  return (d.people.includes(D) || d.places.includes(D) || d.works.includes(D) || d.artistic.includes(D) ||d.additional.includes(D)) && d.vstart.includes("/") == false && d.vstart.includes(",") == false && d.vstart != "" //took out some data points that create errors for now
+  //   }}))
+    .data(keywordsData.filter(function (D,d) {
       if(d.uncertaintystart === 0 && d.vend === ""){
-   return (d.people.includes(D) || d.places.includes(D) || d.works.includes(D) || d.artistic.includes(D) ||d.additional.includes(D)) && d.vstart.includes("/") == false && d.vstart.includes(",") == false && d.vstart != "" //took out some data points that create errors for now
+        return (d.placesSplit.filter(function(D){return D==d}).length >0) || (d.peopleSplit.filter(function(D){return D==d}).length >0) || (d.worksSplit.filter(function(D){return D==d}).length >0) || (d.artisticSplit.filter(function(D){return D==d}).length >0) || (d.additionalSplit.filter(function(D){return D==d}).length >0)
+         && d.vstart.includes("/") == false && d.vstart.includes(",") == false && d.vstart != "" //took out some data points that create errors for now
     }}))
     .join("circle")
     .classed("circles", true)
