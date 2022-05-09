@@ -1970,21 +1970,21 @@ itemSelection()
 
         simulation.stop()
       }
-      //  position the nodes based on the simulated x y
-      d3.selectAll(".node")
-        .attr("cx", function(d) {
-          return d.x;
-        })
-        .attr("cy", function(d) {
-          return d.y;
-        })
+      // //  position the nodes based on the simulated x y
+      // d3.selectAll(".node")
+      //   .attr("cx", function(d) {
+      //     return d.x;
+      //   })
+      //   .attr("cy", function(d) {
+      //     return d.y;
+      //   })
 
       d3.selectAll(".label,.labelbg")
         .attr("x", function(d) {
-          return d.x;
+          return d.x = Math.max((15/100)*width+50, Math.min(width-2*((15/100)*width) - 50, d.x));
         })
         .attr("y", function(d) {
-          return d.y;
+          return d.y = Math.max(50, Math.min(height - 100, d.y))
         })
 
       d3.selectAll(".nodeSymbol")
