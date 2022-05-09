@@ -524,12 +524,6 @@ function stringSplit(data, keywordSplitter) {
                   .select("svg")
                   .selectAll(".timelines")
                   .data(keywordsAll)
-
-
-                  //make new timelines for each keyword from d.placesSplit, d.peopleSplit, d.worksSplit, d.artisticSplit, d.additionalSplit.
-                  //if there is no data for a keyword, don't make a timeline
-                  //if there is data for a keyword, make a timeline but only make one timeline for each keyword for each of the categories
-
                   .join("g")
                   .classed("backgroundTimelineG", true)               
   .classed("people", function (d) { if (keywordsPeople.filter(function(D){return D==d}).length >0){return true}else{return false}})
@@ -614,6 +608,10 @@ function stringSplit(data, keywordSplitter) {
   //   .data(keywordsData.filter(function (d) {
   //     if(d.uncertaintystart === 0 && d.vend === ""){
   //  return (d.people.includes(D) || d.places.includes(D) || d.works.includes(D) || d.artistic.includes(D) ||d.additional.includes(D)) && d.vstart.includes("/") == false && d.vstart.includes(",") == false && d.vstart != "" //took out some data points that create errors for now
+  //   }}))
+  //   .data(keywordsData.filter(function (d) {
+  //     if(d.uncertaintystart === 0 && d.vend === ""){
+  //  return (d.peopleSplit.includes(D) || d.placesSplit.includes(D) || d.worksSplit.includes(D) || d.artisticSplit.includes(D) ||d.additionalSplit.includes(D)) && d.vstart.includes("/") == false && d.vstart.includes(",") == false && d.vstart != "" //took out some data points that create errors for now
   //   }}))
     .data(keywordsData.filter(function (d) {
       if(d.uncertaintystart === 0 && d.vend === ""){
