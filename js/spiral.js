@@ -649,8 +649,7 @@ console.log(dateRangeLength); //number of years
 
 
 
-            let searchDaten = [
-              {
+            let searchDaten = [{
                 text: "People",
                 children: []
               },
@@ -659,11 +658,11 @@ console.log(dateRangeLength); //number of years
                 children: []
               },
               {
-                text: "Artistic",
+                text: "Concepts",
                 children: []
               },
               {
-                text: "Additional",
+                text: "Miscellaneous",
                 children: []
               },
               {
@@ -674,52 +673,64 @@ console.log(dateRangeLength); //number of years
             ];
 
 
-            nodes.filter(function (d) { return d.category == "people" }).forEach(function (d, i) {
-              searchDaten[0].children.push(
-                {
-                  id: i,
-                  text: d.name + " (" + d.count + ")",
-                  name: d.name,
-                  category: "people",
-                  count: d.count,
-                }
-              )
+            nodes.filter(function(d) {
+              return d.category == "people"
+            }).forEach(function(d, i) {
+              searchDaten[0].children.push({
+                id: i,
+                text: d.name + " (" + d.count  + (d.count > 1 ? " events)": " event)"),
+                name: d.name,
+                category: "people",
+                count: d.count,
+              })
             })
 
-            nodes.filter(function (d) { return d.category == "places" }).forEach(function (d, i) {
-              searchDaten[1].children.push(
-                {
-                  id: i,
-                  text: d.name + " (" + d.count + ")",
-                  name: d.name,
-                  category: "places",
-                  count: d.count,
-                }
-              )
+            nodes.filter(function(d) {
+              return d.category == "places"
+            }).forEach(function(d, i) {
+              searchDaten[1].children.push({
+                id: i,
+                text: d.name + " (" + d.count + (d.count > 1 ? " events)": " event)"),
+                name: d.name,
+                category: "places",
+                count: d.count,
+              })
             })
 
-            nodes.filter(function (d) { return d.category == "artistic" }).forEach(function (d, i) {
-              searchDaten[2].children.push(
-                {
-                  id: i,
-                  text: d.name + " (" + d.count + ")",
-                  name: d.name,
-                  category: "artistic",
-                  count: d.count,
-                }
-              )
+            nodes.filter(function(d) {
+              return d.category == "artistic"
+            }).forEach(function(d, i) {
+              searchDaten[2].children.push({
+                id: i,
+                text: d.name + " (" + d.count + (d.count > 1 ? " events)": " event)"),
+                name: d.name,
+                category: "artistic",
+                count: d.count,
+              })
             })
 
-            nodes.filter(function (d) { return d.category == "additional" }).forEach(function (d, i) {
-              searchDaten[3].children.push(
-                {
-                  id: i,
-                  text: d.name + " (" + d.count + ")",
-                  name: d.name,
-                  category: "additional",
-                  count: d.count,
-                }
-              )
+            nodes.filter(function(d) {
+              return d.category == "additional"
+            }).forEach(function(d, i) {
+              searchDaten[3].children.push({
+                id: i,
+                text: d.name + " (" + d.count + (d.count > 1 ? " events)": " event)"),
+                name: d.name,
+                category: "additional",
+                count: d.count,
+              })
+            })
+
+            nodes.filter(function(d) {
+              return d.category == "works"
+            }).forEach(function(d, i) {
+              searchDaten[4].children.push({
+                id: i,
+                text: d.name + " (" + d.count  + (d.count > 1 ? " events)": " event)"),
+                name: d.name,
+                category: "works",
+                count: d.count,
+              })
             })
 
             nodes.filter(function (d) { return d.category == "works" }).forEach(function (d, i) {

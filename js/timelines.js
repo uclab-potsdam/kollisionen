@@ -1287,79 +1287,88 @@ nodes.sort(function(a, b) {
 
 
 
-let searchDaten = [
-{
-text: "People",
-children:[]
-},
-{
-text: "Places",
-children:[]
-},
-{
-text: "Artistic",
-children:[]
-},
-{
-text: "Additional",
-children:[]
-},
-{
-text: "Works",
-children:[]
-},
+let searchDaten = [{
+    text: "People",
+    children: []
+  },
+  {
+    text: "Places",
+    children: []
+  },
+  {
+    text: "Concepts",
+    children: []
+  },
+  {
+    text: "Miscellaneous",
+    children: []
+  },
+  {
+    text: "Works",
+    children: []
+  },
 
 ];
 
 
-nodes.filter(function(d){return d.category == "people"}).forEach(function(d,i){
-searchDaten[0].children.push(
-{id:i,
-text:d.name + " ("+d.count+")",
-name:d.name,
-category: "people",
-count:d.count,}
-)
+nodes.filter(function(d) {
+  return d.category == "people"
+}).forEach(function(d, i) {
+  searchDaten[0].children.push({
+    id: i,
+    text: d.name + " (" + d.count  + (d.count > 1 ? " events)": " event)"),
+    name: d.name,
+    category: "people",
+    count: d.count,
+  })
 })
 
-nodes.filter(function(d){return d.category == "places"}).forEach(function(d,i){
-searchDaten[1].children.push(
-{id:i,
-  text:d.name + " ("+d.count+")",
-  name:d.name,
-  category: "places",
-count:d.count,}
-)
+nodes.filter(function(d) {
+  return d.category == "places"
+}).forEach(function(d, i) {
+  searchDaten[1].children.push({
+    id: i,
+    text: d.name + " (" + d.count + (d.count > 1 ? " events)": " event)"),
+    name: d.name,
+    category: "places",
+    count: d.count,
+  })
 })
 
-nodes.filter(function(d){return d.category == "artistic"}).forEach(function(d,i){
-searchDaten[2].children.push(
-{id:i,
-  text:d.name + " ("+d.count+")",
-  name:d.name,
-  category: "artistic",
-count:d.count,}
-)
+nodes.filter(function(d) {
+  return d.category == "artistic"
+}).forEach(function(d, i) {
+  searchDaten[2].children.push({
+    id: i,
+    text: d.name + " (" + d.count + (d.count > 1 ? " events)": " event)"),
+    name: d.name,
+    category: "artistic",
+    count: d.count,
+  })
 })
 
-nodes.filter(function(d){return d.category == "additional"}).forEach(function(d,i){
-searchDaten[3].children.push(
-{id:i,
-  text:d.name + " ("+d.count+")",
-  name:d.name,
-  category: "additional",
-count:d.count,}
-)
+nodes.filter(function(d) {
+  return d.category == "additional"
+}).forEach(function(d, i) {
+  searchDaten[3].children.push({
+    id: i,
+    text: d.name + " (" + d.count + (d.count > 1 ? " events)": " event)"),
+    name: d.name,
+    category: "additional",
+    count: d.count,
+  })
 })
 
-nodes.filter(function(d){return d.category == "works"}).forEach(function(d,i){
-searchDaten[4].children.push(
-{id:i,
-  text:d.name + " ("+d.count+")",
-  name:d.name,
-  category: "works",
-  count:d.count,}
-)
+nodes.filter(function(d) {
+  return d.category == "works"
+}).forEach(function(d, i) {
+  searchDaten[4].children.push({
+    id: i,
+    text: d.name + " (" + d.count  + (d.count > 1 ? " events)": " event)"),
+    name: d.name,
+    category: "works",
+    count: d.count,
+  })
 })
 
 ////search
@@ -2196,6 +2205,10 @@ d3.select('input[value="frequency"]').on('change', function() {
 // filter for categories
 
 d3.select(".f_c").on("click", function() {
+  $(function() {
+    $('#search').select2('data', null)
+  })
+
   twGain.gain.rampTo(-0.3,0.5);
   projGain.gain.rampTo(3.0,0.5);
   therGain.gain.rampTo(-0.5,0.5);
@@ -2220,6 +2233,10 @@ d3.select(".f_c").on("click", function() {
 })
 
 d3.select(".f_b").on("click", function() {
+  $(function() {
+    $('#search').select2('data', null)
+  })
+
   twGain.gain.rampTo(-0.1,0.5);
   projGain.gain.rampTo(0.1,0.5);
   therGain.gain.rampTo(0.3,0.5);
@@ -2245,6 +2262,10 @@ d3.select(".f_b").on("click", function() {
 })
 
 d3.select(".f_w").on("click", function() {
+  $(function() {
+    $('#search').select2('data', null)
+  })
+
   twGain.gain.rampTo(3.5,1);
   projGain.gain.rampTo(0.1,1);
   therGain.gain.rampTo(-0.5,1);
@@ -2296,6 +2317,10 @@ d3.select(".f_w").on("click", function() {
 //people
 
 d3.select(".triangle").on("click", function() {
+  $(function() {
+    $('#search').select2('data', null)
+  })
+
   if (d3.select(this).style("font-weight") != "bold") {
     d3.selectAll(".entities p").style("font-weight", 400)
     d3.select(this).style("font-weight", "bold")
@@ -2318,6 +2343,10 @@ d3.select(".triangle").on("click", function() {
 //places
 
 d3.select(".diamond").on("click", function() {
+  $(function() {
+    $('#search').select2('data', null)
+  })
+
   if (d3.select(this).style("font-weight") != "bold") {
     d3.selectAll(".entities p").style("font-weight", 400)
     d3.select(this).style("font-weight", "bold")
@@ -2340,6 +2369,10 @@ d3.select(".diamond").on("click", function() {
 //works
 
 d3.select(".threeprong").on("click", function() {
+  $(function() {
+    $('#search').select2('data', null)
+  })
+
   if (d3.select(this).style("font-weight") != "bold") {
     d3.selectAll(".entities p").style("font-weight", 400)
     d3.select(this).style("font-weight", "bold")
@@ -2361,6 +2394,10 @@ d3.select(".threeprong").on("click", function() {
 //artistic concepts
 
 d3.select(".square").on("click", function() {
+  $(function() {
+    $('#search').select2('data', null)
+  })
+
   if (d3.select(this).style("font-weight") != "bold") {
     d3.selectAll(".entities p").style("font-weight", 400)
     d3.select(this).style("font-weight", "bold")
@@ -2381,6 +2418,10 @@ d3.select(".square").on("click", function() {
 //additional
 
 d3.select(".plus").on("click", function() {
+  $(function() {
+    $('#search').select2('data', null)
+  })
+
   if (d3.select(this).style("font-weight") != "bold") {
     d3.selectAll(".entities p").style("font-weight", 400)
     d3.select(this).style("font-weight", "bold")
@@ -2402,6 +2443,10 @@ d3.select(".plus").on("click", function() {
 
 d3.selectAll(".highlights p")
 .on("click", function(d,i) {
+  $(function() {
+    $('#search').select2('data', null)
+  })
+  
   if (d3.select(this).style("font-weight") != "bold") {
     d3.selectAll(".highlights p").style("font-weight", 400)
     d3.select(this).style("font-weight", "bold")
