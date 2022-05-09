@@ -732,6 +732,12 @@ p {
   stroke-width: 0.5;
 }
 
+.circle {
+  cursor: pointer;
+  stroke:rgba(252, 245, 230, 0.72);
+  stroke-width: 0.5;
+}
+
 .zooming{
   display:none;
 }
