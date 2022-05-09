@@ -581,11 +581,11 @@ Promise.all([
         children: []
       },
       {
-        text: "Artistic",
+        text: "Concepts",
         children: []
       },
       {
-        text: "Additional",
+        text: "Miscellaneous",
         children: []
       },
       {
@@ -601,7 +601,7 @@ Promise.all([
     }).forEach(function(d, i) {
       searchDaten[0].children.push({
         id: i,
-        text: d.name + " (" + d.count  + " Event/s)",
+        text: d.name + " (" + d.count  + (d.count > 1 ? " events)": " event)"),
         name: d.name,
         category: "people",
         count: d.count,
@@ -613,7 +613,7 @@ Promise.all([
     }).forEach(function(d, i) {
       searchDaten[1].children.push({
         id: i,
-        text: d.name + " (" + d.count + " Event/s)",
+        text: d.name + " (" + d.count + (d.count > 1 ? " events)": " event)"),
         name: d.name,
         category: "places",
         count: d.count,
@@ -625,7 +625,7 @@ Promise.all([
     }).forEach(function(d, i) {
       searchDaten[2].children.push({
         id: i,
-        text: d.name + " (" + d.count  + " Event/s)",
+        text: d.name + " (" + d.count + (d.count > 1 ? " events)": " event)"),
         name: d.name,
         category: "artistic",
         count: d.count,
@@ -637,7 +637,7 @@ Promise.all([
     }).forEach(function(d, i) {
       searchDaten[3].children.push({
         id: i,
-        text: d.name + " (" + d.count  + " Event/s)",
+        text: d.name + " (" + d.count + (d.count > 1 ? " events)": " event)"),
         name: d.name,
         category: "additional",
         count: d.count,
@@ -649,7 +649,7 @@ Promise.all([
     }).forEach(function(d, i) {
       searchDaten[4].children.push({
         id: i,
-        text: d.name + " (" + d.count  + " Event/s)",
+        text: d.name + " (" + d.count  + (d.count > 1 ? " events)": " event)"),
         name: d.name,
         category: "works",
         count: d.count,
@@ -1130,7 +1130,7 @@ Promise.all([
            }else if (d.category == "additional"){
              thisCat = "miscellaneous"
             }
-            return `<p class="tooltip-title"><strong>${d.name}</strong> (${thisCat})</p><p class="tooltip-title">${d.count} connected event(s)</p>`
+            return `<p class="tooltip-title"><strong>${d.name}</strong> (${thisCat})</p><p class="tooltip-title">${d.count} connected ${d.count > 1 ? "events": "event"}</p>`
           })
       })
       .on("mouseout", function(event, d) {
