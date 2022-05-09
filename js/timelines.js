@@ -220,6 +220,8 @@ var keywordsCount = [];
 
 //arrays for keyword categories
 
+//array for places
+
     var keywordsPlaces = [];
 
     keywordsData.forEach(function(d,i){
@@ -229,7 +231,39 @@ var keywordsCount = [];
         });
     });
 
+
     console.log(keywordsPlaces);
+
+    var keywordsPl = [];
+
+    for (let i = 0; i < keywordsPlaces.length; i++) {
+
+      keywordsPl[i] = {};
+      keywordsPl[i]["keyword"] = keywordsPlaces[i];
+      keywordsPl[i]["category"] = "Places";
+      keywordsPl[i]["count"] = 0;
+      keywordsPl[i]["date"] = "";
+    };
+
+ 
+
+    keywordsData.forEach(function(d,i){
+      var keywords = d.places.split(";");
+      keywords.forEach(function(d,i){
+          for (let j = 0; j < keywordsPl.length; j++) {
+            if (keywordsPl[j]["keyword"] == d) {
+              keywordsPl[j]["count"] += 1;
+              if (keywordsPl[j]["date"] == "") keywordsPl[j]["date"] = keywordsData[i].vstart;
+            }
+          }
+      }
+      );
+    }
+    );
+
+   console.log(keywordsPl);
+
+//array for people
 
     var keywordsPeople = [];
 
@@ -240,7 +274,34 @@ var keywordsCount = [];
         });
     });
 
-    console.log(keywordsPeople);
+    var keywordsP = [];
+
+    for (let i = 0; i < keywordsPeople.length; i++) {
+
+      keywordsP[i] = {};
+      keywordsP[i]["keyword"] = keywordsPeople[i];
+      keywordsP[i]["category"] = "People";
+      keywordsP[i]["count"] = 0;
+      keywordsP[i]["date"] = "";
+    };
+
+keywordsData.forEach(function(d,i){
+  var keywords = d.people.split(";");
+  keywords.forEach(function(d,i){
+      for (let j = 0; j < keywordsP.length; j++) {
+        if (keywordsP[j]["keyword"] == d) {
+          keywordsP[j]["count"] += 1;
+          if (keywordsP[j]["date"] == "") keywordsP[j]["date"] = keywordsData[i].vstart;
+        }
+      }
+  }
+  );
+}
+);
+
+console.log(keywordsP);
+
+//array for works
 
     var keywordsWorks = [];
 
@@ -252,6 +313,35 @@ var keywordsCount = [];
     });
 
     console.log(keywordsWorks);
+
+    var keywordsW = [];
+
+    for (let i = 0; i < keywordsWorks.length; i++) {
+
+      keywordsW[i] = {};
+      keywordsW[i]["keyword"] = keywordsWorks[i];
+      keywordsW[i]["category"] = "Works";
+      keywordsW[i]["count"] = 0;
+      keywordsW[i]["date"] = "";
+    };
+
+    keywordsData.forEach(function(d,i){
+      var keywords = d.works.split(";");
+      keywords.forEach(function(d,i){
+          for (let j = 0; j < keywordsW.length; j++) {
+            if (keywordsW[j]["keyword"] == d) {
+              keywordsW[j]["count"] += 1;
+              if (keywordsW[j]["date"] == "") keywordsW[j]["date"] = keywordsData[i].vstart;
+            }
+          }
+      }
+      );
+    }
+    );
+
+    console.log(keywordsW);
+
+    //array for artistic
 
     var keywordsArtistic = [];
 
@@ -266,6 +356,35 @@ var keywordsCount = [];
 
     console.log(keywordsArtistic);
 
+    var keywordsA = [];
+
+    for (let i = 0; i < keywordsArtistic.length; i++) {
+
+      keywordsA[i] = {};
+      keywordsA[i]["keyword"] = keywordsArtistic[i];
+      keywordsA[i]["category"] = "Artistic";
+      keywordsA[i]["count"] = 0;
+      keywordsA[i]["date"] = "";
+    };
+
+    keywordsData.forEach(function(d,i){
+      var keywords = d.artistic.split(";");
+      keywords.forEach(function(d,i){
+          for (let j = 0; j < keywordsA.length; j++) {
+            if (keywordsA[j]["keyword"] == d) {
+              keywordsA[j]["count"] += 1;
+              if (keywordsA[j]["date"] == "") keywordsA[j]["date"] = keywordsData[i].vstart;
+            }
+          }
+      }
+      );
+    }
+    );
+
+    console.log(keywordsA);
+
+    //array for additional
+
     var keywordsAdditional = [];
 
     keywordsData.forEach(function(d,i){
@@ -279,23 +398,52 @@ var keywordsCount = [];
 
     console.log(keywordsAdditional);
 
+    var keywordsAd = [];
+
+    for (let i = 0; i < keywordsAdditional.length; i++) {
+
+      keywordsAd[i] = {};
+      keywordsAd[i]["keyword"] = keywordsAdditional[i];
+      keywordsAd[i]["category"] = "Additional";
+      keywordsAd[i]["count"] = 0;
+      keywordsAd[i]["date"] = "";
+    };
+
+    keywordsData.forEach(function(d,i){
+      var keywords = d.additional.split(";");
+      keywords.forEach(function(d,i){
+          for (let j = 0; j < keywordsAd.length; j++) {
+            if (keywordsAd[j]["keyword"] == d) {
+              keywordsAd[j]["count"] += 1;
+              if (keywordsAd[j]["date"] == "") keywordsAd[j]["date"] = keywordsData[i].vstart;
+            }
+          }
+      }
+      );
+    }
+    );
+
+    console.log(keywordsAd);
+
     //combine keywordsPeople, keywordsPlaces, keywordsWorks, keywordsArtistic, and keywordsAdditional into one array
+
+var keywords = keywordsP.concat(keywordsPl, keywordsW, keywordsA, keywordsAd);
+
+    console.log(keywords);
 
     var keywordsAll = keywordsPeople.concat(keywordsPlaces, keywordsWorks, keywordsArtistic, keywordsAdditional);
 
 console.log(keywordsAll);
 
 
-
-
 //Array of keywords and keyword category
 
     var keywordsArray = [];
 
-    for (let i = 0; i < keywordsCount.length; i++) {
+    for (let i = 0; i < keywordsAll.length; i++) {
 
       keywordsArray[i] = {};
-      keywordsArray[i]["keyword"] = keywordsCount[i];
+      keywordsArray[i]["keyword"] = keywordsAll[i];
       keywordsArray[i]["category"] = "";
     };
 
@@ -526,7 +674,7 @@ function stringSplit(data, keywordSplitter) {
                   .data(keywordsAll)
                   .join("g")
                   .classed("backgroundTimelineG", true)
-  .classed("people", function (d) { if (keywordsPeople.filter(function(D){return D==d}).length >0){return true}else{return false}})
+  .classed("people", function (d) { if (keywordsPeople.filter(function(D){return D==d}).length>0){return true}else{return false}})
   .classed("places", function (d) { if (keywordsPlaces.filter(function(D){return D==d}).length >0){return true}else{return false}})
   .classed("works", function (d) { if (keywordsWorks.filter(function(D){return D==d}).length >0){return true}else{return false}})
   .classed("artistic", function (d) { if (keywordsArtistic.filter(function(D){return D==d}).length >0){return true}else{return false}})
@@ -729,8 +877,6 @@ function stringSplit(data, keywordSplitter) {
             ${conditionalReturn(d.category1, (category1) => `<p><span class="key-dot cinema"></span>Cinema and Theatre<br></p>`)}
             ${conditionalReturn(d.category2, (category2) => `<p><span class="key-dot biography"></span>Biography and Personality<br></p>`)}
             ${conditionalReturn(d.category3, (category3) => `<p><span class="key-dot writing"></span>Writing and Teaching<br></p>`)}
-            ${conditionalReturn(d.category4, (category4) => `<p><span class="key-dot graphic"></span>Graphic Art<br></p>`)}
-            ${conditionalReturn(d.category5, (category5) => `<p><span class="key-dot apartment"></span>Apartment<br></p>`)}
 
             `)
 
@@ -957,22 +1103,22 @@ var symbolPlaces = d3.symbol()
   timelinesG.each(function(D,I){
   d3.select(this).selectAll(".symbols").append("g")
   .data(keywordsData.filter(function (d) {
-        return (d.people == D || d.places == D || d.works == D || d.artistic == D ||d.additional == D) && d.vstart.includes("/") == false && d.vstart.includes(",") == false && d.vstart != "" //took out some data points that create errors for now
+        return (d.placesSplit.filter(function(place){return D==place}).length >0) || (d.peopleSplit.filter(function(people){return D==people}).length >0) || (d.worksSplit.filter(function(work){return D==work}).length >0) || (d.artisticSplit.filter(function(artistic){return D==artistic}).length >0) || (d.additionalSplit.filter(function(additional){return D==additional}).length >0) && d.vstart.includes("/") == false && d.vstart.includes(",") == false && d.vstart != "" //took out some data points that create errors for now
               }))
 
 .join("path")
 .attr("transform", function(d,i){
 return "translate(340," + (10+I*20) + ")"})
-.attr("d", function(d,i){
-        if(d.places){
+.attr("d", function(d){
+        if( d.placesSplit.filter(function(place){return D==place}).length >0){
           return pathDataPlaces
-        } else if(d.people){
+        } else if( d.peopleSplit.filter(function(people){return D==people}).length >0){
           return pathDataPeople
-        } else if(d.works){
+        } else if( d.worksSplit.filter(function(work){return D==work}).length >0){
           return pathDataWorks
-        } else if(d.artistic){
+        } else if( d.artisticSplit.filter(function(artistic){return D==artistic}).length >0){
           return pathDataArtistic
-        } else if(d.additional){
+        } else if( d.additionalSplit.filter(function(additional){return D==additional}).length >0){
           return pathDataAdditional
         }
          })
