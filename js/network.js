@@ -1314,7 +1314,7 @@ Promise.all([
       if(filter == 0 ){
       d3.selectAll(".link").style("display", function(d) {
         //      console.log(d)
-        if (d.children[0].dateStart >= firstItem && d.children[0].dateStart <= lastItem) {
+        if (d.children[0].dateStart >= firstItem && d.children[d.children.length-1].dateStart <= lastItem) {
           return "block"
         } else {
           return "none"
@@ -1325,7 +1325,7 @@ Promise.all([
       let connectedNodes = []
 
       d3.selectAll(".link").filter(function(d) {
-          return d.children[0].dateStart >= firstItem && d.children[0].dateStart <= lastItem
+          return d.children[0].dateStart >= firstItem && d.children[d.children.length-1].dateStart <= lastItem
         })
         .each(function(D, I) {
           if (connectedNodes.filter(function(x) {
@@ -1379,7 +1379,7 @@ Promise.all([
       simulation
         .force("link")
         .links(links.filter(function(d) {
-          return d.children[0].dateStart >= firstItem && d.children[0].dateStart <= lastItem
+          return d.children[0].dateStart >= firstItem && d.children[d.children.length-1].dateStart <= lastItem
         }))
       simulation.alpha(1).restart();
 }///end general filter
@@ -1389,7 +1389,7 @@ else if(filter == "category" ){
 
 if (catFilter == "Cinema and Theatre"){
   d3.selectAll(".link").style("display", function(d) {
-    if (d.children[0].dateStart >= firstItem && d.children[0].dateStart <= lastItem
+    if (d.children[0].dateStart >= firstItem && d.children[d.children.length-1].dateStart <= lastItem
     && (d.categories.includes("Cinema and Theatre")==true || d.categories.includes("Graphic Art")==true)
   ) {
       return "block"
@@ -1400,7 +1400,7 @@ if (catFilter == "Cinema and Theatre"){
   ///get nodes with edges
 
   d3.selectAll(".link").filter(function(d) {
-      return d.children[0].dateStart >= firstItem && d.children[0].dateStart <= lastItem
+      return d.children[0].dateStart >= firstItem && d.children[d.children.length-1].dateStart <= lastItem
       && (d.categories.includes("Cinema and Theatre")==true || d.categories.includes("Graphic Art")==true)
     })
     .each(function(D, I) {
@@ -1421,7 +1421,7 @@ if (catFilter == "Cinema and Theatre"){
     })
 }else if (catFilter == "Biography and Personality"){
   d3.selectAll(".link").style("display", function(d) {
-    if (d.children[0].dateStart >= firstItem && d.children[0].dateStart <= lastItem
+    if (d.children[0].dateStart >= firstItem && d.children[d.children.length-1].dateStart <= lastItem
     && (d.categories.includes("Biography and Personality")==true || d.categories.includes("Apartment")==true)
   ) {
       return "block"
@@ -1432,7 +1432,7 @@ if (catFilter == "Cinema and Theatre"){
   ///get nodes with edges
 
   d3.selectAll(".link").filter(function(d) {
-      return d.children[0].dateStart >= firstItem && d.children[0].dateStart <= lastItem
+      return d.children[0].dateStart >= firstItem && d.children[d.children.length-1].dateStart <= lastItem
       && (d.categories.includes("Biography and Personality")==true || d.categories.includes("Apartment")==true)
     })
     .each(function(D, I) {
@@ -1453,7 +1453,7 @@ if (catFilter == "Cinema and Theatre"){
     })
 }else if (catFilter == "Writing and Teaching"){
   d3.selectAll(".link").style("display", function(d) {
-    if (d.children[0].dateStart >= firstItem && d.children[0].dateStart <= lastItem
+    if (d.children[0].dateStart >= firstItem && d.children[d.children.length-1].dateStart <= lastItem
     && (d.categories.includes("Writing and Teaching")==true)
   ) {
       return "block"
@@ -1464,7 +1464,7 @@ if (catFilter == "Cinema and Theatre"){
   ///get nodes with edges
 
   d3.selectAll(".link").filter(function(d) {
-      return d.children[0].dateStart >= firstItem && d.children[0].dateStart <= lastItem
+      return d.children[0].dateStart >= firstItem && d.children[d.children.length-1].dateStart <= lastItem
       && (d.categories.includes("Writing and Teaching")==true)
     })
     .each(function(D, I) {
@@ -1521,7 +1521,7 @@ simulation
 simulation
   .force("link")
   .links(links.filter(function(d) {
-    return d.children[0].dateStart >= firstItem && d.children[0].dateStart <= lastItem
+    return d.children[0].dateStart >= firstItem && d.children[d.children.length-1].dateStart <= lastItem
   }))
 simulation.alpha(1).restart();
 }///end category filter
@@ -1532,7 +1532,7 @@ else if(filter == "highlight" ){
   d3.selectAll(".link").style("display", function(d) {
     // console.log(d.children)
     // console.log(highlightFilter)
-    if (d.children[0].dateStart >= firstItem && d.children[0].dateStart <= lastItem
+    if (d.children[0].dateStart >= firstItem && d.children[d.children.length-1].dateStart <= lastItem
     && (d.children.filter(function(D){return highlightsData.filter(function(X) {
       return X.identifier == highlightFilter})[0].events.includes(D.Event_ID) == true}).length >0)
   ) {
@@ -1544,7 +1544,7 @@ else if(filter == "highlight" ){
   ///get nodes with edges
 
   d3.selectAll(".link").filter(function(d) {
-      return d.children[0].dateStart >= firstItem && d.children[0].dateStart <= lastItem
+      return d.children[0].dateStart >= firstItem && d.children[d.children.length-1].dateStart <= lastItem
       && (d.children.filter(function(D){return highlightsData.filter(function(X) {
         return X.identifier == highlightFilter})[0].events.includes(D.Event_ID) == true}).length >0)
     })
@@ -1602,7 +1602,7 @@ simulation
 simulation
   .force("link")
   .links(links.filter(function(d) {
-    return d.children[0].dateStart >= firstItem && d.children[0].dateStart <= lastItem
+    return d.children[0].dateStart >= firstItem && d.children[d.children.length-1].dateStart <= lastItem
   }))
 simulation.alpha(1).restart();
 }///end highlight filter
@@ -1615,7 +1615,7 @@ else if(filter == "search" ){
 //
 //   d3.selectAll(".link").style("display", function(d) {
 //   //  console.log(d.children.filter(function(D){return D.places.filter(function(place){return place == searchFilter.name})}).length)
-//     if (d.children[0].dateStart >= firstItem && d.children[0].dateStart <= lastItem
+//     if (d.children[0].dateStart >= firstItem && d.children[d.children.length-1].dateStart <= lastItem
 //     && (d.children.filter(function(D){return D.places.filter(function(place){return place == searchFilter.name})}).length >0)
 //   ) {
 //       return "block"
@@ -1626,7 +1626,7 @@ else if(filter == "search" ){
 //   ///get nodes with edges
 //
 //   d3.selectAll(".link").filter(function(d) {
-//       return d.children[0].dateStart >= firstItem && d.children[0].dateStart <= lastItem
+//       return d.children[0].dateStart >= firstItem && d.children[d.children.length-1].dateStart <= lastItem
 //       && (d.children.filter(function(D){return D.places.filter(function(place){return place == searchFilter.name})}).length >0)
 //     })
 //     .each(function(D, I) {
@@ -1649,7 +1649,7 @@ else if(filter == "search" ){
 //   d3.selectAll(".link").style("display", function(d) {
 //     // console.log(d.children)
 //     // console.log(highlightFilter)
-//     if (d.children[0].dateStart >= firstItem && d.children[0].dateStart <= lastItem
+//     if (d.children[0].dateStart >= firstItem && d.children[d.children.length-1].dateStart <= lastItem
 //       && (d.children.filter(function(D){return D.works.filter(function(works){return works == searchFilter.name})}).length >0)
 //   ) {
 //       return "block"
@@ -1660,7 +1660,7 @@ else if(filter == "search" ){
 //   ///get nodes with edges
 //
 //   d3.selectAll(".link").filter(function(d) {
-//       return d.children[0].dateStart >= firstItem && d.children[0].dateStart <= lastItem
+//       return d.children[0].dateStart >= firstItem && d.children[d.children.length-1].dateStart <= lastItem
 //       && (d.children.filter(function(D){return D.works.filter(function(works){return works == searchFilter.name})}).length >0)
 //     })
 //     .each(function(D, I) {
@@ -1683,7 +1683,7 @@ else if(filter == "search" ){
 //   d3.selectAll(".link").style("display", function(d) {
 //     // console.log(d.children)
 //     // console.log(highlightFilter)
-//     if (d.children[0].dateStart >= firstItem && d.children[0].dateStart <= lastItem
+//     if (d.children[0].dateStart >= firstItem && d.children[d.children.length-1].dateStart <= lastItem
 //       && (d.children.filter(function(D){return D.artistic.filter(function(artistic){return artistic == searchFilter.name})}).length >0)
 //   ) {
 //       return "block"
@@ -1694,7 +1694,7 @@ else if(filter == "search" ){
 //   ///get nodes with edges
 //
 //   d3.selectAll(".link").filter(function(d) {
-//       return d.children[0].dateStart >= firstItem && d.children[0].dateStart <= lastItem
+//       return d.children[0].dateStart >= firstItem && d.children[d.children.length-1].dateStart <= lastItem
 //       && (d.children.filter(function(D){return D.artistic.filter(function(artistic){return artistic == searchFilter.name})}).length >0)
 //     })
 //     .each(function(D, I) {
@@ -1717,7 +1717,7 @@ else if(filter == "search" ){
 //   d3.selectAll(".link").style("display", function(d) {
 //     // console.log(d.children)
 //     // console.log(highlightFilter)
-//     if (d.children[0].dateStart >= firstItem && d.children[0].dateStart <= lastItem
+//     if (d.children[0].dateStart >= firstItem && d.children[d.children.length-1].dateStart <= lastItem
 //       && (d.children.filter(function(D){return D.additional.filter(function(additional){return additional == searchFilter.name})}).length >0)
 //   ) {
 //       return "block"
@@ -1728,7 +1728,7 @@ else if(filter == "search" ){
 //   ///get nodes with edges
 //
 //   d3.selectAll(".link").filter(function(d) {
-//       return d.children[0].dateStart >= firstItem && d.children[0].dateStart <= lastItem
+//       return d.children[0].dateStart >= firstItem && d.children[d.children.length-1].dateStart <= lastItem
 //       && (d.children.filter(function(D){return D.additional.filter(function(additional){return additional == searchFilter.name})}).length >0)
 //     })
 //     .each(function(D, I) {
@@ -1749,12 +1749,12 @@ else if(filter == "search" ){
 //     })
 // }else if(searchFilter.category == "people"){
   d3.selectAll(".link").style("display", function(d) {
-    if(d.children[0].dateStart >= firstItem && d.children[0].dateStart <= lastItem &&
+    if(d.children[0].dateStart >= firstItem && d.children[d.children.length-1].dateStart <= lastItem &&
       (d.source.name == searchFilter.name || d.target.name == searchFilter.name)){return "block"}else{return "none"}})
 
   // ///get nodes with edges
   d3.selectAll(".link").filter(function(d) {
-      return d.children[0].dateStart >= firstItem && d.children[0].dateStart <= lastItem
+      return d.children[0].dateStart >= firstItem && d.children[d.children.length-1].dateStart <= lastItem
       && (d.source.name == searchFilter.name || d.target.name == searchFilter.name)
     })
     .each(function(D, I) {
@@ -1811,7 +1811,7 @@ simulation
 simulation
   .force("link")
   .links(links.filter(function(d) {
-    return d.children[0].dateStart >= firstItem && d.children[0].dateStart <= lastItem
+    return d.children[0].dateStart >= firstItem && d.children[d.children.length-1].dateStart <= lastItem
   }))
 simulation.alpha(1).restart();
 }///end search filter
