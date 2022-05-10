@@ -461,6 +461,7 @@ width: 10px;
   z-index: 3;
   display: block;
   bottom: 0px;
+  min-height: 1.7em;
 }
 
 /* .searchiconbg {
