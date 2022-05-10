@@ -145,7 +145,7 @@ tour.addStep({
     title: 'Right Panel',
     text: `The right panel of this network view contains a list of all the events; .
     The network view changes according to the events currently visible in the bar, 
-    and scrolling through the events alters the networks according to the connections between the entities of the visible events`,
+    and scrolling through the events alters the networks according to the connections between the entities of the visible events.`,
     attachTo: {
       element: '#eventList',
       on: 'right'
