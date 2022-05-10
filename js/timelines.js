@@ -222,7 +222,7 @@ var keywordsCount = [];
 
 //array of keywords for places and the dates from vstart
 
-    var keywordsData1 = [];
+    var placesStep1 = [];
 
     keywordsData.forEach(function(d,i){
 
@@ -234,50 +234,108 @@ var keywordsCount = [];
                 keyword["keyword"] = D;  //keyword
                 keyword["date"] = d.vstart; //date of appearances
 
-                keywordsData1.push(keyword);
+                placesStep1.push(keyword);
             }
         });
     });
 
-    console.log(keywordsData1);
+    console.log(placesStep1);
 
-  //use splice() to remove duplicate keywords but stop removing the fucking context
-  //keep the "date" and "keyword" columns
+    //remove repeated keywords
 
-var keywordsPlaces = [];
+    var placesStep2 = [];
 
-    keywordsData.forEach(function(d){
-        var keywords = d.places.split(";");
-        keywords.forEach(function(d){
-            if (keywordsPlaces.indexOf(d) == -1 && d != "") keywordsPlaces.push(d);
-        });
-    });
+    for (let i = 0; i < placesStep1.length; i++) {
+        if (placesStep2.indexOf(placesStep1[i]["keyword"]) == -1) {
+            placesStep2.push(placesStep1[i]["keyword"]);
+        }
+    }
 
+    console.log(placesStep2);
 
-    console.log(keywordsPlaces);
+    //create array of dates for each keyword
+
+    //creat li
+
+    var placesStep3 = [];
+
+    for (let i = 0; i < placesStep2.length; i++) {
+
+        var keyword = {};
+        keyword["keyword"] = placesStep2[i];
+        keyword["dates"] = [];
+
+        for (let j = 0; j < placesStep1.length; j++) {
+            if (placesStep1[j]["keyword"] == placesStep2[i]) {
+                keyword["dates"].push(placesStep1[j]["date"]);
+            }
+        }
+
+        placesStep3.push(keyword);
+
+    }
+
+    console.log(placesStep3);
+
+//create list of dates for keywords separated by ';' not as an array
+
+    var placesStep4 = [];
+
+    for (let i = 0; i < placesStep3.length; i++) {
+
+        var keyword = {};
+        keyword["keyword"] = placesStep3[i]["keyword"];
+        keyword["dates"] = "";
+
+        for (let j = 0; j < placesStep3[i]["dates"].length; j++) {
+            if (j == 0) {
+                keyword["dates"] = placesStep3[i]["dates"][j];
+            } else {
+                keyword["dates"] = keyword["dates"] + "; " + placesStep3[i]["dates"][j];
+            }
+        }
+
+        placesStep4.push(keyword);
+
+    }
+
+    console.log(placesStep4);
+
+    //keep first date of each keyword and remove the rest
+
+    var placesStep5 = [];
+
+    for (let i = 0; i < placesStep4.length; i++) {
+
+        var keyword = {};
+        keyword["keyword"] = placesStep4[i]["keyword"];
+        keyword["date"] = placesStep4[i]["dates"].split(";")[0];
+
+        placesStep5.push(keyword);
+
+    }
+
+    console.log(placesStep5);
 
 // add column headers for places array
 
-    var keywordsPl = [];
+    var keywordsPlace = [];
 
-    for (let i = 0; i < keywordsPlaces.length; i++) {
+    for (let i = 0; i < placesStep5.length; i++) {
 
-      keywordsPl[i] = {};
-      keywordsPl[i]["keyword"] = keywordsPlaces[i];
-      keywordsPl[i]["category"] = "Places";
-      keywordsPl[i]["count"] = 0;
-      keywordsPl[i]["date"] = "";
+      keywordsPlace[i] = {};
+      keywordsPlace[i]["keyword"] = placesStep5[i]["keyword"];
+      keywordsPlace[i]["category"] = "Places";
+      keywordsPlace[i]["count"] = 0;
+      keywordsPlace[i]["date"] = placesStep5[i]["date"];
     };
-
- 
 
     keywordsData.forEach(function(d,i){
       var keywords = d.places.split(";");
       keywords.forEach(function(d,i){
-          for (let j = 0; j < keywordsPl.length; j++) {
-            if (keywordsPl[j]["keyword"] == d) {
-              keywordsPl[j]["count"] += 1;
-              keywordsPl[j]["date"] = d.vstart;
+          for (let j = 0; j < keywordsPlace.length; j++) {
+            if (keywordsPlace[j]["keyword"] == d) {
+              keywordsPlace[j]["count"] += 1;
             }
           }
       }
@@ -285,38 +343,120 @@ var keywordsPlaces = [];
     }
     );
 
-   console.log(keywordsPl);
-
+   console.log(keywordsPlace);
 
 //array for people
 
-    var keywordsPeople = [];
+    var peopleStep1 = [];
 
     keywordsData.forEach(function(d,i){
+
         var keywords = d.people.split(";");
-        keywords.forEach(function(d,i){
-            if (keywordsPeople.indexOf(d) == -1 && d != "") keywordsPeople.push(d);
+        keywords.forEach(function(D,i){
+            if (D != "") {
+
+                var keyword = {};
+                keyword["keyword"] = D;  //keyword
+                keyword["date"] = d.vstart; //date of appearances
+
+                peopleStep1.push(keyword);
+            }
         });
     });
 
-    var keywordsP = [];
+    console.log(peopleStep1);
+
+    //remove repeated keywords
+
+    var peopleStep2 = [];
+
+    for (let i = 0; i < peopleStep1.length; i++) {
+        if (peopleStep2.indexOf(peopleStep1[i]["keyword"]) == -1) {
+          peopleStep2.push(peopleStep1[i]["keyword"]);
+        }
+    }
+
+    console.log(peopleStep2);
+
+    //create array of dates for each keyword
+
+    var peopleStep3 = [];
+
+    for (let i = 0; i < peopleStep2.length; i++) {
+
+        var keyword = {};
+        keyword["keyword"] = peopleStep2[i];
+        keyword["dates"] = [];
+
+        for (let j = 0; j < peopleStep1.length; j++) {
+            if (peopleStep1[j]["keyword"] == peopleStep2[i]) {
+                keyword["dates"].push(peopleStep1[j]["date"]);
+            }
+        }
+
+        peopleStep3.push(keyword);
+
+    }
+
+    console.log(peopleStep3);
+
+    //create list of dates for keywords separated by ';' not as an array
+
+    var peopleStep4 = [];
+
+    for (let i = 0; i < peopleStep3.length; i++) { 
+
+        var keyword = {};
+        keyword["keyword"] = peopleStep3[i]["keyword"];
+        keyword["dates"] = "";
+
+        for (let j = 0; j < peopleStep3[i]["dates"].length; j++) {
+            if (j == 0) {
+                keyword["dates"] = peopleStep3[i]["dates"][j];
+            } else {
+                keyword["dates"] = keyword["dates"] + "; " + peopleStep3[i]["dates"][j];
+            }
+        }
+
+        peopleStep4.push(keyword);
+
+    }
+
+    console.log(peopleStep4);
+
+    //keep first date of each keyword and remove the rest
+
+    var peopleStep5 = [];
+
+    for (let i = 0; i < peopleStep4.length; i++) {
+
+        var keyword = {};
+        keyword["keyword"] = peopleStep4[i]["keyword"];
+        keyword["date"] = peopleStep4[i]["dates"].split(";")[0];
+
+        peopleStep5.push(keyword);
+
+    }
+
+    console.log(peopleStep5);
+
+    var keywordsPeople = [];
 
     for (let i = 0; i < keywordsPeople.length; i++) {
 
-      keywordsP[i] = {};
-      keywordsP[i]["keyword"] = keywordsPeople[i];
-      keywordsP[i]["category"] = "People";
-      keywordsP[i]["count"] = 0;
-      keywordsP[i]["date"] = "";
+      keywordsPeople[i] = {};
+      keywordsPeople[i]["keyword"] = peopleStep5[i]["keyword"];
+      keywordsPeople[i]["category"] = "People";
+      keywordsPeople[i]["count"] = 0;
+      keywordsPeople[i]["date"] = peopleStep5[i]["date"];
     };
 
 keywordsData.forEach(function(d,i){
   var keywords = d.people.split(";");
   keywords.forEach(function(d,i){
-      for (let j = 0; j < keywordsP.length; j++) {
-        if (keywordsP[j]["keyword"] == d) {
-          keywordsP[j]["count"] += 1;
-          if (keywordsP[j]["date"] == "") keywordsP[j]["date"] = keywordsData[i].vstart;
+      for (let j = 0; j < keywordsPeople.length; j++) {
+        if (keywordsPeople[j]["keyword"] == d) {
+          keywordsPeople[j]["count"] += 1;
         }
       }
   }
@@ -324,7 +464,7 @@ keywordsData.forEach(function(d,i){
 }
 );
 
-console.log(keywordsP);
+console.log(keywordsPeople);
 
 //array for works
 
@@ -451,10 +591,6 @@ console.log(keywordsP);
     );
 
     console.log(keywordsAd);
-
-
-
-
 
     //combine keywordsPeople, keywordsPlaces, keywordsWorks, keywordsArtistic, and keywordsAdditional into one array
 
