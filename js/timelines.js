@@ -5,9 +5,11 @@
 // var url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvSLkjHvHlPjWLy3ec4UT9AsFsyTy2rbsjKquZgmhCqbsTZ4TLAnWv28Y3PnR/pub?gid=1387341329&single=true&output=csv'
 var url = './data/minimal_100522.csv' //local backup
 
-var itemsUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTpZlBfSa0sBkPXXCdHykUFi5N2zPcclrda8iaYlbWoyzaWxDj7q3WEtmP7m8hrzk5ejAgjk-Id_zk9/pub?gid=1626158426&single=true&output=csv'
+// this is not used
+// var itemsUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTpZlBfSa0sBkPXXCdHykUFi5N2zPcclrda8iaYlbWoyzaWxDj7q3WEtmP7m8hrzk5ejAgjk-Id_zk9/pub?gid=1626158426&single=true&output=csv'
 
-var urlHighlights = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT3XiwLUS9uF0SIvV0QOOTGJv5FY077vEEIiShwtJkEcxDC-Dghp9JEycZxNDAplPetp73-ssUqZ8dv/pub?gid=0&single=true&output=csv'
+// var urlHighlights = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT3XiwLUS9uF0SIvV0QOOTGJv5FY077vEEIiShwtJkEcxDC-Dghp9JEycZxNDAplPetp73-ssUqZ8dv/pub?gid=0&single=true&output=csv'
+var urlHighlights = './data/highlights.csv'
 
 // const width = 1500 //width of the svg sidebar is 350px - needs to be adjusted to allow for the width of the sidebar
 const width = innerWidth - 420 //width of the svg sidebar is 350px - needs to be adjusted to allow for the width of the sidebar
@@ -24,11 +26,11 @@ let soundtoggle = false;
 // let uncertaintytoggle = false;
 
 ///audio
-const audio1 = new Audio("sounds/sound1.mp3")
-const audio2 = new Audio("sounds/sound2.mp3")
-const audio3 = new Audio("sounds/sound3.mp3")
-const audio4 = new Audio("sounds/sound4.mp3")
-const audio5 = new Audio("sounds/sound5.mp3")
+// const audio1 = new Audio("sounds/sound1.mp3")
+// const audio2 = new Audio("sounds/sound2.mp3")
+// const audio3 = new Audio("sounds/sound3.mp3")
+// const audio4 = new Audio("sounds/sound4.mp3")
+// const audio5 = new Audio("sounds/sound5.mp3")
 
 
 function playAudio(file) {
@@ -444,7 +446,7 @@ console.log(keywordsPeople);
         }
     }
 
-    console.log(worksStep2);
+    // console.log(worksStep2);
 
     //create array of dates for each keyword
 
@@ -466,7 +468,7 @@ console.log(keywordsPeople);
 
     }
 
-    console.log(worksStep3);
+    // console.log(worksStep3);
 
     //create list of dates for keywords separated by ';' not as an array
 
@@ -682,6 +684,7 @@ console.log(keywordsPeople);
     });
 
     console.log(additionalStep1);
+    // console.log(additionalStep1);
 
     //remove repeated keywords
 
@@ -795,13 +798,13 @@ console.log(keywordsPeople);
 console.log(keywordsAll);
 
 //spiritual family data
-
-    Promise.all([
-      d3.csv(itemsUrl), //data
-    ])
-      .then(([itemsData]) => {
-        console.log(itemsData);
-      });
+    
+    // Promise.all([
+    //   d3.csv(itemsUrl), //data
+    // ])
+    //   .then(([itemsData]) => {
+    //     console.log(itemsData);
+    //   });
 
       for (let i = 0; i < keywordsData.length; i++) {
 
@@ -819,7 +822,7 @@ console.log(keywordsAll);
 
     var dateRangeLength = dateRange.length;
 
-    console.log(dateRangeLength); //number of years
+    // console.log(dateRangeLength); //number of years
 
     // append svg to chart
 
@@ -843,16 +846,18 @@ Promise.all([
 ])
   .then(([highlightsData]) => {
 
-//create a p class for each of the 'identifier's and insert into into the div class="highlights" in index.html
-
-for (let i = 0; i < highlightsData.length; i++) {
-let identifier = highlightsData[i]["identifier"];
-let text = highlightsData[i]["name"];
-let p = document.createElement("p");
-p.className = identifier;
-p.innerHTML = text;
-document.getElementsByClassName("highlights")[0].appendChild(p);
-}
+    // remove hard-coded elements
+    document.querySelectorAll(".highlights p").forEach((el) => el.remove());
+    
+    //create a p class for each of the 'identifier's and insert into into the div class="highlights" in index.html    
+    for (let i = 0; i < highlightsData.length; i++) {
+    let identifier = highlightsData[i]["identifier"];
+    let text = highlightsData[i]["name"];
+    let p = document.createElement("p");
+    p.className = identifier;
+    p.innerHTML = text;
+    document.getElementsByClassName("highlights")[0].appendChild(p);
+    }
 
       console.log(highlightsData);
 
@@ -861,8 +866,8 @@ document.getElementsByClassName("highlights")[0].appendChild(p);
     .domain([new Date("1897-01-01"), new Date("1949-01-01")])
     .range([350,width-200])
 
-console.log(new Date("1926-01-22"))
-console.log(timelineXScale(new Date(1926)))
+// console.log(new Date("1926-01-22"))
+// console.log(timelineXScale(new Date(1926)))
 
 // tooltip setup
 
@@ -1501,48 +1506,49 @@ keywordsData.forEach(function(d, i) {
     }
   })
 
-  let allNodes = [].concat(peopleNodes, placesNodes, worksNodes, artisticNodes, additionalNodes)
-
-  //create combinations of source+targets out of all "objects"
-  //https://stackoverflow.com/questions/43241174/javascript-generating-all-combinations-of-elements-in-a-single-array-in-pairs
-  allNodes.flatMap(
-    function(v, i) {
-      return allNodes.slice(i + 1).forEach(function(w) {
-        //  console.log( v + '+ ' + w )
-        if (links.filter(function(D) {
-            return (D.source == v && D.target == w) || D.source == w && D.target == v
-          }).length == 0) {
-          links.push({
-            source: v,
-            target: w,
-            children: [{
-              source: v,
-              target: w,
-              category: d.category,
-              dateStart: new Date(d.vstart),
-              dateEnd: new Date(d.vend),
-              relation_source: d.title,
-              description: d.description
-            }],
-          })
-        } else {
-          links.filter(function(D) {
-            return (D.source == v && D.target == w) || D.source == w && D.target == v
-          })[0].children.push({
-            source: v,
-            target: w,
-            category: d.category,
-            dateStart: new Date(d.vstart),
-            dateEnd: new Date(d.vend),
-            relation_source: d.title,
-            description: d.description
-          })
-
-        }
-
-      })
-    }
-  )
+  // NOT USED ↓
+  // let allNodes = [].concat(peopleNodes, placesNodes, worksNodes, artisticNodes, additionalNodes)
+  //
+  // //create combinations of source+targets out of all "objects"
+  // //https://stackoverflow.com/questions/43241174/javascript-generating-all-combinations-of-elements-in-a-single-array-in-pairs
+  // allNodes.flatMap(
+  //   function(v, i) {
+  //     return allNodes.slice(i + 1).forEach(function(w) {
+  //       //  console.log( v + '+ ' + w )
+  //       if (links.filter(function(D) {
+  //           return (D.source == v && D.target == w) || D.source == w && D.target == v
+  //         }).length == 0) {
+  //         links.push({
+  //           source: v,
+  //           target: w,
+  //           children: [{
+  //             source: v,
+  //             target: w,
+  //             category: d.category,
+  //             dateStart: new Date(d.vstart),
+  //             dateEnd: new Date(d.vend),
+  //             relation_source: d.title,
+  //             description: d.description
+  //           }],
+  //         })
+  //       } else {
+  //         links.filter(function(D) {
+  //           return (D.source == v && D.target == w) || D.source == w && D.target == v
+  //         })[0].children.push({
+  //           source: v,
+  //           target: w,
+  //           category: d.category,
+  //           dateStart: new Date(d.vstart),
+  //           dateEnd: new Date(d.vend),
+  //           relation_source: d.title,
+  //           description: d.description
+  //         })
+  //
+  //       }
+  //
+  //     })
+  //   }
+  // )
 
 
 
@@ -2903,7 +2909,6 @@ d3.selectAll("#closedhighlightbar")
 
 
               })
-
     })
 
 

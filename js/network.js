@@ -2,8 +2,9 @@
 
 var url = './data/minimal_100522.csv' //local backup
 
-var urlHighlights = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT3XiwLUS9uF0SIvV0QOOTGJv5FY077vEEIiShwtJkEcxDC-Dghp9JEycZxNDAplPetp73-ssUqZ8dv/pub?gid=0&single=true&output=csv'
+// var urlHighlights = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT3XiwLUS9uF0SIvV0QOOTGJv5FY077vEEIiShwtJkEcxDC-Dghp9JEycZxNDAplPetp73-ssUqZ8dv/pub?gid=0&single=true&output=csv'
 
+var urlHighlights = './data/highlights.csv'
 
 const width = window.innerWidth
 const height = window.innerHeight
@@ -217,8 +218,10 @@ Promise.all([
       return d.start < '1948-12-31' && d.end < '1948-12-31'
     })
 
-    //create a p class for each of the 'identifier's and insert into into the div class="highlights" in index.html
+    // remove hard-coded elements
+    document.querySelectorAll(".highlights p").forEach((el) => el.remove());
 
+    //create a p class for each of the 'identifier's and insert into into the div class="highlights" in index.html
     for (let i = 0; i < highlightsData.length; i++) {
       let identifier = highlightsData[i]["identifier"];
       let text = highlightsData[i]["name"];
