@@ -173,7 +173,8 @@ var endParse = d3.timeParse("%Y-%m-%d %I:%M%p");
 //define data
 
 var urlMinimal = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvSLkjHvHlPjWLy3ec4UT9AsFsyTy2rbsjKquZgmhCqbsTZ4TLAnWv28Y3PnR/pub?gid=1387341329&single=true&output=csv'
-// url = './minimal.csv' //local backup
+
+var url = './data/minimal_100522.csv' //local backup
 
 var itemsUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTpZlBfSa0sBkPXXCdHykUFi5N2zPcclrda8iaYlbWoyzaWxDj7q3WEtmP7m8hrzk5ejAgjk-Id_zk9/pub?gid=1626158426&single=true&output=csv'
 
@@ -181,7 +182,7 @@ var urlHighlights = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT3XiwLUS9u
 
 ///load data and preprocessing- metadataschema
 Promise.all([
-  d3.csv(urlMinimal), //data
+  d3.csv(url), //data
 ])
   .then(([spiralData]) => {
     console.log(spiralData);
