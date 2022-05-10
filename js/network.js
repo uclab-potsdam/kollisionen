@@ -522,8 +522,11 @@ Promise.all([
                   category: d.category,
                   dateStart: new Date(d.vstart),
                   dateEnd: new Date(d.vend),
+                  start: d.vstart,
+                  end: d.vend,
                   relation_source: d.title,
                   description: d.description,
+                  displayTemporal: d.displayTemporal,
                   Event_ID: d.Event_ID,
                   people: d.people == "" ? [] : d.people.split(";"),
                   places: d.places == "" ? [] : d.places.split(";"),
@@ -541,8 +544,11 @@ Promise.all([
                 category: d.category,
                 dateStart: new Date(d.vstart),
                 dateEnd: new Date(d.vend),
+                start: d.vstart,
+                end: d.vend,
                 relation_source: d.title,
                 description: d.description,
+                displayTemporal: d.displayTemporal,
                 Event_ID: d.Event_ID,
                 people: d.people == "" ? [] : d.people.split(";"),
                 places: d.places == "" ? [] : d.places.split(";"),
@@ -1038,8 +1044,9 @@ Promise.all([
 
         tooltipEdges.append("ul").classed("tooltipEventList", true)
         d.children.forEach(function(D) {
-          d3.select(".tooltipEventList").append("li").text(function() { //(D.dateEnd ? D.dateStart+" to "+D.dateEnd : D.dateStart) + ": " +
-              return D.relation_source
+          d3.select(".tooltipEventList").append("li").text(function() {
+            console.log(D.start)//(D.dateEnd ? D.dateStart+" to "+D.dateEnd : D.dateStart) + ": " +
+              return D.relation_source + " (" + (D.displayTemporal ? D.displayTemporal : (D.end ? D.start + " to " + D.end : D.start)) + ")"
             })
             .classed("cinema", function() {
               if (D.category == "Cinema and Theatre" || D.category == "Cinema and theatre" || D.category == "Cinema and Theatre;Graphic Art" || D.category == "Graphic Art;Cinema and Theatre" || D.category == "Graphic Art") {
@@ -1351,14 +1358,16 @@ Promise.all([
           return d3.select(this).node().getBoundingClientRect().top >= 0 && d3.select(this).node().getBoundingClientRect().bottom <= (window.innerHeight || document.documentElement.clientHeight)
         })._groups[0][visibleItemCount - 1].__data__.vstart)
 
-      //  console.log(visibleItemCount)
-      //console.log(firstItem)
-      // console.log(lastItem)
+       //console.log(visibleItemCount)
+      console.log("First Item: "+ firstItem)
+      console.log("Last Item: "+lastItem)
 
       //start general filter
       if(filter == 0 ){
       d3.selectAll(".link").style("display", function(d) {
-        if (d.children[0].dateStart >= firstItem && d.children[d.children.length-1].dateStart <= lastItem) {
+        if ((d.children.filter(function(D){//console.log(D.dateStart)
+          return D.dateStart >= firstItem && D.dateStart <= lastItem}).length >0)){
+      //  if ((d.children.filter(function(D){return D.dateStart >= firstItem && D.dateStart <= lastItem}).length >0)) {
           return "block"
         } else {
           return "none"
@@ -1369,7 +1378,7 @@ Promise.all([
       let connectedNodes = []
 
       d3.selectAll(".link").filter(function(d) {
-          return d.children[0].dateStart >= firstItem && d.children[d.children.length-1].dateStart <= lastItem
+          return d.children.filter(function(D){return D.dateStart >= firstItem && D.dateStart <= lastItem}).length >0
         })
         .each(function(D, I) {
           if (connectedNodes.filter(function(x) {
@@ -1423,7 +1432,7 @@ Promise.all([
       simulation
         .force("link")
         .links(links.filter(function(d) {
-          return d.children[0].dateStart >= firstItem && d.children[d.children.length-1].dateStart <= lastItem
+          return (d.children.filter(function(D){return D.dateStart >= firstItem && D.dateStart <= lastItem}).length >0)
         }))
       simulation.alpha(1).restart();
 }///end general filter
@@ -1433,7 +1442,7 @@ else if(filter == "category" ){
 
 if (catFilter == "Cinema and Theatre"){
   d3.selectAll(".link").style("display", function(d) {
-    if (d.children[0].dateStart >= firstItem && d.children[d.children.length-1].dateStart <= lastItem
+    if ((d.children.filter(function(D){return D.dateStart >= firstItem && D.dateStart <= lastItem}).length >0)
     && (d.categories.includes("Cinema and Theatre")==true || d.categories.includes("Graphic Art")==true)
   ) {
       return "block"
@@ -1444,7 +1453,7 @@ if (catFilter == "Cinema and Theatre"){
   ///get nodes with edges
 
   d3.selectAll(".link").filter(function(d) {
-      return d.children[0].dateStart >= firstItem && d.children[d.children.length-1].dateStart <= lastItem
+      return (d.children.filter(function(D){return D.dateStart >= firstItem && D.dateStart <= lastItem}).length >0)
       && (d.categories.includes("Cinema and Theatre")==true || d.categories.includes("Graphic Art")==true)
     })
     .each(function(D, I) {
@@ -1465,7 +1474,7 @@ if (catFilter == "Cinema and Theatre"){
     })
 }else if (catFilter == "Biography and Personality"){
   d3.selectAll(".link").style("display", function(d) {
-    if (d.children[0].dateStart >= firstItem && d.children[d.children.length-1].dateStart <= lastItem
+    if ((d.children.filter(function(D){return D.dateStart >= firstItem && D.dateStart <= lastItem}).length >0)
     && (d.categories.includes("Biography and Personality")==true || d.categories.includes("Apartment")==true)
   ) {
       return "block"
@@ -1476,7 +1485,7 @@ if (catFilter == "Cinema and Theatre"){
   ///get nodes with edges
 
   d3.selectAll(".link").filter(function(d) {
-      return d.children[0].dateStart >= firstItem && d.children[d.children.length-1].dateStart <= lastItem
+      return (d.children.filter(function(D){return D.dateStart >= firstItem && D.dateStart <= lastItem}).length >0)
       && (d.categories.includes("Biography and Personality")==true || d.categories.includes("Apartment")==true)
     })
     .each(function(D, I) {
@@ -1497,7 +1506,7 @@ if (catFilter == "Cinema and Theatre"){
     })
 }else if (catFilter == "Writing and Teaching"){
   d3.selectAll(".link").style("display", function(d) {
-    if (d.children[0].dateStart >= firstItem && d.children[d.children.length-1].dateStart <= lastItem
+    if ((d.children.filter(function(D){return D.dateStart >= firstItem && D.dateStart <= lastItem}).length >0)
     && (d.categories.includes("Writing and Teaching")==true)
   ) {
       return "block"
@@ -1508,7 +1517,7 @@ if (catFilter == "Cinema and Theatre"){
   ///get nodes with edges
 
   d3.selectAll(".link").filter(function(d) {
-      return d.children[0].dateStart >= firstItem && d.children[d.children.length-1].dateStart <= lastItem
+      return (d.children.filter(function(D){return D.dateStart >= firstItem && D.dateStart <= lastItem}).length >0)
       && (d.categories.includes("Writing and Teaching")==true)
     })
     .each(function(D, I) {
@@ -1565,7 +1574,7 @@ simulation
 simulation
   .force("link")
   .links(links.filter(function(d) {
-    return d.children[0].dateStart >= firstItem && d.children[d.children.length-1].dateStart <= lastItem
+    return (d.children.filter(function(D){return D.dateStart >= firstItem && D.dateStart <= lastItem}).length >0)
   }))
 simulation.alpha(1).restart();
 }///end category filter
@@ -1576,7 +1585,7 @@ else if(filter == "highlight" ){
   d3.selectAll(".link").style("display", function(d) {
     // console.log(d.children)
     // console.log(highlightFilter)
-    if (d.children[0].dateStart >= firstItem && d.children[d.children.length-1].dateStart <= lastItem
+    if ((d.children.filter(function(D){return D.dateStart >= firstItem && D.dateStart <= lastItem}).length >0)
     && (d.children.filter(function(D){return highlightsData.filter(function(X) {
       return X.identifier == highlightFilter})[0].events.includes(D.Event_ID) == true}).length >0)
   ) {
@@ -1588,7 +1597,7 @@ else if(filter == "highlight" ){
   ///get nodes with edges
 
   d3.selectAll(".link").filter(function(d) {
-      return d.children[0].dateStart >= firstItem && d.children[d.children.length-1].dateStart <= lastItem
+      return (d.children.filter(function(D){return D.dateStart >= firstItem && D.dateStart <= lastItem}).length >0)
       && (d.children.filter(function(D){return highlightsData.filter(function(X) {
         return X.identifier == highlightFilter})[0].events.includes(D.Event_ID) == true}).length >0)
     })
@@ -1646,7 +1655,7 @@ simulation
 simulation
   .force("link")
   .links(links.filter(function(d) {
-    return d.children[0].dateStart >= firstItem && d.children[d.children.length-1].dateStart <= lastItem
+    return (d.children.filter(function(D){return D.dateStart >= firstItem && D.dateStart <= lastItem}).length >0)
   }))
 simulation.alpha(1).restart();
 }///end highlight filter
@@ -1659,7 +1668,7 @@ else if(filter == "search" ){
 //
 //   d3.selectAll(".link").style("display", function(d) {
 //   //  console.log(d.children.filter(function(D){return D.places.filter(function(place){return place == searchFilter.name})}).length)
-//     if (d.children[0].dateStart >= firstItem && d.children[d.children.length-1].dateStart <= lastItem
+//     if ((d.children.filter(function(D){return D.dateStart >= firstItem && D.dateStart <= lastItem}).length >0)
 //     && (d.children.filter(function(D){return D.places.filter(function(place){return place == searchFilter.name})}).length >0)
 //   ) {
 //       return "block"
@@ -1670,7 +1679,7 @@ else if(filter == "search" ){
 //   ///get nodes with edges
 //
 //   d3.selectAll(".link").filter(function(d) {
-//       return d.children[0].dateStart >= firstItem && d.children[d.children.length-1].dateStart <= lastItem
+//       return (d.children.filter(function(D){return D.dateStart >= firstItem && D.dateStart <= lastItem}).length >0)
 //       && (d.children.filter(function(D){return D.places.filter(function(place){return place == searchFilter.name})}).length >0)
 //     })
 //     .each(function(D, I) {
@@ -1693,7 +1702,7 @@ else if(filter == "search" ){
 //   d3.selectAll(".link").style("display", function(d) {
 //     // console.log(d.children)
 //     // console.log(highlightFilter)
-//     if (d.children[0].dateStart >= firstItem && d.children[d.children.length-1].dateStart <= lastItem
+//     if ((d.children.filter(function(D){return D.dateStart >= firstItem && D.dateStart <= lastItem}).length >0)
 //       && (d.children.filter(function(D){return D.works.filter(function(works){return works == searchFilter.name})}).length >0)
 //   ) {
 //       return "block"
@@ -1704,7 +1713,7 @@ else if(filter == "search" ){
 //   ///get nodes with edges
 //
 //   d3.selectAll(".link").filter(function(d) {
-//       return d.children[0].dateStart >= firstItem && d.children[d.children.length-1].dateStart <= lastItem
+//       return (d.children.filter(function(D){return D.dateStart >= firstItem && D.dateStart <= lastItem}).length >0)
 //       && (d.children.filter(function(D){return D.works.filter(function(works){return works == searchFilter.name})}).length >0)
 //     })
 //     .each(function(D, I) {
@@ -1727,7 +1736,7 @@ else if(filter == "search" ){
 //   d3.selectAll(".link").style("display", function(d) {
 //     // console.log(d.children)
 //     // console.log(highlightFilter)
-//     if (d.children[0].dateStart >= firstItem && d.children[d.children.length-1].dateStart <= lastItem
+//     if ((d.children.filter(function(D){return D.dateStart >= firstItem && D.dateStart <= lastItem}).length >0)
 //       && (d.children.filter(function(D){return D.artistic.filter(function(artistic){return artistic == searchFilter.name})}).length >0)
 //   ) {
 //       return "block"
@@ -1738,7 +1747,7 @@ else if(filter == "search" ){
 //   ///get nodes with edges
 //
 //   d3.selectAll(".link").filter(function(d) {
-//       return d.children[0].dateStart >= firstItem && d.children[d.children.length-1].dateStart <= lastItem
+//       return (d.children.filter(function(D){return D.dateStart >= firstItem && D.dateStart <= lastItem}).length >0)
 //       && (d.children.filter(function(D){return D.artistic.filter(function(artistic){return artistic == searchFilter.name})}).length >0)
 //     })
 //     .each(function(D, I) {
@@ -1761,7 +1770,7 @@ else if(filter == "search" ){
 //   d3.selectAll(".link").style("display", function(d) {
 //     // console.log(d.children)
 //     // console.log(highlightFilter)
-//     if (d.children[0].dateStart >= firstItem && d.children[d.children.length-1].dateStart <= lastItem
+//     if ((d.children.filter(function(D){return D.dateStart >= firstItem && D.dateStart <= lastItem}).length >0)
 //       && (d.children.filter(function(D){return D.additional.filter(function(additional){return additional == searchFilter.name})}).length >0)
 //   ) {
 //       return "block"
@@ -1772,7 +1781,7 @@ else if(filter == "search" ){
 //   ///get nodes with edges
 //
 //   d3.selectAll(".link").filter(function(d) {
-//       return d.children[0].dateStart >= firstItem && d.children[d.children.length-1].dateStart <= lastItem
+//       return (d.children.filter(function(D){return D.dateStart >= firstItem && D.dateStart <= lastItem}).length >0)
 //       && (d.children.filter(function(D){return D.additional.filter(function(additional){return additional == searchFilter.name})}).length >0)
 //     })
 //     .each(function(D, I) {
@@ -1793,12 +1802,12 @@ else if(filter == "search" ){
 //     })
 // }else if(searchFilter.category == "people"){
   d3.selectAll(".link").style("display", function(d) {
-    if(d.children[0].dateStart >= firstItem && d.children[d.children.length-1].dateStart <= lastItem &&
+    if((d.children.filter(function(D){return D.dateStart >= firstItem && D.dateStart <= lastItem}).length >0) &&
       (d.source.name == searchFilter.name || d.target.name == searchFilter.name)){return "block"}else{return "none"}})
 
   // ///get nodes with edges
   d3.selectAll(".link").filter(function(d) {
-      return d.children[0].dateStart >= firstItem && d.children[d.children.length-1].dateStart <= lastItem
+      return (d.children.filter(function(D){return D.dateStart >= firstItem && D.dateStart <= lastItem}).length >0)
       && (d.source.name == searchFilter.name || d.target.name == searchFilter.name)
     })
     .each(function(D, I) {
@@ -1855,7 +1864,7 @@ simulation
 simulation
   .force("link")
   .links(links.filter(function(d) {
-    return d.children[0].dateStart >= firstItem && d.children[d.children.length-1].dateStart <= lastItem
+    return (d.children.filter(function(D){return D.dateStart >= firstItem && D.dateStart <= lastItem}).length >0)
   }))
 simulation.alpha(1).restart();
 }///end search filter
@@ -1918,7 +1927,7 @@ simulation.alpha(1).restart();
           })._groups[0][visibleItemCount - 1].__data__.vstart)
 
         d3.selectAll(".link").style("display", function(d) {
-          if (d.children[0].dateStart >= firstItem && d.children[d.children.length-1].dateStart <= lastItem) {
+          if ((d.children.filter(function(D){return D.dateStart >= firstItem && D.dateStart <= lastItem}).length >0)) {
             return "block"
           } else {
             return "none"
@@ -1929,7 +1938,7 @@ simulation.alpha(1).restart();
         let connectedNodes = []
 
         d3.selectAll(".link").filter(function(d) {
-            return d.children[0].dateStart >= firstItem && d.children[d.children.length-1].dateStart <= lastItem
+            return (d.children.filter(function(D){return D.dateStart >= firstItem && D.dateStart <= lastItem}).length >0)
           })
           .each(function(D, I) {
             if (connectedNodes.filter(function(x) {
