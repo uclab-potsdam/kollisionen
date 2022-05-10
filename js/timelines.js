@@ -160,63 +160,6 @@ d.vdateStart = +startParse(d.vstart  + " 00:01AM");
 d.vdateEnd = +endParse(d.vend + " 23:59AM")
   });
 
-//keywordsCount = distinct strings seperated by ';' in d.people, d.places, d.works, d.artistic, and d.additional and ignore empty strings and make the column header 'keywords'
-
-var keywordsCount = [];
-
-    keywordsData.forEach(function(d,i){
-        var keywords = d.people.split(";");
-        keywords.forEach(function(d,i){
-            if (keywordsCount.indexOf(d) == -1 && d != "") keywordsCount.push(d);
-        });
-        var keywords = d.places.split(";");
-        keywords.forEach(function(d,i){
-            if (keywordsCount.indexOf(d) == -1 && d != "") keywordsCount.push(d);
-        });
-        var keywords = d.works.split(";");
-        keywords.forEach(function(d,i){
-            if (keywordsCount.indexOf(d) == -1 && d != "") keywordsCount.push(d);
-        });
-        var keywords = d.artistic.split(";");
-        keywords.forEach(function(d,i){
-            if (keywordsCount.indexOf(d) == -1 && d != "") keywordsCount.push(d);
-        });
-        var keywords = d.additional.split(";");
-        keywords.forEach(function(d,i){
-            if (keywordsCount.indexOf(d) == -1 && d != "") keywordsCount.push(d);
-        });
-
-    });
-
-    console.log(keywordsCount);
-
-    var keywordsCount1 = [];
-
-    keywordsData.forEach(function(d,i){
-        var keywords = d.people.split(";");
-        keywords.forEach(function(d,i){
-            if (keywordsCount1.indexOf(d) == -1 && d != "") keywordsCount1.push(d);
-        });
-        var keywords = d.places.split(";");
-        keywords.forEach(function(d,i){
-            if (keywordsCount1.indexOf(d) == -1 && d != "") keywordsCount1.push(d);
-        });
-        var keywords = d.works.split(";");
-        keywords.forEach(function(d,i){
-            if (keywordsCount1.indexOf(d) == -1 && d != "") keywordsCount1.push(d);
-        });
-        var keywords = d.artistic.split(";");
-        keywords.forEach(function(d,i){
-            if (keywordsCount1.indexOf(d) == -1 && d != "") keywordsCount1.push(d);
-        });
-        var keywords = d.additional.split(";");
-        keywords.forEach(function(d,i){
-            if (keywordsCount1.indexOf(d) == -1 && d != "") keywordsCount1.push(d);
-        });
-
-    });
-
-    console.log(keywordsCount1);
 
 //arrays for keyword categories
 
@@ -442,7 +385,7 @@ var keywordsCount = [];
 
     var keywordsPeople = [];
 
-    for (let i = 0; i < keywordsPeople.length; i++) {
+    for (let i = 0; i < peopleStep5.length; i++) {
 
       keywordsPeople[i] = {};
       keywordsPeople[i]["keyword"] = peopleStep5[i]["keyword"];
@@ -468,35 +411,117 @@ console.log(keywordsPeople);
 
 //array for works
 
-    var keywordsWorks = [];
+    var worksStep1 = [];
 
     keywordsData.forEach(function(d,i){
+
         var keywords = d.works.split(";");
-        keywords.forEach(function(d,i){
-            if (keywordsWorks.indexOf(d) == -1 && d != "") keywordsWorks.push(d);
+        keywords.forEach(function(D,i){
+            if (D != "") {
+
+                var keyword = {};
+                keyword["keyword"] = D;  //keyword
+                keyword["date"] = d.vstart; //date of appearances
+
+                worksStep1.push(keyword);
+            }
         });
     });
 
-    console.log(keywordsWorks);
+    console.log(worksStep1);
 
-    var keywordsW = [];
+    //remove repeated keywords
 
-    for (let i = 0; i < keywordsWorks.length; i++) {
+    var worksStep2 = [];
 
-      keywordsW[i] = {};
-      keywordsW[i]["keyword"] = keywordsWorks[i];
-      keywordsW[i]["category"] = "Works";
-      keywordsW[i]["count"] = 0;
-      keywordsW[i]["date"] = "";
+    for (let i = 0; i < worksStep1.length; i++) {
+
+        if (worksStep2.indexOf(worksStep1[i]["keyword"]) == -1) {
+          worksStep2.push(worksStep1[i]["keyword"]);
+        }
+    }
+
+    console.log(worksStep2);
+
+    //create array of dates for each keyword
+
+    var worksStep3 = [];
+
+    for (let i = 0; i < worksStep2.length; i++) {
+
+        var keyword = {};
+        keyword["keyword"] = worksStep2[i];
+        keyword["dates"] = [];
+
+        for (let j = 0; j < worksStep1.length; j++) { 
+            if (worksStep1[j]["keyword"] == worksStep2[i]) {
+                keyword["dates"].push(worksStep1[j]["date"]);
+            }
+        }
+
+        worksStep3.push(keyword);
+
+    }
+
+    console.log(worksStep3);
+
+    //create list of dates for keywords separated by ';' not as an array
+
+    var worksStep4 = [];
+
+    for (let i = 0; i < worksStep3.length; i++) {
+
+        var keyword = {};
+        keyword["keyword"] = worksStep3[i]["keyword"];
+        keyword["dates"] = "";
+
+        for (let j = 0; j < worksStep3[i]["dates"].length; j++) {
+            if (j == 0) {
+                keyword["dates"] = worksStep3[i]["dates"][j];
+            } else {
+                keyword["dates"] = keyword["dates"] + "; " + worksStep3[i]["dates"][j];
+            }
+        }
+
+        worksStep4.push(keyword);
+
+    }
+
+    console.log(worksStep4);
+
+    //keep first date of each keyword and remove the rest
+
+    var worksStep5 = [];
+
+    for (let i = 0; i < worksStep4.length; i++) {
+
+        var keyword = {};
+        keyword["keyword"] = worksStep4[i]["keyword"];
+        keyword["date"] = worksStep4[i]["dates"].split(";")[0];
+
+        worksStep5.push(keyword);
+
+    }
+
+    console.log(worksStep5);
+
+    var keywordsWorks = [];
+
+    for (let i = 0; i < worksStep5.length; i++) {
+
+      keywordsWorks[i] = {};
+      keywordsWorks[i]["keyword"] = worksStep5[i]["keyword"];
+      keywordsWorks[i]["category"] = "Works";
+      keywordsWorks[i]["count"] = 0;
+      keywordsWorks[i]["date"] = worksStep5[i]["date"];
     };
 
     keywordsData.forEach(function(d,i){
       var keywords = d.works.split(";");
       keywords.forEach(function(d,i){
-          for (let j = 0; j < keywordsW.length; j++) {
-            if (keywordsW[j]["keyword"] == d) {
-              keywordsW[j]["count"] += 1;
-              if (keywordsW[j]["date"] == "") keywordsW[j]["date"] = keywordsData[i].vstart;
+          for (let j = 0; j < keywordsWorks.length; j++) {
+            if (keywordsWorks[j]["keyword"] == d) {
+              keywordsWorks[j]["count"] += 1;
             }
           }
       }
@@ -504,190 +529,269 @@ console.log(keywordsPeople);
     }
     );
 
-    console.log(keywordsW);
+    console.log(keywordsWorks);
 
     //array for artistic
 
-    var keywordsArtistic = [];
+    var artisticStep1 = [];
 
     keywordsData.forEach(function(d,i){
 
         var keywords = d.artistic.split(";");
-        keywords.forEach(function(d,i){
+        keywords.forEach(function(D,i){
+            if (D != "") {
 
-            if (keywordsArtistic.indexOf(d) == -1 && d != "") keywordsArtistic.push(d);
+                var keyword = {};
+                keyword["keyword"] = D;  //keyword
+                keyword["date"] = d.vstart; //date of appearances
+
+                artisticStep1.push(keyword);
+            }
         });
+
     });
 
-    console.log(keywordsArtistic);
+    console.log(artisticStep1);
 
-    var keywordsA = [];
+    //remove repeated keywords
 
-    for (let i = 0; i < keywordsArtistic.length; i++) {
+    var artisticStep2 = [];
 
-      keywordsA[i] = {};
-      keywordsA[i]["keyword"] = keywordsArtistic[i];
-      keywordsA[i]["category"] = "Artistic";
-      keywordsA[i]["count"] = 0;
-      keywordsA[i]["date"] = "";
+    for (let i = 0; i < artisticStep1.length; i++) {
+
+        if (artisticStep2.indexOf(artisticStep1[i]["keyword"]) == -1) {
+          artisticStep2.push(artisticStep1[i]["keyword"]);
+        }
+    }
+
+    console.log(artisticStep2);
+
+    //create array of dates for each keyword
+
+    var artisticStep3 = [];
+
+    for (let i = 0; i < artisticStep2.length; i++) {
+
+        var keyword = {};
+        keyword["keyword"] = artisticStep2[i];
+        keyword["dates"] = [];
+
+        for (let j = 0; j < artisticStep1.length; j++) {
+            if (artisticStep1[j]["keyword"] == artisticStep2[i]) {
+                keyword["dates"].push(artisticStep1[j]["date"]);
+
+            }
+
+        }
+
+        artisticStep3.push(keyword);
+
+    }
+
+    console.log(artisticStep3);
+
+    //create list of dates for keywords separated by ';' not as an array
+
+    var artisticStep4 = [];
+
+    for (let i = 0; i < artisticStep3.length; i++) {
+
+        var keyword = {};
+        keyword["keyword"] = artisticStep3[i]["keyword"];
+        keyword["dates"] = "";
+
+        for (let j = 0; j < artisticStep3[i]["dates"].length; j++) {
+            if (j == 0) {
+                keyword["dates"] = artisticStep3[i]["dates"][j];
+            } else {
+
+                keyword["dates"] = keyword["dates"] + "; " + artisticStep3[i]["dates"][j];
+            }
+        }
+
+        artisticStep4.push(keyword);
+
+    }
+
+    console.log(artisticStep4);
+
+    //keep first date of each keyword and remove the rest
+
+    var artisticStep5 = [];
+
+    for (let i = 0; i < artisticStep4.length; i++) {
+
+        var keyword = {};
+        keyword["keyword"] = artisticStep4[i]["keyword"];
+        keyword["date"] = artisticStep4[i]["dates"].split(";")[0];
+
+        artisticStep5.push(keyword);
+
+    }
+
+    console.log(artisticStep5);
+
+    var keywordsArtistic = [];
+
+    for (let i = 0; i < artisticStep5.length; i++) {
+
+      keywordsArtistic[i] = {};
+      keywordsArtistic[i]["keyword"] = artisticStep5[i]["keyword"];
+      keywordsArtistic[i]["category"] = "Artistic";
+      keywordsArtistic[i]["count"] = 0;
+      keywordsArtistic[i]["date"] = artisticStep5[i]["date"];
     };
 
     keywordsData.forEach(function(d,i){
       var keywords = d.artistic.split(";");
       keywords.forEach(function(d,i){
-          for (let j = 0; j < keywordsA.length; j++) {
-            if (keywordsA[j]["keyword"] == d) {
-              keywordsA[j]["count"] += 1;
-              // get the date of the first occurrence of the keyword from keywordsData[i].vstart
-
-              if (keywordsA[j]["date"] == "") keywordsA[j]["date"] = keywordsData[i].vstart;
+          for (let j = 0; j < keywordsArtistic.length; j++) {
+            if (keywordsArtistic[j]["keyword"] == d) {
+              keywordsArtistic[j]["count"] += 1;
             }
           }
       }
       );
     }
+
     );
 
-    console.log(keywordsA);
+    console.log(keywordsArtistic);
 
     //array for additional
 
-    var keywordsAdditional = [];
+    var additionalStep1 = [];
 
     keywordsData.forEach(function(d,i){
 
         var keywords = d.additional.split(";");
-        keywords.forEach(function(d,i){
+        keywords.forEach(function(D,i){
+            if (D != "") {
 
-            if (keywordsAdditional.indexOf(d) == -1 && d != "") keywordsAdditional.push(d);
+                var keyword = {};
+                keyword["keyword"] = D;  //keyword
+                keyword["date"] = d.vstart; //date of appearances
+
+                additionalStep1.push(keyword);
+            }
         });
+
     });
 
-    console.log(keywordsAdditional);
+    console.log(additionalStep1);
 
-    var keywordsAd = [];
+    //remove repeated keywords
 
-    for (let i = 0; i < keywordsAdditional.length; i++) {
+    var additionalStep2 = [];
 
-      keywordsAd[i] = {};
-      keywordsAd[i]["keyword"] = keywordsAdditional[i];
-      keywordsAd[i]["category"] = "Additional";
-      keywordsAd[i]["count"] = 0;
-      keywordsAd[i]["date"] = "";
+    for (let i = 0; i < additionalStep1.length; i++) {
+
+        if (additionalStep2.indexOf(additionalStep1[i]["keyword"]) == -1) {
+          additionalStep2.push(additionalStep1[i]["keyword"]);
+        }
+    }
+
+    console.log(additionalStep2);
+
+    //create array of dates for each keyword
+
+    var additionalStep3 = [];
+
+    for (let i = 0; i < additionalStep2.length; i++) {
+
+        var keyword = {};
+        keyword["keyword"] = additionalStep2[i];
+        keyword["dates"] = [];
+
+        for (let j = 0; j < additionalStep1.length; j++) {
+            if (additionalStep1[j]["keyword"] == additionalStep2[i]) {
+                keyword["dates"].push(additionalStep1[j]["date"]);
+
+            }
+
+        }
+
+        additionalStep3.push(keyword);
+
+    }
+
+    console.log(additionalStep3);
+
+    //create list of dates for keywords separated by ';' not as an array
+
+    var additionalStep4 = [];
+
+    for (let i = 0; i < additionalStep3.length; i++) {
+
+        var keyword = {};
+        keyword["keyword"] = additionalStep3[i]["keyword"];
+        keyword["dates"] = "";
+
+        for (let j = 0; j < additionalStep3[i]["dates"].length; j++) {  
+            if (j == 0) {
+                keyword["dates"] = additionalStep3[i]["dates"][j];
+            } else {
+                keyword["dates"] = keyword["dates"] + "; " + additionalStep3[i]["dates"][j];
+            }
+        }
+
+        additionalStep4.push(keyword);
+
+    }
+
+    console.log(additionalStep4);
+
+    //keep first date of each keyword and remove the rest
+
+    var additionalStep5 = [];
+
+    for (let i = 0; i < additionalStep4.length; i++) {
+
+        var keyword = {};
+
+        keyword["keyword"] = additionalStep4[i]["keyword"];
+        keyword["date"] = additionalStep4[i]["dates"].split(";")[0];
+
+        additionalStep5.push(keyword);
+
+    }
+
+    console.log(additionalStep5);
+
+    var keywordsAdditional = [];
+
+    for (let i = 0; i < additionalStep5.length; i++) {
+
+      keywordsAdditional[i] = {};
+      keywordsAdditional[i]["keyword"] = additionalStep5[i]["keyword"];
+      keywordsAdditional[i]["category"] = "Additional";
+      keywordsAdditional[i]["count"] = 0;
+      keywordsAdditional[i]["date"] = additionalStep5[i]["date"];
     };
 
     keywordsData.forEach(function(d,i){
       var keywords = d.additional.split(";");
       keywords.forEach(function(d,i){
-          for (let j = 0; j < keywordsAd.length; j++) {
-            if (keywordsAd[j]["keyword"] == d) {
-              keywordsAd[j]["count"] += 1;
-              if (keywordsAd[j]["date"] == "") keywordsAd[j]["date"] = keywordsData[i].vstart;
+          for (let j = 0; j < keywordsAdditional.length; j++) {
+            if (keywordsAdditional[j]["keyword"] == d) {
+              keywordsAdditional[j]["count"] += 1;
             }
           }
       }
       );
     }
+
     );
 
-    console.log(keywordsAd);
-
+    console.log(keywordsAdditional);
+    
     //combine keywordsPeople, keywordsPlaces, keywordsWorks, keywordsArtistic, and keywordsAdditional into one array
 
-var keywords = keywordsP.concat(keywordsPl, keywordsW, keywordsA, keywordsAd);
-
-    console.log(keywords);
-
-
-    var keywordsAll = keywordsPeople.concat(keywordsPlaces, keywordsWorks, keywordsArtistic, keywordsAdditional);
+    var keywordsAll = keywordsPeople.concat(keywordsPlace, keywordsWorks, keywordsArtistic, keywordsAdditional);
 
 console.log(keywordsAll);
 
-
-//Array of keywords and keyword category
-
-    var keywordsArray = [];
-
-    for (let i = 0; i < keywordsAll.length; i++) {
-
-      keywordsArray[i] = {};
-      keywordsArray[i]["keyword"] = keywordsAll[i];
-      keywordsArray[i]["category"] = "";
-    };
-
-    console.log(keywordsArray);
-
-    for (let i = 0; i < keywordsArray.length; i++) {
-
-      for (let j = 0; j < keywordsData.length; j++) {
-
-        if (keywordsData[j]["places"].includes(keywordsArray[i]["keyword"])) keywordsArray[i]["category"] = "Places";
-        if (keywordsData[j]["people"].includes(keywordsArray[i]["keyword"])) keywordsArray[i]["category"] = "People";
-        if (keywordsData[j]["works"].includes(keywordsArray[i]["keyword"])) keywordsArray[i]["category"] = "Works";
-        if (keywordsData[j]["artistic"].includes(keywordsArray[i]["keyword"])) keywordsArray[i]["category"] = "Artistic";
-        if (keywordsData[j]["additional"].includes(keywordsArray[i]["keyword"])) keywordsArray[i]["category"] = "Additional";
-      };
-
-    };
-
-    console.log(keywordsArray);
-
-
-    var keywordsCountFiltered = [];
-
-    for (let i = 0; i < keywordsCount.length; i++) {
-      var count = 0;
-      for (let j = 0; j < keywordsData.length; j++) {
-        if (keywordsData[j]["people"].includes(keywordsCount[i]) ||
-        keywordsData[j]["places"].includes(keywordsCount[i]) ||
-        keywordsData[j]["works"].includes(keywordsCount[i]) ||
-        keywordsData[j]["artistic"].includes(keywordsCount[i]) ||
-        keywordsData[j]["additional"].includes(keywordsCount[i])) count++;
-      }
-      // if (count > 1)
-      keywordsCountFiltered.push(keywordsCount[i]);
-    };
-
-    console.log(keywordsCountFiltered);
-
-    //create array of objects with keyword and count
-
-    var keywordsCountFilteredObjects = [];
-
-    for (let i = 0; i < keywordsCountFiltered.length; i++) {
-      var count = 0;
-      for (let j = 0; j < keywordsData.length; j++) {
-        if (keywordsData[j]["people"].includes(keywordsCountFiltered[i]) ||
-        keywordsData[j]["places"].includes(keywordsCountFiltered[i]) ||
-        keywordsData[j]["works"].includes(keywordsCountFiltered[i]) ||
-        keywordsData[j]["artistic"].includes(keywordsCountFiltered[i]) ||
-        keywordsData[j]["additional"].includes(keywordsCountFiltered[i])) count++;
-      }
-
-      keywordsCountFilteredObjects.push({"keyword":keywordsCountFiltered[i],"count":count});
-    };
-
-    console.log(keywordsCountFilteredObjects);
-
-
-// sort keywordsCountFilteredObjects by count
-
-    keywordsCountFilteredObjects.sort(function(a, b) {
-      return b.count - a.count;
-    });
-
-    console.log(keywordsCountFilteredObjects);
-
-
-// sort keywordsCountFiltered by the count from the sorted keywordsCountFilteredObjects
-
-    var keywordsCountFilteredSorted = [];
-
-    for (let i = 0; i < keywordsCountFilteredObjects.length; i++) {
-      keywordsCountFilteredSorted.push(keywordsCountFilteredObjects[i]["keyword"]);
-    };
-
-    console.log(keywordsCountFilteredSorted);
+//spiritual family data
 
     Promise.all([
       d3.csv(itemsUrl), //data
@@ -723,9 +827,9 @@ console.log(keywordsAll);
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
         .append("g");
 
-    var yScale = d3.scaleLinear()
-    .domain([0, keywordsCountFiltered.length])  //number of distinct keywords
-    .range([0, height]);    //height of timeline
+    // var yScale = d3.scaleLinear()
+    // .domain([0, keywordsCountFiltered.length])  //number of distinct keywords
+    // .range([0, height]);    //height of timeline
 
 //
 
@@ -839,19 +943,25 @@ function stringSplit(data, keywordSplitter) {
   let timelinesG = d3.select("#chart")
                   .select("svg")
                   .selectAll(".timelines")
-                  .data(keywordsAll)
+                  //sort data by date
+                  .data(keywordsAll.sort(function(a, b) {
+                    return d3.ascending(a.date, b.date);
+                  }))
+                  // .data(keywordsAll)
                   .join("g")
                   .classed("backgroundTimelineG", true)
   .classed("people", function (d) { if (keywordsPeople.filter(function(D){return D==d}).length>0){return true}else{return false}})
-  .classed("places", function (d) { if (keywordsPlaces.filter(function(D){return D==d}).length >0){return true}else{return false}})
+  .classed("places", function (d) { if (keywordsPlace.filter(function(D){return D==d}).length >0){return true}else{return false}})
   .classed("works", function (d) { if (keywordsWorks.filter(function(D){return D==d}).length >0){return true}else{return false}})
   .classed("artistic", function (d) { if (keywordsArtistic.filter(function(D){return D==d}).length >0){return true}else{return false}})
   .classed("additional", function (d) { if (keywordsAdditional.filter(function(D){return D==d}).length >0){return true}else{return false}})
 
+  //append text from "keyword" to the timeline
+
   timelinesG.append("text")
   .text(function(d){
-    if(d.length >= 20){return d.slice(0, 20) + "[…]"}
-    else{return d}})
+    if(d.length >= 20){return d.keyword.slice(0, 20) + "[…]"}
+    else{return d.keyword}})
   .attr("x", 320)
   .attr("y", function(d,i){return 10+i*20+3})
   .attr("font-size", "12px")
@@ -859,7 +969,7 @@ function stringSplit(data, keywordSplitter) {
   .style("text-anchor", "end")
   .classed("keyword", true)
   .classed("people", function (d) { if (keywordsPeople.filter(function(D){return D==d}).length >0){return true}else{return false}})
-  .classed("places", function (d) { if (keywordsPlaces.filter(function(D){return D==d}).length >0){return true}else{return false}})
+  .classed("places", function (d) { if (keywordsPlace.filter(function(D){return D==d}).length >0){return true}else{return false}})
   .classed("works", function (d) { if (keywordsWorks.filter(function(D){return D==d}).length >0){return true}else{return false}})
   .classed("artistic", function (d) { if (keywordsArtistic.filter(function(D){return D==d}).length >0){return true}else{return false}})
   .classed("additional", function (d) { if (keywordsAdditional.filter(function(D){return D==d}).length >0){return true}else{return false}})
@@ -921,6 +1031,8 @@ function stringSplit(data, keywordSplitter) {
 
   timelinesG.each(function(D,I){
     d3.select(this).selectAll(".timelineNodes").append("g")
+//bind data if keywordsData people, places, works, artistic, additional matches the keyword of the timeline
+    // .data(keywordsData.filter(function(d){return d.people==D.keyword}))
   //   .data(keywordsData.filter(function (d) {
   //     if(d.uncertaintystart === 0 && d.vend === ""){
   //  return (d.people.includes(D) || d.places.includes(D) || d.works.includes(D) || d.artistic.includes(D) ||d.additional.includes(D)) && d.vstart.includes("/") == false && d.vstart.includes(",") == false && d.vstart != "" //took out some data points that create errors for now
@@ -931,7 +1043,7 @@ function stringSplit(data, keywordSplitter) {
   //   }}))
     .data(keywordsData.filter(function (d) {
       if(d.uncertaintystart === 0 && d.vend === ""){
-        return ((d.placesSplit.filter(function(place){return D==place}).length >0) || (d.peopleSplit.filter(function(people){return D==people}).length >0) || (d.worksSplit.filter(function(work){return D==work}).length >0) || (d.artisticSplit.filter(function(artistic){return D==artistic}).length >0) || (d.additionalSplit.filter(function(additional){return D==additional}).length >0))
+        return ((d.placesSplit.filter(function(place){return D.keyword==place}).length >0) || (d.peopleSplit.filter(function(people){return D.keyword==people}).length >0) || (d.worksSplit.filter(function(work){return D.keyword==work}).length >0) || (d.artisticSplit.filter(function(artistic){return D.keyword==artistic}).length >0) || (d.additionalSplit.filter(function(additional){return D.keyword==additional}).length >0))
          && d.vstart.includes("/") == false && d.vstart.includes(",") == false && d.vstart != "" //took out some data points that create errors for now
     }}))
     .join("circle")
@@ -1084,7 +1196,7 @@ function stringSplit(data, keywordSplitter) {
     d3.select(this).selectAll(".timelineLines").append("g")
     .data(keywordsData.filter(function (d) {
       if (d.vend.includes("-")) {
-   return (d.people.includes(D) || d.places.includes(D) || d.works.includes(D) || d.artistic.includes(D) ||d.additional.includes(D)) && d.vstart.includes("/") == false && d.vstart.includes(",") == false && d.vstart != ""//took out some data points that create errors for now
+   return ((d.placesSplit.filter(function(place){return D.keyword==place}).length >0) || (d.peopleSplit.filter(function(people){return D.keyword==people}).length >0) || (d.worksSplit.filter(function(work){return D.keyword==work}).length >0) || (d.artisticSplit.filter(function(artistic){return D.keyword==artistic}).length >0) || (d.additionalSplit.filter(function(additional){return D.keyword==additional}).length >0)) && d.vstart.includes("/") == false && d.vstart.includes(",") == false && d.vstart != ""//took out some data points that create errors for now
 
     } }))
     .join("line")
@@ -1268,27 +1380,48 @@ var symbolPlaces = d3.symbol()
   var pathDataArtistic = symbolArtistic();
   var pathDataAdditional = symbolAdditional();
 
-  timelinesG.each(function(D,I){
-  d3.select(this).selectAll(".symbols").append("g")
-  .data(keywordsData.filter(function (d) {
-        return (d.placesSplit.filter(function(place){return D==place}).length >0) || (d.peopleSplit.filter(function(people){return D==people}).length >0) || (d.worksSplit.filter(function(work){return D==work}).length >0) || (d.artisticSplit.filter(function(artistic){return D==artistic}).length >0) || (d.additionalSplit.filter(function(additional){return D==additional}).length >0) && d.vstart.includes("/") == false && d.vstart.includes(",") == false && d.vstart != "" //took out some data points that create errors for now
-              }))
+//   timelinesG.each(function(D,I){
+//   d3.select(this).selectAll(".symbols").append("g")
+//   .data(keywordsAll)
+//   // .data(keywordsData.filter(function (d) {
+//   //       return (d.placesSplit.filter(function(place){return D.keyword==place}).length >0) || (d.peopleSplit.filter(function(people){return D.keyword==people}).length >0) || (d.worksSplit.filter(function(work){return D.keyword==work}).length >0) || (d.artisticSplit.filter(function(artistic){return D.keyword==artistic}).length >0) || (d.additionalSplit.filter(function(additional){return D.keyword==additional}).length >0) && d.vstart.includes("/") == false && d.vstart.includes(",") == false && d.vstart != "" //took out some data points that create errors for now
+//   //             }))
 
-.join("path")
-.attr("transform", function(d,i){
-return "translate(340," + (10+I*20) + ")"})
-.attr("d", function(d){
-        if( d.placesSplit.filter(function(place){return D==place}).length >0){
-          return pathDataPlaces
-        } else if( d.peopleSplit.filter(function(people){return D==people}).length >0){
-          return pathDataPeople
-        } else if( d.worksSplit.filter(function(work){return D==work}).length >0){
-          return pathDataWorks
-        } else if( d.artisticSplit.filter(function(artistic){return D==artistic}).length >0){
-          return pathDataArtistic
-        } else if( d.additionalSplit.filter(function(additional){return D==additional}).length >0){
-          return pathDataAdditional
-        }
+// .join("path")
+// .attr("transform", function(d,i){
+// return "translate(340," + (10+I*20) + ")"})
+// .attr("d", function(d){
+
+//   //if D.category is "places" then return pathDataPlaces
+
+//   if (d.category == "places"){
+//     return pathDataPlaces
+//   }
+//   else if (d.category == "people"){
+//     return pathDataPeople
+//   }
+//   else if (d.category == "works"){
+//     return pathDataWorks
+//   }
+//   else if (d.category == "artistic"){
+//     return pathDataArtistic
+//   }
+//   else if (d.category == "additional"){
+//     return pathDataAdditional
+  }
+
+
+        // if( d.placesSplit.filter(function(place){return D.category==place}).length >0){
+        //   return pathDataPlaces
+        // } else if( d.peopleSplit.filter(function(people){return D.category==people}).length >0){
+        //   return pathDataPeople
+        // } else if( d.worksSplit.filter(function(work){return D.category==work}).length >0){
+        //   return pathDataWorks
+        // } else if( d.artisticSplit.filter(function(artistic){return D.category==artistic}).length >0){
+        //   return pathDataArtistic
+        // } else if( d.additionalSplit.filter(function(additional){return D.category==additional}).length >0){
+        //   return pathDataAdditional
+        // }
          })
 .attr("fill", "black")
 .attr("stroke", "black")
