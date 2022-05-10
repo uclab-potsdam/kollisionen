@@ -1272,6 +1272,51 @@ Promise.all([
         ${conditionalReturn(d.category5, (category5) => `<p><span class="key-dot apartment"></span>Apartment<br></p>`)}
         `)
 
+        let connectedNodes = []
+
+        d3.selectAll(".link").style("display", function(D){
+          if(D.children.filter(function(child){return child.relation_source == d.title}).length>0)
+          {return "block"}else{return "none"}})
+          .filter(function(D){return D.children.filter(function(child){return child.relation_source == d.title}).length>0})
+          .each(function(D, I) {
+            if (connectedNodes.filter(function(x) {
+                return x == D.source.name
+              }).length == 0) {
+              connectedNodes.push(
+                D.source.name
+              )
+            }
+            if (connectedNodes.filter(function(x) {
+                return x == D.target.name
+              }).length == 0) {
+              connectedNodes.push(
+                D.target.name
+              )
+            }
+          })
+
+
+          d3.selectAll(".nodeSymbol")
+            .style("display", function(D, I) {
+              if (connectedNodes.filter(function(d) {
+                  return d == D.name
+                }).length > 0) {
+                return "block"
+              } else {
+                return "none"
+              }
+            })
+
+          d3.selectAll(".label,.labelbg")
+            .style("display", function(D, I) {
+              if (connectedNodes.filter(function(d) {
+                  return d == D.name
+                }).length > 0) {
+                return "block"
+              } else {
+                return "none"
+              }
+            })
 
 
       })
@@ -1289,7 +1334,7 @@ Promise.all([
 
 
     function itemSelection() {
-      console.log(filter)
+    //  console.log(filter)
 
       let firstItem = new Date(d3.select("#eventList").selectAll("li").filter(".filteredin")
         .filter(function(d) {
@@ -1313,7 +1358,6 @@ Promise.all([
       //start general filter
       if(filter == 0 ){
       d3.selectAll(".link").style("display", function(d) {
-        //      console.log(d)
         if (d.children[0].dateStart >= firstItem && d.children[d.children.length-1].dateStart <= lastItem) {
           return "block"
         } else {
@@ -1857,6 +1901,76 @@ simulation.alpha(1).restart();
         d3.selectAll(".circles,.pathGs").classed("selected", false).classed("notSelected", false)
 
         d3.select("#closedsidebar").style("display", "none")
+
+        let firstItem = new Date(d3.select("#eventList").selectAll("li").filter(".filteredin")
+          .filter(function(d) {
+            return d3.select(this).node().getBoundingClientRect().top >= 0 && d3.select(this).node().getBoundingClientRect().bottom <= (window.innerHeight || document.documentElement.clientHeight)
+          })._groups[0][0].__data__.vstart)
+
+        let visibleItemCount = d3.select("#eventList").selectAll("li").filter(".filteredin")
+          .filter(function(d) {
+            return d3.select(this).node().getBoundingClientRect().top >= 0 && d3.select(this).node().getBoundingClientRect().bottom <= (window.innerHeight || document.documentElement.clientHeight)
+          })._groups[0].length
+
+        let lastItem = new Date(d3.select("#eventList").selectAll("li").filter(".filteredin")
+          .filter(function(d) {
+            return d3.select(this).node().getBoundingClientRect().top >= 0 && d3.select(this).node().getBoundingClientRect().bottom <= (window.innerHeight || document.documentElement.clientHeight)
+          })._groups[0][visibleItemCount - 1].__data__.vstart)
+
+        d3.selectAll(".link").style("display", function(d) {
+          if (d.children[0].dateStart >= firstItem && d.children[d.children.length-1].dateStart <= lastItem) {
+            return "block"
+          } else {
+            return "none"
+          }
+        })
+
+        ///get nodes with edges
+        let connectedNodes = []
+
+        d3.selectAll(".link").filter(function(d) {
+            return d.children[0].dateStart >= firstItem && d.children[d.children.length-1].dateStart <= lastItem
+          })
+          .each(function(D, I) {
+            if (connectedNodes.filter(function(x) {
+                return x == D.source.name
+              }).length == 0) {
+              connectedNodes.push(
+                D.source.name
+              )
+            }
+            if (connectedNodes.filter(function(x) {
+                return x == D.target.name
+              }).length == 0) {
+              connectedNodes.push(
+                D.target.name
+              )
+            }
+          })
+
+        d3.selectAll(".nodeSymbol")
+          .style("display", function(D, I) {
+            if (connectedNodes.filter(function(d) {
+                return d == D.name
+              }).length > 0) {
+              return "block"
+            } else {
+              return "none"
+            }
+          })
+
+        d3.selectAll(".label,.labelbg")
+          .style("display", function(D, I) {
+            if (connectedNodes.filter(function(d) {
+                return d == D.name
+              }).length > 0) {
+              return "block"
+            } else {
+              return "none"
+            }
+          })
+
+
 
       });
 
