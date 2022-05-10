@@ -50,7 +50,10 @@ tour.addStep({
       }
     ],
     id: 'creating'
-  });
+
+  }
+}
+);
 
   tour.addStep({
     title: 'Categories',

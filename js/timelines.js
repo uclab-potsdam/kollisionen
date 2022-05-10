@@ -220,7 +220,7 @@ var keywordsCount = [];
 
 //arrays for keyword categories
 
-//array of individual keywords for places and the dates from vstart
+//array of keywords for places and the dates from vstart
 
     var keywordsData1 = [];
 
@@ -241,20 +241,22 @@ var keywordsCount = [];
 
     console.log(keywordsData1);
 
-
-//array for places
+  //use splice() to remove duplicate keywords but stop removing the fucking context
+  //keep the "date" and "keyword" columns
 
 var keywordsPlaces = [];
 
-    keywordsData.forEach(function(d,i){
+    keywordsData.forEach(function(d){
         var keywords = d.places.split(";");
-        keywords.forEach(function(d,i){
+        keywords.forEach(function(d){
             if (keywordsPlaces.indexOf(d) == -1 && d != "") keywordsPlaces.push(d);
         });
     });
 
 
     console.log(keywordsPlaces);
+
+// add column headers for places array
 
     var keywordsPl = [];
 
