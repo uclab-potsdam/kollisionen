@@ -36,7 +36,7 @@ tour.addStep({
   text: `Spiritual family are examples of objects that inspired Eisenstein’s cinematic and theoretical work. 
   Selecting any of these objects highlight all related events in the view. 
   These examples of spiritual family can also be experienced in the VR and 3D environment.`,
-  attachTo: {
+
     attachTo: {
       element: '.highlights',
       on: 'left'
@@ -51,9 +51,9 @@ tour.addStep({
     ],
     id: 'creating'
 
-  }
-}
-);
+  });
+
+
 
   tour.addStep({
     title: 'Categories',
