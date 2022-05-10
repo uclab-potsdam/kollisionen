@@ -1380,35 +1380,35 @@ var symbolPlaces = d3.symbol()
   var pathDataArtistic = symbolArtistic();
   var pathDataAdditional = symbolAdditional();
 
-//   timelinesG.each(function(D,I){
-//   d3.select(this).selectAll(".symbols").append("g")
-//   .data(keywordsAll)
-//   // .data(keywordsData.filter(function (d) {
-//   //       return (d.placesSplit.filter(function(place){return D.keyword==place}).length >0) || (d.peopleSplit.filter(function(people){return D.keyword==people}).length >0) || (d.worksSplit.filter(function(work){return D.keyword==work}).length >0) || (d.artisticSplit.filter(function(artistic){return D.keyword==artistic}).length >0) || (d.additionalSplit.filter(function(additional){return D.keyword==additional}).length >0) && d.vstart.includes("/") == false && d.vstart.includes(",") == false && d.vstart != "" //took out some data points that create errors for now
-//   //             }))
+  timelinesG.each(function(D,I){
+  d3.select(this).selectAll(".symbols").append("g")
+  .data(keywordsAll)
+  // .data(keywordsData.filter(function (d) {
+  //       return (d.placesSplit.filter(function(place){return D.keyword==place}).length >0) || (d.peopleSplit.filter(function(people){return D.keyword==people}).length >0) || (d.worksSplit.filter(function(work){return D.keyword==work}).length >0) || (d.artisticSplit.filter(function(artistic){return D.keyword==artistic}).length >0) || (d.additionalSplit.filter(function(additional){return D.keyword==additional}).length >0) && d.vstart.includes("/") == false && d.vstart.includes(",") == false && d.vstart != "" //took out some data points that create errors for now
+  //             }))
 
-// .join("path")
-// .attr("transform", function(d,i){
-// return "translate(340," + (10+I*20) + ")"})
-// .attr("d", function(d){
+.join("path")
+.attr("transform", function(d,i){
+return "translate(340," + (10+I*20) + ")"})
+.attr("d", function(d){
 
-//   //if D.category is "places" then return pathDataPlaces
+  //if D.category is "places" then return pathDataPlaces
 
-//   if (d.category == "places"){
-//     return pathDataPlaces
-//   }
-//   else if (d.category == "people"){
-//     return pathDataPeople
-//   }
-//   else if (d.category == "works"){
-//     return pathDataWorks
-//   }
-//   else if (d.category == "artistic"){
-//     return pathDataArtistic
-//   }
-//   else if (d.category == "additional"){
-//     return pathDataAdditional
-  }
+  // if (d.category == "places"){
+  //   return pathDataPlaces
+  // }
+  // else if (d.category == "people"){
+  //   return pathDataPeople
+  // }
+  // else if (d.category == "works"){
+  //   return pathDataWorks
+  // }
+  // else if (d.category == "artistic"){
+  //   return pathDataArtistic
+  // }
+  // else if (d.category == "additional"){
+  //   return pathDataAdditional
+  // }
 
 
         // if( d.placesSplit.filter(function(place){return D.category==place}).length >0){
