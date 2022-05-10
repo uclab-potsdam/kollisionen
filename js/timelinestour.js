@@ -32,10 +32,11 @@ tour.addStep({
 });
   
 tour.addStep({
-    title: 'Highlights',
-    text: `Highlights are the objects linked to selected themes of Eisenstein’s life. 
-    Selecting objects highlights all events and categories that fall under these theme. 
-    The highlights can also be experienced in the VR and 3D environment.`,
+  title: 'Spiritual Family',
+  text: `Spiritual family are examples of objects that inspired Eisenstein’s cinematic and theoretical work. 
+  Selecting any of these objects highlight all related events in the view. 
+  These examples of spiritual family can also be experienced in the VR and 3D environment.`,
+  attachTo: {
     attachTo: {
       element: '.highlights',
       on: 'left'
@@ -83,9 +84,9 @@ tour.addStep({
 
   tour.addStep({
     title: 'Entities',
-    text: `Events can feature people, places, works, concepts, and additional entities. 
-    The entities and entity types can be used to ease exploration of Eisenstein’s life and legacy. 
-    Selecting an entity type highlights the related data points in the visualization. Events can also be searched by entity.`,
+    text: `The events are also categorised based on the entities they encompass. 
+    Entities such as feature people, places, works, concepts, and miscellaneous could be featured in events.
+    Selecting an entity type highlights the related data points in the visualization.`,
     attachTo: {
       element: '.entities',
       on: 'left'
@@ -110,7 +111,8 @@ tour.addStep({
 
   tour.addStep({
     title: 'Sound',
-    text: `There is sound attached to each of the event which can be turned on and off using the trigger`,
+    text: `Sound is mapped to each of the three event categories. Clicking on the sound button will play combined sound of all categories, and
+    upon selecting a category, sound connected to the selected category is triggered.`,
     attachTo: {
       element: '#legend1',
       on: 'left'
