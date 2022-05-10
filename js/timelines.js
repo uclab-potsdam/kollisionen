@@ -220,7 +220,7 @@ var keywordsCount = [];
 
 //arrays for keyword categories
 
-//create 1 combined array of individual keywords for places with 'places' column and ALSO collect the date from vstart for each appearance of this keyword
+//array of individual keywords for places and the dates from vstart
 
     var keywordsData1 = [];
 
@@ -232,7 +232,7 @@ var keywordsCount = [];
 
                 var keyword = {};
                 keyword["keyword"] = D;  //keyword
-                keyword["date"] = d.vstart; //date of appearance
+                keyword["date"] = d.vstart; //date of appearances
 
                 keywordsData1.push(keyword);
             }
@@ -240,6 +240,7 @@ var keywordsCount = [];
     });
 
     console.log(keywordsData1);
+
 
 //array for places
 
