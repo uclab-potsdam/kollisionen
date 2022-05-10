@@ -31,11 +31,11 @@ let firstYearforLabel = 1898 //we should take this from the data with d3.min()
 let lastYearforLabel = 1949 //we should take this from the data with d3.max()
 
 ///audio
-const audio1 = new Audio("sounds/sound1.mp3")
-const audio2 = new Audio("sounds/sound2.mp3")
-const audio3 = new Audio("sounds/sound3.mp3")
-const audio4 = new Audio("sounds/sound4.mp3")
-const audio5 = new Audio("sounds/sound5.mp3")
+// const audio1 = new Audio("sounds/sound1.mp3")
+// const audio2 = new Audio("sounds/sound2.mp3")
+// const audio3 = new Audio("sounds/sound3.mp3")
+// const audio4 = new Audio("sounds/sound4.mp3")
+// const audio5 = new Audio("sounds/sound5.mp3")
 
 
 function playAudio(file) {

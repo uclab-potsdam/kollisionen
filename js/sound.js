@@ -2,7 +2,7 @@ let twGain = new Tone.Gain(1.5).toDestination();
 let typewriter = new Tone.Channel(1).toDestination();
 //typewriter.mute = true;
 let twplayer = new Tone.Player({
-    url: "sounds/typewriter.wav",
+    url: "sounds/typewriter.m4a",
     loop: true,
   }).sync().start(0);
 
@@ -13,7 +13,7 @@ let twplayer = new Tone.Player({
   let projector = new Tone.Channel(1).toDestination();
 //typewriter.mute = true;
 let projplayer = new Tone.Player({
-    url: "sounds/projektor.wav",
+    url: "sounds/projektor.m4a",
     loop: true,
   }).sync().start(0);
 
@@ -25,7 +25,7 @@ let projplayer = new Tone.Player({
  // thermelody.gain = 0.1;
   //typewriter.mute = true;
   let therplayer = new Tone.Player({
-      url: "sounds/Theremin_Begleitung_Theremin_2-5.wav",
+      url: "sounds/Theremin_Begleitung_Theremin_2-5.m4a",
       loop: true,
     }).sync().start(0);
     
