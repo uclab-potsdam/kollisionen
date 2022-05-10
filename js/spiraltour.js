@@ -32,10 +32,10 @@ const tour = new Shepherd.Tour({
   });
   
 tour.addStep({
-  title: 'Highlights',
-  text: `Highlights are the objects linked to selected themes of Eisenstein’s life. 
-  Selecting objects highlights all events and categories that fall under these theme. 
-  The highlights can also be experienced in the VR and 3D environment.`,
+  title: 'Spiritual Family',
+  text: `Spiritual family are examples of objects that inspired Eisenstein’s cinematic and theoretical work. 
+  Selecting any of these objects highlight all related events in the view. 
+  These examples of spiritual family can also be experienced in the VR and 3D environment.`,
   attachTo: {
     element: '.highlights',
     on: 'left'
@@ -88,7 +88,8 @@ tour.addStep({
 
 tour.addStep({
   title: 'Sound',
-  text: `Sound is mapped to each of the event which can be turned on and off using this trigger.`,
+  text: `Sound is mapped to each of the three event categories. Clicking on the sound button will play combined sound of all categories, and
+  upon selecting a category, sound connected to the selected category is triggered.`,
   attachTo: {
     element: '.switch',
     on: 'left-end'

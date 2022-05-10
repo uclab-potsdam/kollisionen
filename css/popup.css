@@ -102,11 +102,13 @@
 .shepherd-content{
     border-radius:5px;
     outline:none;
-    padding:0
+    backdrop-filter: blur(8px);
+    padding:0;
+    background-color: rgba(255, 255, 255, 0.5);
 }
 
 .shepherd-element{
-    background:#fff;
+    /* background:#fff; */
     border-radius:5px;
     box-shadow:0 1px 4px rgba(0,0,0,.2);
     max-width:400px;
@@ -115,7 +117,8 @@
     transition:opacity .3s,visibility .3s;
     visibility:hidden;
     width:100%;
-    z-index:9999}
+    z-index:9999
+}
     
 .shepherd-enabled.shepherd-element{
     opacity:1;
@@ -141,7 +144,8 @@
 
 .shepherd-arrow:before{
     content:"";transform:rotate(45deg);
-    background:#fff;
+    backdrop-filter: blur(8px);
+    background-color: rgba(255, 255, 255, 0.5);
 }
 
 .shepherd-element[data-popper-placement^=top]>.shepherd-arrow{
