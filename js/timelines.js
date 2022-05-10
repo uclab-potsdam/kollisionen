@@ -253,13 +253,25 @@ var keywordsCount = [];
           for (let j = 0; j < keywordsPl.length; j++) {
             if (keywordsPl[j]["keyword"] == d) {
               keywordsPl[j]["count"] += 1;
-              if (keywordsPl[j]["date"] == "") keywordsPl[j]["date"] = keywordsData[i].vstart;
+//get all of the dates from vstart for each of the keywords in the places category
+              if (keywordsPl[j]["date"] == "") 
+                            if (keywordsPl[j]["date"] == "") keywordsPl[j]["date"] = keywordsData[i].vstart;
+              // {
+              //   keywordsPl[j]["date"] = d3.timeFormat("%Y-%m-%d")(d3.timeParse("%Y-%m-%d")(d.vstart));
+              // } else {
+              //   keywordsPl[j]["date"] = keywordsPl[j]["date"] + ";" + d3.timeFormat("%Y-%m-%d")(d3.timeParse("%Y-%m-%d")(d.vstart));
+              // }
+
             }
           }
       }
       );
+
     }
     );
+
+
+
 
    console.log(keywordsPl);
 
@@ -426,6 +438,10 @@ console.log(keywordsP);
     );
 
     console.log(keywordsAd);
+
+
+
+
 
     //combine keywordsPeople, keywordsPlaces, keywordsWorks, keywordsArtistic, and keywordsAdditional into one array
 
