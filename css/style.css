@@ -496,7 +496,7 @@ width: 10px;
 
 .highlights {
   float: left;
-  padding-top: 10px;
+  xpadding-top: 10px;
   width: calc(15vw + 2px);
   font-size: clamp(0.8rem, 0.8vw, 1.5rem);
 }
