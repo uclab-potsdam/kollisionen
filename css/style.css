@@ -213,6 +213,7 @@ font-size: 0.8em;
 .sidebar h2 {
   font-size: clamp(0.8rem, 0.9vw, 1.2rem);
   line-height: 1.4em;
+  text-transform: none;
 }
 
 
@@ -433,6 +434,7 @@ width: 10px;
  h2 {
   font-size: clamp(0.8rem, 0.9vw, 1.2rem);
   margin-bottom: 0.4em;
+  text-transform: uppercase;
 }
 
 .intro-text {
