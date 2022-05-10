@@ -253,14 +253,29 @@ var keywordsCount = [];
           for (let j = 0; j < keywordsPl.length; j++) {
             if (keywordsPl[j]["keyword"] == d) {
               keywordsPl[j]["count"] += 1;
-//get all of the dates from vstart for each of the keywords in the places category
-              if (keywordsPl[j]["date"] == "") 
-                            if (keywordsPl[j]["date"] == "") keywordsPl[j]["date"] = keywordsData[i].vstart;
+             
+//get all dates relevant to each individual keyword only
+
+              if (keywordsPl[j]["date"] == "") {
+                keywordsPl[j]["date"] = d3.timeParse("%Y-%m-%d")(d.vstart);
+              } else {
+                var date = d3.timeParse("%Y-%m-%d")(d.vstart);
+                if (date < keywordsPl[j]["date"]) {
+                  keywordsPl[j]["date"] = date;
+                }
+              }
+
+                            // if (keywordsPl[j]["date"] == "") keywordsPl[j]["date"] = keywordsData[i].vstart;
+              //            if (keywordsPl[j]["date"] == "")    
               // {
-              //   keywordsPl[j]["date"] = d3.timeFormat("%Y-%m-%d")(d3.timeParse("%Y-%m-%d")(d.vstart));
+              //   keywordsPl[j]["date"] = keywordsData[i].vstart;
               // } else {
-              //   keywordsPl[j]["date"] = keywordsPl[j]["date"] + ";" + d3.timeFormat("%Y-%m-%d")(d3.timeParse("%Y-%m-%d")(d.vstart));
+              //   keywordsPl[j]["date"] = keywordsPl[j]["date"] + ";" + keywordsData[i].vstart;
               // }
+
+
+
+
 
             }
           }
@@ -270,10 +285,20 @@ var keywordsCount = [];
     }
     );
 
-
-
-
    console.log(keywordsPl);
+
+   //for each keyword in the places category, get the date of the first instance of that keyword from keywordsData 'vstart' and push that date into the 'date' column
+
+    for (let i = 0; i < keywordsPl.length; i++) { 
+      var dates = keywordsPl[i]["date"].split(";");
+      var dates = dates.sort();
+      keywordsPl[i]["date"] = dates[0];
+    }
+
+
+
+
+
 
 //array for people
 
