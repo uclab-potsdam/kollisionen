@@ -347,7 +347,7 @@ d.vdateEnd = +endParse(d.vend + " 23:59AM")
 
     var peopleStep4 = [];
 
-    for (let i = 0; i < peopleStep3.length; i++) { 
+    for (let i = 0; i < peopleStep3.length; i++) {
 
         var keyword = {};
         keyword["keyword"] = peopleStep3[i]["keyword"];
@@ -453,7 +453,7 @@ console.log(keywordsPeople);
         keyword["keyword"] = worksStep2[i];
         keyword["dates"] = [];
 
-        for (let j = 0; j < worksStep1.length; j++) { 
+        for (let j = 0; j < worksStep1.length; j++) {
             if (worksStep1[j]["keyword"] == worksStep2[i]) {
                 keyword["dates"].push(worksStep1[j]["date"]);
             }
@@ -727,7 +727,7 @@ console.log(keywordsPeople);
         keyword["keyword"] = additionalStep3[i]["keyword"];
         keyword["dates"] = "";
 
-        for (let j = 0; j < additionalStep3[i]["dates"].length; j++) {  
+        for (let j = 0; j < additionalStep3[i]["dates"].length; j++) {
             if (j == 0) {
                 keyword["dates"] = additionalStep3[i]["dates"][j];
             } else {
@@ -784,7 +784,7 @@ console.log(keywordsPeople);
     );
 
     console.log(keywordsAdditional);
-    
+
     //combine keywordsPeople, keywordsPlaces, keywordsWorks, keywordsArtistic, and keywordsAdditional into one array
 
     var keywordsAll = keywordsPeople.concat(keywordsPlace, keywordsWorks, keywordsArtistic, keywordsAdditional);
@@ -1386,26 +1386,25 @@ var symbolPlaces = d3.symbol()
         return (d.placesSplit.filter(function(place){return D.keyword==place}).length >0) || (d.peopleSplit.filter(function(people){return D.keyword==people}).length >0) || (d.worksSplit.filter(function(work){return D.keyword==work}).length >0) || (d.artisticSplit.filter(function(artistic){return D.keyword==artistic}).length >0) || (d.additionalSplit.filter(function(additional){return D.keyword==additional}).length >0) && d.vstart.includes("/") == false && d.vstart.includes(",") == false && d.vstart != "" //took out some data points that create errors for now
               }))
 
-.join("path")
+.join("image")
 .attr("transform", function(d,i){
-return "translate(340," + (10+I*20) + ")"})
-.attr("d", function(d){
+return "translate(340," + (2+I*20) + ")"})
+.attr("xlink:href", function(d){
 
         if( d.placesSplit.filter(function(place){return D.keyword==place}).length >0){
-          return pathDataPlaces
+          return "images/entities_icons/diamond.svg"
         } else if( d.peopleSplit.filter(function(people){return D.keyword==people}).length >0){
-          return pathDataPeople
+          return "images/entities_icons/triangle.svg"
         } else if( d.worksSplit.filter(function(work){return D.keyword==work}).length >0){
-          return pathDataWorks
+          return "images/entities_icons/threeprong.svg"
         } else if( d.artisticSplit.filter(function(artistic){return D.keyword==artistic}).length >0){
-          return pathDataArtistic
+          return "images/entities_icons/square.svg"
         } else if( d.additionalSplit.filter(function(additional){return D.keyword==additional}).length >0){
-          return pathDataAdditional
+          return "images/entities_icons/plus.svg"
         }
          })
-.attr("fill", "black")
-.attr("stroke", "black")
-.attr("stroke-width", 1)
+         .attr("width", 12+"px")
+         .attr("height", 12+"px")
 .attr("opacity", 1)
 
 })
@@ -1753,7 +1752,7 @@ d3.select('input[value="temporal"]').on('change', function() {
 
     $(function() {
       $('#search').select2('data', null)
-    })  
+    })
 
     d3.selectAll("svg > *").remove();
 
@@ -2730,7 +2729,7 @@ d3.selectAll(".highlights p")
   $(function() {
     $('#search').select2('data', null)
   })
-  
+
   if (d3.select(this).style("font-weight") != "bold") {
     d3.selectAll(".highlights p").style("font-weight", 400)
     d3.select(this).style("font-weight", "bold")
