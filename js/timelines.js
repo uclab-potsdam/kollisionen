@@ -838,10 +838,15 @@ console.log(keywordsAll);
 
     // append svg to chart
 
+let keywordListLength = keywordsAll.length //total number of keywords
+let timelineheight =  50+keywordsAll.length*20 //based in timelinsG code we calculate the size of the chart
+console.log(keywordListLength)
+console.log(timelineheight)
+
     var svg = d3.select("#chart")
         .append("svg")
         .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
+        .attr("height", timelineheight +"px")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
         .append("g");
 
@@ -1540,8 +1545,7 @@ keywordsData.forEach(function(d, i) {
 
 })
 
-console.log(links)
-console.log(nodes)
+
 
 nodes.sort(function(a, b) {
   return b.count - a.count;
