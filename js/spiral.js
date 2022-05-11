@@ -322,7 +322,7 @@ spiralData = spiralData.filter(function(d){return d.start < '1948-12-31' && d.en
           .then(([highlightsData]) => {
 
             // remove hard-coded elements
-            document.querySelectorAll(".highlights p").forEach((el) => el.remove());              
+            document.querySelectorAll(".highlights p").forEach((el) => el.remove());
 
             //create a p class for each of the 'identifier's and insert into into the div class="highlights" in index.html
             for (let i = 0; i < highlightsData.length; i++) {
@@ -763,8 +763,15 @@ console.log(dateRangeLength); //number of years
 
 
             $("#search").on("select2-selecting", function (e) {
-              console.log(e.choice.name)
-              console.log(e.choice.category)
+
+              d3.selectAll(".circles,.pathGs").classed("catFilteredOut", false)
+              d3.selectAll(".circles,.pathGs").classed("selected", false).classed("notSelected", false)
+              d3.select("#closedsidebar").style("display", "none")
+              d3.select(".sidebar").style("display", "none")
+              d3.select(".highlightbar").style("display", "none")
+              d3.select("#closedhighlightbar").style("display", "none")
+              d3.selectAll(".filter").style("font-weight", 400)
+              d3.selectAll(".highlights p").style("font-weight", 400)
 
               d3.selectAll("circle").classed("filteredout", function (d) {
                 if (e.choice.category == "people") {
@@ -1244,6 +1251,7 @@ console.log(dateRangeLength); //number of years
                 d3.select(".highlightbar")
                   .style("display", "none")
 
+
                 d3.selectAll(".circles,.pathGs").classed("catFilteredOut", false)
 
                 d3.selectAll(".highlights p").style("font-weight", 400)
@@ -1307,6 +1315,8 @@ console.log(dateRangeLength); //number of years
             d3.selectAll(".highlights p")
               .on("click", function (d, i) {
                 if (d3.select(this).style("font-weight") != "bold") {
+                  $('#search').select2('data', null)
+
                   d3.selectAll(".highlights p").style("font-weight", 400)
                   d3.select(this).style("font-weight", "bold")
                   let selectedIdentifier = d3.select(this).attr("class") // get the class of the p tag that was clicked on
@@ -1355,6 +1365,8 @@ console.log(dateRangeLength); //number of years
               projGain.gain.rampTo(3.0,0.5);
               therGain.gain.rampTo(-0.5,0.5);
               if (d3.select(this).style("font-weight") != "bold") {
+                $('#search').select2('data', null)
+
                 d3.selectAll(".filter").style("font-weight", 400)
                 d3.selectAll(".highlights p").style("font-weight", 400)
                 d3.select(this).style("font-weight", "bold")
@@ -1379,6 +1391,8 @@ console.log(dateRangeLength); //number of years
               projGain.gain.rampTo(0.1,0.5);
               therGain.gain.rampTo(0.3,0.5);
               if (d3.select(this).style("font-weight") != "bold") {
+                $('#search').select2('data', null)
+
                 d3.selectAll(".filter").style("font-weight", 400)
                 d3.selectAll(".highlights p").style("font-weight", 400)
                 d3.select(this).style("font-weight", "bold")
@@ -1402,6 +1416,8 @@ console.log(dateRangeLength); //number of years
               projGain.gain.rampTo(0.1,1);
               therGain.gain.rampTo(-0.5,1);
               if (d3.select(this).style("font-weight") != "bold") {
+                $('#search').select2('data', null)
+
                 d3.selectAll(".filter").style("font-weight", 400)
                 d3.selectAll(".highlights p").style("font-weight", 400)
                 d3.select(this).style("font-weight", "bold")
