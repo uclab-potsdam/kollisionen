@@ -7,31 +7,30 @@
   <meta name="description" content="Data vizualisation of Sergei M. Eisenstein's life and legacy through list of timelines.">
   <meta name="keywords" content="data visualization, multimodal data visualization, digital humanities, eisenstein">
   <link rel="icon" type="image" href="images/K_icon.png">
-
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="">
   <meta property="og:title" content="Eisenstein's House - Timelines Visualization">
   <meta property="og:description" content="Timelines visualization representing life of Sergei M. Eisenstein.">
-  <meta property="og:image" content="https://github.com/uclab-potsdam/kollisionen/blob/7829b38c31f2dc01b6e6ffa9b858c9d5362175a7/images/K_logo_cover.png">
+  <meta property="og:image" content="images/K_logo_cover.png">
 
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image">
   <meta property="twitter:url" content="">
   <meta property="twitter:title" content="Eisenstein's House - Timelines Visualization">
   <meta property="twitter:description" content="Timelines visualization representing life of Sergei M. Eisenstein.">
-  <meta property="twitter:image" content="https://github.com/uclab-potsdam/kollisionen/blob/7829b38c31f2dc01b6e6ffa9b858c9d5362175a7/images/K_logo_cover.png">
+  <meta property="twitter:image" content="images/K_logo_cover.png">
 
   <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" type="text/css" href="css/search.css">
-  <script src="https://d3js.org/d3.v6.js"></script>
-  <script src="https://uclab.fh-potsdam.de/ff/js/jquery.min.js"></script>
-  <script src="https://uclab.fh-potsdam.de/ff/js/select2.min.js"></script>
+  <script src="assets/d3.v6.js"></script>
+  <script src="assets/jquery.min.js"></script>
+  <script src="assets/select2.min.js"></script>
   <script type="text/javascript" src="js/shepherd-bundle.js"></script>
   <!-- tone.js -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.32/Tone.min.js" type="text/javascript"></script>
+  <script src="assets/Tone.min.js" type="text/javascript"></script>
   <link rel="stylesheet" href="css/popup.css" />
 
   <style>
@@ -42,6 +41,7 @@
       margin-left: 150px;
       margin-top: 10px;
     }
+
     #chart svg {
       height: 22000px;
     }
@@ -61,7 +61,7 @@
         <h2>Network</h2>
       </a>
     </div>
-    
+
     <!-- sorting options on the top of the view  -->
     <div class="sorting">
       <p style="margin: 19px;">Sort by</p>
@@ -132,31 +132,26 @@
     <!-- entities filters  -->
     <div class="entities">
       <h2 title="Click on any of the following entities to see their associated events in the view">Entities</h2>
-      <p class="triangle" type="people" title="Click to view events associated with this entity"><img
-          src="images/entities_icons/triangle.svg" height="12px" width="12px">People</p>
-      <p class="diamond" type="places" title="Click to view events associated with this entity"><img
-          src="images/entities_icons/diamond.svg" height="12px" width="12px">Places</p>
-      <p class="threeprong" type="works" title="Click to view events associated with this entity"><img
-          src="images/entities_icons/threeprong.svg" height="12px" width="12px">Works</p>
-      <p class="square" type="artistic" title="Click to view events associated with this entity"><img
-          src="images/entities_icons/square.svg" height="12px" width="12px">Concepts</p>
-      <p class="plus" type="additional" title="Click to view events associated with this entity"><img
-          src="images/entities_icons/plus.svg" height="12px" width="12px">Misc.</p>
+      <p class="triangle" type="people" title="Click to view events associated with this entity"><img src="images/entities_icons/triangle.svg" height="12px" width="12px">People</p>
+      <p class="diamond" type="places" title="Click to view events associated with this entity"><img src="images/entities_icons/diamond.svg" height="12px" width="12px">Places</p>
+      <p class="threeprong" type="works" title="Click to view events associated with this entity"><img src="images/entities_icons/threeprong.svg" height="12px" width="12px">Works</p>
+      <p class="square" type="artistic" title="Click to view events associated with this entity"><img src="images/entities_icons/square.svg" height="12px" width="12px">Concepts</p>
+      <p class="plus" type="additional" title="Click to view events associated with this entity"><img src="images/entities_icons/plus.svg" height="12px" width="12px">Misc.</p>
     </div>
 
     <!-- landing page, tour and sound button on the bottom left -->
     <div class="modalbuttons">
-    <!-- landing page button  -->  
+      <!-- landing page button  -->
       <div class="landing-page" title="Click to go to the landing page">
         <a href="index.html">
           <img id="landing-page-button" src="images/landing-page.svg" alt="guide icon" height="40px">
         </a>
       </div>
-    <!-- tour button  -->
+      <!-- tour button  -->
       <div class="tour" title="Click to take a tour of the visualization">
         <img id="guide-button" src="images/modal-guide.svg" alt="guide icon" height="37px">
       </div>
-    <!-- sound button  -->
+      <!-- sound button  -->
       <div id="legend1" title="Click to turn sound on or off">
         <label class="switch">
           <input type="checkbox" id="soundcheckbox">
