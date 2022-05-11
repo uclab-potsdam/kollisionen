@@ -1,43 +1,44 @@
 // Tour for Spiral Viz without entites 
 
 const tour = new Shepherd.Tour({
-    defaultStepOptions: {
-      cancelIcon: {
-        enabled: true
-      },
-      classes: 'class-1 class-2',
-      scrollTo: { behavior: 'smooth', block: 'center' },
-    }
-  });
+  defaultStepOptions: {
+    cancelIcon: {
+      enabled: true
+    },
+    classes: 'class-1 class-2',
+    scrollTo: { behavior: 'smooth', block: 'center' },
+  }
+});
 
-  tour.addStep({
-    title: 'Search',
-    text: `Type name of an entity in the search bar or explore the entities through search dropdown menu.`,
-    attachTo: {
-      element: '.search',
-      on: 'left'
-    },
-    buttons: [
-      {
-        action() {
-          return this.next();
-        },
-        text: 'Next'
-      }
-    ],
-    popperOptions: {
-      modifiers: [{ name: 'offset', options: { offset: [0, 20] } }]
-    },
-    id: 'creating'
-  });
-  
 tour.addStep({
-  title: 'Spiritual Family',
-  text: `Spiritual family are examples of objects that inspired Eisenstein’s cinematic and theoretical work. 
-  Selecting any of these objects highlight all related events in the view. 
-  These examples of spiritual family can also be experienced in the VR and 3D environment.`,
+  title: 'Search',
+  text: `Type name of an entity in the search bar or explore the entities through search dropdown menu.`,
   attachTo: {
-    element: '.highlights',
+    element: '.search',
+    on: 'left'
+  },
+  buttons: [
+    {
+      action() {
+        return this.next();
+      },
+      text: 'Next'
+    }
+  ],
+  popperOptions: {
+    modifiers: [{ name: 'offset', options: { offset: [0, 20] } }]
+  },
+  id: 'creating'
+});
+
+
+tour.addStep({
+  title: 'Categories',
+  text: ` The different events are assigned to at least one of three main categories: 
+  1) Cinema and Theatre, 2) Biography and Personality, and 3) Writing and Teaching. 
+  Selecting a category highlights the relevant data points in the visualization.`,
+  attachTo: {
+    element: '.categories',
     on: 'left'
   },
   buttons: [
@@ -59,12 +60,12 @@ tour.addStep({
 });
 
 tour.addStep({
-  title: 'Categories',
-  text: ` The different events are assigned to at least one of three main categories: 
-  1) Cinema and Theatre, 2) Biography and Personality, and 3) Writing and Teaching. 
-  Selecting a category highlights the relevant data points in the visualization.`,
+  title: 'Eisenstein´s Universe',
+  text: `Eisenstein's universe are examples of objects that inspired Eisenstein’s cinematic and theoretical work. 
+  Selecting any of these objects highlight all related events in the view. 
+  These examples of spiritual family can also be experienced in the VR and 3D environment.`,
   attachTo: {
-    element: '.categories',
+    element: '.highlights',
     on: 'left'
   },
   buttons: [
@@ -95,8 +96,8 @@ tour.addStep({
     on: 'left-end'
   },
   popperOptions: {
-      modifiers: [{ name: 'offset', options: { offset: [40, 60] } }]
-    },
+    modifiers: [{ name: 'offset', options: { offset: [40, 60] } }]
+  },
   buttons: [
     {
       action() {
