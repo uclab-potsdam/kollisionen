@@ -1186,8 +1186,8 @@ function stringSplit(data, keywordSplitter) {
     .style("opacity", 1)
   });
   d3.selectAll("#closedsidebar")
-    .on('click', function (d) {
-
+    .on('click', function (d, event) {
+      event.stopPropagation()
       d3.select(".sidebar")
         .style("display", "none")
 
@@ -1958,8 +1958,8 @@ d3.selectAll(".circles")
 .style("opacity", 1)
 });
 d3.selectAll("#closedsidebar")
-.on('click', function (d) {
-
+.on('click', function (d, event) {
+  event.stopPropagation()
 d3.select(".sidebar")
 .style("display", "none")
 
@@ -2115,8 +2115,8 @@ d3.selectAll(".timelineLines")
 .style("opacity", 1)
 })
 d3.selectAll("#closedsidebar")
-.on('click', function (d) {
-
+.on('click', function (d, event) {
+  event.stopPropagation()
 d3.select(".sidebar")
 .style("display", "none")
 
@@ -2367,8 +2367,8 @@ d3.select('input[value="frequency"]').on('change', function() {
   .style("opacity", 1)
   });
   d3.selectAll("#closedsidebar")
-  .on('click', function (d) {
-
+  .on('click', function (d, event) {
+    event.stopPropagation()
   d3.select(".sidebar")
   .style("display", "none")
 
@@ -2524,8 +2524,8 @@ return ((d.placesSplit.filter(function(place){return D.keyword==place}).length >
   .style("opacity", 1)
   })
   d3.selectAll("#closedsidebar")
-  .on('click', function (d) {
-
+  .on('click', function (d, event) {
+    event.stopPropagation()
   d3.select(".sidebar")
   .style("display", "none")
 
@@ -2691,7 +2691,7 @@ d3.select(".triangle").on("click", function() {
 
   } else {
     d3.select(this).style("font-weight", 400)
-    d3.selectAll("text").classed("entFilteredOut", false)
+    d3.selectAll("text").classed("entFilteredOut", false).classed("notText", false)
     d3.selectAll(".timelineLines").classed("notSelectedLine", false).classed("SelectedLine", false)
     d3.selectAll("circle").classed("selected", false).classed("notSelected", false)
   }
@@ -2719,7 +2719,7 @@ d3.select(".diamond").on("click", function() {
 
   } else {
     d3.select(this).style("font-weight", 400)
-    d3.selectAll("text.places").classed("entFilteredOut", false)
+    d3.selectAll("text").classed("entFilteredOut", false).classed("notText", false)
     d3.selectAll(".timelineLines").classed("notSelectedLine", false).classed("SelectedLine", false)
     d3.selectAll("circle").classed("selected", false).classed("notSelected", false)
   }
@@ -2746,7 +2746,7 @@ d3.select(".threeprong").on("click", function() {
     d3.selectAll("circle:not(.works)").classed("selected", false).classed("notSelected", true)
   } else {
     d3.select(this).style("font-weight", 400)
-    d3.selectAll("text.works").classed("entFilteredOut", false)
+    d3.selectAll("text").classed("entFilteredOut", false).classed("notText", false)
     d3.selectAll(".timelineLines").classed("notSelectedLine", false).classed("SelectedLine", false)
     d3.selectAll("circle").classed("selected", false).classed("notSelected", false)
   }
@@ -2766,13 +2766,13 @@ d3.select(".square").on("click", function() {
     d3.selectAll(".entities p").style("font-weight", 400)
     d3.select(this).style("font-weight", "bold")
     d3.selectAll("text.artistic").classed("entFilteredOut", true)
-    d3.selectAll("text:not(.artistic)").classed("entFilteredOut", false)
+    d3.selectAll("text:not(.artistic)").classed("notText", true)
     d3.selectAll(".timelineLines").filter(".artistic").classed("SelectedLine", true).classed("notSelectedLine", false)
     d3.selectAll(".timelineLines").filter(":not(.artistic)").classed("notSelectedLine", true).classed("SelectedLine", false)
     d3.selectAll("circle.artistic").classed("selected", true).classed("notSelected", false)
   } else {
     d3.select(this).style("font-weight", 400)
-    d3.selectAll("text.artistic").classed("entFilteredOut", false)
+    d3.selectAll("text").classed("entFilteredOut", false).classed("notText", false)
     d3.selectAll(".timelineLines").classed("notSelectedLine", false).classed("SelectedLine", false)
     d3.selectAll("circle").classed("selected", false).classed("notSelected", false)
   }
@@ -2792,13 +2792,13 @@ d3.select(".plus").on("click", function() {
     d3.selectAll(".entities p").style("font-weight", 400)
     d3.select(this).style("font-weight", "bold")
     d3.selectAll("text.additional").classed("entFilteredOut", true)
-    d3.selectAll("text:not(.additional)").classed("entFilteredOut", false)
+    d3.selectAll("text:not(.additional)").classed("notText", true)
     d3.selectAll(".timelineLines").filter(".additional").classed("SelectedLine", true).classed("notSelectedLine", false)
     d3.selectAll(".timelineLines").filter(":not(.additional)").classed("notSelectedLine", true).classed("SelectedLine", false)
     d3.selectAll("circle.additional").classed("selected", true).classed("notSelected", false)
   } else {
     d3.select(this).style("font-weight", 400)
-    d3.selectAll("text.additional").classed("entFilteredOut", false)
+    d3.selectAll("text").classed("entFilteredOut", false).classed("notText", false)
     d3.selectAll(".timelineLines").classed("notSelectedLine", false).classed("SelectedLine", false)
     d3.selectAll("circle").classed("selected", false).classed("notSelected", false)
   }
@@ -2811,9 +2811,13 @@ d3.selectAll(".highlights p")
 .on("click", function(d,i) {
   $(function() {
     $('#search').select2('data', null)
+
   })
 
   if (d3.select(this).style("font-weight") != "bold") {
+    d3.selectAll("text").classed("entFilteredOut", false).classed("notText", false)
+    d3.selectAll(".timelineLines").classed("notSelectedLine", false).classed("SelectedLine", false)
+    d3.selectAll("circle").classed("selected", false).classed("notSelected", false)
     d3.selectAll(".filter").style("font-weight", 400)
     d3.selectAll(".highlights p").style("font-weight", 400)
     d3.selectAll(".entities p").style("font-weight", 400)
