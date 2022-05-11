@@ -2,10 +2,9 @@
 
 <head>
   <!-- Primary Meta Tags -->
-  <title>Spiral Visualization - Eisenstein's House</title>
+  <title>Eisenstein's House - Spiral Visualization</title>
   <meta name="title" content="Spiral Visualization of Eisenstein's House">
-  <meta name="description"
-    content="Data vizualisation of Sergei M. Eisenstein's life and legacy through spiral timeline.">
+  <meta name="description" content="Data vizualisation of Sergei M. Eisenstein's life and legacy through spiral timeline.">
   <meta name="keywords" content="data visualization, spiral timeline, multimodal data visualization, digital humanities, eisenstein">
   <link rel="icon" type="image" href="images/K_icon.png">
 
@@ -14,27 +13,27 @@
   <meta property="og:url" content="">
   <meta property="og:title" content="Eisenstein's House - Spiral Visualization">
   <meta property="og:description" content="Spiral timeline representing life of Sergei M. Eisenstein.">
-  <meta property="og:image" content="https://github.com/uclab-potsdam/kollisionen/blob/ac8578a79c933c0de35a849bae9b58130ee307b2/images/K_logo_cover.jpg">
+  <meta property="og:image" content="images/K_logo_cover.jpg">
 
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image">
   <meta property="twitter:url" content="">
   <meta property="twitter:title" content="Eisenstein's House - Spiral Visualization">
   <meta property="twitter:description" content="Spiral timeline representing life of Sergei M. Eisenstein.">
-  <meta property="twitter:image" content="https://github.com/uclab-potsdam/kollisionen/blob/ac8578a79c933c0de35a849bae9b58130ee307b2/images/K_logo_cover.jpg">
+  <meta property="twitter:image" content="images/K_logo_cover.jpg">
 
   <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/modal.css" />
   <link rel="stylesheet" type="text/css" href="css/search.css">
-  <script src="https://d3js.org/d3.v6.js"></script>
-  <script src="https://uclab.fh-potsdam.de/ff/js/jquery.min.js"></script>
-  <script src="https://uclab.fh-potsdam.de/ff/js/select2.min.js"></script>
+  <script src="assets/d3.v6.js"></script>
+  <script src="assets/jquery.min.js"></script>
+  <script src="assets/select2.min.js"></script>
   <script type="text/javascript" src="js/shepherd-bundle.js"></script>
   <link rel="stylesheet" href="css/popup.css" />
   <!-- tone.js -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.32/Tone.min.js" type="text/javascript"></script>
+  <script src="assets/Tone.min.js" type="text/javascript"></script>
 </head>
 
 <body>
@@ -61,7 +60,7 @@
 
   <!-- left panel with filters, search and button -->
   <div id="left-panel">
-    
+
     <!-- logo -->
     <div class="logo">
       <a href="index.html">
@@ -103,17 +102,17 @@
 
     <!-- landing page, tour and sound button on the bottom left -->
     <div class="modalbuttons">
-    <!-- landing page button  -->      
+      <!-- landing page button  -->
       <div class="landing-page" title="Click to go to the landing page">
         <a href="index.html">
           <img id="landing-page-button" src="images/landing-page.svg" alt="guide icon" height="40px">
         </a>
       </div>
-    <!-- tour button  -->
+      <!-- tour button  -->
       <div class="tour" title="Click to take a tour of the visualization">
         <img id="guide-button" src="images/tour.svg" alt="guide icon" height="37px">
       </div>
-    <!-- sound button  -->
+      <!-- sound button  -->
       <div id="legend1" title="Click to turn sound on or off">
         <label class="switch">
           <input type="checkbox" id="soundcheckbox">
