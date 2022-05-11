@@ -1,17 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700;900&display=swap');
-/* @import url("https://fonts.googleapis.com/css2?family=Inconsolata:wght@300;400;700;900&display=swap"); */
 
 body {
   background-color: #fdf5e6;
-  /* font-family: "Inconsolata", monospace; */
   font-family: "Montserrat", roboto;
-  margin:0;
+  margin: 0;
   overflow-x: hidden;
 }
 
 :root {
   --cinema: #20638d;
-  --biography:  #ecce86;
+  --biography: #ecce86;
   --writing: #f16834;
   --graphic: #3caea3;
   --apartment: #922598;
@@ -25,27 +23,11 @@ body {
 .m-top-2 {
   margin-top: 8px;
 }
+
 .m-top-3 {
   margin-top: 12px;
 }
 
-/* .axis path {
-  fill: none;
-  stroke: #999;
-  stroke-dasharray: 2 3;
-}
-.axis text {
-  font-size: 13px;
-  stroke: #222;
-} */
-/* text.title {
-  font-size: 24px;
-}
-circle.tick {
-  fill: #f3f3f3;
-  stroke: #999;
-  stroke-dasharray: 2 3;
-} */
 
 path.backgroundspiral {
   fill: none;
@@ -99,94 +81,100 @@ path.backgroundspiral {
   display: inline-block;
 }
 
-.tooltipEdges ul{
-  padding-left:30;
-  margin:0;
+.tooltipEdges ul {
+  padding-left: 30;
+  margin: 0;
   list-style: none;
 }
 
-.tooltipEdges li{
-margin-bottom: 0.5em;
-background:none;
-font-size: 0.8em;
+.tooltipEdges li {
+  margin-bottom: 0.5em;
+  background: none;
+  font-size: 0.8em;
 }
 
 .tooltipEdges li::before {
-  font-size:0.6em;
-  content: "\2B24";  /* Add content: \2022 is the CSS Code/unicode for a bullet */
+  font-size: 0.6em;
+  content: "\2B24";
+  /* Add content: \2022 is the CSS Code/unicode for a bullet */
   color: white;
-  font-weight: bold; /* If you want it to be bold */
-  display: inline-block; /* Needed to add space between the bullet and the text */
-  width: 2em; /* Also needed for space (tweak if needed) */
-  margin-left: -2em; /* Also needed for space (tweak if needed) */
+  font-weight: bold;
+  /* If you want it to be bold */
+  display: inline-block;
+  /* Needed to add space between the bullet and the text */
+  width: 2em;
+  /* Also needed for space (tweak if needed) */
+  margin-left: -2em;
+  /* Also needed for space (tweak if needed) */
   color: black;
 }
 
-.tooltipEdges li.cinema::before{
+.tooltipEdges li.cinema::before {
   color: var(--cinema);
 }
 
-.tooltipEdges li.biography::before{
+.tooltipEdges li.biography::before {
   color: var(--biography);
 }
 
-.tooltipEdges li.writing::before{
+.tooltipEdges li.writing::before {
   color: var(--writing);
 }
 
-.tooltipEdges li.graphic::before{
+.tooltipEdges li.graphic::before {
   color: var(--cinema);
 }
 
-.tooltipEdges li.apartment::before{
+.tooltipEdges li.apartment::before {
   color: var(--biography);
 }
 
-.tooltipEdges li.cinewrit::before{
+.tooltipEdges li.cinewrit::before {
   color: var(--cinewrit);
 }
 
-.tooltipEdges li.cinebio::before{
+.tooltipEdges li.cinebio::before {
   color: var(--cinebio);
 }
 
-.tooltipEdges li.biowrit::before{
+.tooltipEdges li.biowrit::before {
   color: var(--biowrit);
 }
 
-.tooltipEdges li.allcat::before{
+.tooltipEdges li.allcat::before {
   color: var(--allcat);
 }
 
 
-.link{
+.link {
   stroke: grey;
 }
 
-.link.biography{
+.link.biography {
   stroke: var(--biography);
 }
 
-.link.writing{
+.link.writing {
   stroke: var(--writing);
 }
 
-.link.cinema{
+.link.cinema {
   stroke: var(--cinema);
 }
 
-.link.cinewrit{
+.link.cinewrit {
   stroke: var(--cinewrit);
 }
 
-.link.biowrit{
+.link.biowrit {
   stroke: var(--biowrit);
 }
 
-.link.cinebio{
+.link.cinebio {
   stroke: var(--cinebio);
 }
-.link.allcat{
+
+.link.allcat {
   stroke: grey;
 }
 
@@ -274,115 +262,117 @@ h3 {
 .cinema {
   background: var(--cinema);
 }
+
 path.cinema {
   stroke: var(--cinema);
   /* fill: var(--cinema); */
 }
+
 circle.cinema {
   fill: var(--cinema);
 }
+
 line.cinema {
   stroke: var(--cinema);
 }
+
 .biography {
   background: var(--biography);
 }
+
 path.biography {
   stroke: var(--biography);
   /* fill: var(--biography); */
 }
+
 circle.biography {
   fill: var(--biography);
 }
+
 line.biography {
   stroke: var(--biography);
 }
+
 .writing {
   background: var(--writing);
 }
+
 path.writing {
   stroke: var(--writing);
   /* fill: var(--writing); */
 }
+
 circle.writing {
   fill: var(--writing);
 }
+
 line.writing {
   stroke: var(--writing);
 }
-/* .graphic {
-  background: var(--graphic);
-}
-path.graphic {
-  stroke: var(--graphic);
-}
-circle.graphic {
-  fill: var(--graphic);
-}
-line.graphic {
-  stroke: var(--graphic);
-}
-.apartment {
-  background: var(--apartment);
-}
-path.apartment {
-  stroke: var(--apartment);
-}
-circle.apartment {
-  fill: var(--apartment);
-}
-line.apartment {
-  stroke: var(--apartment);
-} */
+
 .cinewrit {
   background: var(--cinewrit);
 }
+
 path.cinewrit {
   stroke: var(--cinewrit);
   /* fill: var(--cinewrit); */
 }
+
 circle.cinewrit {
   fill: var(--cinewrit);
 }
+
 line.cinewrit {
   stroke: var(--cinewrit);
 }
+
 .cinebio {
   background: var(--cinebio);
 }
+
 path.cinebio {
   stroke: var(--cinebio);
-  /* fill: var(--cinebio); */
 }
+
 circle.cinebio {
   fill: var(--cinebio);
 }
+
 line.cinebio {
   stroke: var(--cinebio);
 }
+
 .biowrit {
   background: var(--biowrit);
 }
+
 path.biowrit {
   stroke: var(--biowrit);
   /* fill: var(--biowrit); */
 }
+
 circle.biowrit {
   fill: var(--biowrit);
 }
+
 line.biowrit {
   stroke: var(--biowrit);
 }
+
 .allcat {
   background: var(--allcat);
 }
+
 path.allcat {
   stroke: var(--allcat);
   /* fill: var(--allcat); */
 }
+
 circle.allcat {
   fill: var(--allcat);
 }
+
 line.allcat {
   stroke: var(--allcat);
 }
@@ -397,12 +387,6 @@ line.allcat {
   fill: none;
 }
 
-/* .key-dot {
-display: inline-block;
-height: 10px;
-margin-right: .5em;
-width: 10px;
-} */
 
 .key-dot {
   border-radius: 50%;
@@ -426,12 +410,12 @@ width: 10px;
   z-index: 20;
 }
 
- p {
+p {
   margin: 5;
   margin-left: 0px;
 }
 
- h2 {
+h2 {
   font-size: clamp(0.8rem, 0.9vw, 1.2rem);
   margin-bottom: 0.4em;
   text-transform: uppercase;
@@ -452,9 +436,6 @@ width: 10px;
   height: 90px;
 }
 
-/* .landing-page img {
-  margin-right: 10px;
-} */
 
 .search-container {
   margin-top: 20px;
@@ -464,20 +445,6 @@ width: 10px;
   min-height: 1.7em;
 }
 
-/* .searchiconbg {
-  background-color: lightgray;
-  height: 24px;
-  margin-top: 10px;
-  margin-left: 13px;
-} */
-
-/* #search-icon {
-  position: relative;
-  margin-top: 3px;
-  padding-left: 5px;
-  padding-right: 5px;
-  color: black;
-} */
 
 .search {
   position: absolute;
@@ -523,21 +490,8 @@ p {
   font-size: 1em;
   width: 100%;
   margin-bottom: 20px;
-  width:300px
-
+  width: 300px
 }
-
-/* #legend1 h2 {
-  font-size: 1em;
-  text-align: left;
-  margin-bottom: 0;
-} */
-
-/* #legend1 p {
-  font-size: 1em;
-  text-align: left;
-  margin: 0.5em;
-} */
 
 .filter {
   cursor: pointer;
@@ -589,20 +543,17 @@ p {
   position: fixed;
   clear: both;
   width: 100%;
-  /* height: 40px; */
   height: 150px;
-  /* height: 100%; */
   margin-top: 0px;
   z-index: 5;
-  top:0;
-  /* background-color: none; */
+  top: 0;
   background-color: #fdf5e6;
   background-color: rgba(252, 245, 230, 0.3);
   backdrop-filter: blur(8px);
 }
 
-.toppanelt label{
-  font-size:0.9em;
+.toppanelt label {
+  font-size: 0.9em;
 }
 
 .toppanelt a {
@@ -610,7 +561,7 @@ p {
   text-decoration: none;
 }
 
-.toppanelt h2{
+.toppanelt h2 {
   font-weight: 400;
 }
 
@@ -621,7 +572,6 @@ p {
   clear: both;
   width: 100%;
   height: 40px;
-  /* height: 100%; */
   margin-top: 0px;
   z-index: 5;
   background-color: none;
@@ -632,7 +582,7 @@ p {
   text-decoration: none;
 }
 
-.toppanel h2{
+.toppanel h2 {
   font-weight: 400;
 }
 
@@ -646,8 +596,7 @@ p {
   z-index: 5;
 }
 
-.sorting p{
-  /* margin-top: 17px!important; */
+.sorting p {
   font-size: clamp(0.8rem, 0.8vw, 1.5rem);
   margin: 0px;
 }
@@ -687,37 +636,6 @@ p {
   margin-top: 1px;
 }
 
-
-
-
-/* .spiralviz {
-  width: auto;
-  margin: auto;
-  position: absolute;
-  top: 0;
-} */
-
-/* .timeline-sorting {
-
-} */
-
-/* .alphabetical {
-  float: left;
-  padding-top: 30px;
-  padding-right: 70px;
-}
-
-.temporal {
-  float: left;
-  padding-top: 30px;
-}
-
-.frequency {
-  float: left;
-  padding-top: 30px;
-  padding-left: 70px;
-} */
-
 #chart {
   position: initial;
   left: 0;
@@ -731,18 +649,18 @@ p {
 
 .circles {
   cursor: pointer;
-  stroke:rgba(252, 245, 230, 0.72);
+  stroke: rgba(252, 245, 230, 0.72);
   stroke-width: 0.5;
 }
 
 .circle {
   cursor: pointer;
-  stroke:rgba(252, 245, 230, 0.72);
+  stroke: rgba(252, 245, 230, 0.72);
   stroke-width: 0.5;
 }
 
-.zooming{
-  display:none;
+.zooming {
+  display: none;
 }
 
 .pathGs {
@@ -780,95 +698,6 @@ input[type="checkbox"]:checked:before {
   cursor: pointer;
 }
 
-/* .switch {
-  position: relative;
-  display: inline-block;
-  margin-top: 0.25em;
-  width: 30px;
-  height: 18px;
-}
-
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
- */
-
-
-/* .slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
-}
-
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 14px;
-  width: 14px;
-  left: 2px;
-  top: 2px;
-  background-color: white;
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
-}
-
-input:checked + .slider {
-  background-color: black;
-}
-
-input:focus + .slider {
-  box-shadow: 0 0 1px black;
-}
-
-input:checked + .slider:before {
-  -webkit-transform: translateX(13px);
-  -ms-transform: translateX(13px);
-  transform: translateX(13px);
-} */
-
-/*
-        * === SEARCH BOX===
-        */
-/* .searchiconbg {
-  background-color: lightgrey;
-  height: 24px;
-  margin-top: 0px;
-  margin-left: 13px;
-}
-
-#search-icon {
-  position: relative;
-  margin-top: 3px;
-  padding-left: 5px;
-  padding-right: 5px;
-  color: #474747;
-}
-
-.search {
-  position: relative;
-  width: 300px;
-  font-size: 1em;
-  margin-left: 0px;
-  margin-top: 20px;
-  border: 0;
-}
-.search-container {
-  margin-top: 0;
-  z-index: 3;
-  display: block;
-  position: fixed;
-  top: 10;
-  left: calc(50% - 150px);
-} */
-
 .filteredout {
   display: none;
 }
@@ -881,33 +710,33 @@ input:checked + .slider:before {
   visibility: hidden;
 }
 
-.selected{
-  opacity: 1!important;
+.selected {
+  opacity: 1 !important;
 }
 
-.notSelected{
+.notSelected {
   opacity: 1;
-  fill:white!important;
+  fill: white !important;
 }
 
 .selectedLine {
-  opacity: 1!important;
+  opacity: 1 !important;
 }
 
 .notselectedLine {
-  stroke: white!important;
+  stroke: white !important;
   opacity: 1;
 }
 
-.pathGs.notSelected > path{
-  stroke:white!important;
+.pathGs.notSelected>path {
+  stroke: white !important;
 }
 
-.hovered{
+.hovered {
   /* opacity:1!important; */
 }
 
-.notHovered{
+.notHovered {
   /* opacity:0.05; */
 }
 
@@ -915,16 +744,16 @@ input:checked + .slider:before {
   font-weight: bold;
 }
 
-.hoveredYear{
-  opacity:1;
+.hoveredYear {
+  opacity: 1;
 }
 
-.hoveredYear{
-  opacity:1;
+.hoveredYear {
+  opacity: 1;
 }
 
-.notHoveredYear{
-  opacity:0;
+.notHoveredYear {
+  opacity: 0;
 }
 
 #eventList {
@@ -942,89 +771,76 @@ input:checked + .slider:before {
   backdrop-filter: blur(8px);
 }
 
-#eventList ul{
-  padding-left:30;
-  margin:0;
+#eventList ul {
+  padding-left: 30;
+  margin: 0;
   list-style: none;
 }
 
-#eventList li{
-margin-bottom: 1em;
-background:none;
-font-size: clamp(0.8rem, 0.8vw, 1.5rem);
+#eventList li {
+  margin-bottom: 1em;
+  background: none;
+  font-size: clamp(0.8rem, 0.8vw, 1.5rem);
 }
 
 #eventList li::before {
-  font-size:0.75em;
-  content: "\2B24";  /* Add content: \2022 is the CSS Code/unicode for a bullet */
+  font-size: 0.75em;
+  content: "\2B24";
+  /* Add content: \2022 is the CSS Code/unicode for a bullet */
   color: white;
-  font-weight: bold; /* If you want it to be bold */
-  display: inline-block; /* Needed to add space between the bullet and the text */
-  width: 2em; /* Also needed for space (tweak if needed) */
-  margin-left: -2em; /* Also needed for space (tweak if needed) */
+  font-weight: bold;
+  /* If you want it to be bold */
+  display: inline-block;
+  /* Needed to add space between the bullet and the text */
+  width: 2em;
+  /* Also needed for space (tweak if needed) */
+  margin-left: -2em;
+  /* Also needed for space (tweak if needed) */
 }
 
-#eventList li.cinema::before{
+#eventList li.cinema::before {
   color: var(--cinema);
 }
 
-#eventList li.biography::before{
+#eventList li.biography::before {
   color: var(--biography);
 }
 
-#eventList li.writing::before{
+#eventList li.writing::before {
   color: var(--writing);
 }
 
-#eventList li.graphic::before{
+#eventList li.graphic::before {
   color: var(--graphic);
 }
 
-#eventList li.apartment::before{
+#eventList li.apartment::before {
   color: var(--apartment);
 }
 
-#eventList li.cinewrit::before{
+#eventList li.cinewrit::before {
   color: var(--cinewrit);
 }
 
-#eventList li.cinebio::before{
+#eventList li.cinebio::before {
   color: var(--cinebio);
 }
 
-#eventList li.biowrit::before{
+#eventList li.biowrit::before {
   color: var(--biowrit);
 }
 
-#eventList li.allcat::before{
+#eventList li.allcat::before {
   color: var(--allcat);
 }
 
-.hiddenLabel{
+.hiddenLabel {
   visibility: hidden;
 }
 
-/* :root {
-  --cinema: #002fa7;
-  --biography: #fdd55c;
-  --writing: #ed563b;
-  --graphic: #3caea3;
-  --apartment: #922598;
-  --cinewrit: #774371;
-  --cinebio: #8a9a5b;
-  --biowrit: #f5964c;
-  --allcat: #000000;
-} */
+/* Network scroll indication in the event list */
 
-/*
-          * === SEARCH BOX===
-          */
-
-/* .select2-container .select2-choice{
-  padding-left: 0!important;
-} */
-
-.scrollerBg{
+.scrollerBg {
   width: calc(15vw + 2px);
   height: 100px;
   position: fixed;
@@ -1033,10 +849,10 @@ font-size: clamp(0.8rem, 0.8vw, 1.5rem);
   bottom: 0;
   padding: 30px;
   pointer-events: none;
-  background: linear-gradient(180deg, rgba(245,237,222,0) 0%, rgba(245,237,222,0.96) 35%);
+  background: linear-gradient(180deg, rgba(245, 237, 222, 0) 0%, rgba(245, 237, 222, 0.96) 35%);
 }
 
-.scrolllegend{
+.scrolllegend {
   text-align: center;
   margin-top: 45px;
   font-size: 11px;
@@ -1056,7 +872,7 @@ font-size: clamp(0.8rem, 0.8vw, 1.5rem);
   /* width: calc(15vw + 2px); */
 }
 
-.scrollarrowdown{
+.scrollarrowdown {
   z-index: 100;
   width: 30px;
   height: 30px;
@@ -1090,6 +906,7 @@ font-size: clamp(0.8rem, 0.8vw, 1.5rem);
   0% {
     opacity: 1;
   }
+
   100% {
     opacity: 0;
     transform: translate(5px, 5px);
@@ -1100,6 +917,7 @@ font-size: clamp(0.8rem, 0.8vw, 1.5rem);
   0% {
     opacity: 1;
   }
+
   100% {
     opacity: 0;
   }
