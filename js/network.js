@@ -1,9 +1,7 @@
 // var url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvSLkjHvHlPjWLy3ec4UT9AsFsyTy2rbsjKquZgmhCqbsTZ4TLAnWv28Y3PnR/pub?gid=1387341329&single=true&output=csv'
-
 var url = './data/minimal_100522.csv' //local backup
 
 // var urlHighlights = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT3XiwLUS9uF0SIvV0QOOTGJv5FY077vEEIiShwtJkEcxDC-Dghp9JEycZxNDAplPetp73-ssUqZ8dv/pub?gid=0&single=true&output=csv'
-
 var urlHighlights = './data/highlights.csv'
 
 const width = window.innerWidth
@@ -27,11 +25,9 @@ let labelScale = d3.scaleLinear()
   .domain([1, 30])
   .range([8, 10])
 
-
 let edgeScale = d3.scaleLinear()
   .domain([1, 30])
   .range([1, 10])
-
 
 let soundtoggle = false;
 
@@ -105,7 +101,6 @@ let zoom = d3.zoom()
   .on("zoom", zoomed)
 
 function zoomed(event, d) {
-  //console.log(event.transform.k)
   d3.select(".networkG").attr("transform", event.transform);
 
   d3.selectAll(".label,.labelbg")
@@ -116,12 +111,6 @@ function zoomed(event, d) {
       return 3 / event.transform.k
     })
 
-  // d3.selectAll(".nodeSymbol").attr("width", function(d) {
-  //         return nodeScale(d.count)/ event.transform.k + "px"
-  //       })
-  //       .attr("height", function(d) {
-  //         return nodeScale(d.count)/ event.transform.k + "px"
-  //       })
 
   if (event.transform.k < 1.2) {
     d3.selectAll(".label,.labelbg")
@@ -185,7 +174,7 @@ const simulation = d3.forceSimulation()
   .force("link", d3.forceLink().id(function(d, i) {
     return d.name;
   }))
-  .force("charge", d3.forceManyBody().strength(-20)) //how much should elements attract or repell each other?
+  .force("charge", d3.forceManyBody().strength(-20))
   .force("center", d3.forceCenter(width / 2, height / 2))
   .force("collision", d3.forceCollide(function(d) {
     return nodeScale(d.count) + 2
@@ -208,11 +197,11 @@ let labelG = networkG.append("g").attr("class", "labelG")
 ///load data and preprocessing- metadataschema
 Promise.all([
     d3.csv(url),
-    d3.csv(urlHighlights) //data
+    d3.csv(urlHighlights)
   ])
   .then(([networkData, highlightsData]) => {
-  //  console.log(networkData)
-  //  console.log(highlightsData)
+    //  console.log(networkData)
+    //  console.log(highlightsData)
 
     networkData = networkData.filter(function(d) {
       return d.start < '1948-12-31' && d.end < '1948-12-31'
@@ -258,7 +247,6 @@ Promise.all([
 
           d3.select("#eventList").selectAll("li").filter(function(X, Y) {
             return highlightsData.filter(function(D) {
-              //  console.log(D)
               return D.identifier == selectedIdentifier
             })[0].events.includes(X.Event_ID) == true
           }).style("display", "block").classed("filteredin", true)
@@ -274,14 +262,12 @@ Promise.all([
           /// sidebar for spans
           highlightbar
             .html(`
-<h1 class="highlightsName">${highlightsData.filter(function (D) { return D.identifier == selectedIdentifier })[0].name}</h1>
-<p class="highlightsImage"><img src="images/objects/${highlightsData.filter(function (D) { return D.identifier == selectedIdentifier })[0].identifier}.png" alt="${highlightsData.filter(function (D) { return D.identifier == selectedIdentifier })[0].identifier}" width = "50%" height = "auto" class="image"></p>
-<p class="highlightsSubtitle">${highlightsData.filter(function (D) { return D.identifier == selectedIdentifier })[0].subtitle}</p>
-<p class="highlightsDescription">${highlightsData.filter(function (D) { return D.identifier == selectedIdentifier })[0].description}</p>
-<p class="highlightsDate">${highlightsData.filter(function (D) { return D.identifier == selectedIdentifier })[0].date}</p>
-<p class="highlightsLink"><a href="${highlightsData.filter(function (D) { return D.identifier == selectedIdentifier })[0].links}" target="_blank">${highlightsData.filter(function (D) { return D.identifier == selectedIdentifier })[0].links}</a></p>
-
-`)
+              <h1 class="highlightsName">${highlightsData.filter(function (D) { return D.identifier == selectedIdentifier })[0].name}</h1>
+              <p class="highlightsImage"><img src="images/objects/${highlightsData.filter(function (D) { return D.identifier == selectedIdentifier })[0].identifier}.png" alt="${highlightsData.filter(function (D) { return D.identifier == selectedIdentifier })[0].identifier}" width = "50%" height = "auto" class="image"></p>
+              <p class="highlightsSubtitle">${highlightsData.filter(function (D) { return D.identifier == selectedIdentifier })[0].subtitle}</p>
+              <p class="highlightsDescription">${highlightsData.filter(function (D) { return D.identifier == selectedIdentifier })[0].description}</p>
+              <p class="highlightsDate">${highlightsData.filter(function (D) { return D.identifier == selectedIdentifier })[0].date}</p>
+              <p class="highlightsLink"><a href="${highlightsData.filter(function (D) { return D.identifier == selectedIdentifier })[0].links}" target="_blank">${highlightsData.filter(function (D) { return D.identifier == selectedIdentifier })[0].links}</a></p>`)
             .style('display', 'block')
             .attr('sidebarType', 'highlights')
         } else {
@@ -357,7 +343,6 @@ Promise.all([
 
       if (networkData[i]["uncertaintyend"] == 2) {
         networkData[i]["vend"] = +endA[0] + "-12-31";
-        // else if (networkData[i]["uncertaintyend"] == 2) networkData[i]["vend"] = +endA[0] + 1 + "-01-01";
       } else if (networkData[i]["uncertaintyend"] == 1) {
         networkData[i]["vend"] = endA[0] + "-" + endA[1] + "-28";
       } else networkData[i]["vend"] = networkData[i]["end"];
@@ -402,8 +387,6 @@ Promise.all([
 
     // // format the data
     networkData.forEach(function(d) {
-      //   // d.start = +parseDate(d.start);
-      //   // d.end = +parseDate(d.end);
       d.vdateStart = +startParse(d.vstart + " 00:01AM");
       d.vdateEnd = +endParse(d.vend + " 23:59AM")
     });
@@ -575,8 +558,6 @@ Promise.all([
 
     })
 
-    //console.log(links)
-    //  console.log(nodes)
 
     nodes.sort(function(a, b) {
       return b.count - a.count;
@@ -683,9 +664,8 @@ Promise.all([
 
     });
 
+    //on search function
     $("#search").on("select2-selecting", function(e) {
-      //console.log(e.choice.name)
-      // console.log(e.choice.category)
       filter = "search"
 
       d3.select("#eventList").selectAll("li").classed("filteredin", false)
@@ -794,10 +774,10 @@ Promise.all([
           })
       }
 
-
       itemSelection()
     })
 
+    //on search reset function
     $("#search").on("select2-clearing", function(e) {
       d3.selectAll(".filter").style("font-weight", 400)
       d3.selectAll(".highlights p").style("font-weight", 400)
@@ -812,8 +792,6 @@ Promise.all([
     })
 
     d3.selectAll(".select2-search-choice-close").on("click", function() {
-      //  console.log("test")
-      //search reset
 
       $('#search').select2('data', null)
 
@@ -980,12 +958,10 @@ Promise.all([
       itemSelection()
     })
 
-
-
-
+    //run first simulation
 
     simulation
-      .nodes(nodes) //we use nodes from our json (look into the file to understand that)
+      .nodes(nodes)
       .on("tick", ticked)
 
     simulation
@@ -993,6 +969,7 @@ Promise.all([
       .links(links)
 
 
+    //create links
     linkG.selectAll(".link") //we create lines based on the links data
       .data(links.filter(function(d) {
         return d.children.length > 0 &&
@@ -1086,8 +1063,8 @@ Promise.all([
 
         tooltipEdges.append("ul").classed("tooltipEventList", true)
         d.children.forEach(function(D) {
+          console.log(D)
           d3.select(".tooltipEventList").append("li").text(function() {
-              //console.log(D.start) //(D.dateEnd ? D.dateStart+" to "+D.dateEnd : D.dateStart) + ": " +
               return D.relation_source + " (" + (D.displayTemporal ? D.displayTemporal : (D.end ? D.start + " to " + D.end : D.start)) + ")"
             })
             .classed("cinema", function() {
@@ -1126,7 +1103,6 @@ Promise.all([
               }
             })
         })
-        //console.log(d.children)
       })
       .on("mouseout", function(event, d) {
         d3.select(this).style("opacity", 0.4)
@@ -1136,7 +1112,7 @@ Promise.all([
       .style("cursor", "default")
 
 
-
+    //create nodes
     nodeG.selectAll(".nodeSymbol") //we create nodes based on the links data
       .data(nodes)
       .join("image")
@@ -1224,6 +1200,7 @@ Promise.all([
       })
 
 
+    //create labels (white for background --> border around text and black for text)
     labelG.selectAll(".label") //we create nodes based on the links data
       .data(nodes)
       .join("text")
@@ -1246,7 +1223,6 @@ Promise.all([
           return true
         }
       })
-
 
     //create Event List
     d3.select("#eventList").append("ul").selectAll("li")
@@ -1381,19 +1357,10 @@ Promise.all([
       })
 
 
-    //console.log(d3.select("#eventList").selectAll("li")
-    //   .filter(function(d) {
-    //     return d3.select(this).node().getBoundingClientRect().top >= 0 && d3.select(this).node().getBoundingClientRect().bottom <= (window.innerHeight || document.documentElement.clientHeight)
-    //   })._groups[0].length
-    //
-    // )
 
-
-
-
+    ///scroll function that will re-render the network based on selected filters/search
 
     function itemSelection() {
-      //  console.log(filter)
 
       let firstItem = new Date(d3.select("#eventList").selectAll("li").filter(".filteredin")
         .filter(function(d) {
@@ -1411,8 +1378,8 @@ Promise.all([
         })._groups[0][visibleItemCount - 1].__data__.vstart)
 
       //console.log(visibleItemCount)
-    //  console.log("First Item: " + firstItem)
-    //  console.log("Last Item: " + lastItem)
+      //  console.log("First Item: " + firstItem)
+      //  console.log("Last Item: " + lastItem)
 
       //start general filter
       if (filter == 0 || filter == "entity") {
@@ -1420,7 +1387,6 @@ Promise.all([
           if ((d.children.filter(function(D) { //console.log(D.dateStart)
               return D.dateStart >= firstItem && D.dateStart <= lastItem
             }).length > 0)) {
-            //  if ((d.children.filter(function(D){return D.dateStart >= firstItem && D.dateStart <= lastItem}).length >0)) {
             return "block"
           } else {
             return "none"
@@ -1834,7 +1800,7 @@ Promise.all([
 
 
     d3.select("#eventList").on("scroll", function() {
-      d3.select(".scrollerBg").transition().duration(1000).style("opacity", 0) //.style("display", "none")
+      d3.select(".scrollerBg").transition().duration(1000).style("opacity", 0)
       itemSelection()
     })
 
@@ -1879,7 +1845,6 @@ Promise.all([
         d3.select(".sidebar")
           .style("display", "none")
 
-        //d3.selectAll(".circles,.pathGs").classed("selected", false).classed("notSelected", false)
 
         d3.select("#closedsidebar").style("display", "none")
 
@@ -1980,7 +1945,6 @@ Promise.all([
           d3.select(".highlightbar").style("display", "none")
           d3.select("#closedhighlightbar").style("display", "none")
 
-          //console.log(type)
           d3.selectAll(".nodeSymbol,.label,.labelbg").classed("entityFilteredOut", function(d) {
             if (d.category == type) {
               return false
@@ -1989,7 +1953,6 @@ Promise.all([
             }
           })
 
-          //  console.log(links)
           d3.selectAll(".link").classed("entityFilteredOut", function(d) {
             if (d.source.category == type && d.target.category == type) {
               return false
@@ -2011,7 +1974,6 @@ Promise.all([
 
     ///mouseclick for nodes
     d3.selectAll(".nodeSymbol,.label").on("click", function(event, D) {
-      //  console.log(D)
       filter = "search"
       searchFilter = {
         category: D.category,
@@ -2144,19 +2106,10 @@ Promise.all([
 
 
     function ticked(d) {
-      //  console.log(simulation.alpha())
       if (simulation.alpha() < 0.15) {
 
         simulation.stop()
       }
-      // //  position the nodes based on the simulated x y
-      // d3.selectAll(".node")
-      //   .attr("cx", function(d) {
-      //     return d.x;
-      //   })
-      //   .attr("cy", function(d) {
-      //     return d.y;
-      //   })
 
       d3.selectAll(".label,.labelbg")
         .attr("x", function(d) {
@@ -2171,8 +2124,6 @@ Promise.all([
           return 'translate(' + d.x + ',' + d.y + ')';
         })
 
-
-      //also use the x, y of the links for the lines. x1 and y1 are for the source node, x2 and y2 for the target node
       d3.selectAll(".link")
         .attr("x1", function(d) {
           return d.source.x
@@ -2186,7 +2137,6 @@ Promise.all([
         .attr("y2", function(d) {
           return d.target.y
         });
-      //}
     }
 
   });
