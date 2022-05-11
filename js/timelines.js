@@ -1103,27 +1103,27 @@ function stringSplit(data, keywordSplitter) {
     }  else{return false}
     })
     .classed("people", function (d) {
-      if (d.people.includes(D)) {
+      if (d.peopleSplit.filter(function(people){return D.keyword==people}).length >0) {
         return true;
         }else{ return false};
         })
     .classed("places", function (d) {
-      if (d.places.includes(D)) {
+      if (d.placesSplit.filter(function(place){return D.keyword==place}).length >0) {
         return true;
         }else{ return false};
         })
     .classed("works", function (d) {
-      if (d.works.includes(D)) {
+      if (d.worksSplit.filter(function(work){return D.keyword==work}).length >0) {
         return true;
         }else{ return false};
         })
     .classed("artistic", function (d) {
-      if (d.artistic.includes(D)) {
+      if (d.artisticSplit.filter(function(artistic){return D.keyword==artistic}).length >0) {
         return true;
         }else{ return false};
         })
     .classed("additional", function (d) {
-      if (d.additional.includes(D)) {
+      if (d.additionalSplit.filter(function(additional){return D.keyword==additional}).length >0) {
         return true;
         }else{ return false};
         })
@@ -1253,27 +1253,27 @@ function stringSplit(data, keywordSplitter) {
     }  else{return false}
     })
     .classed("people", function (d) {
-      if (d.people.includes(D)) {
+      if (d.peopleSplit.filter(function(people){return D.keyword==people}).length >0) {
         return true;
         }else{ return false};
         })
     .classed("places", function (d) {
-      if (d.places.includes(D)) {
+      if (d.placesSplit.filter(function(place){return D.keyword==place}).length >0) {
         return true;
         }else{ return false};
         })
     .classed("works", function (d) {
-      if (d.works.includes(D)) {
+      if (d.worksSplit.filter(function(work){return D.keyword==work}).length >0) {
         return true;
         }else{ return false};
         })
     .classed("artistic", function (d) {
-      if (d.artistic.includes(D)) {
+      if (d.artisticSplit.filter(function(artistic){return D.keyword==artistic}).length >0) {
         return true;
         }else{ return false};
         })
     .classed("additional", function (d) {
-      if (d.additional.includes(D)) {
+      if (d.additionalSplit.filter(function(additional){return D.keyword==additional}).length >0) {
         return true;
         }else{ return false};
         })
