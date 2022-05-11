@@ -1347,7 +1347,7 @@ function stringSplit(data, keywordSplitter) {
         .style("opacity", 1)
       })
       d3.selectAll("#closedsidebar")
-      .on('click', function (d) {
+      .on('click', function (event, d) {
         event.stopPropagation()
         d3.select(".sidebar")
           .style("display", "none")
@@ -2667,29 +2667,6 @@ d3.select(".f_w").on("click", function() {
     therGain.gain.rampTo(0.05,5);
   }
 })
-
-// d3.select(".f_ac").on("click", function() {
-//   if (d3.select(this).style("font-weight") != "bold") {
-//     d3.selectAll(".filter").style("font-weight", 400)
-//     d3.selectAll(".highlights p").style("font-weight", 400)
-//     d3.select(this).style("font-weight", "bold")
-//     d3.select(".highlightbar").style("display", "none")
-//     d3.select("#closedhighlightbar").style("display", "none")
-//     d3.selectAll("circle.allacat", "circle.cinewrit", "circle.cinebio", "circle.biowrit").classed("catFilteredOut", false)
-//     d3.selectAll("circle.allacat, .cinewrit, .cinebio, .biowrit").classed("catFilteredOut", false)
-//     d3.selectAll("circle:not(.allcat, .cinewrit, .cinebio, .biowrit)").classed("catFilteredOut", true)
-//     d3.selectAll(".timelineLines").filter(".allcat, .cinewrit, .cinebio, .biowrit").classed("catFilteredOut", false)
-//     d3.selectAll(".timelineLines").filter(":not(.allcat, .cinewrit, .cinebio, .biowrit").classed("catFilteredOut", true)
-//   } else {
-//     d3.select(this).style("font-weight", 400)
-//     d3.selectAll("circle").classed("catFilteredOut", false)
-//     d3.selectAll(".timelineLines").classed("catFilteredOut", false)
-//     twGain.gain.rampTo(0.2,30)
-//     projGain.gain.rampTo(0.2,30);
-//     therGain.gain.rampTo(0.05,5);
-//   }
-// })
-// };
 
 // filters for entities
 
