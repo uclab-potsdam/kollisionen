@@ -108,22 +108,30 @@ function zoomed(event, d) {
   setTimeout(function () {
     d3.select(".pathG").selectAll("path").classed("zooming", false)//.style("stroke-width", 2 / event.transform.k)
     d3.selectAll(".circles").classed("zooming", false).attr("r", zoomRadiusScale(event.transform.k))
-
-    if (event.transform.k > 1.2 && event.transform.k <= 1.8) {
+    if (event.transform.k <= 1.2) {
+      d3.selectAll(".timeLabels").style("display", function (d) {
+         if (d == firstYearforLabel || d == lastYearforLabel) { return "block" } else { return "none" } })
+         .attr("dy", function(){if (i == "1898"){return "0.9em"}else{return "0.4em"}})
+  }
+    else if (event.transform.k > 1.2 && event.transform.k <= 1.8) {
       d3.selectAll(".timeLabels").style("display", function (d) {
          if (d == firstYearforLabel || d == lastYearforLabel || (d % 5) == 0) { return "block" } else { return "none" } })
+          .attr("dy", function(){if (i == "1898"){return "0.4em"}else{return "0.4em"}})
 
   }else if (event.transform.k > 1.8 && event.transform.k <= 2.4) {
     d3.selectAll(".timeLabels").style("display", function (d) {
        if (d == firstYearforLabel || d == lastYearforLabel || (d % 2) == 0) { return "block" } else { return "none" } })
+        .attr("dy", function(){if (i == "1898"){return "0.4em"}else{return "0.4em"}})
 
   }else if (event.transform.k > 2.4) {
     d3.selectAll(".timeLabels").style("display", function (d) { return "block" })
+     .attr("dy", function(){if (i == "1898"){return "0.4em"}else{return "0.4em"}})
 
   }else{
 
     d3.selectAll(".timeLabels").style("display", function (d) {
        if (d == firstYearforLabel || d == lastYearforLabel) { return "block" } else { return "none" } })
+        .attr("dy", function(){if (i == "1898"){return "0.4em"}else{return "0.4em"}})
   }
 
 
@@ -980,7 +988,7 @@ console.log(dateRangeLength); //number of years
                 .datum(i)
                 .attr("y", labelScale(i))
                 .style("text-anchor", "middle")
-                .attr("dy", "0.4em")
+                .attr("dy", function(){if (i == "1898"){return "0.9em"}else{return "0.4em"}})
                 .style("pointer-events", "none")
                 .style("stroke", "white")
                 .style("stroke-width", 4)
@@ -991,7 +999,7 @@ console.log(dateRangeLength); //number of years
                 .datum(i)
                 .attr("y", labelScale(i))
                 .style("text-anchor", "middle")
-                .attr("dy", "0.4em")
+                .attr("dy", function(){if (i == "1898"){return "0.9em"}else{return "0.4em"}})
                 .style("pointer-events", "none")
                 .style("display", function () { if (i == firstYearforLabel || i == lastYearforLabel) { return "block" } else { return "none" } })
             }
