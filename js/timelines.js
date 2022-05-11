@@ -797,6 +797,18 @@ console.log(keywordsPeople);
 
 console.log(keywordsAll);
 
+    var keywordsAllSorted = keywordsAll.sort(function(a,b){
+
+        return b.count - a.count;
+
+    }
+
+    );
+
+    console.log(keywordsAllSorted);
+
+
+
 //spiritual family data
     
     // Promise.all([
@@ -1350,32 +1362,6 @@ function stringSplit(data, keywordSplitter) {
         })
 
 // symbols for keyword categories
-
-var symbolPeople = d3.symbol()
-  .type(d3.symbolTriangle)
-  .size(15);
-
-var symbolPlaces = d3.symbol()
-  .type(d3.symbolDiamond)
-  .size(15);
-
-  var symbolWorks = d3.symbol()
-  .type(d3.symbolWye)
-  .size(15);
-
-  var symbolArtistic = d3.symbol()
-  .type(d3.symbolSquare)
-  .size(15);
-
-  var symbolAdditional = d3.symbol()
-  .type(d3.symbolCross)
-  .size(15);
-
-  var pathDataPlaces = symbolPlaces();
-  var pathDataPeople = symbolPeople();
-  var pathDataWorks = symbolWorks();
-  var pathDataArtistic = symbolArtistic();
-  var pathDataAdditional = symbolAdditional();
 
   timelinesG.each(function(D,I){
   d3.select(this).selectAll(".symbols").append("g")
@@ -2111,58 +2097,31 @@ d3.select("#closedsidebar").style("display", "none")
 
 // symbols for keyword categories
 
-var symbolPeople = d3.symbol()
-  .type(d3.symbolTriangle)
-  .size(15);
-
-var symbolPlaces = d3.symbol()
-  .type(d3.symbolDiamond)
-  .size(15);
-
-  var symbolWorks = d3.symbol()
-  .type(d3.symbolWye)
-  .size(15);
-
-  var symbolArtistic = d3.symbol()
-  .type(d3.symbolSquare)
-  .size(15);
-
-  var symbolAdditional = d3.symbol()
-  .type(d3.symbolCross)
-  .size(15);
-
-  var pathDataPlaces = symbolPlaces();
-  var pathDataPeople = symbolPeople();
-  var pathDataWorks = symbolWorks();
-  var pathDataArtistic = symbolArtistic();
-  var pathDataAdditional = symbolAdditional();
-
-  timelinesG.each(function(D,I){
+timelinesG.each(function(D,I){
   d3.select(this).selectAll(".symbols").append("g")
   .data(keywordsData.filter(function (d) {
         return (d.placesSplit.filter(function(place){return D.keyword==place}).length >0) || (d.peopleSplit.filter(function(people){return D.keyword==people}).length >0) || (d.worksSplit.filter(function(work){return D.keyword==work}).length >0) || (d.artisticSplit.filter(function(artistic){return D.keyword==artistic}).length >0) || (d.additionalSplit.filter(function(additional){return D.keyword==additional}).length >0) && d.vstart.includes("/") == false && d.vstart.includes(",") == false && d.vstart != "" //took out some data points that create errors for now
               }))
 
-.join("path")
+.join("image")
 .attr("transform", function(d,i){
-return "translate(340," + (10+I*20) + ")"})
-.attr("d", function(d){
+return "translate(340," + (2+I*20) + ")"})
+.attr("xlink:href", function(d){
 
         if( d.placesSplit.filter(function(place){return D.keyword==place}).length >0){
-          return pathDataPlaces
+          return "images/entities_icons/diamond.svg"
         } else if( d.peopleSplit.filter(function(people){return D.keyword==people}).length >0){
-          return pathDataPeople
+          return "images/entities_icons/triangle.svg"
         } else if( d.worksSplit.filter(function(work){return D.keyword==work}).length >0){
-          return pathDataWorks
+          return "images/entities_icons/threeprong.svg"
         } else if( d.artisticSplit.filter(function(artistic){return D.keyword==artistic}).length >0){
-          return pathDataArtistic
+          return "images/entities_icons/square.svg"
         } else if( d.additionalSplit.filter(function(additional){return D.keyword==additional}).length >0){
-          return pathDataAdditional
+          return "images/entities_icons/plus.svg"
         }
          })
-.attr("fill", "black")
-.attr("stroke", "black")
-.attr("stroke-width", 1)
+         .attr("width", 12+"px")
+         .attr("height", 12+"px")
 .attr("opacity", 1)
 
 })
@@ -2547,66 +2506,34 @@ return ((d.placesSplit.filter(function(place){return D.keyword==place}).length >
 
 // symbols for keyword categories
 
-var symbolPeople = d3.symbol()
-  .type(d3.symbolTriangle)
-  .size(15);
-
-var symbolPlaces = d3.symbol()
-  .type(d3.symbolDiamond)
-  .size(15);
-
-  var symbolWorks = d3.symbol()
-  .type(d3.symbolWye)
-  .size(15);
-
-  var symbolArtistic = d3.symbol()
-  .type(d3.symbolSquare)
-  .size(15);
-
-  var symbolAdditional = d3.symbol()
-  .type(d3.symbolCross)
-  .size(15);
-
-  var pathDataPlaces = symbolPlaces();
-  var pathDataPeople = symbolPeople();
-  var pathDataWorks = symbolWorks();
-  var pathDataArtistic = symbolArtistic();
-  var pathDataAdditional = symbolAdditional();
-
-  timelinesG.each(function(D,I){
+timelinesG.each(function(D,I){
   d3.select(this).selectAll(".symbols").append("g")
   .data(keywordsData.filter(function (d) {
         return (d.placesSplit.filter(function(place){return D.keyword==place}).length >0) || (d.peopleSplit.filter(function(people){return D.keyword==people}).length >0) || (d.worksSplit.filter(function(work){return D.keyword==work}).length >0) || (d.artisticSplit.filter(function(artistic){return D.keyword==artistic}).length >0) || (d.additionalSplit.filter(function(additional){return D.keyword==additional}).length >0) && d.vstart.includes("/") == false && d.vstart.includes(",") == false && d.vstart != "" //took out some data points that create errors for now
               }))
 
-.join("path")
+.join("image")
 .attr("transform", function(d,i){
-return "translate(340," + (10+I*20) + ")"})
-.attr("d", function(d){
+return "translate(340," + (2+I*20) + ")"})
+.attr("xlink:href", function(d){
 
         if( d.placesSplit.filter(function(place){return D.keyword==place}).length >0){
-          return pathDataPlaces
+          return "images/entities_icons/diamond.svg"
         } else if( d.peopleSplit.filter(function(people){return D.keyword==people}).length >0){
-          return pathDataPeople
+          return "images/entities_icons/triangle.svg"
         } else if( d.worksSplit.filter(function(work){return D.keyword==work}).length >0){
-          return pathDataWorks
+          return "images/entities_icons/threeprong.svg"
         } else if( d.artisticSplit.filter(function(artistic){return D.keyword==artistic}).length >0){
-          return pathDataArtistic
+          return "images/entities_icons/square.svg"
         } else if( d.additionalSplit.filter(function(additional){return D.keyword==additional}).length >0){
-          return pathDataAdditional
+          return "images/entities_icons/plus.svg"
         }
          })
-.attr("fill", "black")
-.attr("stroke", "black")
-.attr("stroke-width", 1)
+         .attr("width", 12+"px")
+         .attr("height", 12+"px")
 .attr("opacity", 1)
 
 })
-
-
-
-
-
 
   }
 })
