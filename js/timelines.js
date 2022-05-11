@@ -810,7 +810,7 @@ console.log(keywordsAll);
 
 
 //spiritual family data
-    
+
     // Promise.all([
     //   d3.csv(itemsUrl), //data
     // ])
@@ -860,8 +860,8 @@ Promise.all([
 
     // remove hard-coded elements
     document.querySelectorAll(".highlights p").forEach((el) => el.remove());
-    
-    //create a p class for each of the 'identifier's and insert into into the div class="highlights" in index.html    
+
+    //create a p class for each of the 'identifier's and insert into into the div class="highlights" in index.html
     for (let i = 0; i < highlightsData.length; i++) {
     let identifier = highlightsData[i]["identifier"];
     let text = highlightsData[i]["name"];
@@ -1391,7 +1391,7 @@ return "translate(340," + (2+I*20) + ")"})
 .attr("opacity", 1)
 
 })
-   
+
 ///////////////////search
 
 
@@ -1647,8 +1647,18 @@ allowClear: true
 
 
 $("#search").on("select2-selecting", function(e) {
-console.log(e.choice.name)
-console.log(e.choice.category)
+//console.log(e.choice.name)
+//console.log(e.choice.category)
+
+// d3.selectAll(".circles,.pathGs").classed("catFilteredOut", false)
+// d3.selectAll(".circles,.pathGs").classed("selected", false).classed("notSelected", false)
+d3.select("#closedsidebar").style("display", "none")
+d3.select(".sidebar").style("display", "none")
+d3.select(".highlightbar").style("display", "none")
+d3.select("#closedhighlightbar").style("display", "none")
+d3.selectAll(".filter").style("font-weight", 400)
+d3.selectAll(".highlights p").style("font-weight", 400)
+d3.selectAll(".entities p").style("font-weight", 400)
 
 d3.selectAll("circle").classed("notSelected", function(d){
   if (e.choice.category == "people"){
@@ -2580,6 +2590,7 @@ d3.select(".f_c").on("click", function() {
   if (d3.select(this).style("font-weight") != "bold") {
     d3.selectAll(".filter").style("font-weight", 400)
     d3.selectAll(".highlights p").style("font-weight", 400)
+    d3.selectAll(".entities p").style("font-weight", 400)
     d3.select(this).style("font-weight", "bold")
     d3.select(".highlightbar").style("display", "none")
     d3.select("#closedhighlightbar").style("display", "none")
@@ -2591,6 +2602,7 @@ d3.select(".f_c").on("click", function() {
     d3.select(this).style("font-weight", 400)
     d3.selectAll("circle").classed("catFilteredOut", false)
     d3.selectAll(".timelineLines").classed("catFilteredOut", false)
+
     twGain.gain.rampTo(0.2,30)
     projGain.gain.rampTo(0.2,30);
     therGain.gain.rampTo(0.05,5);
@@ -2608,6 +2620,7 @@ d3.select(".f_b").on("click", function() {
   if (d3.select(this).style("font-weight") != "bold") {
     d3.selectAll(".filter").style("font-weight", 400)
     d3.selectAll(".highlights p").style("font-weight", 400)
+    d3.selectAll(".entities p").style("font-weight", 400)
     d3.select(this).style("font-weight", "bold")
     d3.select(".highlightbar").style("display", "none")
     d3.select("#closedhighlightbar").style("display", "none")
@@ -2637,6 +2650,7 @@ d3.select(".f_w").on("click", function() {
   if (d3.select(this).style("font-weight") != "bold") {
     d3.selectAll(".filter").style("font-weight", 400)
     d3.selectAll(".highlights p").style("font-weight", 400)
+    d3.selectAll(".entities p").style("font-weight", 400)
     d3.select(this).style("font-weight", "bold")
     d3.select(".highlightbar").style("display", "none")
     d3.select("#closedhighlightbar").style("display", "none")
@@ -2687,6 +2701,8 @@ d3.select(".triangle").on("click", function() {
   })
 
   if (d3.select(this).style("font-weight") != "bold") {
+    d3.selectAll(".filter").style("font-weight", 400)
+    d3.selectAll(".highlights p").style("font-weight", 400)
     d3.selectAll(".entities p").style("font-weight", 400)
     d3.select(this).style("font-weight", "bold")
     d3.selectAll("text.people").classed("entFilteredOut", true)
@@ -2713,6 +2729,8 @@ d3.select(".diamond").on("click", function() {
   })
 
   if (d3.select(this).style("font-weight") != "bold") {
+    d3.selectAll(".filter").style("font-weight", 400)
+    d3.selectAll(".highlights p").style("font-weight", 400)
     d3.selectAll(".entities p").style("font-weight", 400)
     d3.select(this).style("font-weight", "bold")
     d3.selectAll("text.places").classed("entFilteredOut", true)
@@ -2739,6 +2757,8 @@ d3.select(".threeprong").on("click", function() {
   })
 
   if (d3.select(this).style("font-weight") != "bold") {
+    d3.selectAll(".filter").style("font-weight", 400)
+    d3.selectAll(".highlights p").style("font-weight", 400)
     d3.selectAll(".entities p").style("font-weight", 400)
     d3.select(this).style("font-weight", "bold")
     d3.selectAll("text.works").classed("entFilteredOut", true)
@@ -2764,6 +2784,8 @@ d3.select(".square").on("click", function() {
   })
 
   if (d3.select(this).style("font-weight") != "bold") {
+    d3.selectAll(".filter").style("font-weight", 400)
+    d3.selectAll(".highlights p").style("font-weight", 400)
     d3.selectAll(".entities p").style("font-weight", 400)
     d3.select(this).style("font-weight", "bold")
     d3.selectAll("text.artistic").classed("entFilteredOut", true)
@@ -2788,6 +2810,8 @@ d3.select(".plus").on("click", function() {
   })
 
   if (d3.select(this).style("font-weight") != "bold") {
+    d3.selectAll(".filter").style("font-weight", 400)
+    d3.selectAll(".highlights p").style("font-weight", 400)
     d3.selectAll(".entities p").style("font-weight", 400)
     d3.select(this).style("font-weight", "bold")
     d3.selectAll("text.additional").classed("entFilteredOut", true)
@@ -2813,7 +2837,9 @@ d3.selectAll(".highlights p")
   })
 
   if (d3.select(this).style("font-weight") != "bold") {
+    d3.selectAll(".filter").style("font-weight", 400)
     d3.selectAll(".highlights p").style("font-weight", 400)
+    d3.selectAll(".entities p").style("font-weight", 400)
     d3.select(this).style("font-weight", "bold")
     let selectedIdentifier = d3.select(this).attr("class") // get the class of the p tag that was clicked on
 
@@ -2849,6 +2875,8 @@ highlightbar
     d3.select(this).style("font-weight", 400)
     d3.selectAll("circle").classed("catFilteredOut", false)
     d3.selectAll(".timelineLines").classed("catFilteredOut", false)
+    d3.select(".highlightbar").style("display", "none")
+    d3.select("#closedhighlightbar").style("display", "none")
   }
 })
 d3.selectAll("#closedhighlightbar")
