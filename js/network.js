@@ -33,72 +33,72 @@ let edgeScale = d3.scaleLinear()
   .range([1, 10])
 
 
-  let soundtoggle = false;
+let soundtoggle = false;
 
-  function playAudio(file) {
-    file.play();
+function playAudio(file) {
+  file.play();
+}
+
+// Set of functions for html formatting in tooltip and sidebar
+
+// htmlRenderer is a function in the form: (data) => htmlText
+// eg. (title) => `<p class="title">${title}</p>`
+// if data exists, it'll return the string with data inside it, otherwise it'll return an empty string
+function conditionalReturn(data, htmlFormatter) {
+  if (data == null || data === '' || data === false) {
+    return '';
+  }
+  return htmlFormatter(data);
+}
+
+// function to compare content of strings and omit repeated strings
+
+function compareDescription(d, descriptionFormat) {
+
+  let a = d.description
+
+  let b = d.title
+
+  if (a === b) {
+    return '';
+  } else {
+    return descriptionFormat(d.description);
+  }
+};
+
+// function to replace date with optional uncertain date
+
+function replaceTemporal(d, temporalSwap) {
+
+  let a = d.displayTemporal
+  let b = d.vdateStart
+
+  if (a == null || a === '' || a === false) {
+    return temporalSwap(b)
+  } else {}
+  if (a !== null || a !== '' || a !== false) {
+    return '';
+  }
+};
+
+//function to split keywords by comma
+
+function stringSplit(data, keywordSplitter) {
+
+  var kws = data.split(";")
+
+  if (data == null || data === '' || data === false) {
+    return '';
+  } else {
+
+  }
+  if (kws.length > 1) {
+    return keywordSplitter(kws.join(", "))
+  } else {
+    return keywordSplitter(kws)
   }
 
-  // Set of functions for html formatting in tooltip and sidebar
-
-  // htmlRenderer is a function in the form: (data) => htmlText
-  // eg. (title) => `<p class="title">${title}</p>`
-  // if data exists, it'll return the string with data inside it, otherwise it'll return an empty string
-  function conditionalReturn(data, htmlFormatter) {
-    if (data == null || data === '' || data === false) {
-      return '';
-    }
-    return htmlFormatter(data);
-  }
-
-  // function to compare content of strings and omit repeated strings
-
-  function compareDescription(d, descriptionFormat) {
-
-    let a = d.description
-
-    let b = d.title
-
-    if (a === b) {
-      return '';
-    }
-    else {
-      return descriptionFormat(d.description);
-    }
-  };
-
-  // function to replace date with optional uncertain date
-
-  function replaceTemporal(d, temporalSwap) {
-
-    let a = d.displayTemporal
-    let b = d.vdateStart
-
-    if (a == null || a === '' || a === false) {
-      return temporalSwap(b)
-    }
-    else {
-    }
-    if (a !== null || a !== '' || a !== false) {
-      return '';
-    }
-  };
-
-  //function to split keywords by comma
-
-  function stringSplit(data, keywordSplitter) {
-
-    var kws = data.split(";")
-
-    if (data == null || data === '' || data === false) {
-      return '';
-    } else {
-
-    } if (kws.length > 1) { return keywordSplitter(kws.join(", ")) }
-
-    else { return keywordSplitter(kws) }
-
-  };
+};
 
 let zoom = d3.zoom()
   .scaleExtent([1 / 3, 8])
@@ -211,8 +211,8 @@ Promise.all([
     d3.csv(urlHighlights) //data
   ])
   .then(([networkData, highlightsData]) => {
-  console.log(networkData)
-  console.log(highlightsData)
+  //  console.log(networkData)
+  //  console.log(highlightsData)
 
     networkData = networkData.filter(function(d) {
       return d.start < '1948-12-31' && d.end < '1948-12-31'
@@ -235,12 +235,14 @@ Promise.all([
       .on("click", function(d, i) {
         if (d3.select(this).style("font-weight") != "bold") {
           //reset search
-          $(function() {
-            $('#search').select2('data', null)
-          })
+
+          $('#search').select2('data', null)
+
 
           filter = "highlight"
           d3.selectAll(".highlights p").style("font-weight", 400)
+          d3.select(".sidebar").style("display", "none")
+          d3.select("#closedsidebar").style("display", "none")
           d3.select(this).style("font-weight", "bold")
           d3.selectAll(".nodeSymbol,.label,.labelbg").classed("entityFilteredOut", false)
           d3.selectAll(".link").classed("entityFilteredOut", false)
@@ -573,7 +575,7 @@ Promise.all([
 
     })
 
-    console.log(links)
+    //console.log(links)
     //  console.log(nodes)
 
     nodes.sort(function(a, b) {
@@ -613,7 +615,7 @@ Promise.all([
     }).forEach(function(d, i) {
       searchDaten[0].children.push({
         id: i,
-        text: d.name + " (" + d.count  + (d.count > 1 ? " events)": " event)"),
+        text: d.name + " (" + d.count + (d.count > 1 ? " events)" : " event)"),
         name: d.name,
         category: "people",
         count: d.count,
@@ -625,7 +627,7 @@ Promise.all([
     }).forEach(function(d, i) {
       searchDaten[1].children.push({
         id: i,
-        text: d.name + " (" + d.count + (d.count > 1 ? " events)": " event)"),
+        text: d.name + " (" + d.count + (d.count > 1 ? " events)" : " event)"),
         name: d.name,
         category: "places",
         count: d.count,
@@ -637,7 +639,7 @@ Promise.all([
     }).forEach(function(d, i) {
       searchDaten[2].children.push({
         id: i,
-        text: d.name + " (" + d.count + (d.count > 1 ? " events)": " event)"),
+        text: d.name + " (" + d.count + (d.count > 1 ? " events)" : " event)"),
         name: d.name,
         category: "artistic",
         count: d.count,
@@ -649,7 +651,7 @@ Promise.all([
     }).forEach(function(d, i) {
       searchDaten[3].children.push({
         id: i,
-        text: d.name + " (" + d.count + (d.count > 1 ? " events)": " event)"),
+        text: d.name + " (" + d.count + (d.count > 1 ? " events)" : " event)"),
         name: d.name,
         category: "additional",
         count: d.count,
@@ -661,7 +663,7 @@ Promise.all([
     }).forEach(function(d, i) {
       searchDaten[4].children.push({
         id: i,
-        text: d.name + " (" + d.count  + (d.count > 1 ? " events)": " event)"),
+        text: d.name + " (" + d.count + (d.count > 1 ? " events)" : " event)"),
         name: d.name,
         category: "works",
         count: d.count,
@@ -690,18 +692,25 @@ Promise.all([
       d3.selectAll(".nodeSymbol,.label,.labelbg").classed("entityFilteredOut", false)
       d3.selectAll(".link").classed("entityFilteredOut", false)
       d3.selectAll(".entities p").style("font-weight", 400)
-      searchFilter = {category: e.choice.category, name: e.choice.name}
+      searchFilter = {
+        category: e.choice.category,
+        name: e.choice.name
+      }
 
       if (e.choice.category == "people") {
         d3.select("#eventList").selectAll("li").style("display", function(d) {
-            if (d.peopleSplit.filter(function(key){return key == e.choice.name}).length > 0){
+            if (d.peopleSplit.filter(function(key) {
+                return key == e.choice.name
+              }).length > 0) {
               return "block"
             } else {
               return "none"
             }
           })
           .classed("filteredin", function(d) {
-            if (d.peopleSplit.filter(function(key){return key == e.choice.name}).length > 0){
+            if (d.peopleSplit.filter(function(key) {
+                return key == e.choice.name
+              }).length > 0) {
               return true
             } else {
               return false
@@ -709,14 +718,18 @@ Promise.all([
           })
       } else if (e.choice.category == "places") {
         d3.select("#eventList").selectAll("li").style("display", function(d) {
-            if (d.placesSplit.filter(function(key){return key == e.choice.name}).length > 0){
+            if (d.placesSplit.filter(function(key) {
+                return key == e.choice.name
+              }).length > 0) {
               return "block"
             } else {
               return "none"
             }
           })
           .classed("filteredin", function(d) {
-            if (d.placesSplit.filter(function(key){return key == e.choice.name}).length > 0){
+            if (d.placesSplit.filter(function(key) {
+                return key == e.choice.name
+              }).length > 0) {
               return true
             } else {
               return false
@@ -724,14 +737,18 @@ Promise.all([
           })
       } else if (e.choice.category == "artistic") {
         d3.select("#eventList").selectAll("li").style("display", function(d) {
-            if (d.artisticSplit.filter(function(key){return key == e.choice.name}).length > 0){
+            if (d.artisticSplit.filter(function(key) {
+                return key == e.choice.name
+              }).length > 0) {
               return "block"
             } else {
               return "none"
             }
           })
           .classed("filteredin", function(d) {
-            if (d.artisticSplit.filter(function(key){return key == e.choice.name}).length > 0){
+            if (d.artisticSplit.filter(function(key) {
+                return key == e.choice.name
+              }).length > 0) {
               return true
             } else {
               return false
@@ -739,14 +756,18 @@ Promise.all([
           })
       } else if (e.choice.category == "additional") {
         d3.select("#eventList").selectAll("li").style("display", function(d) {
-            if (d.additionalSplit.filter(function(key){return key == e.choice.name}).length > 0){
+            if (d.additionalSplit.filter(function(key) {
+                return key == e.choice.name
+              }).length > 0) {
               return "block"
             } else {
               return "none"
             }
           })
           .classed("filteredin", function(d) {
-            if (d.additionalSplit.filter(function(key){return key == e.choice.name}).length > 0){
+            if (d.additionalSplit.filter(function(key) {
+                return key == e.choice.name
+              }).length > 0) {
               return true
             } else {
               return false
@@ -754,14 +775,18 @@ Promise.all([
           })
       } else if (e.choice.category == "works") {
         d3.select("#eventList").selectAll("li").style("display", function(d) {
-            if (d.worksSplit.filter(function(key){return key == e.choice.name}).length > 0){
+            if (d.worksSplit.filter(function(key) {
+                return key == e.choice.name
+              }).length > 0) {
               return "block"
             } else {
               return "none"
             }
           })
           .classed("filteredin", function(d) {
-            if (d.worksSplit.filter(function(key){return key == e.choice.name}).length > 0){
+            if (d.worksSplit.filter(function(key) {
+                return key == e.choice.name
+              }).length > 0) {
               return true
             } else {
               return false
@@ -773,7 +798,7 @@ Promise.all([
       itemSelection()
     })
 
-    $("#search").on("select2-clearing", function (e) {
+    $("#search").on("select2-clearing", function(e) {
       d3.selectAll(".filter").style("font-weight", 400)
       d3.selectAll(".highlights p").style("font-weight", 400)
       d3.selectAll(".nodeSymbol,.label,.labelbg").classed("entityFilteredOut", false)
@@ -786,23 +811,24 @@ Promise.all([
       itemSelection()
     })
 
-    d3.selectAll(".select2-search-choice-close").on("click",function(){
-    //  console.log("test")
+    d3.selectAll(".select2-search-choice-close").on("click", function() {
+      //  console.log("test")
       //search reset
-      $(function() {
-        $('#search').select2('data', null)
-      })
+
+      $('#search').select2('data', null)
+
     })
 
     d3.select(".f_c").on("click", function() {
       //reset search
-      $(function() {
-        $('#search').select2('data', null)
-      })
 
-      twGain.gain.rampTo(-0.3,0.5);
-      projGain.gain.rampTo(3.0,0.5);
-      therGain.gain.rampTo(-0.5,0.5);
+      $('#search').select2('data', null)
+
+
+      twGain.gain.rampTo(-0.3, 0.5);
+      projGain.gain.rampTo(3.0, 0.5);
+      therGain.gain.rampTo(-0.5, 0.5);
+
       if (d3.select(this).style("font-weight") != "bold") {
         filter = "category"
         catFilter = "Cinema and Theatre"
@@ -813,6 +839,10 @@ Promise.all([
         d3.selectAll(".nodeSymbol,.label,.labelbg").classed("entityFilteredOut", false)
         d3.selectAll(".link").classed("entityFilteredOut", false)
         d3.selectAll(".entities p").style("font-weight", 400)
+        d3.select(".sidebar").style("display", "none")
+        d3.select("#closedsidebar").style("display", "none")
+
+
 
         d3.select(".highlightbar").style("display", "none")
         d3.select("#closedhighlightbar").style("display", "none")
@@ -838,9 +868,9 @@ Promise.all([
 
         d3.select(this).style("font-weight", 400)
         d3.select("#eventList").selectAll("li").style("display", "block").classed("filteredin", true)
-        twGain.gain.rampTo(0.2,30)
-        projGain.gain.rampTo(0.2,30);
-        therGain.gain.rampTo(0.05,5);
+        twGain.gain.rampTo(0.2, 30)
+        projGain.gain.rampTo(0.2, 30);
+        therGain.gain.rampTo(0.05, 5);
       }
       itemSelection()
     })
@@ -848,12 +878,12 @@ Promise.all([
 
     d3.select(".f_b").on("click", function() {
       //reset search
-      $(function() {
-        $('#search').select2('data', null)
-      })
-      twGain.gain.rampTo(-0.1,0.5);
-      projGain.gain.rampTo(0.1,0.5);
-      therGain.gain.rampTo(0.3,0.5);
+
+      $('#search').select2('data', null)
+
+      twGain.gain.rampTo(-0.1, 0.5);
+      projGain.gain.rampTo(0.1, 0.5);
+      therGain.gain.rampTo(0.3, 0.5);
       if (d3.select(this).style("font-weight") != "bold") {
         filter = "category"
         catFilter = "Biography and Personality"
@@ -864,6 +894,10 @@ Promise.all([
         d3.selectAll(".nodeSymbol,.label,.labelbg").classed("entityFilteredOut", false)
         d3.selectAll(".link").classed("entityFilteredOut", false)
         d3.selectAll(".entities p").style("font-weight", 400)
+        d3.select(".sidebar").style("display", "none")
+        d3.select("#closedsidebar").style("display", "none")
+
+
 
         d3.select(".highlightbar").style("display", "none")
         d3.select("#closedhighlightbar").style("display", "none")
@@ -887,22 +921,22 @@ Promise.all([
         filter = 0
         d3.select(this).style("font-weight", 400)
         d3.select("#eventList").selectAll("li").style("display", "block").classed("filteredin", true)
-        twGain.gain.rampTo(0.2,30)
-        projGain.gain.rampTo(0.2,30);
-        therGain.gain.rampTo(0.05,5);
+        twGain.gain.rampTo(0.2, 30)
+        projGain.gain.rampTo(0.2, 30);
+        therGain.gain.rampTo(0.05, 5);
       }
       itemSelection()
     })
 
     d3.select(".f_w").on("click", function() {
       //reset search
-      $(function() {
-        $('#search').select2('data', null)
-      })
 
-      twGain.gain.rampTo(3.5,1);
-      projGain.gain.rampTo(0.1,1);
-      therGain.gain.rampTo(-0.5,1);
+      $('#search').select2('data', null)
+
+
+      twGain.gain.rampTo(3.5, 1);
+      projGain.gain.rampTo(0.1, 1);
+      therGain.gain.rampTo(-0.5, 1);
       if (d3.select(this).style("font-weight") != "bold") {
         filter = "category"
         catFilter = "Writing and Teaching"
@@ -912,6 +946,10 @@ Promise.all([
         d3.selectAll(".nodeSymbol,.label,.labelbg").classed("entityFilteredOut", false)
         d3.selectAll(".link").classed("entityFilteredOut", false)
         d3.selectAll(".entities p").style("font-weight", 400)
+        d3.select(".sidebar").style("display", "none")
+        d3.select("#closedsidebar").style("display", "none")
+
+
 
         d3.select(".highlightbar").style("display", "none")
         d3.select("#closedhighlightbar").style("display", "none")
@@ -935,9 +973,9 @@ Promise.all([
         filter = 0
         d3.select(this).style("font-weight", 400)
         d3.select("#eventList").selectAll("li").style("display", "block").classed("filteredin", true)
-        twGain.gain.rampTo(0.2,30)
-        projGain.gain.rampTo(0.2,30);
-        therGain.gain.rampTo(0.05,5);
+        twGain.gain.rampTo(0.2, 30)
+        projGain.gain.rampTo(0.2, 30);
+        therGain.gain.rampTo(0.05, 5);
       }
       itemSelection()
     })
@@ -954,12 +992,10 @@ Promise.all([
       .force("link")
       .links(links)
 
-    //console.log(links)
 
     linkG.selectAll(".link") //we create lines based on the links data
       .data(links.filter(function(d) {
-        return d.children.length > 0
-        &&
+        return d.children.length > 0 &&
           (d.source.name != "Soviet Union" && d.target.name != "Russia") &&
           (d.source.name != "Russia" && d.target.name != "Moscow") &&
           (d.source.name != "Soviet Union" && d.target.name != "Moscow") &&
@@ -1051,7 +1087,7 @@ Promise.all([
         tooltipEdges.append("ul").classed("tooltipEventList", true)
         d.children.forEach(function(D) {
           d3.select(".tooltipEventList").append("li").text(function() {
-            console.log(D.start)//(D.dateEnd ? D.dateStart+" to "+D.dateEnd : D.dateStart) + ": " +
+              //console.log(D.start) //(D.dateEnd ? D.dateStart+" to "+D.dateEnd : D.dateStart) + ": " +
               return D.relation_source + " (" + (D.displayTemporal ? D.displayTemporal : (D.end ? D.start + " to " + D.end : D.start)) + ")"
             })
             .classed("cinema", function() {
@@ -1140,18 +1176,18 @@ Promise.all([
           .style('opacity', '0.9')
           .html(function() {
             let thisCat
-            if (d.category == "people"){
-             thisCat = "people"
-           }else if (d.category == "places"){
-             thisCat = "place"
-           }else if (d.category == "works"){
-             thisCat = "work"
-           }else if (d.category == "artistic"){
-             thisCat = "concept"
-           }else if (d.category == "additional"){
-             thisCat = "miscellaneous"
+            if (d.category == "people") {
+              thisCat = "people"
+            } else if (d.category == "places") {
+              thisCat = "place"
+            } else if (d.category == "works") {
+              thisCat = "work"
+            } else if (d.category == "artistic") {
+              thisCat = "concept"
+            } else if (d.category == "additional") {
+              thisCat = "miscellaneous"
             }
-            return `<p class="tooltip-title"><strong>${d.name}</strong> (${thisCat})</p><p class="tooltip-title">${d.count} connected ${d.count > 1 ? "events": "event"}</p>`
+            return `<p class="tooltip-title"><strong>${d.name}</strong> (${thisCat})</p><p class="tooltip-title">${d.count} connected ${d.count > 1 ? "events": "event"}</p><p class="tooltip-title"><i>[Click to search for keyword]</i></p>`
           })
       })
       .on("mouseout", function(event, d) {
@@ -1258,7 +1294,7 @@ Promise.all([
         return (d.displayTemporal ? d.displayTemporal : (d.end ? d.start + " to " + d.end : d.start)) + ": " + d.title //+ " (" + d.start + "–" + d.end + ")"
       })
       .style("cursor", "pointer")
-      .on("click", function(event,d){
+      .on("click", function(event, d) {
         d3.select("#closedsidebar").style("display", "block")
 
 
@@ -1287,10 +1323,20 @@ Promise.all([
 
         let connectedNodes = []
 
-        d3.selectAll(".link").style("display", function(D){
-          if(D.children.filter(function(child){return child.relation_source == d.title}).length>0)
-          {return "block"}else{return "none"}})
-          .filter(function(D){return D.children.filter(function(child){return child.relation_source == d.title}).length>0})
+        d3.selectAll(".link").style("display", function(D) {
+            if (D.children.filter(function(child) {
+                return child.relation_source == d.title
+              }).length > 0) {
+              return "block"
+            } else {
+              return "none"
+            }
+          })
+          .filter(function(D) {
+            return D.children.filter(function(child) {
+              return child.relation_source == d.title
+            }).length > 0
+          })
           .each(function(D, I) {
             if (connectedNodes.filter(function(x) {
                 return x == D.source.name
@@ -1309,27 +1355,27 @@ Promise.all([
           })
 
 
-          d3.selectAll(".nodeSymbol")
-            .style("display", function(D, I) {
-              if (connectedNodes.filter(function(d) {
-                  return d == D.name
-                }).length > 0) {
-                return "block"
-              } else {
-                return "none"
-              }
-            })
+        d3.selectAll(".nodeSymbol")
+          .style("display", function(D, I) {
+            if (connectedNodes.filter(function(d) {
+                return d == D.name
+              }).length > 0) {
+              return "block"
+            } else {
+              return "none"
+            }
+          })
 
-          d3.selectAll(".label,.labelbg")
-            .style("display", function(D, I) {
-              if (connectedNodes.filter(function(d) {
-                  return d == D.name
-                }).length > 0) {
-                return "block"
-              } else {
-                return "none"
-              }
-            })
+        d3.selectAll(".label,.labelbg")
+          .style("display", function(D, I) {
+            if (connectedNodes.filter(function(d) {
+                return d == D.name
+              }).length > 0) {
+              return "block"
+            } else {
+              return "none"
+            }
+          })
 
 
       })
@@ -1347,7 +1393,7 @@ Promise.all([
 
 
     function itemSelection() {
-    //  console.log(filter)
+      //  console.log(filter)
 
       let firstItem = new Date(d3.select("#eventList").selectAll("li").filter(".filteredin")
         .filter(function(d) {
@@ -1364,576 +1410,17 @@ Promise.all([
           return d3.select(this).node().getBoundingClientRect().top >= 0 && d3.select(this).node().getBoundingClientRect().bottom <= (window.innerHeight || document.documentElement.clientHeight)
         })._groups[0][visibleItemCount - 1].__data__.vstart)
 
-       //console.log(visibleItemCount)
-      console.log("First Item: "+ firstItem)
-      console.log("Last Item: "+lastItem)
+      //console.log(visibleItemCount)
+    //  console.log("First Item: " + firstItem)
+    //  console.log("Last Item: " + lastItem)
 
       //start general filter
-      if(filter == 0 ){
-      d3.selectAll(".link").style("display", function(d) {
-        if ((d.children.filter(function(D){//console.log(D.dateStart)
-          return D.dateStart >= firstItem && D.dateStart <= lastItem}).length >0)){
-      //  if ((d.children.filter(function(D){return D.dateStart >= firstItem && D.dateStart <= lastItem}).length >0)) {
-          return "block"
-        } else {
-          return "none"
-        }
-      })
-
-      ///get nodes with edges
-      let connectedNodes = []
-
-      d3.selectAll(".link").filter(function(d) {
-          return d.children.filter(function(D){return D.dateStart >= firstItem && D.dateStart <= lastItem}).length >0
-        })
-        .each(function(D, I) {
-          if (connectedNodes.filter(function(x) {
-              return x == D.source.name
-            }).length == 0) {
-            connectedNodes.push(
-              D.source.name
-            )
-          }
-          if (connectedNodes.filter(function(x) {
-              return x == D.target.name
-            }).length == 0) {
-            connectedNodes.push(
-              D.target.name
-            )
-          }
-        })
-
-      d3.selectAll(".nodeSymbol")
-        .style("display", function(D, I) {
-          if (connectedNodes.filter(function(d) {
-              return d == D.name
-            }).length > 0) {
-            return "block"
-          } else {
-            return "none"
-          }
-        })
-
-      d3.selectAll(".label,.labelbg")
-        .style("display", function(D, I) {
-          if (connectedNodes.filter(function(d) {
-              return d == D.name
-            }).length > 0) {
-            return "block"
-          } else {
-            return "none"
-          }
-        })
-
-
-
-      simulation
-        .nodes(nodes.filter(function(D, I) {
-          return connectedNodes.filter(function(d) {
-            return d == D.name
-          }).length > 0
-        }))
-        .on("tick", ticked)
-
-      simulation
-        .force("link")
-        .links(links.filter(function(d) {
-          return (d.children.filter(function(D){return D.dateStart >= firstItem && D.dateStart <= lastItem}).length >0)
-        }))
-      simulation.alpha(1).restart();
-}///end general filter
-///start category filter
-else if(filter == "category" ){
-  let connectedNodes = []
-
-if (catFilter == "Cinema and Theatre"){
-  d3.selectAll(".link").style("display", function(d) {
-    if ((d.children.filter(function(D){return D.dateStart >= firstItem && D.dateStart <= lastItem}).length >0)
-    && (d.categories.includes("Cinema and Theatre")==true || d.categories.includes("Graphic Art")==true)
-  ) {
-      return "block"
-    } else {
-      return "none"
-    }
-  })
-  ///get nodes with edges
-
-  d3.selectAll(".link").filter(function(d) {
-      return (d.children.filter(function(D){return D.dateStart >= firstItem && D.dateStart <= lastItem}).length >0)
-      && (d.categories.includes("Cinema and Theatre")==true || d.categories.includes("Graphic Art")==true)
-    })
-    .each(function(D, I) {
-      if (connectedNodes.filter(function(x) {
-          return x == D.source.name
-        }).length == 0) {
-        connectedNodes.push(
-          D.source.name
-        )
-      }
-      if (connectedNodes.filter(function(x) {
-          return x == D.target.name
-        }).length == 0) {
-        connectedNodes.push(
-          D.target.name
-        )
-      }
-    })
-}else if (catFilter == "Biography and Personality"){
-  d3.selectAll(".link").style("display", function(d) {
-    if ((d.children.filter(function(D){return D.dateStart >= firstItem && D.dateStart <= lastItem}).length >0)
-    && (d.categories.includes("Biography and Personality")==true || d.categories.includes("Apartment")==true)
-  ) {
-      return "block"
-    } else {
-      return "none"
-    }
-  })
-  ///get nodes with edges
-
-  d3.selectAll(".link").filter(function(d) {
-      return (d.children.filter(function(D){return D.dateStart >= firstItem && D.dateStart <= lastItem}).length >0)
-      && (d.categories.includes("Biography and Personality")==true || d.categories.includes("Apartment")==true)
-    })
-    .each(function(D, I) {
-      if (connectedNodes.filter(function(x) {
-          return x == D.source.name
-        }).length == 0) {
-        connectedNodes.push(
-          D.source.name
-        )
-      }
-      if (connectedNodes.filter(function(x) {
-          return x == D.target.name
-        }).length == 0) {
-        connectedNodes.push(
-          D.target.name
-        )
-      }
-    })
-}else if (catFilter == "Writing and Teaching"){
-  d3.selectAll(".link").style("display", function(d) {
-    if ((d.children.filter(function(D){return D.dateStart >= firstItem && D.dateStart <= lastItem}).length >0)
-    && (d.categories.includes("Writing and Teaching")==true)
-  ) {
-      return "block"
-    } else {
-      return "none"
-    }
-  })
-  ///get nodes with edges
-
-  d3.selectAll(".link").filter(function(d) {
-      return (d.children.filter(function(D){return D.dateStart >= firstItem && D.dateStart <= lastItem}).length >0)
-      && (d.categories.includes("Writing and Teaching")==true)
-    })
-    .each(function(D, I) {
-      if (connectedNodes.filter(function(x) {
-          return x == D.source.name
-        }).length == 0) {
-        connectedNodes.push(
-          D.source.name
-        )
-      }
-      if (connectedNodes.filter(function(x) {
-          return x == D.target.name
-        }).length == 0) {
-        connectedNodes.push(
-          D.target.name
-        )
-      }
-    })
-}
-
-
-d3.selectAll(".nodeSymbol")
-  .style("display", function(D, I) {
-    if (connectedNodes.filter(function(d) {
-        return d == D.name
-      }).length > 0) {
-      return "block"
-    } else {
-      return "none"
-    }
-  })
-
-d3.selectAll(".label,.labelbg")
-  .style("display", function(D, I) {
-    if (connectedNodes.filter(function(d) {
-        return d == D.name
-      }).length > 0) {
-      return "block"
-    } else {
-      return "none"
-    }
-  })
-
-
-
-simulation
-  .nodes(nodes.filter(function(D, I) {
-    return connectedNodes.filter(function(d) {
-      return d == D.name
-    }).length > 0
-  }))
-  .on("tick", ticked)
-
-simulation
-  .force("link")
-  .links(links.filter(function(d) {
-    return (d.children.filter(function(D){return D.dateStart >= firstItem && D.dateStart <= lastItem}).length >0)
-  }))
-simulation.alpha(1).restart();
-}///end category filter
-///start highlight filter
-else if(filter == "highlight" ){
-  let connectedNodes = []
-
-  d3.selectAll(".link").style("display", function(d) {
-    // console.log(d.children)
-    // console.log(highlightFilter)
-    if ((d.children.filter(function(D){return D.dateStart >= firstItem && D.dateStart <= lastItem}).length >0)
-    && (d.children.filter(function(D){return highlightsData.filter(function(X) {
-      return X.identifier == highlightFilter})[0].events.includes(D.Event_ID) == true}).length >0)
-  ) {
-      return "block"
-    } else {
-      return "none"
-    }
-  })
-  ///get nodes with edges
-
-  d3.selectAll(".link").filter(function(d) {
-      return (d.children.filter(function(D){return D.dateStart >= firstItem && D.dateStart <= lastItem}).length >0)
-      && (d.children.filter(function(D){return highlightsData.filter(function(X) {
-        return X.identifier == highlightFilter})[0].events.includes(D.Event_ID) == true}).length >0)
-    })
-    .each(function(D, I) {
-      if (connectedNodes.filter(function(x) {
-          return x == D.source.name
-        }).length == 0) {
-        connectedNodes.push(
-          D.source.name
-        )
-      }
-      if (connectedNodes.filter(function(x) {
-          return x == D.target.name
-        }).length == 0) {
-        connectedNodes.push(
-          D.target.name
-        )
-      }
-    })
-
-
-
-d3.selectAll(".nodeSymbol")
-  .style("display", function(D, I) {
-    if (connectedNodes.filter(function(d) {
-        return d == D.name
-      }).length > 0) {
-      return "block"
-    } else {
-      return "none"
-    }
-  })
-
-d3.selectAll(".label,.labelbg")
-  .style("display", function(D, I) {
-    if (connectedNodes.filter(function(d) {
-        return d == D.name
-      }).length > 0) {
-      return "block"
-    } else {
-      return "none"
-    }
-  })
-
-
-
-simulation
-  .nodes(nodes.filter(function(D, I) {
-    return connectedNodes.filter(function(d) {
-      return d == D.name
-    }).length > 0
-  }))
-  .on("tick", ticked)
-
-simulation
-  .force("link")
-  .links(links.filter(function(d) {
-    return (d.children.filter(function(D){return D.dateStart >= firstItem && D.dateStart <= lastItem}).length >0)
-  }))
-simulation.alpha(1).restart();
-}///end highlight filter
-///start search filter
-else if(filter == "search" ){
-  let connectedNodes = []
-//console.log(searchFilter)
-// if(searchFilter.category == "places"){
-//   //console.log("problem?")
-//
-//   d3.selectAll(".link").style("display", function(d) {
-//   //  console.log(d.children.filter(function(D){return D.places.filter(function(place){return place == searchFilter.name})}).length)
-//     if ((d.children.filter(function(D){return D.dateStart >= firstItem && D.dateStart <= lastItem}).length >0)
-//     && (d.children.filter(function(D){return D.places.filter(function(place){return place == searchFilter.name})}).length >0)
-//   ) {
-//       return "block"
-//     } else {
-//       return "none"
-//     }
-//   })
-//   ///get nodes with edges
-//
-//   d3.selectAll(".link").filter(function(d) {
-//       return (d.children.filter(function(D){return D.dateStart >= firstItem && D.dateStart <= lastItem}).length >0)
-//       && (d.children.filter(function(D){return D.places.filter(function(place){return place == searchFilter.name})}).length >0)
-//     })
-//     .each(function(D, I) {
-//       if (connectedNodes.filter(function(x) {
-//           return x == D.source.name
-//         }).length == 0) {
-//         connectedNodes.push(
-//           D.source.name
-//         )
-//       }
-//       if (connectedNodes.filter(function(x) {
-//           return x == D.target.name
-//         }).length == 0) {
-//         connectedNodes.push(
-//           D.target.name
-//         )
-//       }
-//     })
-// }else if(searchFilter.category == "works"){
-//   d3.selectAll(".link").style("display", function(d) {
-//     // console.log(d.children)
-//     // console.log(highlightFilter)
-//     if ((d.children.filter(function(D){return D.dateStart >= firstItem && D.dateStart <= lastItem}).length >0)
-//       && (d.children.filter(function(D){return D.works.filter(function(works){return works == searchFilter.name})}).length >0)
-//   ) {
-//       return "block"
-//     } else {
-//       return "none"
-//     }
-//   })
-//   ///get nodes with edges
-//
-//   d3.selectAll(".link").filter(function(d) {
-//       return (d.children.filter(function(D){return D.dateStart >= firstItem && D.dateStart <= lastItem}).length >0)
-//       && (d.children.filter(function(D){return D.works.filter(function(works){return works == searchFilter.name})}).length >0)
-//     })
-//     .each(function(D, I) {
-//       if (connectedNodes.filter(function(x) {
-//           return x == D.source.name
-//         }).length == 0) {
-//         connectedNodes.push(
-//           D.source.name
-//         )
-//       }
-//       if (connectedNodes.filter(function(x) {
-//           return x == D.target.name
-//         }).length == 0) {
-//         connectedNodes.push(
-//           D.target.name
-//         )
-//       }
-//     })
-// }else if(searchFilter.category == "artistic"){
-//   d3.selectAll(".link").style("display", function(d) {
-//     // console.log(d.children)
-//     // console.log(highlightFilter)
-//     if ((d.children.filter(function(D){return D.dateStart >= firstItem && D.dateStart <= lastItem}).length >0)
-//       && (d.children.filter(function(D){return D.artistic.filter(function(artistic){return artistic == searchFilter.name})}).length >0)
-//   ) {
-//       return "block"
-//     } else {
-//       return "none"
-//     }
-//   })
-//   ///get nodes with edges
-//
-//   d3.selectAll(".link").filter(function(d) {
-//       return (d.children.filter(function(D){return D.dateStart >= firstItem && D.dateStart <= lastItem}).length >0)
-//       && (d.children.filter(function(D){return D.artistic.filter(function(artistic){return artistic == searchFilter.name})}).length >0)
-//     })
-//     .each(function(D, I) {
-//       if (connectedNodes.filter(function(x) {
-//           return x == D.source.name
-//         }).length == 0) {
-//         connectedNodes.push(
-//           D.source.name
-//         )
-//       }
-//       if (connectedNodes.filter(function(x) {
-//           return x == D.target.name
-//         }).length == 0) {
-//         connectedNodes.push(
-//           D.target.name
-//         )
-//       }
-//     })
-// }else if(searchFilter.category == "additional"){
-//   d3.selectAll(".link").style("display", function(d) {
-//     // console.log(d.children)
-//     // console.log(highlightFilter)
-//     if ((d.children.filter(function(D){return D.dateStart >= firstItem && D.dateStart <= lastItem}).length >0)
-//       && (d.children.filter(function(D){return D.additional.filter(function(additional){return additional == searchFilter.name})}).length >0)
-//   ) {
-//       return "block"
-//     } else {
-//       return "none"
-//     }
-//   })
-//   ///get nodes with edges
-//
-//   d3.selectAll(".link").filter(function(d) {
-//       return (d.children.filter(function(D){return D.dateStart >= firstItem && D.dateStart <= lastItem}).length >0)
-//       && (d.children.filter(function(D){return D.additional.filter(function(additional){return additional == searchFilter.name})}).length >0)
-//     })
-//     .each(function(D, I) {
-//       if (connectedNodes.filter(function(x) {
-//           return x == D.source.name
-//         }).length == 0) {
-//         connectedNodes.push(
-//           D.source.name
-//         )
-//       }
-//       if (connectedNodes.filter(function(x) {
-//           return x == D.target.name
-//         }).length == 0) {
-//         connectedNodes.push(
-//           D.target.name
-//         )
-//       }
-//     })
-// }else if(searchFilter.category == "people"){
-  d3.selectAll(".link").style("display", function(d) {
-    if((d.children.filter(function(D){return D.dateStart >= firstItem && D.dateStart <= lastItem}).length >0) &&
-      (d.source.name == searchFilter.name || d.target.name == searchFilter.name)){return "block"}else{return "none"}})
-
-  // ///get nodes with edges
-  d3.selectAll(".link").filter(function(d) {
-      return (d.children.filter(function(D){return D.dateStart >= firstItem && D.dateStart <= lastItem}).length >0)
-      && (d.source.name == searchFilter.name || d.target.name == searchFilter.name)
-    })
-    .each(function(D, I) {
-      if (connectedNodes.filter(function(x) {
-          return x == D.source.name
-        }).length == 0) {
-        connectedNodes.push(
-          D.source.name
-        )
-      }
-      if (connectedNodes.filter(function(x) {
-          return x == D.target.name
-        }).length == 0) {
-        connectedNodes.push(
-          D.target.name
-        )
-      }
-    })
-
-
-
-d3.selectAll(".nodeSymbol")
-  .style("display", function(D, I) {
-    if (connectedNodes.filter(function(d) {
-        return d == D.name
-      }).length > 0) {
-      return "block"
-    } else {
-      return "none"
-    }
-  })
-
-d3.selectAll(".label,.labelbg")
-  .style("display", function(D, I) {
-    if (connectedNodes.filter(function(d) {
-        return d == D.name
-      }).length > 0) {
-      return "block"
-    } else {
-      return "none"
-    }
-  })
-
-
-
-simulation
-  .nodes(nodes.filter(function(D, I) {
-    return connectedNodes.filter(function(d) {
-      return d == D.name
-    }).length > 0
-  }))
-  .on("tick", ticked)
-
-simulation
-  .force("link")
-  .links(links.filter(function(d) {
-    return (d.children.filter(function(D){return D.dateStart >= firstItem && D.dateStart <= lastItem}).length >0)
-  }))
-simulation.alpha(1).restart();
-}///end search filter
-
-    }
-
-
-
-
-
-
-
-
-    d3.select("#eventList").on("scroll", function(){
-      d3.select(".scrollerBg").transition().duration(1000).style("opacity", 0)//.style("display", "none")
-      itemSelection()})
-
-    itemSelection()
-
-
-
-    //closes sidebar using 'x'
-    d3.selectAll("#closedhighlightbar")
-      .on('click', function(d) {
-        filter = 0
-
-        d3.select(".highlightbar")
-          .style("display", "none")
-
-        d3.select("#eventList").selectAll("li").style("display", "block").classed("filteredin", true)
-
-        d3.selectAll(".highlights p").style("font-weight", 400)
-        d3.select("#closedhighlightbar").style("display", "none")
-        itemSelection()
-      })
-
-    d3.selectAll("#closedsidebar")
-      .on('click', function(event, d) {
-        event.stopPropagation()
-        d3.select(".sidebar")
-          .style("display", "none")
-
-        d3.selectAll(".circles,.pathGs").classed("selected", false).classed("notSelected", false)
-
-        d3.select("#closedsidebar").style("display", "none")
-
-        let firstItem = new Date(d3.select("#eventList").selectAll("li").filter(".filteredin")
-          .filter(function(d) {
-            return d3.select(this).node().getBoundingClientRect().top >= 0 && d3.select(this).node().getBoundingClientRect().bottom <= (window.innerHeight || document.documentElement.clientHeight)
-          })._groups[0][0].__data__.vstart)
-
-        let visibleItemCount = d3.select("#eventList").selectAll("li").filter(".filteredin")
-          .filter(function(d) {
-            return d3.select(this).node().getBoundingClientRect().top >= 0 && d3.select(this).node().getBoundingClientRect().bottom <= (window.innerHeight || document.documentElement.clientHeight)
-          })._groups[0].length
-
-        let lastItem = new Date(d3.select("#eventList").selectAll("li").filter(".filteredin")
-          .filter(function(d) {
-            return d3.select(this).node().getBoundingClientRect().top >= 0 && d3.select(this).node().getBoundingClientRect().bottom <= (window.innerHeight || document.documentElement.clientHeight)
-          })._groups[0][visibleItemCount - 1].__data__.vstart)
-
+      if (filter == 0 || filter == "entity") {
         d3.selectAll(".link").style("display", function(d) {
-          if ((d.children.filter(function(D){return D.dateStart >= firstItem && D.dateStart <= lastItem}).length >0)) {
+          if ((d.children.filter(function(D) { //console.log(D.dateStart)
+              return D.dateStart >= firstItem && D.dateStart <= lastItem
+            }).length > 0)) {
+            //  if ((d.children.filter(function(D){return D.dateStart >= firstItem && D.dateStart <= lastItem}).length >0)) {
             return "block"
           } else {
             return "none"
@@ -1944,7 +1431,9 @@ simulation.alpha(1).restart();
         let connectedNodes = []
 
         d3.selectAll(".link").filter(function(d) {
-            return (d.children.filter(function(D){return D.dateStart >= firstItem && D.dateStart <= lastItem}).length >0)
+            return d.children.filter(function(D) {
+              return D.dateStart >= firstItem && D.dateStart <= lastItem
+            }).length > 0
           })
           .each(function(D, I) {
             if (connectedNodes.filter(function(x) {
@@ -1987,14 +1476,495 @@ simulation.alpha(1).restart();
 
 
 
+        simulation
+          .nodes(nodes.filter(function(D, I) {
+            return connectedNodes.filter(function(d) {
+              return d == D.name
+            }).length > 0
+          }))
+          .on("tick", ticked)
+
+        simulation
+          .force("link")
+          .links(links.filter(function(d) {
+            return (d.children.filter(function(D) {
+              return D.dateStart >= firstItem && D.dateStart <= lastItem
+            }).length > 0)
+          }))
+        simulation.alpha(1).restart();
+      } ///end general filter
+      ///start category filter
+      else if (filter == "category") {
+        let connectedNodes = []
+
+        if (catFilter == "Cinema and Theatre") {
+          d3.selectAll(".link").style("display", function(d) {
+            if ((d.children.filter(function(D) {
+                return D.dateStart >= firstItem && D.dateStart <= lastItem
+              }).length > 0) &&
+              (d.categories.includes("Cinema and Theatre") == true || d.categories.includes("Graphic Art") == true)
+            ) {
+              return "block"
+            } else {
+              return "none"
+            }
+          })
+          ///get nodes with edges
+
+          d3.selectAll(".link").filter(function(d) {
+              return (d.children.filter(function(D) {
+                  return D.dateStart >= firstItem && D.dateStart <= lastItem
+                }).length > 0) &&
+                (d.categories.includes("Cinema and Theatre") == true || d.categories.includes("Graphic Art") == true)
+            })
+            .each(function(D, I) {
+              if (connectedNodes.filter(function(x) {
+                  return x == D.source.name
+                }).length == 0) {
+                connectedNodes.push(
+                  D.source.name
+                )
+              }
+              if (connectedNodes.filter(function(x) {
+                  return x == D.target.name
+                }).length == 0) {
+                connectedNodes.push(
+                  D.target.name
+                )
+              }
+            })
+        } else if (catFilter == "Biography and Personality") {
+          d3.selectAll(".link").style("display", function(d) {
+            if ((d.children.filter(function(D) {
+                return D.dateStart >= firstItem && D.dateStart <= lastItem
+              }).length > 0) &&
+              (d.categories.includes("Biography and Personality") == true || d.categories.includes("Apartment") == true)
+            ) {
+              return "block"
+            } else {
+              return "none"
+            }
+          })
+          ///get nodes with edges
+
+          d3.selectAll(".link").filter(function(d) {
+              return (d.children.filter(function(D) {
+                  return D.dateStart >= firstItem && D.dateStart <= lastItem
+                }).length > 0) &&
+                (d.categories.includes("Biography and Personality") == true || d.categories.includes("Apartment") == true)
+            })
+            .each(function(D, I) {
+              if (connectedNodes.filter(function(x) {
+                  return x == D.source.name
+                }).length == 0) {
+                connectedNodes.push(
+                  D.source.name
+                )
+              }
+              if (connectedNodes.filter(function(x) {
+                  return x == D.target.name
+                }).length == 0) {
+                connectedNodes.push(
+                  D.target.name
+                )
+              }
+            })
+        } else if (catFilter == "Writing and Teaching") {
+          d3.selectAll(".link").style("display", function(d) {
+            if ((d.children.filter(function(D) {
+                return D.dateStart >= firstItem && D.dateStart <= lastItem
+              }).length > 0) &&
+              (d.categories.includes("Writing and Teaching") == true)
+            ) {
+              return "block"
+            } else {
+              return "none"
+            }
+          })
+          ///get nodes with edges
+
+          d3.selectAll(".link").filter(function(d) {
+              return (d.children.filter(function(D) {
+                  return D.dateStart >= firstItem && D.dateStart <= lastItem
+                }).length > 0) &&
+                (d.categories.includes("Writing and Teaching") == true)
+            })
+            .each(function(D, I) {
+              if (connectedNodes.filter(function(x) {
+                  return x == D.source.name
+                }).length == 0) {
+                connectedNodes.push(
+                  D.source.name
+                )
+              }
+              if (connectedNodes.filter(function(x) {
+                  return x == D.target.name
+                }).length == 0) {
+                connectedNodes.push(
+                  D.target.name
+                )
+              }
+            })
+        }
+
+
+        d3.selectAll(".nodeSymbol")
+          .style("display", function(D, I) {
+            if (connectedNodes.filter(function(d) {
+                return d == D.name
+              }).length > 0) {
+              return "block"
+            } else {
+              return "none"
+            }
+          })
+
+        d3.selectAll(".label,.labelbg")
+          .style("display", function(D, I) {
+            if (connectedNodes.filter(function(d) {
+                return d == D.name
+              }).length > 0) {
+              return "block"
+            } else {
+              return "none"
+            }
+          })
+
+
+
+        simulation
+          .nodes(nodes.filter(function(D, I) {
+            return connectedNodes.filter(function(d) {
+              return d == D.name
+            }).length > 0
+          }))
+          .on("tick", ticked)
+
+        simulation
+          .force("link")
+          .links(links.filter(function(d) {
+            return (d.children.filter(function(D) {
+              return D.dateStart >= firstItem && D.dateStart <= lastItem
+            }).length > 0)
+          }))
+        simulation.alpha(1).restart();
+      } ///end category filter
+      ///start highlight filter
+      else if (filter == "highlight") {
+        let connectedNodes = []
+
+        d3.selectAll(".link").style("display", function(d) {
+          // console.log(d.children)
+          // console.log(highlightFilter)
+          if ((d.children.filter(function(D) {
+              return D.dateStart >= firstItem && D.dateStart <= lastItem
+            }).length > 0) &&
+            (d.children.filter(function(D) {
+              return highlightsData.filter(function(X) {
+                return X.identifier == highlightFilter
+              })[0].events.includes(D.Event_ID) == true
+            }).length > 0)
+          ) {
+            return "block"
+          } else {
+            return "none"
+          }
+        })
+        ///get nodes with edges
+
+        d3.selectAll(".link").filter(function(d) {
+            return (d.children.filter(function(D) {
+                return D.dateStart >= firstItem && D.dateStart <= lastItem
+              }).length > 0) &&
+              (d.children.filter(function(D) {
+                return highlightsData.filter(function(X) {
+                  return X.identifier == highlightFilter
+                })[0].events.includes(D.Event_ID) == true
+              }).length > 0)
+          })
+          .each(function(D, I) {
+            if (connectedNodes.filter(function(x) {
+                return x == D.source.name
+              }).length == 0) {
+              connectedNodes.push(
+                D.source.name
+              )
+            }
+            if (connectedNodes.filter(function(x) {
+                return x == D.target.name
+              }).length == 0) {
+              connectedNodes.push(
+                D.target.name
+              )
+            }
+          })
+
+
+
+        d3.selectAll(".nodeSymbol")
+          .style("display", function(D, I) {
+            if (connectedNodes.filter(function(d) {
+                return d == D.name
+              }).length > 0) {
+              return "block"
+            } else {
+              return "none"
+            }
+          })
+
+        d3.selectAll(".label,.labelbg")
+          .style("display", function(D, I) {
+            if (connectedNodes.filter(function(d) {
+                return d == D.name
+              }).length > 0) {
+              return "block"
+            } else {
+              return "none"
+            }
+          })
+
+
+
+        simulation
+          .nodes(nodes.filter(function(D, I) {
+            return connectedNodes.filter(function(d) {
+              return d == D.name
+            }).length > 0
+          }))
+          .on("tick", ticked)
+
+        simulation
+          .force("link")
+          .links(links.filter(function(d) {
+            return (d.children.filter(function(D) {
+              return D.dateStart >= firstItem && D.dateStart <= lastItem
+            }).length > 0)
+          }))
+        simulation.alpha(1).restart();
+      } ///end highlight filter
+      ///start search filter
+      else if (filter == "search") {
+        let connectedNodes = []
+
+        d3.selectAll(".link").style("display", function(d) {
+          if ((d.children.filter(function(D) {
+              return D.dateStart >= firstItem && D.dateStart <= lastItem
+            }).length > 0) &&
+            (d.source.name == searchFilter.name || d.target.name == searchFilter.name)) {
+            return "block"
+          } else {
+            return "none"
+          }
+        })
+
+        // ///get nodes with edges
+        d3.selectAll(".link").filter(function(d) {
+            return (d.children.filter(function(D) {
+                return D.dateStart >= firstItem && D.dateStart <= lastItem
+              }).length > 0) &&
+              (d.source.name == searchFilter.name || d.target.name == searchFilter.name)
+          })
+          .each(function(D, I) {
+            if (connectedNodes.filter(function(x) {
+                return x == D.source.name
+              }).length == 0) {
+              connectedNodes.push(
+                D.source.name
+              )
+            }
+            if (connectedNodes.filter(function(x) {
+                return x == D.target.name
+              }).length == 0) {
+              connectedNodes.push(
+                D.target.name
+              )
+            }
+          })
+
+
+
+        d3.selectAll(".nodeSymbol")
+          .style("display", function(D, I) {
+            if (connectedNodes.filter(function(d) {
+                return d == D.name
+              }).length > 0) {
+              return "block"
+            } else {
+              return "none"
+            }
+          })
+
+        d3.selectAll(".label,.labelbg")
+          .style("display", function(D, I) {
+            if (connectedNodes.filter(function(d) {
+                return d == D.name
+              }).length > 0) {
+              return "block"
+            } else {
+              return "none"
+            }
+          })
+
+
+
+        simulation
+          .nodes(nodes.filter(function(D, I) {
+            return connectedNodes.filter(function(d) {
+              return d == D.name
+            }).length > 0
+          }))
+          .on("tick", ticked)
+
+        simulation
+          .force("link")
+          .links(links.filter(function(d) {
+            return (d.children.filter(function(D) {
+              return D.dateStart >= firstItem && D.dateStart <= lastItem
+            }).length > 0)
+          }))
+        simulation.alpha(1).restart();
+      } ///end search filter
+    }
+
+
+
+
+
+
+
+
+    d3.select("#eventList").on("scroll", function() {
+      d3.select(".scrollerBg").transition().duration(1000).style("opacity", 0) //.style("display", "none")
+      itemSelection()
+    })
+
+    itemSelection()
+
+
+
+    //closes sidebar using 'x'
+    d3.selectAll("#closedhighlightbar")
+      .on('click', function(d) {
+        filter = 0
+
+        d3.select(".highlightbar")
+          .style("display", "none")
+
+        d3.select("#eventList").selectAll("li").style("display", "block").classed("filteredin", true)
+
+        d3.selectAll(".highlights p").style("font-weight", 400)
+        d3.select("#closedhighlightbar").style("display", "none")
+        itemSelection()
+      })
+
+    d3.selectAll("#closedsidebar")
+      .on('click', function(event, d) {
+        event.stopPropagation()
+
+        filter = 0
+
+        d3.selectAll(".filter").style("font-weight", 400)
+        d3.selectAll(".entities p").style("font-weight", 400)
+        d3.selectAll(".highlights p").style("font-weight", 400)
+
+
+        $('#search').select2('data', null)
+
+
+        d3.select("#eventList").selectAll("li").style("display", "block").classed("filteredin", true)
+        twGain.gain.rampTo(0.2, 30)
+        projGain.gain.rampTo(0.2, 30);
+        therGain.gain.rampTo(0.05, 5);
+
+        d3.select(".sidebar")
+          .style("display", "none")
+
+        //d3.selectAll(".circles,.pathGs").classed("selected", false).classed("notSelected", false)
+
+        d3.select("#closedsidebar").style("display", "none")
+
+        let firstItem = new Date(d3.select("#eventList").selectAll("li").filter(".filteredin")
+          .filter(function(d) {
+            return d3.select(this).node().getBoundingClientRect().top >= 0 && d3.select(this).node().getBoundingClientRect().bottom <= (window.innerHeight || document.documentElement.clientHeight)
+          })._groups[0][0].__data__.vstart)
+
+        let visibleItemCount = d3.select("#eventList").selectAll("li").filter(".filteredin")
+          .filter(function(d) {
+            return d3.select(this).node().getBoundingClientRect().top >= 0 && d3.select(this).node().getBoundingClientRect().bottom <= (window.innerHeight || document.documentElement.clientHeight)
+          })._groups[0].length
+
+        let lastItem = new Date(d3.select("#eventList").selectAll("li").filter(".filteredin")
+          .filter(function(d) {
+            return d3.select(this).node().getBoundingClientRect().top >= 0 && d3.select(this).node().getBoundingClientRect().bottom <= (window.innerHeight || document.documentElement.clientHeight)
+          })._groups[0][visibleItemCount - 1].__data__.vstart)
+
+        d3.selectAll(".link").style("display", function(d) {
+          if ((d.children.filter(function(D) {
+              return D.dateStart >= firstItem && D.dateStart <= lastItem
+            }).length > 0)) {
+            return "block"
+          } else {
+            return "none"
+          }
+        })
+
+        ///get nodes with edges
+        let connectedNodes = []
+
+        d3.selectAll(".link").filter(function(d) {
+            return (d.children.filter(function(D) {
+              return D.dateStart >= firstItem && D.dateStart <= lastItem
+            }).length > 0)
+          })
+          .each(function(D, I) {
+            if (connectedNodes.filter(function(x) {
+                return x == D.source.name
+              }).length == 0) {
+              connectedNodes.push(
+                D.source.name
+              )
+            }
+            if (connectedNodes.filter(function(x) {
+                return x == D.target.name
+              }).length == 0) {
+              connectedNodes.push(
+                D.target.name
+              )
+            }
+          })
+
+        d3.selectAll(".nodeSymbol")
+          .style("display", function(D, I) {
+            if (connectedNodes.filter(function(d) {
+                return d == D.name
+              }).length > 0) {
+              return "block"
+            } else {
+              return "none"
+            }
+          })
+
+        d3.selectAll(".label,.labelbg")
+          .style("display", function(D, I) {
+            if (connectedNodes.filter(function(d) {
+                return d == D.name
+              }).length > 0) {
+              return "block"
+            } else {
+              return "none"
+            }
+          })
+
+        itemSelection()
+
       });
 
     d3.select(".entities").selectAll("p")
       .on("click", function(event) {
         //search reset
-        $(function() {
-          $('#search').select2('data', null)
-        })
+
+        $('#search').select2('data', null)
+
 
         let type = d3.select(this).attr("type")
         if (d3.select(this).style("font-weight") != "bold") {
@@ -2028,6 +1998,7 @@ simulation.alpha(1).restart();
             }
           })
 
+
         } else {
           filter = 0
           d3.select(this).style("font-weight", 400)
@@ -2035,104 +2006,137 @@ simulation.alpha(1).restart();
           d3.selectAll(".nodeSymbol,.label,.labelbg").classed("entityFilteredOut", false)
           d3.selectAll(".link").classed("entityFilteredOut", false)
         }
+        itemSelection()
       })
 
-///mouseclick for nodes
-      d3.selectAll(".nodeSymbol,.label").on("click", function(event,D){
+    ///mouseclick for nodes
+    d3.selectAll(".nodeSymbol,.label").on("click", function(event, D) {
       //  console.log(D)
-        filter = "search"
-        searchFilter = {category: D.category, name: D.name}
-
-        $('#search').select2('data', D.name)
-        d3.select("#select2-chosen-1").text(D.name)
-
-        if (D.category == "people") {
-          d3.select("#eventList").selectAll("li").style("display", function(d) {
-              if (d.peopleSplit.filter(function(key){return key == D.name}).length > 0){
-                return "block"
-              } else {
-                return "none"
-              }
-            })
-            .classed("filteredin", function(d) {
-              if (d.peopleSplit.filter(function(key){return key == D.name}).length > 0){
-                return true
-              } else {
-                return false
-              }
-            })
-        } else if (D.category == "places") {
-          d3.select("#eventList").selectAll("li").style("display", function(d) {
-              if (d.placesSplit.filter(function(key){return key == D.name}).length > 0){
-                return "block"
-              } else {
-                return "none"
-              }
-            })
-            .classed("filteredin", function(d) {
-              if (d.placesSplit.filter(function(key){return key == D.name}).length > 0){
-                return true
-              } else {
-                return false
-              }
-            })
-        } else if (D.category == "artistic") {
-          d3.select("#eventList").selectAll("li").style("display", function(d) {
-              if (d.artisticSplit.filter(function(key){return key == D.name}).length > 0){
-                return "block"
-              } else {
-                return "none"
-              }
-            })
-            .classed("filteredin", function(d) {
-              if (d.artisticSplit.filter(function(key){return key == D.name}).length > 0){
-                return true
-              } else {
-                return false
-              }
-            })
-        } else if (D.category == "additional") {
-          d3.select("#eventList").selectAll("li").style("display", function(d) {
-              if (d.additionalSplit.filter(function(key){return key == D.name}).length > 0){
-                return "block"
-              } else {
-                return "none"
-              }
-            })
-            .classed("filteredin", function(d) {
-              if (d.additionalSplit.filter(function(key){return key == D.name}).length > 0){
-                return true
-              } else {
-                return false
-              }
-            })
-        } else if (D.category == "works") {
-          d3.select("#eventList").selectAll("li").style("display", function(d) {
-              if (d.worksSplit.filter(function(key){return key == D.name}).length > 0){
-                return "block"
-              } else {
-                return "none"
-              }
-            })
-            .classed("filteredin", function(d) {
-              if (d.worksSplit.filter(function(key){return key == D.name}).length > 0){
-                return true
-              } else {
-                return false
-              }
-            })
+      filter = "search"
+      searchFilter = {
+        category: D.category,
+        name: D.name
       }
-itemSelection()
+
+      twGain.gain.rampTo(0.2, 30)
+      projGain.gain.rampTo(0.2, 30);
+      therGain.gain.rampTo(0.05, 5);
+
+      d3.selectAll(".filter").style("font-weight", 400)
+      d3.selectAll(".entities p").style("font-weight", 400)
+      d3.selectAll(".highlights p").style("font-weight", 400)
+      d3.select(".highlightbar").style("display", "none")
+      d3.select("#closedhighlightbar").style("display", "none")
+
+      $('#search').select2('data', D.name)
+      d3.select("#select2-chosen-1").text(D.name)
+
+      if (D.category == "people") {
+        d3.select("#eventList").selectAll("li").style("display", function(d) {
+            if (d.peopleSplit.filter(function(key) {
+                return key == D.name
+              }).length > 0) {
+              return "block"
+            } else {
+              return "none"
+            }
+          })
+          .classed("filteredin", function(d) {
+            if (d.peopleSplit.filter(function(key) {
+                return key == D.name
+              }).length > 0) {
+              return true
+            } else {
+              return false
+            }
+          })
+      } else if (D.category == "places") {
+        d3.select("#eventList").selectAll("li").style("display", function(d) {
+            if (d.placesSplit.filter(function(key) {
+                return key == D.name
+              }).length > 0) {
+              return "block"
+            } else {
+              return "none"
+            }
+          })
+          .classed("filteredin", function(d) {
+            if (d.placesSplit.filter(function(key) {
+                return key == D.name
+              }).length > 0) {
+              return true
+            } else {
+              return false
+            }
+          })
+      } else if (D.category == "artistic") {
+        d3.select("#eventList").selectAll("li").style("display", function(d) {
+            if (d.artisticSplit.filter(function(key) {
+                return key == D.name
+              }).length > 0) {
+              return "block"
+            } else {
+              return "none"
+            }
+          })
+          .classed("filteredin", function(d) {
+            if (d.artisticSplit.filter(function(key) {
+                return key == D.name
+              }).length > 0) {
+              return true
+            } else {
+              return false
+            }
+          })
+      } else if (D.category == "additional") {
+        d3.select("#eventList").selectAll("li").style("display", function(d) {
+            if (d.additionalSplit.filter(function(key) {
+                return key == D.name
+              }).length > 0) {
+              return "block"
+            } else {
+              return "none"
+            }
+          })
+          .classed("filteredin", function(d) {
+            if (d.additionalSplit.filter(function(key) {
+                return key == D.name
+              }).length > 0) {
+              return true
+            } else {
+              return false
+            }
+          })
+      } else if (D.category == "works") {
+        d3.select("#eventList").selectAll("li").style("display", function(d) {
+            if (d.worksSplit.filter(function(key) {
+                return key == D.name
+              }).length > 0) {
+              return "block"
+            } else {
+              return "none"
+            }
+          })
+          .classed("filteredin", function(d) {
+            if (d.worksSplit.filter(function(key) {
+                return key == D.name
+              }).length > 0) {
+              return true
+            } else {
+              return false
+            }
+          })
+      }
+      itemSelection()
 
     })
 
 
-    d3.select("#soundcheckbox").on('change', function () {
+    d3.select("#soundcheckbox").on('change', function() {
       if (soundtoggle) {
         soundtoggle = !soundtoggle;
         Tone.Transport.stop();
-      }
-      else if (!soundtoggle) {
+      } else if (!soundtoggle) {
         soundtoggle = !soundtoggle;
         Tone.Transport.start();
       }
@@ -2156,7 +2160,7 @@ itemSelection()
 
       d3.selectAll(".label,.labelbg")
         .attr("x", function(d) {
-          return d.x = Math.max((15/100)*width+50, Math.min(width-2*((15/100)*width) - 50, d.x));
+          return d.x = Math.max((15 / 100) * width + 50, Math.min(width - 2 * ((15 / 100) * width) - 50, d.x));
         })
         .attr("y", function(d) {
           return d.y = Math.max(70, Math.min(height - 100, d.y))
