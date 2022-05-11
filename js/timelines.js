@@ -1020,7 +1020,6 @@ function stringSplit(data, keywordSplitter) {
 // .attr("width", dateScale(new Date("1897-01-01")))
 // .attr("height", 150)
 // .append("g")
-
 // //append a line to 'yearlabel' div below div with the class "sorting"
 
 //   svgDate.append("line")
@@ -1703,28 +1702,16 @@ d3.selectAll("circle").classed("notSelected", function(d){
                                           if(d.keyword.includes(e.choice.name)){return true}else{return false}
                                         }})
 
-                                        d3.selectAll("image").classed("notText", function(d){
-                                          if (e.choice.category == "people"){
-                                            if(d.keyword.includes(e.choice.name)){return true}else{return false}
-                                          }else if (e.choice.category == "places"){
-                                              if(d.keyword.includes(e.choice.name)){return true}else{return false}
-                                            }else if (e.choice.category == "artistic"){
-                                                if(d.keyword.includes(e.choice.name)){return true}else{return false}
-                                              }else if (e.choice.category == "additional"){
-                                                  if(d.keyword.includes(e.choice.name)){return true}else{return false}
-                                                }else if (e.choice.category == "works"){
-                                                    if(d.keyword.includes(e.choice.name)){return true}else{return false}
-                                                  }})
+//scroll to the "text" tht matches "e.choice.name"
 
+let element = document.querySelector(".entFilteredOut");
+console.log(element)
 
-// document.getElementById("text").scrollIntoView({behavior: "smooth"})
-
-
-
-//scroll to the selected element (d.text== e.choice.name) on the page
-
-
-
+element.scrollIntoView({
+  behavior: 'auto',
+  block: 'center',
+  inline: 'center'
+})
 
 })
 
@@ -1763,6 +1750,10 @@ d3.select('input[value="temporal"]').on('change', function() {
     d3.select("#closedhighlightbar").style("display", "none")
     d3.select("#closedsidebar").style("display", "none")
     d3.select(".sidebar").style("display", "none")
+    d3.selectAll(".timelineLines").classed("notSelected",false)
+    d3.selectAll("circle").classed("notselectedLine",false)
+    d3.selectAll("text").classed("notText",false)
+    d3.selectAll("text").classed("entFilteredOut",false)
 
     $(function() {
       $('#search').select2('data', null)
@@ -2174,6 +2165,10 @@ d3.select('input[value="frequency"]').on('change', function() {
     d3.select("#closedhighlightbar").style("display", "none")
     d3.select("#closedsidebar").style("display", "none")
     d3.select(".sidebar").style("display", "none")
+    d3.selectAll(".timelineLines").classed("notSelected",false)
+    d3.selectAll("circle").classed("notselectedLine",false)
+    d3.selectAll("text").classed("notText",false)
+    d3.selectAll("text").classed("entFilteredOut",false)
 
     $(function() {
       $('#search').select2('data', null)
