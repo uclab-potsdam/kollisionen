@@ -32,8 +32,8 @@ const tour = new Shepherd.Tour({
   });
   
 tour.addStep({
-  title: 'Spiritual Family',
-  text: `Spiritual family are examples of objects that inspired Eisenstein’s cinematic and theoretical work. 
+  title: 'Eisenstein´s Universe',
+  text: `Eisenstein's universe are examples of objects that inspired Eisenstein’s cinematic and theoretical work. 
   Selecting any of these objects highlight all related events in the view. 
   These examples of spiritual family can also be experienced in the VR and 3D environment.`,
   attachTo: {
