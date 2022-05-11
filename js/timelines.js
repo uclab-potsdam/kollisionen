@@ -2594,12 +2594,15 @@ d3.select(".f_c").on("click", function() {
     d3.select(this).style("font-weight", "bold")
     d3.select(".highlightbar").style("display", "none")
     d3.select("#closedhighlightbar").style("display", "none")
+    d3.selectAll("text.cinema").classed("entFilteredOut", true).classed("notText", false)
+    d3.selectAll("text:not(.cinema)").classed("entFilteredOut", false).classed("notText", true)
     d3.selectAll("circle.cinema").classed("catFilteredOut", false)
     d3.selectAll("circle:not(.cinema)").classed("catFilteredOut", true)
     d3.selectAll(".timelineLines").filter(".cinema").classed("catFilteredOut", false)
     d3.selectAll(".timelineLines").filter(":not(.cinema)").classed("catFilteredOut", true)
   } else {
     d3.select(this).style("font-weight", 400)
+    d3.SelectAll("text").classed("entFilteredOut", false).classed("notText", false)
     d3.selectAll("circle").classed("catFilteredOut", false)
     d3.selectAll(".timelineLines").classed("catFilteredOut", false)
 
@@ -2624,6 +2627,8 @@ d3.select(".f_b").on("click", function() {
     d3.select(this).style("font-weight", "bold")
     d3.select(".highlightbar").style("display", "none")
     d3.select("#closedhighlightbar").style("display", "none")
+    d3.selectAll("text.biography").classed("entFilteredOut", true).classed("notText", false)
+    d3selectAll("text:not(.biography)").classed("entFilteredOut", false).classed("notText", true)
     d3.selectAll("circle.biography").classed("catFilteredOut", false)
     d3.selectAll("circle:not(.biography)").classed("catFilteredOut", true)
     d3.selectAll(".timelineLines").filter(".biography").classed("catFilteredOut", false)
@@ -2631,6 +2636,7 @@ d3.select(".f_b").on("click", function() {
 
   } else {
     d3.select(this).style("font-weight", 400)
+    d3.SelectAll("text").classed("entFilteredOut", false).classed("notText", false)
     d3.selectAll("circle").classed("catFilteredOut", false)
     d3.selectAll(".timelineLines").classed("catFilteredOut", false)
     twGain.gain.rampTo(0.2,30)
@@ -2654,12 +2660,15 @@ d3.select(".f_w").on("click", function() {
     d3.select(this).style("font-weight", "bold")
     d3.select(".highlightbar").style("display", "none")
     d3.select("#closedhighlightbar").style("display", "none")
+    d3.selectAll("text.writing").classed("entFilteredOut", true).classed("notText", false)
+    d3selectAll("text:not(.writing)").classed("entFilteredOut", false).classed("notText", true)
     d3.selectAll("circle.writing").classed("catFilteredOut", false)
     d3.selectAll("circle:not(.writing)").classed("catFilteredOut", true)
     d3.selectAll(".timelineLines").filter(".writing").classed("catFilteredOut", false)
     d3.selectAll(".timelineLines").filter(":not(.writing)").classed("catFilteredOut", true)
   } else {
     d3.select(this).style("font-weight", 400)
+    d3.SelectAll("text").classed("entFilteredOut", false).classed("notText", false)
     d3.selectAll("circle").classed("catFilteredOut", false)
     d3.selectAll(".timelineLines").classed("catFilteredOut", false)
     twGain.gain.rampTo(0.2,30)
