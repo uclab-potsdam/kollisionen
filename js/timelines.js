@@ -1875,27 +1875,27 @@ return true;
 }  else{return false}
 })
 .classed("people", function (d) {
-  if (d.people.includes(D)) {
+  if (d.peopleSplit.filter(function(people){return D.keyword==people}).length >0) {
     return true;
     }else{ return false};
     })
 .classed("places", function (d) {
-  if (d.places.includes(D)) {
+  if (d.placesSplit.filter(function(place){return D.keyword==place}).length >0) {
     return true;
     }else{ return false};
     })
 .classed("works", function (d) {
-  if (d.works.includes(D)) {
+  if (d.worksSplit.filter(function(work){return D.keyword==work}).length >0) {
     return true;
     }else{ return false};
     })
 .classed("artistic", function (d) {
-  if (d.artistic.includes(D)) {
+  if (d.artisticSplit.filter(function(artistic){return D.keyword==artistic}).length >0) {
     return true;
     }else{ return false};
     })
 .classed("additional", function (d) {
-  if (d.additional.includes(D)) {
+  if (d.additionalSplit.filter(function(additional){return D.keyword==additional}).length >0) {
     return true;
     }else{ return false};
     })
@@ -2024,27 +2024,27 @@ return true;
 }  else{return false}
 })
 .classed("people", function (d) {
-  if (d.people.includes(D)) {
+  if (d.peopleSplit.filter(function(people){return D.keyword==people}).length >0) {
     return true;
     }else{ return false};
     })
 .classed("places", function (d) {
-  if (d.places.includes(D)) {
+  if (d.placesSplit.filter(function(place){return D.keyword==place}).length >0) {
     return true;
     }else{ return false};
     })
 .classed("works", function (d) {
-  if (d.works.includes(D)) {
+  if (d.worksSplit.filter(function(work){return D.keyword==work}).length >0) {
     return true;
     }else{ return false};
     })
 .classed("artistic", function (d) {
-  if (d.artistic.includes(D)) {
+  if (d.artisticSplit.filter(function(artistic){return D.keyword==artistic}).length >0) {
     return true;
     }else{ return false};
     })
 .classed("additional", function (d) {
-  if (d.additional.includes(D)) {
+  if (d.additionalSplit.filter(function(additional){return D.keyword==additional}).length >0) {
     return true;
     }else{ return false};
     })
@@ -2283,27 +2283,27 @@ d3.select('input[value="frequency"]').on('change', function() {
   }  else{return false}
   })
   .classed("people", function (d) {
-    if (d.people.includes(D)) {
+    if (d.peopleSplit.filter(function(people){return D.keyword==people}).length >0) {
       return true;
       }else{ return false};
       })
   .classed("places", function (d) {
-    if (d.places.includes(D)) {
+    if (d.placesSplit.filter(function(place){return D.keyword==place}).length >0) {
       return true;
       }else{ return false};
       })
   .classed("works", function (d) {
-    if (d.works.includes(D)) {
+    if (d.worksSplit.filter(function(work){return D.keyword==work}).length >0) {
       return true;
       }else{ return false};
       })
   .classed("artistic", function (d) {
-    if (d.artistic.includes(D)) {
+    if (d.artisticSplit.filter(function(artistic){return D.keyword==artistic}).length >0) {
       return true;
       }else{ return false};
       })
   .classed("additional", function (d) {
-    if (d.additional.includes(D)) {
+    if (d.additionalSplit.filter(function(additional){return D.keyword==additional}).length >0) {
       return true;
       }else{ return false};
       })
@@ -2433,27 +2433,27 @@ return ((d.placesSplit.filter(function(place){return D.keyword==place}).length >
   }  else{return false}
   })
   .classed("people", function (d) {
-    if (d.people.includes(D)) {
+    if (d.peopleSplit.filter(function(people){return D.keyword==people}).length >0) {
       return true;
       }else{ return false};
       })
   .classed("places", function (d) {
-    if (d.places.includes(D)) {
+    if (d.placesSplit.filter(function(place){return D.keyword==place}).length >0) {
       return true;
       }else{ return false};
       })
   .classed("works", function (d) {
-    if (d.works.includes(D)) {
+    if (d.worksSplit.filter(function(work){return D.keyword==work}).length >0) {
       return true;
       }else{ return false};
       })
   .classed("artistic", function (d) {
-    if (d.artistic.includes(D)) {
+    if (d.artisticSplit.filter(function(artistic){return D.keyword==artistic}).length >0) {
       return true;
       }else{ return false};
       })
   .classed("additional", function (d) {
-    if (d.additional.includes(D)) {
+    if (d.additionalSplit.filter(function(additional){return D.keyword==additional}).length >0) {
       return true;
       }else{ return false};
       })
@@ -2682,8 +2682,8 @@ d3.select(".triangle").on("click", function() {
     d3.selectAll(".highlights p").style("font-weight", 400)
     d3.selectAll(".entities p").style("font-weight", 400)
     d3.select(this).style("font-weight", "bold")
-    d3.selectAll("text.people").classed("entFilteredOut", true)
-    d3.selectAll("text:not(.people)").classed("entFilteredOut", false)
+    d3.selectAll("text.people").classed("entFilteredOut", true).classed("notText", false)
+    d3.selectAll("text:not(.people)").classed("notText", true).classed("entFilteredOut", false)
     d3.selectAll(".timelineLines").filter(".people").classed("SelectedLine", true).classed("notSelectedLine", false)
     d3.selectAll(".timelineLines").filter(":not(.people)").classed("notSelectedLine", true).classed("SelectedLine", false)
     d3.selectAll("circle.people").classed("selected", true).classed("notSelected", false)
@@ -2710,8 +2710,8 @@ d3.select(".diamond").on("click", function() {
     d3.selectAll(".highlights p").style("font-weight", 400)
     d3.selectAll(".entities p").style("font-weight", 400)
     d3.select(this).style("font-weight", "bold")
-    d3.selectAll("text.places").classed("entFilteredOut", true)
-    d3.selectAll("text:not(.places)").classed("entFilteredOut", false)
+    d3.selectAll("text.places").classed("entFilteredOut", true).classed("notText", false)
+    d3.selectAll("text:not(.places)").classed("notText", true).classed("entFilteredOut", false)
     d3.selectAll(".timelineLines").filter(".places").classed("SelectedLine", true).classed("notSelectedLine", false)
     d3.selectAll(".timelineLines").filter(":not(.places)").classed("notSelectedLine", true).classed("SelectedLine", false)
     d3.selectAll("circle.places").classed("selected", true).classed("notSelected", false)
@@ -2738,8 +2738,8 @@ d3.select(".threeprong").on("click", function() {
     d3.selectAll(".highlights p").style("font-weight", 400)
     d3.selectAll(".entities p").style("font-weight", 400)
     d3.select(this).style("font-weight", "bold")
-    d3.selectAll("text.works").classed("entFilteredOut", true)
-    d3.selectAll("text:not(.works)").classed("entFilteredOut", false)
+    d3.selectAll("text.works").classed("entFilteredOut", true).classed("notText", false)
+    d3.selectAll("text:not(.works)").classed("notText", true).classed("entFilteredOut", false)
     d3.selectAll(".timelineLines").filter(".works").classed("SelectedLine", true).classed("notSelectedLine", false)
     d3.selectAll(".timelineLines").filter(":not(.works)").classed("notSelectedLine", true).classed("SelectedLine", false)
     d3.selectAll("circle.works").classed("selected", true).classed("notSelected", false)
@@ -2765,8 +2765,8 @@ d3.select(".square").on("click", function() {
     d3.selectAll(".highlights p").style("font-weight", 400)
     d3.selectAll(".entities p").style("font-weight", 400)
     d3.select(this).style("font-weight", "bold")
-    d3.selectAll("text.artistic").classed("entFilteredOut", true)
-    d3.selectAll("text:not(.artistic)").classed("notText", true)
+    d3.selectAll("text.artistic").classed("entFilteredOut", true).classed("notText", false)
+    d3.selectAll("text:not(.artistic)").classed("notText", true).classed("entFilteredOut", false)
     d3.selectAll(".timelineLines").filter(".artistic").classed("SelectedLine", true).classed("notSelectedLine", false)
     d3.selectAll(".timelineLines").filter(":not(.artistic)").classed("notSelectedLine", true).classed("SelectedLine", false)
     d3.selectAll("circle.artistic").classed("selected", true).classed("notSelected", false)
@@ -2791,8 +2791,8 @@ d3.select(".plus").on("click", function() {
     d3.selectAll(".highlights p").style("font-weight", 400)
     d3.selectAll(".entities p").style("font-weight", 400)
     d3.select(this).style("font-weight", "bold")
-    d3.selectAll("text.additional").classed("entFilteredOut", true)
-    d3.selectAll("text:not(.additional)").classed("notText", true)
+    d3.selectAll("text.additional").classed("entFilteredOut", true).classed("notText", false)
+    d3.selectAll("text:not(.additional)").classed("notText", true).classed("entFilteredOut", false)
     d3.selectAll(".timelineLines").filter(".additional").classed("SelectedLine", true).classed("notSelectedLine", false)
     d3.selectAll(".timelineLines").filter(":not(.additional)").classed("notSelectedLine", true).classed("SelectedLine", false)
     d3.selectAll("circle.additional").classed("selected", true).classed("notSelected", false)
