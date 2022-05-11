@@ -754,12 +754,28 @@ d3.selectAll("circle").classed("filteredout", function(d){
                       if(d.works.includes(e.choice.name)){return false}else{return true}
                     }})
 
+                    d3.selectAll("text").classed("filteredout", function(d){
+                      if (e.choice.category == "people"){
+                        if(d.people.includes(e.choice.name)){return false}else{return true}
+                      }else if (e.choice.category == "places"){
+                          if(d.places.includes(e.choice.name)){return false}else{return true}
+                        }else if (e.choice.category == "artistic"){
+                            if(d.artistic.includes(e.choice.name)){return false}else{return true}
+                          }else if (e.choice.category == "additional"){
+                              if(d.additional.includes(e.choice.name)){return false}else{return true}
+                            }else if (e.choice.category == "works"){
+                                if(d.works.includes(e.choice.name)){return false}else{return true}
+                              }})
+                              
+
 })
 
 
 $("#search").on("select2-clearing", function(e) {
 d3.selectAll(".timelineLines").classed("filteredout",false)
 d3.selectAll("circle").classed("filteredout",false)
+d3.selectAll("text").classed("filteredout",false)
+
 })
 
 // filters and sorting
