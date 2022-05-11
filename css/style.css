@@ -740,6 +740,10 @@ input[type="checkbox"]:checked:before {
   /* opacity:0.05; */
 }
 
+.notText {
+  fill: grey !important;
+}
+
 .entFilteredOut {
   font-weight: bold;
 }

@@ -987,6 +987,7 @@ function stringSplit(data, keywordSplitter) {
   .attr("font-size", "12px")
   .attr("text-weight", 400)
   .style("text-anchor", "end")
+  .style("fill", "black")
   .classed("keyword", true)
   .classed("people", function (d) { if (keywordsPeople.filter(function(D){return D==d}).length >0){return true}else{return false}})
   .classed("places", function (d) { if (keywordsPlace.filter(function(D){return D==d}).length >0){return true}else{return false}})
@@ -1660,7 +1661,7 @@ d3.selectAll(".filter").style("font-weight", 400)
 d3.selectAll(".highlights p").style("font-weight", 400)
 d3.selectAll(".entities p").style("font-weight", 400)
 
-d3.selectAll("circle").classed("filteredout", function(d){
+d3.selectAll("circle").classed("notSelected", function(d){
   if (e.choice.category == "people"){
     if(d.people.includes(e.choice.name)){return false}else{return true}
   }else if (e.choice.category == "places"){
@@ -1673,7 +1674,7 @@ d3.selectAll("circle").classed("filteredout", function(d){
             if(d.works.includes(e.choice.name)){return false}else{return true}
           }})
 
-          d3.selectAll(".timelineLines").classed("filteredout", function(d){
+          d3.selectAll(".timelineLines").classed("notselectedLine", function(d){
             if (e.choice.category == "people"){
               if(d.people.includes(e.choice.name)){return false}else{return true}
             }else if (e.choice.category == "places"){
@@ -1686,12 +1687,44 @@ d3.selectAll("circle").classed("filteredout", function(d){
                       if(d.works.includes(e.choice.name)){return false}else{return true}
                     }})
 
-// find "text" that matches 'e.choice.name'
+                    d3.selectAll("text").classed("notText", function(d){
+                      if (e.choice.category == "people"){
+                        if(d.keyword.includes(e.choice.name)){return false}else{return true}
+                      }else if (e.choice.category == "places"){
+                          if(d.keyword.includes(e.choice.name)){return false}else{return true}
+                        }else if (e.choice.category == "artistic"){
+                            if(d.keyword.includes(e.choice.name)){return false}else{return true}
+                          }else if (e.choice.category == "additional"){
+                              if(d.keyword.includes(e.choice.name)){return false}else{return true}
+                            }else if (e.choice.category == "works"){
+                                if(d.keyword.includes(e.choice.name)){return false}else{return true}
+                              }})
 
-d3.selectAll("text").classed("entFilteredout", function(d){
-    if(d.text == e.choice.name){return true}else{return false}
-  }
-)
+                              d3.selectAll("text").classed("entFilteredOut", function(d){
+                                if (e.choice.category == "people"){
+                                  if(d.keyword.includes(e.choice.name)){return true}else{return false}
+                                }else if (e.choice.category == "places"){
+                                    if(d.keyword.includes(e.choice.name)){return true}else{return false}
+                                  }else if (e.choice.category == "artistic"){
+                                      if(d.keyword.includes(e.choice.name)){return true}else{return false}
+                                    }else if (e.choice.category == "additional"){
+                                        if(d.keyword.includes(e.choice.name)){return true}else{return false}
+                                      }else if (e.choice.category == "works"){
+                                          if(d.keyword.includes(e.choice.name)){return true}else{return false}
+                                        }})
+
+                                        d3.selectAll("image").classed("notText", function(d){
+                                          if (e.choice.category == "people"){
+                                            if(d.keyword.includes(e.choice.name)){return true}else{return false}
+                                          }else if (e.choice.category == "places"){
+                                              if(d.keyword.includes(e.choice.name)){return true}else{return false}
+                                            }else if (e.choice.category == "artistic"){
+                                                if(d.keyword.includes(e.choice.name)){return true}else{return false}
+                                              }else if (e.choice.category == "additional"){
+                                                  if(d.keyword.includes(e.choice.name)){return true}else{return false}
+                                                }else if (e.choice.category == "works"){
+                                                    if(d.keyword.includes(e.choice.name)){return true}else{return false}
+                                                  }})
 
 
 // document.getElementById("text").scrollIntoView({behavior: "smooth"})
@@ -1707,9 +1740,10 @@ d3.selectAll("text").classed("entFilteredout", function(d){
 
 
 $("#search").on("select2-clearing", function(e) {
-d3.selectAll(".timelineLines").classed("filteredout",false)
-d3.selectAll("circle").classed("filteredout",false)
-d3.selectAll("text").classed("entFilteredout",false)
+d3.selectAll(".timelineLines").classed("notSelected",false)
+d3.selectAll("circle").classed("notselectedLine",false)
+d3.selectAll("text").classed("notText",false)
+d3.selectAll("text").classed("entFilteredOut",false)
 })
 
 //sound
