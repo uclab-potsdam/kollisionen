@@ -2595,6 +2595,8 @@ d3.select(".f_c").on("click", function() {
     d3.selectAll(".highlights p").style("font-weight", 400)
     d3.selectAll(".entities p").style("font-weight", 400)
     d3.select(this).style("font-weight", "bold")
+    d3.selectAll(".timelineLines").classed("notSelectedLine", false).classed("SelectedLine", false)
+    d3.selectAll("circle").classed("selected", false).classed("notSelected", false)
     // d3.selectAll("text.cinema").classed("entFilteredOut", true).classed("notText", false)
     // d3.selectAll("text:not(.cinema)").classed("entFilteredOut", false).classed("notText", true)
     d3.selectAll("circle.cinema").classed("catFilteredOut", false)
@@ -2629,6 +2631,8 @@ d3.select(".f_b").on("click", function() {
     d3.select(this).style("font-weight", "bold")
     d3.select(".highlightbar").style("display", "none")
     d3.select("#closedhighlightbar").style("display", "none")
+    d3.selectAll(".timelineLines").classed("notSelectedLine", false).classed("SelectedLine", false)
+    d3.selectAll("circle").classed("selected", false).classed("notSelected", false)
     // d3.selectAll("text.biography").classed("entFilteredOut", true).classed("notText", false)
     // d3.selectAll("text:not(.biography)").classed("entFilteredOut", false).classed("notText", true)
     d3.selectAll("circle.biography").classed("catFilteredOut", false)
@@ -2663,6 +2667,8 @@ d3.select(".f_w").on("click", function() {
     d3.select(this).style("font-weight", "bold")
     d3.select(".highlightbar").style("display", "none")
     d3.select("#closedhighlightbar").style("display", "none")
+    d3.selectAll(".timelineLines").classed("notSelectedLine", false).classed("SelectedLine", false)
+    d3.selectAll("circle").classed("selected", false).classed("notSelected", false)
     // d3.selectAll("text.writing").classed("entFilteredOut", true).classed("notText", false)
     // d3.selectAll("text:not(.writing)").classed("entFilteredOut", false).classed("notText", true)
     d3.selectAll("circle.writing").classed("catFilteredOut", false)
@@ -2687,8 +2693,6 @@ d3.select(".f_w").on("click", function() {
 d3.select(".triangle").on("click", function() {
   $(function() {
     $('#search').select2('data', null)
-    d3.selectAll(circle).classed("selected", false).classed("notSelected", true)
-    d3.selectAll(".timelineLines").classed("notSelectedLine", false).classed("SelectedLine", false)
   })
 
   if (d3.select(this).style("font-weight") != "bold") {
@@ -2697,6 +2701,8 @@ d3.select(".triangle").on("click", function() {
     d3.selectAll(".entities p").style("font-weight", 400)
     d3.select(".highlightbar").style("display", "none")
     d3.select("#closedhighlightbar").style("display", "none")
+    d3.selectAll("circle").classed("catFilteredOut", false)
+    d3.selectAll(".timelineLines").classed("catFilteredOut", false)
     d3.select(this).style("font-weight", "bold")
     d3.selectAll("text.people").classed("entFilteredOut", true).classed("notText", false)
     d3.selectAll("text:not(.people)").classed("notText", true).classed("entFilteredOut", false)
@@ -2719,8 +2725,6 @@ d3.select(".triangle").on("click", function() {
 d3.select(".diamond").on("click", function() {
   $(function() {
     $('#search').select2('data', null)
-    d3.selectAll(circle).classed("selected", false).classed("notSelected", true)
-    d3.selectAll(".timelineLines").classed("notSelectedLine", false).classed("SelectedLine", false)
   })
 
   if (d3.select(this).style("font-weight") != "bold") {
@@ -2729,6 +2733,8 @@ d3.select(".diamond").on("click", function() {
     d3.selectAll(".entities p").style("font-weight", 400)
     d3.select(".highlightbar").style("display", "none")
     d3.select("#closedhighlightbar").style("display", "none")
+    d3.selectAll("circle").classed("catFilteredOut", false)
+    d3.selectAll(".timelineLines").classed("catFilteredOut", false)
     d3.select(this).style("font-weight", "bold")
     d3.selectAll("text.places").classed("entFilteredOut", true).classed("notText", false)
     d3.selectAll("text:not(.places)").classed("notText", true).classed("entFilteredOut", false)
@@ -2751,8 +2757,6 @@ d3.select(".diamond").on("click", function() {
 d3.select(".threeprong").on("click", function() {
   $(function() {
     $('#search').select2('data', null)
-    d3.selectAll(circle).classed("selected", false).classed("notSelected", true)
-    d3.selectAll(".timelineLines").classed("notSelectedLine", false).classed("SelectedLine", false)
   })
 
   if (d3.select(this).style("font-weight") != "bold") {
@@ -2761,6 +2765,8 @@ d3.select(".threeprong").on("click", function() {
     d3.selectAll(".entities p").style("font-weight", 400)
     d3.select(".highlightbar").style("display", "none")
     d3.select("#closedhighlightbar").style("display", "none")
+    d3.selectAll("circle").classed("catFilteredOut", false)
+    d3.selectAll(".timelineLines").classed("catFilteredOut", false)
     d3.select(this).style("font-weight", "bold")
     d3.selectAll("text.works").classed("entFilteredOut", true).classed("notText", false)
     d3.selectAll("text:not(.works)").classed("notText", true).classed("entFilteredOut", false)
@@ -2782,8 +2788,6 @@ d3.select(".threeprong").on("click", function() {
 d3.select(".square").on("click", function() {
   $(function() {
     $('#search').select2('data', null)
-    d3.selectAll(circle).classed("selected", false).classed("notSelected", true)
-    d3.selectAll(".timelineLines").classed("notSelectedLine", false).classed("SelectedLine", false)
   })
 
   if (d3.select(this).style("font-weight") != "bold") {
@@ -2792,6 +2796,8 @@ d3.select(".square").on("click", function() {
     d3.selectAll(".entities p").style("font-weight", 400)
     d3.select(".highlightbar").style("display", "none")
     d3.select("#closedhighlightbar").style("display", "none")
+    d3.selectAll("circle").classed("catFilteredOut", false)
+    d3.selectAll(".timelineLines").classed("catFilteredOut", false)
     d3.select(this).style("font-weight", "bold")
     d3.selectAll("text.artistic").classed("entFilteredOut", true).classed("notText", false)
     d3.selectAll("text:not(.artistic)").classed("notText", true).classed("entFilteredOut", false)
@@ -2812,8 +2818,6 @@ d3.select(".square").on("click", function() {
 d3.select(".plus").on("click", function() {
   $(function() {
     $('#search').select2('data', null)
-    d3.selectAll(circle).classed("selected", false).classed("notSelected", true)
-    d3.selectAll(".timelineLines").classed("notSelectedLine", false).classed("SelectedLine", false)
   })
 
   if (d3.select(this).style("font-weight") != "bold") {
@@ -2823,6 +2827,8 @@ d3.select(".plus").on("click", function() {
     d3.select(".highlightbar").style("display", "none")
     d3.select("#closedhighlightbar").style("display", "none")
     d3.select(".sidebar").style("display", "none")
+    d3.selectAll("circle").classed("catFilteredOut", false)
+    d3.selectAll(".timelineLines").classed("catFilteredOut", false)
     d3.select(this).style("font-weight", "bold")
     d3.selectAll("text.additional").classed("entFilteredOut", true).classed("notText", false)
     d3.selectAll("text:not(.additional)").classed("notText", true).classed("entFilteredOut", false)
