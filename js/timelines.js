@@ -1028,6 +1028,7 @@ function stringSplit(data, keywordSplitter) {
 
 
 
+
   timelinesG.append("line")
   .attr("x1", 350)  //start of timeline
   .attr("y1", function(d,i){return 10+i*20})
@@ -2936,6 +2937,9 @@ d3.selectAll(".highlights p")
     d3.selectAll(".entities p").style("font-weight", 400)
     d3.select(this).style("font-weight", "bold")
     let selectedIdentifier = d3.select(this).attr("class") // get the class of the p tag that was clicked on
+    console.log(selectedIdentifier)
+
+
 
     d3.selectAll("circle").filter(function(X,Y){return highlightsData.filter(function(D){return D.identifier ==  selectedIdentifier})[0].events.includes(X.Event_ID) == true
   }).classed("catFilteredOut", false)
@@ -2945,6 +2949,12 @@ d3.selectAll(".highlights p")
   }).classed("catFilteredOut", false)
     d3.selectAll(".timelineLines").filter(function(X,Y){return highlightsData.filter(function(D){return D.identifier ==  selectedIdentifier})[0].events.includes(X.Event_ID) == false
   }).classed("catFilteredOut", true)
+
+///to check for highlights: for each timeline count the number of elements, then substract the number of visible elements. if this is > 0 then there is a highlight visible in this timeline
+  d3.selectAll(".backgroundTimelineG").each(function(d){//console.log(d)
+    if(d3.select(this).selectAll(".circles,.timelineLines").size()-d3.select(this).selectAll(".circles,.timelineLines").filter(".catFilteredOut").size() > 0)
+      {d3.select(this).select("text").style("display", "block")}else{d3.select(this).select("text").style("display", "none")}
+  })
 
     d3.selectAll(".filter,.allfilter").style("font-weight", 400)
     d3.select("#closedhighlightbar").style("display", "block")
