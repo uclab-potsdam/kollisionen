@@ -2649,9 +2649,7 @@ return "translate(340," + (2+I*20) + ")"})
 // filter for categories
 
 d3.select(".f_c").on("click", function() {
-  d3.selectAll("text").classed("entFilteredOut", false).classed("notText", false)
-  d3.select(".highlightbar").style("display", "none")
-  d3.select("#closedhighlightbar").style("display", "none")
+  d3.selectAll("text").classed("entFilteredOut", false).classed("notText", false).style("display", "block")
   $(function() {
     $('#search').select2('data', null)
   })
@@ -2688,9 +2686,9 @@ d3.select(".f_c").on("click", function() {
 })
 
 d3.select(".f_b").on("click", function() {
+  d3.selectAll("text").classed("entFilteredOut", false).classed("notText", false).style("display", "block")
   $(function() {
     $('#search').select2('data', null)
-    d3.selectAll("text").classed("entFilteredOut", false).classed("notText", false)
   })
 
   twGain.gain.rampTo(-0.1,0.5);
@@ -2725,6 +2723,7 @@ d3.select(".f_b").on("click", function() {
 })
 
 d3.select(".f_w").on("click", function() {
+  d3.selectAll("text").classed("entFilteredOut", false).classed("notText", false).style("display", "block")
   $(function() {
     $('#search').select2('data', null)
     d3.selectAll("text").classed("entFilteredOut", false).classed("notText", false)
@@ -2767,10 +2766,12 @@ d3.select(".f_w").on("click", function() {
 //people
 
 d3.select(".triangle").on("click", function() {
+  d3.selectAll("text").classed("entFilteredOut", false).classed("notText", false).style("display", "block")
+  d3.selectAll(".keyword").style("font-weight", 400)
   $(function() {
     $('#search').select2('data', null)
   })
-
+  
   if (d3.select(this).style("font-weight") != "bold") {
     d3.selectAll(".filter").style("font-weight", 400)
     d3.selectAll(".highlights p").style("font-weight", 400)
@@ -2799,6 +2800,8 @@ d3.select(".triangle").on("click", function() {
 //places
 
 d3.select(".diamond").on("click", function() {
+  d3.selectAll("text").classed("entFilteredOut", false).classed("notText", false).style("display", "block")
+  d3.selectAll(".keyword").style("font-weight", 400)
   $(function() {
     $('#search').select2('data', null)
   })
@@ -2831,6 +2834,8 @@ d3.select(".diamond").on("click", function() {
 //works
 
 d3.select(".threeprong").on("click", function() {
+  d3.selectAll("text").classed("entFilteredOut", false).classed("notText", false).style("display", "block")
+  d3.selectAll(".keyword").style("font-weight", 400)
   $(function() {
     $('#search').select2('data', null)
   })
@@ -2862,6 +2867,8 @@ d3.select(".threeprong").on("click", function() {
 //artistic concepts
 
 d3.select(".square").on("click", function() {
+  d3.selectAll("text").classed("entFilteredOut", false).classed("notText", false).style("display", "block")
+  d3.selectAll(".keyword").style("font-weight", 400)
   $(function() {
     $('#search').select2('data', null)
   })
@@ -2892,9 +2899,11 @@ d3.select(".square").on("click", function() {
 //additional
 
 d3.select(".plus").on("click", function() {
+  d3.selectAll("text").classed("entFilteredOut", false).classed("notText", false).style("display", "block").style("font-weight", 400)
   $(function() {
     $('#search').select2('data', null)
   })
+  d3.selectAll("text").classed("entFilteredOut", false).classed("notText", false).style("display", "block")
 
   if (d3.select(this).style("font-weight") != "bold") {
     d3.selectAll(".filter").style("font-weight", 400)
@@ -2929,7 +2938,8 @@ d3.selectAll(".highlights p")
   })
 
   if (d3.select(this).style("font-weight") != "bold") {
-    d3.selectAll("text").classed("entFilteredOut", false).classed("notText", false)
+    d3.selectAll("text").classed("entFilteredOut", false).classed("notText", false).style("display", "block")
+    d3.selectAll(".keyword").style("font-weight", 400)
     d3.selectAll(".timelineLines").classed("notSelectedLine", false).classed("SelectedLine", false)
     d3.selectAll("circle").classed("selected", false).classed("notSelected", false)
     d3.selectAll(".filter").style("font-weight", 400)
