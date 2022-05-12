@@ -3,7 +3,8 @@
 //sorry for the inelegant code (but it works)
 
 // var url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvSLkjHvHlPjWLy3ec4UT9AsFsyTy2rbsjKquZgmhCqbsTZ4TLAnWv28Y3PnR/pub?gid=1387341329&single=true&output=csv'
-var url = './data/minimal_100522.csv' //local backup
+var url = './data/minimal_120522.csv' //local backup
+
 
 // this is not used
 // var itemsUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTpZlBfSa0sBkPXXCdHykUFi5N2zPcclrda8iaYlbWoyzaWxDj7q3WEtmP7m8hrzk5ejAgjk-Id_zk9/pub?gid=1626158426&single=true&output=csv'
@@ -1837,6 +1838,31 @@ else{return d.keyword}})
 .classed("works", function (d) { if (keywordsWorks.filter(function(D){return D==d}).length >0){return true}else{return false}})
 .classed("artistic", function (d) { if (keywordsArtistic.filter(function(D){return D==d}).length >0){return true}else{return false}})
 .classed("additional", function (d) { if (keywordsAdditional.filter(function(D){return D==d}).length >0){return true}else{return false}})
+.classed("category", true)
+.classed("cinema", function(d){
+  if(keywordsData.filter(function(D){return (D.placesSplit.filter(function(place){return d.keyword==place})).length>0
+    || (D.peopleSplit.filter(function(people){return d.keyword==people})).length>0
+    || (D.worksSplit.filter(function(works){return d.keyword==works})).length>0
+    || (D.artisticSplit.filter(function(artistic){return d.keyword==artistic})).length>0
+    || (D.additionalSplit.filter(function(additional){return d.keyword==additional})).length>0}).filter(function(event){return event.category.includes("Cinema") == true || event.category.includes("Graphic") == true}).length >0)
+  {return true}else{return false}
+})
+.classed("biography", function(d){
+  if(keywordsData.filter(function(D){return (D.placesSplit.filter(function(place){return d.keyword==place})).length>0
+    || (D.peopleSplit.filter(function(people){return d.keyword==people})).length>0
+    || (D.worksSplit.filter(function(works){return d.keyword==works})).length>0
+    || (D.artisticSplit.filter(function(artistic){return d.keyword==artistic})).length>0
+    || (D.additionalSplit.filter(function(additional){return d.keyword==additional})).length>0}).filter(function(event){return event.category.includes("Biography") == true || event.category.includes("Apartment") == true}).length >0)
+  {return true}else{return false}
+})
+.classed("writing", function(d){
+  if(keywordsData.filter(function(D){return (D.placesSplit.filter(function(place){return d.keyword==place})).length>0
+    || (D.peopleSplit.filter(function(people){return d.keyword==people})).length>0
+    || (D.worksSplit.filter(function(works){return d.keyword==works})).length>0
+    || (D.artisticSplit.filter(function(artistic){return d.keyword==artistic})).length>0
+    || (D.additionalSplit.filter(function(additional){return d.keyword==additional})).length>0}).filter(function(event){return event.category.includes("Writing") == true}).length >0)
+  {return true}else{return false}
+})
 
 timelinesG.append("line")
 .attr("x1", 350)  //start of timeline
@@ -2245,6 +2271,31 @@ d3.select('input[value="frequency"]').on('change', function() {
       .classed("works", function (d) { if (keywordsWorks.filter(function(D){return D==d}).length >0){return true}else{return false}})
       .classed("artistic", function (d) { if (keywordsArtistic.filter(function(D){return D==d}).length >0){return true}else{return false}})
       .classed("additional", function (d) { if (keywordsAdditional.filter(function(D){return D==d}).length >0){return true}else{return false}})
+      .classed("category", true)
+      .classed("cinema", function(d){
+        if(keywordsData.filter(function(D){return (D.placesSplit.filter(function(place){return d.keyword==place})).length>0
+          || (D.peopleSplit.filter(function(people){return d.keyword==people})).length>0
+          || (D.worksSplit.filter(function(works){return d.keyword==works})).length>0
+          || (D.artisticSplit.filter(function(artistic){return d.keyword==artistic})).length>0
+          || (D.additionalSplit.filter(function(additional){return d.keyword==additional})).length>0}).filter(function(event){return event.category.includes("Cinema") == true || event.category.includes("Graphic") == true}).length >0)
+        {return true}else{return false}
+      })
+      .classed("biography", function(d){
+        if(keywordsData.filter(function(D){return (D.placesSplit.filter(function(place){return d.keyword==place})).length>0
+          || (D.peopleSplit.filter(function(people){return d.keyword==people})).length>0
+          || (D.worksSplit.filter(function(works){return d.keyword==works})).length>0
+          || (D.artisticSplit.filter(function(artistic){return d.keyword==artistic})).length>0
+          || (D.additionalSplit.filter(function(additional){return d.keyword==additional})).length>0}).filter(function(event){return event.category.includes("Biography") == true || event.category.includes("Apartment") == true}).length >0)
+        {return true}else{return false}
+      })
+      .classed("writing", function(d){
+        if(keywordsData.filter(function(D){return (D.placesSplit.filter(function(place){return d.keyword==place})).length>0
+          || (D.peopleSplit.filter(function(people){return d.keyword==people})).length>0
+          || (D.worksSplit.filter(function(works){return d.keyword==works})).length>0
+          || (D.artisticSplit.filter(function(artistic){return d.keyword==artistic})).length>0
+          || (D.additionalSplit.filter(function(additional){return d.keyword==additional})).length>0}).filter(function(event){return event.category.includes("Writing") == true}).length >0)
+        {return true}else{return false}
+      })
 
   timelinesG.append("line")
   .attr("x1", 350)  //start of timeline
@@ -2632,12 +2683,13 @@ d3.select(".f_c").on("click", function() {
     d3.selectAll("circle").classed("selected", false).classed("notSelected", false)
     // d3.selectAll("text.cinema").classed("entFilteredOut", true).classed("notText", false)
     // d3.selectAll("text:not(.cinema)").classed("entFilteredOut", false).classed("notText", true)
-    d3.selectAll("circle.cinema").classed("catFilteredOut", false)
-    d3.selectAll("circle:not(.cinema)").classed("catFilteredOut", true)
-    d3.selectAll(".timelineLines").filter(".cinema").classed("catFilteredOut", false)
-    d3.selectAll(".timelineLines").filter(":not(.cinema)").classed("catFilteredOut", true)
+    d3.selectAll("circle").filter(function (d) { return d.category.includes("Cinema") || d.category.includes("Graphic") }).classed("catFilteredOut", false)
+    d3.selectAll("circle").filter(function (d) { return d.category.includes("Cinema") == false && d.category.includes("Graphic") == false }).classed("catFilteredOut", true)
+    d3.selectAll(".timelineLines").filter(function (d) { return d.category.includes("Cinema") || d.category.includes("Graphic") }).classed("catFilteredOut", false)
+    d3.selectAll(".timelineLines").filter(function (d) { return d.category.includes("Cinema") == false && d.category.includes("Graphic") == false }).classed("catFilteredOut", true)
   } else {
     d3.select(this).style("font-weight", 400)
+    d3.selectAll(".keyword").style("font-weight", 400)
     // d3.SelectAll("text").classed("entFilteredOut", false).classed("notText", false)
     d3.selectAll("circle").classed("catFilteredOut", false)
     d3.selectAll(".timelineLines").classed("catFilteredOut", false)
@@ -2668,12 +2720,10 @@ d3.select(".f_b").on("click", function() {
     d3.select("#closedhighlightbar").style("display", "none")
     d3.selectAll(".timelineLines").classed("notSelectedLine", false).classed("SelectedLine", false)
     d3.selectAll("circle").classed("selected", false).classed("notSelected", false)
-    // d3.selectAll("text.biography").classed("entFilteredOut", true).classed("notText", false)
-    // d3.selectAll("text:not(.biography)").classed("entFilteredOut", false).classed("notText", true)
-    d3.selectAll("circle.biography").classed("catFilteredOut", false)
-    d3.selectAll("circle:not(.biography)").classed("catFilteredOut", true)
-    d3.selectAll(".timelineLines").filter(".biography").classed("catFilteredOut", false)
-    d3.selectAll(".timelineLines").filter(":not(.biography)").classed("catFilteredOut", true)
+    d3.selectAll("circle").filter(function (d) { return d.category.includes("Biography") || d.category.includes("Apartment") }).classed("catFilteredOut", false)
+    d3.selectAll("circle").filter(function (d) { return d.category.includes("Biography") == false && d.category.includes("Apartment") == false }).classed("catFilteredOut", true)
+    d3.selectAll(".timelineLines").filter(function (d) { return d.category.includes("Biography") || d.category.includes("Apartment") }).classed("catFilteredOut", false)
+    d3.selectAll(".timelineLines").filter(function (d) { return d.category.includes("Biography") == false && d.category.includes("Apartment") == false }).classed("catFilteredOut", true)
 
   } else {
     d3.select(this).style("font-weight", 400)
@@ -2709,10 +2759,10 @@ d3.select(".f_w").on("click", function() {
     d3.selectAll("circle").classed("selected", false).classed("notSelected", false)
     // d3.selectAll("text.writing").classed("entFilteredOut", true).classed("notText", false)
     // d3.selectAll("text:not(.writing)").classed("entFilteredOut", false).classed("notText", true)
-    d3.selectAll("circle.writing").classed("catFilteredOut", false)
-    d3.selectAll("circle:not(.writing)").classed("catFilteredOut", true)
-    d3.selectAll(".timelineLines").filter(".writing").classed("catFilteredOut", false)
-    d3.selectAll(".timelineLines").filter(":not(.writing)").classed("catFilteredOut", true)
+    d3.selectAll("circle").filter(function (d) { return d.category.includes("Writing") }).classed("catFilteredOut", false)
+    d3.selectAll("circle").filter(function (d) { return d.category.includes("Writing") == false }).classed("catFilteredOut", true)
+    d3.selectAll(".timelineLines").filter(function (d) { return d.category.includes("Writing") }).classed("catFilteredOut", false)
+    d3.selectAll(".timelineLines").filter(function (d) { return d.category.includes("Writing") == false }).classed("catFilteredOut", true)
   } else {
     d3.select(this).style("font-weight", 400)
     d3.selectAll(".keyword").style("font-weight", 400)
