@@ -179,7 +179,7 @@ path.backgroundspiral {
 }
 
 .sidebar {
-  background-color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.9);
   outline: 1px solid grey;
   margin: 0px;
   font-size: 0.9em;
@@ -193,10 +193,17 @@ path.backgroundspiral {
   padding: 30px;
   padding-top: 50px;
   z-index: 10;
-  backdrop-filter: blur(8px);
   padding-bottom: 10px;
   overflow-y: auto;
 }
+
+@supports (backdrop-filter: blur(8px)) {
+  .sidebar {
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(8px);
+  }
+}
+
 
 .sidebar h2 {
   font-size: clamp(0.8rem, 0.9vw, 1.2rem);
@@ -212,7 +219,7 @@ path.backgroundspiral {
 
 
 .highlightbar {
-  background-color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.9);
   outline: 1px solid grey;
   margin: 0px;
   font-size: clamp(0.8rem, 0.8vw, 1.5rem);
@@ -227,7 +234,13 @@ path.backgroundspiral {
   padding: 30px;
   padding-top: 50px;
   z-index: 10;
-  backdrop-filter: blur(8px);
+}
+
+@supports (backdrop-filter: blur(8px)) {
+  .highlightbar {
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(8px);
+  }
 }
 
 .highlightbar[sidebarType="highlights"] {
@@ -401,8 +414,14 @@ line.allcat {
   padding-left: 25px;
   padding-top: 25px;
   height: 100%;
-  background-color: rgba(252, 245, 230, 0.3);
-  backdrop-filter: blur(8px);
+  background: rgba(252, 245, 230, 0.9);
+}
+
+@supports (backdrop-filter: blur(8px)) {
+#left-panel {
+    background: rgba(252, 245, 230, 0.3);
+    backdrop-filter: blur(8px);
+  }
 }
 
 .left-panel {
@@ -547,9 +566,14 @@ p {
   margin-top: 0px;
   z-index: 5;
   top: 0;
-  background-color: #fdf5e6;
-  background-color: rgba(252, 245, 230, 0.3);
-  backdrop-filter: blur(8px);
+  background: rgba(252, 245, 230, 0.9);
+}
+
+@supports (backdrop-filter: blur(8px)) {
+  .toppanelt {
+    background: rgba(252, 245, 230, 0.3);
+    backdrop-filter: blur(8px);
+  }
 }
 
 .toppanelt label {
@@ -771,12 +795,18 @@ input[type="checkbox"]:checked:before {
   height: 100%;
   position: fixed;
   display: block;
-  background-color: rgba(222, 211, 196, 0.25);
+  background: rgba(245, 236, 220, 0.92);
   padding: 30px;
   padding-top: 50px;
   outline: 1px solid grey;
   overflow-y: auto;
-  backdrop-filter: blur(8px);
+}
+
+@supports (backdrop-filter: blur(8px)) {
+  #eventList {
+    background: rgba(222, 211, 196, 0.25);
+    backdrop-filter: blur(8px);
+  }
 }
 
 #eventList ul {
