@@ -1097,43 +1097,41 @@ function stringSplit(data, keywordSplitter) {
     //console.log(date + "-" + timelineXScale(date))
       return timelineXScale(date)})
     .attr("cy", function(){return 10+I*20})
-    .classed("cinema", function (d) {if (d.category1 == true && d.category2 == false && d.category3 == false)
-    {return true}else{return false}})
+    .classed("cinema", function (d) {
+      if (d.category1 == true && d.category2 == false && d.category3 == false) {
+        return true;
+
+      } return false;
+    })
     .classed("biography", function (d) {
-      if (d.category2 == true && d.category1 == false && d.category3 == false)
-      {
-      return true;
-    } else{return false}
+      if (d.category2 == true && d.category1 == false && d.category3 == false) {
+        return true;
+      } return false;
     })
     .classed("writing", function (d) {
-      if (d.category3 == true && d.category1 == false && d.category2 == false)
-      {
-      return true;
-    } else{return false}
+      if (d.category3 == true && d.category1 == false && d.category2 == false) {
+        return true;
+      } return false;
     })
     .classed("cinebio", function (d) {
-      if (d.category1 == true && d.category2 == true && d.category3 == false)
-      {
-      return true;
-    }  else{return false}
+      if (d.category1 == true && d.category2 == true && d.category3 == false) {
+        return true;
+      } return false;
     })
     .classed("biowrit", function (d) {
-      if (d.category1 == false && d.category2 == true && d.category3 == true)
-      {
-      return true;
-    }  else{return false}
+      if (d.category1 == false && d.category2 == true && d.category3 == true) {
+        return true;
+      } return false;
     })
     .classed("cinewrit", function (d) {
-      if (d.category1 == true && d.category2 == false && d.category3 == true)
-      {
-      return true;
-    }  else{return false}
+      if (d.category1 == true && d.category2 == false && d.category3 == true) {
+        return true;
+      } return false;
     })
     .classed("allcat", function (d) {
-      if (d.category1 == true && d.category2 == true && d.category3 == true)
-      {
-      return true;
-    }  else{return false}
+      if (d.category1 == true && d.category2 == true && d.category3 == true) {
+        return true;
+      } return false;
     })
     .classed("people", function (d) {
       if (d.peopleSplit.filter(function(people){return D.keyword==people}).length >0) {
@@ -1247,43 +1245,38 @@ function stringSplit(data, keywordSplitter) {
     .classed("cinema", function (d) {
       if (d.category1 == true && d.category2 == false && d.category3 == false) {
         return true;
+
       } return false;
     })
     .classed("biography", function (d) {
-      if (d.category2 == true && d.category1 == false && d.category3 == false)
-      {
-      return true;
-    } else{return false}
+      if (d.category2 == true && d.category1 == false && d.category3 == false) {
+        return true;
+      } return false;
     })
     .classed("writing", function (d) {
-      if (d.category3 == true && d.category1 == false && d.category2 == false)
-      {
-      return true;
-    } else{return false}
+      if (d.category3 == true && d.category1 == false && d.category2 == false) {
+        return true;
+      } return false;
     })
     .classed("cinebio", function (d) {
-      if (d.category1 == true && d.category2 == true && d.category3 == false)
-      {
-      return true;
-    }  else{return false}
+      if (d.category1 == true && d.category2 == true && d.category3 == false) {
+        return true;
+      } return false;
     })
     .classed("biowrit", function (d) {
-      if (d.category1 == false && d.category2 == true && d.category3 == true)
-      {
-      return true;
-    }  else{return false}
+      if (d.category1 == false && d.category2 == true && d.category3 == true) {
+        return true;
+      } return false;
     })
     .classed("cinewrit", function (d) {
-      if (d.category1 == true && d.category2 == false && d.category3 == true)
-      {
-      return true;
-    }  else{return false}
+      if (d.category1 == true && d.category2 == false && d.category3 == true) {
+        return true;
+      } return false;
     })
     .classed("allcat", function (d) {
-      if (d.category1 == true && d.category2 == true && d.category3 == true)
-      {
-      return true;
-    }  else{return false}
+      if (d.category1 == true && d.category2 == true && d.category3 == true) {
+        return true;
+      } return false;
     })
     .classed("people", function (d) {
       if (d.peopleSplit.filter(function(people){return D.keyword==people}).length >0) {
@@ -2326,43 +2319,41 @@ d3.select('input[value="frequency"]').on('change', function() {
   //console.log(date + "-" + timelineXScale(date))
   return timelineXScale(date)})
   .attr("cy", function(){return 10+I*20})
-  .classed("cinema", function (d) {if (d.category1 == true && d.category2 == false && d.category3 == false)
-  {return true}else{return false}})
+  .classed("cinema", function (d) {
+    if (d.category1 == true && d.category2 == false && d.category3 == false) {
+      return true;
+
+    } return false;
+  })
   .classed("biography", function (d) {
-  if (d.category2 == true && d.category1 == false && d.category3 == false)
-  {
-  return true;
-  } else{return false}
+    if (d.category2 == true && d.category1 == false && d.category3 == false) {
+      return true;
+    } return false;
   })
   .classed("writing", function (d) {
-  if (d.category3 == true && d.category1 == false && d.category2 == false)
-  {
-  return true;
-  } else{return false}
+    if (d.category3 == true && d.category1 == false && d.category2 == false) {
+      return true;
+    } return false;
   })
   .classed("cinebio", function (d) {
-  if (d.category1 == true && d.category2 == true && d.category3 == false)
-  {
-  return true;
-  }  else{return false}
+    if (d.category1 == true && d.category2 == true && d.category3 == false) {
+      return true;
+    } return false;
   })
   .classed("biowrit", function (d) {
-  if (d.category1 == false && d.category2 == true && d.category3 == true)
-  {
-  return true;
-  }  else{return false}
+    if (d.category1 == false && d.category2 == true && d.category3 == true) {
+      return true;
+    } return false;
   })
   .classed("cinewrit", function (d) {
-  if (d.category1 == true && d.category2 == false && d.category3 == true)
-  {
-  return true;
-  }  else{return false}
+    if (d.category1 == true && d.category2 == false && d.category3 == true) {
+      return true;
+    } return false;
   })
   .classed("allcat", function (d) {
-  if (d.category1 == true && d.category2 == true && d.category3 == true)
-  {
-  return true;
-  }  else{return false}
+    if (d.category1 == true && d.category2 == true && d.category3 == true) {
+      return true;
+    } return false;
   })
   .classed("people", function (d) {
     if (d.peopleSplit.filter(function(people){return D.keyword==people}).length >0) {
@@ -2476,43 +2467,38 @@ return ((d.placesSplit.filter(function(place){return D.keyword==place}).length >
   .classed("cinema", function (d) {
     if (d.category1 == true && d.category2 == false && d.category3 == false) {
       return true;
+
     } return false;
   })
   .classed("biography", function (d) {
-  if (d.category2 == true && d.category1 == false && d.category3 == false)
-  {
-  return true;
-  } else{return false}
+    if (d.category2 == true && d.category1 == false && d.category3 == false) {
+      return true;
+    } return false;
   })
   .classed("writing", function (d) {
-  if (d.category3 == true && d.category1 == false && d.category2 == false)
-  {
-  return true;
-  } else{return false}
+    if (d.category3 == true && d.category1 == false && d.category2 == false) {
+      return true;
+    } return false;
   })
   .classed("cinebio", function (d) {
-  if (d.category1 == true && d.category2 == true && d.category3 == false)
-  {
-  return true;
-  }  else{return false}
+    if (d.category1 == true && d.category2 == true && d.category3 == false) {
+      return true;
+    } return false;
   })
   .classed("biowrit", function (d) {
-  if (d.category1 == false && d.category2 == true && d.category3 == true)
-  {
-  return true;
-  }  else{return false}
+    if (d.category1 == false && d.category2 == true && d.category3 == true) {
+      return true;
+    } return false;
   })
   .classed("cinewrit", function (d) {
-  if (d.category1 == true && d.category2 == false && d.category3 == true)
-  {
-  return true;
-  }  else{return false}
+    if (d.category1 == true && d.category2 == false && d.category3 == true) {
+      return true;
+    } return false;
   })
   .classed("allcat", function (d) {
-  if (d.category1 == true && d.category2 == true && d.category3 == true)
-  {
-  return true;
-  }  else{return false}
+    if (d.category1 == true && d.category2 == true && d.category3 == true) {
+      return true;
+    } return false;
   })
   .classed("people", function (d) {
     if (d.peopleSplit.filter(function(people){return D.keyword==people}).length >0) {
