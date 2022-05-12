@@ -15,7 +15,7 @@ The data used for this visualization is primarily from the book Sergej M. Eisens
 - [shepherd.js](https://github.com/shipshapecode/shepherd "shepherd.js")
 
 ## Credits
-The visualisations are created by Sara Akhlaq, Mark-Jan Bludau, Arran Ridley and Marian Dörk. They are members of Urban Complexity Lab and contributed to the project as part of the data visualisation team of the Eisenstein's House. 
+The visualisations are created by Sara Akhlaq, Mark-Jan Bludau, Arran Ridley and Marian Dörk. They are members of Urban Complexity Lab at Fachhochschule Potsdam, and contributed as the data visualisation team of the project Eisenstein's House. 
 
 ## License
 This project is licensed under the terms of the MIT license. See the [LICENSE](https://github.com/uclab-potsdam/kollisionen/blob/main/LICENSE "LICENSE") file for license rights and limitations (MIT).
