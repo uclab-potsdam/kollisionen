@@ -999,6 +999,15 @@ function stringSplit(data, keywordSplitter) {
   .classed("works", function (d) { if (keywordsWorks.filter(function(D){return D==d}).length >0){return true}else{return false}})
   .classed("artistic", function (d) { if (keywordsArtistic.filter(function(D){return D==d}).length >0){return true}else{return false}})
   .classed("additional", function (d) { if (keywordsAdditional.filter(function(D){return D==d}).length >0){return true}else{return false}})
+  .classed("category", true)
+  // .classed("cinema", function (d) { if (keywordsData.filter(function(D){  return ((d.placesSplit.filter(function(place){return D.keyword==place}).length >0) 
+  //         || (d.peopleSplit.filter(function(people){return D.keyword==people}).length >0) 
+  //           || (d.worksSplit.filter(function(work){return D.keyword==work}).length >0) 
+  //             || (d.artisticSplit.filter(function(artistic){return D.keyword==artistic}).length >0) 
+  //               || (d.additionalSplit.filter(function(additional){return D.keyword==additional}).length >0)) && d.category1 == true}).length >0){return true}else{return false}})
+  // peopleSplit or keywordsData.placesSplit or keywordsData.worksSplit or keywordsData.additionalSplit or keywordsData.artisticSplit and keywordsData.category1 == true
+
+
 
   timelinesG.append("line")
   .attr("x1", 350)  //start of timeline
