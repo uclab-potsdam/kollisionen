@@ -672,6 +672,9 @@ Promise.all([
       d3.selectAll(".nodeSymbol,.label,.labelbg").classed("entityFilteredOut", false)
       d3.selectAll(".link").classed("entityFilteredOut", false)
       d3.selectAll(".entities p").style("font-weight", 400)
+      d3.selectAll(".highlights p").style("font-weight", 400)
+      d3.select(".highlightbar").style("display", "none")
+      d3.select("#closedhighlightbar").style("display", "none")
       searchFilter = {
         category: e.choice.category,
         name: e.choice.name
