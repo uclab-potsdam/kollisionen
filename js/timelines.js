@@ -154,8 +154,8 @@ for (let i = 0; i < keywordsData.length; i++) {
   if (keywordsData[i]["category"].includes("Cinema and Theatre")) keywordsData[i]["category1"] = true;
   if (keywordsData[i]["category"].includes("Biography and Personality")) keywordsData[i]["category2"] = true;
   if (keywordsData[i]["category"].includes("Writing and Teaching")) keywordsData[i]["category3"] = true;
-  if (keywordsData[i]["category"].includes("Graphic Art")) keywordsData[i]["category4"] = true;
-  if (keywordsData[i]["category"].includes("Apartment")) keywordsData[i]["category5"] = true;
+  if (keywordsData[i]["category"].includes("Graphic Art")) keywordsData[i]["category1"] = true;
+  if (keywordsData[i]["category"].includes("Apartment")) keywordsData[i]["category2"] = true;
 
 };
 

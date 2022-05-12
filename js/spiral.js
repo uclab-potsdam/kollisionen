@@ -293,8 +293,8 @@ spiralData = spiralData.filter(function(d){return d.start < '1948-12-31' && d.en
       if (spiralData[i]["category"].includes("Cinema and Theatre")) spiralData[i]["category1"] = true;
       if (spiralData[i]["category"].includes("Biography and Personality")) spiralData[i]["category2"] = true;
       if (spiralData[i]["category"].includes("Writing and Teaching")) spiralData[i]["category3"] = true;
-      if (spiralData[i]["category"].includes("Graphic Art")) spiralData[i]["category4"] = true;
-      if (spiralData[i]["category"].includes("Apartment")) spiralData[i]["category5"] = true;
+      if (spiralData[i]["category"].includes("Graphic Art")) spiralData[i]["category1"] = true;
+      if (spiralData[i]["category"].includes("Apartment")) spiralData[i]["categorfy2"] = true;
 
     };
 
