@@ -1,10 +1,10 @@
 ![K_logo_cover](https://user-images.githubusercontent.com/77059785/168021080-43b38f00-462c-49df-801e-7625d3acfa5d.jpg)
 
 # Kollisionen
-This repo is part of the project Eisenstein's House (previously Kollisionen), which aims ot preserve life and legacy of Soviet era film director Sergei Eisenstein through data visualisation, 3D sound and virtual reality. The repo contains all files related to spiral, timeline and network visualisations of the project. 
+This repo is part of the project Eisenstein's House (previously Kollisionen), which aims to preserve life and legacy of Soviet era film director Sergei Eisenstein through data visualisation, 3D sound and virtual reality. The repo contains all files related to spiral, timelines and network visualisations of the project. 
 
 ## Documentation
-This repo contains the HTML, CSS and JS of the data visualisations of Eisenstein's House project.
+This repo contains the HTML, CSS and JS of the data visualisations of Eisenstein's House project. 
 
 ### Data 
 The data used for this visualization is primarily from the book Sergej M. Eisenstein - Materialien zu Leben und Werk by Werner Sudendorf (1975). It is further explicated by gathering information and through consultation with film heritage experts.
