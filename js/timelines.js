@@ -2612,7 +2612,6 @@ return "translate(340," + (2+I*20) + ")"})
 
 d3.select(".f_c").on("click", function() {
   d3.selectAll("text").classed("entFilteredOut", false).classed("notText", false)
-  d3.selectAll(".keyword").filter(".cinema").style("font-weight", "bold")
   d3.select(".highlightbar").style("display", "none")
   d3.select("#closedhighlightbar").style("display", "none")
   $(function() {
@@ -2624,6 +2623,7 @@ d3.select(".f_c").on("click", function() {
   therGain.gain.rampTo(-0.5,0.5);
   if (d3.select(this).style("font-weight") != "bold") {
     d3.selectAll(".keyword").style("font-weight", 400)
+    d3.selectAll(".keyword").filter(".cinema").style("font-weight", "bold")
     d3.selectAll(".filter").style("font-weight", 400)
     d3.selectAll(".highlights p").style("font-weight", 400)
     d3.selectAll(".entities p").style("font-weight", 400)
@@ -2658,6 +2658,7 @@ d3.select(".f_b").on("click", function() {
   projGain.gain.rampTo(0.1,0.5);
   therGain.gain.rampTo(0.3,0.5);
   if (d3.select(this).style("font-weight") != "bold") {
+    d3.selectAll(".keyword").style("font-weight", 400)
     d3.selectAll(".keyword").filter(".biography").style("font-weight", "bold")
     d3.selectAll(".filter").style("font-weight", 400)
     d3.selectAll(".highlights p").style("font-weight", 400)
@@ -2696,6 +2697,7 @@ d3.select(".f_w").on("click", function() {
   projGain.gain.rampTo(0.1,1);
   therGain.gain.rampTo(-0.5,1);
   if (d3.select(this).style("font-weight") != "bold") {
+    d3.selectAll(".keyword").style("font-weight", 400)
     d3.selectAll(".keyword").filter(".writing").style("font-weight", "bold")
     d3.selectAll(".filter").style("font-weight", 400)
     d3.selectAll(".highlights p").style("font-weight", 400)
