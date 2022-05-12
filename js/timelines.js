@@ -2976,6 +2976,7 @@ highlightbar
           .style('display', 'block')
           .attr('sidebarType', 'highlights')
   } else {
+    d3.selectAll(".backgroundTimelineG").selectAll("text").style("display", "block")
     d3.select(this).style("font-weight", 400)
     d3.selectAll("circle").classed("catFilteredOut", false)
     d3.selectAll(".timelineLines").classed("catFilteredOut", false)
