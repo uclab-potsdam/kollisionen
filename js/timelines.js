@@ -2899,12 +2899,9 @@ d3.select(".square").on("click", function() {
 //additional
 
 d3.select(".plus").on("click", function() {
-  d3.selectAll("text").classed("entFilteredOut", false).classed("notText", false).style("display", "block").style("font-weight", 400)
-  $(function() {
+    $(function() {
     $('#search').select2('data', null)
   })
-  d3.selectAll("text").classed("entFilteredOut", false).classed("notText", false).style("display", "block")
-
   if (d3.select(this).style("font-weight") != "bold") {
     d3.selectAll(".filter").style("font-weight", 400)
     d3.selectAll(".highlights p").style("font-weight", 400)
