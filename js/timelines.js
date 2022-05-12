@@ -1685,6 +1685,8 @@ d3.select("#closedhighlightbar").style("display", "none")
 d3.selectAll(".filter").style("font-weight", 400)
 d3.selectAll(".highlights p").style("font-weight", 400)
 d3.selectAll(".entities p").style("font-weight", 400)
+d3.selectAll("text").classed("notText", false)
+d3.selectAll(".keyword").style("font-weight", 400)
 
 d3.selectAll("circle").classed("notSelected", function(d){
   if (e.choice.category == "people"){
@@ -1725,22 +1727,22 @@ d3.selectAll("circle").classed("notSelected", function(d){
                                 if(d.keyword.includes(e.choice.name)){return false}else{return true}
                               }})
 
-                              d3.selectAll("text").classed("entFilteredOut", function(d){
+                              d3.selectAll("text").style("font-weight", function(d){
                                 if (e.choice.category == "people"){
-                                  if(d.keyword.includes(e.choice.name)){return true}else{return false}
+                                  if(d.keyword.includes(e.choice.name)){return "bold"}else{return 400}
                                 }else if (e.choice.category == "places"){
-                                    if(d.keyword.includes(e.choice.name)){return true}else{return false}
+                                    if(d.keyword.includes(e.choice.name)){return "bold"}else{return 400}
                                   }else if (e.choice.category == "artistic"){
-                                      if(d.keyword.includes(e.choice.name)){return true}else{return false}
+                                      if(d.keyword.includes(e.choice.name)){return "bold"}else{return 400}
                                     }else if (e.choice.category == "additional"){
-                                        if(d.keyword.includes(e.choice.name)){return true}else{return false}
+                                        if(d.keyword.includes(e.choice.name)){return "bold"}else{return 400}
                                       }else if (e.choice.category == "works"){
-                                          if(d.keyword.includes(e.choice.name)){return true}else{return false}
+                                          if(d.keyword.includes(e.choice.name)){return "bold"}else{return 400}
                                         }})
 
 //scroll to the "text" tht matches "e.choice.name"
 
-let element = document.querySelector(".entFilteredOut");
+let element = document.querySelector("text:not(.notText)");
 //console.log(element)
 
 element.scrollIntoView({
@@ -1755,8 +1757,8 @@ element.scrollIntoView({
 $("#search").on("select2-clearing", function(e) {
 d3.selectAll(".timelineLines").classed("notSelected",false).classed("notselectedLine",false).classed("selected",false).classed("notSelected",false)
 d3.selectAll("circle").classed("notselectedLine",false).classed("notSelected",false).classed("selected",false).classed("notSelected",false)
-d3.selectAll("text").classed("notText",false).classed("entFilteredOut",false)
-d3.selectAll("text").classed("entFilteredOut",false).classed("notText",false)
+d3.selectAll("text").classed("notText",false).style("font-weight", 400).style("display", "block")
+d3.selectAll(".keyword").style("font-weight", 400)
 })
 
 //sound
@@ -2767,7 +2769,6 @@ d3.select(".f_w").on("click", function() {
 
 d3.select(".triangle").on("click", function() {
   d3.selectAll("text").classed("entFilteredOut", false).classed("notText", false).style("display", "block")
-  d3.selectAll(".keyword").style("font-weight", 400)
   $(function() {
     $('#search').select2('data', null)
   })
@@ -2781,8 +2782,8 @@ d3.select(".triangle").on("click", function() {
     d3.selectAll("circle").classed("catFilteredOut", false)
     d3.selectAll(".timelineLines").classed("catFilteredOut", false)
     d3.select(this).style("font-weight", "bold")
-    d3.selectAll("text.people").classed("entFilteredOut", true).classed("notText", false)
-    d3.selectAll("text:not(.people)").classed("notText", true).classed("entFilteredOut", false)
+    d3.selectAll("text.people").style("font-weight", "bold").classed("notText", false)
+    d3.selectAll("text:not(.people)").classed("notText", true).style("font-weight", 400)
     d3.selectAll(".timelineLines").filter(".people").classed("SelectedLine", true).classed("notSelectedLine", false)
     d3.selectAll(".timelineLines").filter(":not(.people)").classed("notSelectedLine", true).classed("SelectedLine", false)
     d3.selectAll("circle.people").classed("selected", true).classed("notSelected", false)
@@ -2790,7 +2791,7 @@ d3.select(".triangle").on("click", function() {
 
   } else {
     d3.select(this).style("font-weight", 400)
-    d3.selectAll("text").classed("entFilteredOut", false).classed("notText", false)
+    d3.selectAll("text").style("font-weight", 400).classed("notText", false)
     d3.selectAll(".timelineLines").classed("notSelectedLine", false).classed("SelectedLine", false)
     d3.selectAll("circle").classed("selected", false).classed("notSelected", false)
   }
@@ -2815,8 +2816,8 @@ d3.select(".diamond").on("click", function() {
     d3.selectAll("circle").classed("catFilteredOut", false)
     d3.selectAll(".timelineLines").classed("catFilteredOut", false)
     d3.select(this).style("font-weight", "bold")
-    d3.selectAll("text.places").classed("entFilteredOut", true).classed("notText", false)
-    d3.selectAll("text:not(.places)").classed("notText", true).classed("entFilteredOut", false)
+    d3.selectAll("text.places").classed("notText", false).style("font-weight", "bold")
+    d3.selectAll("text:not(.places)").classed("notText", true).style("font-weight", 400)
     d3.selectAll(".timelineLines").filter(".places").classed("SelectedLine", true).classed("notSelectedLine", false)
     d3.selectAll(".timelineLines").filter(":not(.places)").classed("notSelectedLine", true).classed("SelectedLine", false)
     d3.selectAll("circle.places").classed("selected", true).classed("notSelected", false)
@@ -2824,7 +2825,7 @@ d3.select(".diamond").on("click", function() {
 
   } else {
     d3.select(this).style("font-weight", 400)
-    d3.selectAll("text").classed("entFilteredOut", false).classed("notText", false)
+    d3.selectAll("text").style("font-weight", 400).classed("notText", false)
     d3.selectAll(".timelineLines").classed("notSelectedLine", false).classed("SelectedLine", false)
     d3.selectAll("circle").classed("selected", false).classed("notSelected", false)
   }
@@ -2849,15 +2850,15 @@ d3.select(".threeprong").on("click", function() {
     d3.selectAll("circle").classed("catFilteredOut", false)
     d3.selectAll(".timelineLines").classed("catFilteredOut", false)
     d3.select(this).style("font-weight", "bold")
-    d3.selectAll("text.works").classed("entFilteredOut", true).classed("notText", false)
-    d3.selectAll("text:not(.works)").classed("notText", true).classed("entFilteredOut", false)
+    d3.selectAll("text.works").style("font-weight", "bold").classed("notText", false)
+    d3.selectAll("text:not(.works)").classed("notText", true).style("font-weight", 400)
     d3.selectAll(".timelineLines").filter(".works").classed("SelectedLine", true).classed("notSelectedLine", false)
     d3.selectAll(".timelineLines").filter(":not(.works)").classed("notSelectedLine", true).classed("SelectedLine", false)
     d3.selectAll("circle.works").classed("selected", true).classed("notSelected", false)
     d3.selectAll("circle:not(.works)").classed("selected", false).classed("notSelected", true)
   } else {
     d3.select(this).style("font-weight", 400)
-    d3.selectAll("text").classed("entFilteredOut", false).classed("notText", false)
+    d3.selectAll("text").style("font-weight", 400).classed("notText", false)
     d3.selectAll(".timelineLines").classed("notSelectedLine", false).classed("SelectedLine", false)
     d3.selectAll("circle").classed("selected", false).classed("notSelected", false)
   }
@@ -2882,14 +2883,14 @@ d3.select(".square").on("click", function() {
     d3.selectAll("circle").classed("catFilteredOut", false)
     d3.selectAll(".timelineLines").classed("catFilteredOut", false)
     d3.select(this).style("font-weight", "bold")
-    d3.selectAll("text.artistic").classed("entFilteredOut", true).classed("notText", false)
-    d3.selectAll("text:not(.artistic)").classed("notText", true).classed("entFilteredOut", false)
+    d3.selectAll("text.artistic").style("font-weight", "bold").classed("notText", false)
+    d3.selectAll("text:not(.artistic)").classed("notText", true).style("font-weight", 400)
     d3.selectAll(".timelineLines").filter(".artistic").classed("SelectedLine", true).classed("notSelectedLine", false)
     d3.selectAll(".timelineLines").filter(":not(.artistic)").classed("notSelectedLine", true).classed("SelectedLine", false)
     d3.selectAll("circle.artistic").classed("selected", true).classed("notSelected", false)
   } else {
     d3.select(this).style("font-weight", 400)
-    d3.selectAll("text").classed("entFilteredOut", false).classed("notText", false)
+    d3.selectAll("text").style("font-weight", 400).classed("notText", false)
     d3.selectAll(".timelineLines").classed("notSelectedLine", false).classed("SelectedLine", false)
     d3.selectAll("circle").classed("selected", false).classed("notSelected", false)
   }
@@ -2912,14 +2913,14 @@ d3.select(".plus").on("click", function() {
     d3.selectAll("circle").classed("catFilteredOut", false)
     d3.selectAll(".timelineLines").classed("catFilteredOut", false)
     d3.select(this).style("font-weight", "bold")
-    d3.selectAll("text.additional").classed("entFilteredOut", true).classed("notText", false)
-    d3.selectAll("text:not(.additional)").classed("notText", true).classed("entFilteredOut", false)
+    d3.selectAll("text.additional").style("font-weight","bold").classed("notText", false)
+    d3.selectAll("text:not(.additional)").classed("notText", true).style("font-weight", 400)
     d3.selectAll(".timelineLines").filter(".additional").classed("SelectedLine", true).classed("notSelectedLine", false)
     d3.selectAll(".timelineLines").filter(":not(.additional)").classed("notSelectedLine", true).classed("SelectedLine", false)
     d3.selectAll("circle.additional").classed("selected", true).classed("notSelected", false)
   } else {
     d3.select(this).style("font-weight", 400)
-    d3.selectAll("text").classed("entFilteredOut", false).classed("notText", false)
+    d3.selectAll("text").style("font-weight", 400).classed("notText", false)
     d3.selectAll(".timelineLines").classed("notSelectedLine", false).classed("SelectedLine", false)
     d3.selectAll("circle").classed("selected", false).classed("notSelected", false)
   }
