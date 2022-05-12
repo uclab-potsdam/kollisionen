@@ -13,10 +13,11 @@ The data used for this visualization is primarily from the book Sergej M. Eisens
 - [d3.js](https://github.com/d3/d3 "d3.js")
 - [tone.js](https://github.com/Tonejs/Tone.js "tone.js")
 - [shepherd.js](https://github.com/shipshapecode/shepherd "shepherd.js")
+- [jquery](https://jquery.com/ "jQuery")
+- [Select2](https://select2.org/ "Select2")
 
 ## Credits
-The visualisations are created by Sara Akhlaq, Mark-Jan Bludau, Arran Ridley and Marian Dörk. They are members of Urban Complexity Lab at Fachhochschule Potsdam, and contributed as the data visualisation team of the project Eisenstein's House. 
+The visualisations are created by Sara Akhlaq, Mark-Jan Bludau, Arran Ridley and Marian Dörk. They are members of [UCLAB](https://uclab.fh-potsdam.de "UCLAB") at Fachhochschule Potsdam, and contributed as the data visualisation team of the [project Eisenstein's House](https://eisensteinshouse.projekte-filmuni.de/ "Eisenstein's house"). 
 
 ## License
 This project is licensed under the terms of the MIT license. See the [LICENSE](https://github.com/uclab-potsdam/kollisionen/blob/main/LICENSE "LICENSE") file for license rights and limitations (MIT).
-
