@@ -187,7 +187,7 @@ d.vdateEnd = +endParse(d.vend + " 23:59AM")
         });
     });
 
-    console.log(placesStep1);
+  //  console.log(placesStep1);
 
     //remove repeated keywords
 
@@ -199,7 +199,7 @@ d.vdateEnd = +endParse(d.vend + " 23:59AM")
         }
     }
 
-    console.log(placesStep2);
+  //  console.log(placesStep2);
 
     //create array of dates for each keyword
 
@@ -223,7 +223,7 @@ d.vdateEnd = +endParse(d.vend + " 23:59AM")
 
     }
 
-    console.log(placesStep3);
+    //console.log(placesStep3);
 
 //create list of dates for keywords separated by ';' not as an array
 
@@ -247,7 +247,7 @@ d.vdateEnd = +endParse(d.vend + " 23:59AM")
 
     }
 
-    console.log(placesStep4);
+    //console.log(placesStep4);
 
     //keep first date of each keyword and remove the rest
 
@@ -263,7 +263,7 @@ d.vdateEnd = +endParse(d.vend + " 23:59AM")
 
     }
 
-    console.log(placesStep5);
+    //console.log(placesStep5);
 
 // add column headers for places array
 
@@ -291,7 +291,7 @@ d.vdateEnd = +endParse(d.vend + " 23:59AM")
     }
     );
 
-   console.log(keywordsPlace);
+   //console.log(keywordsPlace);
 
 //array for people
 
@@ -312,7 +312,7 @@ d.vdateEnd = +endParse(d.vend + " 23:59AM")
         });
     });
 
-    console.log(peopleStep1);
+    //console.log(peopleStep1);
 
     //remove repeated keywords
 
@@ -324,7 +324,7 @@ d.vdateEnd = +endParse(d.vend + " 23:59AM")
         }
     }
 
-    console.log(peopleStep2);
+    //console.log(peopleStep2);
 
     //create array of dates for each keyword
 
@@ -346,7 +346,7 @@ d.vdateEnd = +endParse(d.vend + " 23:59AM")
 
     }
 
-    console.log(peopleStep3);
+    //console.log(peopleStep3);
 
     //create list of dates for keywords separated by ';' not as an array
 
@@ -370,7 +370,7 @@ d.vdateEnd = +endParse(d.vend + " 23:59AM")
 
     }
 
-    console.log(peopleStep4);
+    //console.log(peopleStep4);
 
     //keep first date of each keyword and remove the rest
 
@@ -386,7 +386,7 @@ d.vdateEnd = +endParse(d.vend + " 23:59AM")
 
     }
 
-    console.log(peopleStep5);
+    //console.log(peopleStep5);
 
     var keywordsPeople = [];
 
@@ -412,7 +412,7 @@ keywordsData.forEach(function(d,i){
 }
 );
 
-console.log(keywordsPeople);
+//console.log(keywordsPeople);
 
 //array for works
 
@@ -433,7 +433,7 @@ console.log(keywordsPeople);
         });
     });
 
-    console.log(worksStep1);
+    //console.log(worksStep1);
 
     //remove repeated keywords
 
@@ -446,7 +446,7 @@ console.log(keywordsPeople);
         }
     }
 
-    // console.log(worksStep2);
+    // //console.log(worksStep2);
 
     //create array of dates for each keyword
 
@@ -468,7 +468,7 @@ console.log(keywordsPeople);
 
     }
 
-    // console.log(worksStep3);
+    // //console.log(worksStep3);
 
     //create list of dates for keywords separated by ';' not as an array
 
@@ -492,7 +492,7 @@ console.log(keywordsPeople);
 
     }
 
-    console.log(worksStep4);
+    //console.log(worksStep4);
 
     //keep first date of each keyword and remove the rest
 
@@ -508,7 +508,7 @@ console.log(keywordsPeople);
 
     }
 
-    console.log(worksStep5);
+    //console.log(worksStep5);
 
     var keywordsWorks = [];
 
@@ -534,7 +534,7 @@ console.log(keywordsPeople);
     }
     );
 
-    console.log(keywordsWorks);
+    //console.log(keywordsWorks);
 
     //array for artistic
 
@@ -556,7 +556,7 @@ console.log(keywordsPeople);
 
     });
 
-    console.log(artisticStep1);
+    //console.log(artisticStep1);
 
     //remove repeated keywords
 
@@ -569,7 +569,7 @@ console.log(keywordsPeople);
         }
     }
 
-    console.log(artisticStep2);
+    //console.log(artisticStep2);
 
     //create array of dates for each keyword
 
@@ -593,7 +593,7 @@ console.log(keywordsPeople);
 
     }
 
-    console.log(artisticStep3);
+    //console.log(artisticStep3);
 
     //create list of dates for keywords separated by ';' not as an array
 
@@ -618,7 +618,7 @@ console.log(keywordsPeople);
 
     }
 
-    console.log(artisticStep4);
+    //console.log(artisticStep4);
 
     //keep first date of each keyword and remove the rest
 
@@ -634,7 +634,7 @@ console.log(keywordsPeople);
 
     }
 
-    console.log(artisticStep5);
+    //console.log(artisticStep5);
 
     var keywordsArtistic = [];
 
@@ -661,7 +661,7 @@ console.log(keywordsPeople);
 
     );
 
-    console.log(keywordsArtistic);
+    //console.log(keywordsArtistic);
 
     //array for additional
 
@@ -683,7 +683,7 @@ console.log(keywordsPeople);
 
     });
 
-    console.log(additionalStep1);
+    //console.log(additionalStep1);
     // console.log(additionalStep1);
 
     //remove repeated keywords
@@ -697,7 +697,7 @@ console.log(keywordsPeople);
         }
     }
 
-    console.log(additionalStep2);
+    //console.log(additionalStep2);
 
     //create array of dates for each keyword
 
@@ -721,7 +721,7 @@ console.log(keywordsPeople);
 
     }
 
-    console.log(additionalStep3);
+    //console.log(additionalStep3);
 
     //create list of dates for keywords separated by ';' not as an array
 
@@ -745,7 +745,7 @@ console.log(keywordsPeople);
 
     }
 
-    console.log(additionalStep4);
+    //console.log(additionalStep4);
 
     //keep first date of each keyword and remove the rest
 
@@ -762,7 +762,7 @@ console.log(keywordsPeople);
 
     }
 
-    console.log(additionalStep5);
+    //console.log(additionalStep5);
 
     var keywordsAdditional = [];
 
@@ -789,7 +789,7 @@ console.log(keywordsPeople);
 
     );
 
-    console.log(keywordsAdditional);
+    //console.log(keywordsAdditional);
 
     //combine keywordsPeople, keywordsPlaces, keywordsWorks, keywordsArtistic, and keywordsAdditional into one array
 
@@ -805,7 +805,7 @@ console.log(keywordsAll);
 
     );
 
-    console.log(keywordsAllSorted);
+    //console.log(keywordsAllSorted);
 
 
 
@@ -840,8 +840,8 @@ console.log(keywordsAll);
 
 let keywordListLength = keywordsAll.length //total number of keywords
 let timelineheight =  50+keywordsAll.length*20 //based in timelinsG code we calculate the size of the chart
-console.log(keywordListLength)
-console.log(timelineheight)
+//console.log(keywordListLength)
+//console.log(timelineheight)
 
     var svg = d3.select("#chart")
         .append("svg")
@@ -876,7 +876,7 @@ Promise.all([
     document.getElementsByClassName("highlights")[0].appendChild(p);
     }
 
-      console.log(highlightsData);
+      //console.log(highlightsData);
 
 
   const timelineXScale = d3.scaleTime()
@@ -1000,12 +1000,30 @@ function stringSplit(data, keywordSplitter) {
   .classed("artistic", function (d) { if (keywordsArtistic.filter(function(D){return D==d}).length >0){return true}else{return false}})
   .classed("additional", function (d) { if (keywordsAdditional.filter(function(D){return D==d}).length >0){return true}else{return false}})
   .classed("category", true)
-  // .classed("cinema", function (d) { if (keywordsData.filter(function(D){  return ((d.placesSplit.filter(function(place){return D.keyword==place}).length >0) 
-  //         || (d.peopleSplit.filter(function(people){return D.keyword==people}).length >0) 
-  //           || (d.worksSplit.filter(function(work){return D.keyword==work}).length >0) 
-  //             || (d.artisticSplit.filter(function(artistic){return D.keyword==artistic}).length >0) 
-  //               || (d.additionalSplit.filter(function(additional){return D.keyword==additional}).length >0)) && d.category1 == true}).length >0){return true}else{return false}})
-  // peopleSplit or keywordsData.placesSplit or keywordsData.worksSplit or keywordsData.additionalSplit or keywordsData.artisticSplit and keywordsData.category1 == true
+  .classed("cinema", function(d){
+    if(keywordsData.filter(function(D){return (D.placesSplit.filter(function(place){return d.keyword==place})).length>0
+      || (D.peopleSplit.filter(function(people){return d.keyword==people})).length>0
+      || (D.worksSplit.filter(function(works){return d.keyword==works})).length>0
+      || (D.artisticSplit.filter(function(artistic){return d.keyword==artistic})).length>0
+      || (D.additionalSplit.filter(function(additional){return d.keyword==additional})).length>0}).filter(function(event){return event.category.includes("Cinema") == true || event.category.includes("Graphic") == true}).length >0)
+    {return true}else{return false}
+  })
+  .classed("biography", function(d){
+    if(keywordsData.filter(function(D){return (D.placesSplit.filter(function(place){return d.keyword==place})).length>0
+      || (D.peopleSplit.filter(function(people){return d.keyword==people})).length>0
+      || (D.worksSplit.filter(function(works){return d.keyword==works})).length>0
+      || (D.artisticSplit.filter(function(artistic){return d.keyword==artistic})).length>0
+      || (D.additionalSplit.filter(function(additional){return d.keyword==additional})).length>0}).filter(function(event){return event.category.includes("Biography") == true || event.category.includes("Apartment") == true}).length >0)
+    {return true}else{return false}
+  })
+  .classed("writing", function(d){
+    if(keywordsData.filter(function(D){return (D.placesSplit.filter(function(place){return d.keyword==place})).length>0
+      || (D.peopleSplit.filter(function(people){return d.keyword==people})).length>0
+      || (D.worksSplit.filter(function(works){return d.keyword==works})).length>0
+      || (D.artisticSplit.filter(function(artistic){return d.keyword==artistic})).length>0
+      || (D.additionalSplit.filter(function(additional){return d.keyword==additional})).length>0}).filter(function(event){return event.category.includes("Writing") == true}).length >0)
+    {return true}else{return false}
+  })
 
 
 
@@ -1728,7 +1746,7 @@ d3.selectAll("circle").classed("notSelected", function(d){
 //scroll to the "text" tht matches "e.choice.name"
 
 let element = document.querySelector(".entFilteredOut");
-console.log(element)
+//console.log(element)
 
 element.scrollIntoView({
   behavior: 'auto',
@@ -2594,6 +2612,7 @@ return "translate(340," + (2+I*20) + ")"})
 
 d3.select(".f_c").on("click", function() {
   d3.selectAll("text").classed("entFilteredOut", false).classed("notText", false)
+  d3.selectAll(".keyword").filter(".cinema").style("font-weight", "bold")
   d3.select(".highlightbar").style("display", "none")
   d3.select("#closedhighlightbar").style("display", "none")
   $(function() {
@@ -2604,6 +2623,7 @@ d3.select(".f_c").on("click", function() {
   projGain.gain.rampTo(3.0,0.5);
   therGain.gain.rampTo(-0.5,0.5);
   if (d3.select(this).style("font-weight") != "bold") {
+    d3.selectAll(".keyword").style("font-weight", 400)
     d3.selectAll(".filter").style("font-weight", 400)
     d3.selectAll(".highlights p").style("font-weight", 400)
     d3.selectAll(".entities p").style("font-weight", 400)
@@ -2638,6 +2658,7 @@ d3.select(".f_b").on("click", function() {
   projGain.gain.rampTo(0.1,0.5);
   therGain.gain.rampTo(0.3,0.5);
   if (d3.select(this).style("font-weight") != "bold") {
+    d3.selectAll(".keyword").filter(".biography").style("font-weight", "bold")
     d3.selectAll(".filter").style("font-weight", 400)
     d3.selectAll(".highlights p").style("font-weight", 400)
     d3.selectAll(".entities p").style("font-weight", 400)
@@ -2655,6 +2676,7 @@ d3.select(".f_b").on("click", function() {
 
   } else {
     d3.select(this).style("font-weight", 400)
+    d3.selectAll(".keyword").style("font-weight", 400)
     // d3.SelectAll("text").classed("entFilteredOut", false).classed("notText", false)
     d3.selectAll("circle").classed("catFilteredOut", false)
     d3.selectAll(".timelineLines").classed("catFilteredOut", false)
@@ -2674,6 +2696,7 @@ d3.select(".f_w").on("click", function() {
   projGain.gain.rampTo(0.1,1);
   therGain.gain.rampTo(-0.5,1);
   if (d3.select(this).style("font-weight") != "bold") {
+    d3.selectAll(".keyword").filter(".writing").style("font-weight", "bold")
     d3.selectAll(".filter").style("font-weight", 400)
     d3.selectAll(".highlights p").style("font-weight", 400)
     d3.selectAll(".entities p").style("font-weight", 400)
@@ -2690,6 +2713,7 @@ d3.select(".f_w").on("click", function() {
     d3.selectAll(".timelineLines").filter(":not(.writing)").classed("catFilteredOut", true)
   } else {
     d3.select(this).style("font-weight", 400)
+    d3.selectAll(".keyword").style("font-weight", 400)
     // d3.SelectAll("text").classed("entFilteredOut", false).classed("notText", false)
     d3.selectAll("circle").classed("catFilteredOut", false)
     d3.selectAll(".timelineLines").classed("catFilteredOut", false)
