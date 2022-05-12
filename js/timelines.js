@@ -1753,10 +1753,10 @@ element.scrollIntoView({
 
 
 $("#search").on("select2-clearing", function(e) {
-d3.selectAll(".timelineLines").classed("notSelected",false)
-d3.selectAll("circle").classed("notselectedLine",false)
-d3.selectAll("text").classed("notText",false)
-d3.selectAll("text").classed("entFilteredOut",false)
+d3.selectAll(".timelineLines").classed("notSelected",false).classed("notselectedLine",false).classed("selected",false).classed("notSelected",false)
+d3.selectAll("circle").classed("notselectedLine",false).classed("notSelected",false).classed("selected",false).classed("notSelected",false)
+d3.selectAll("text").classed("notText",false).classed("entFilteredOut",false)
+d3.selectAll("text").classed("entFilteredOut",false).classed("notText",false)
 })
 
 //sound
@@ -2951,10 +2951,10 @@ d3.selectAll(".highlights p")
   }).classed("catFilteredOut", true)
 
 ///to check for highlights: for each timeline count the number of elements, then substract the number of visible elements. if this is > 0 then there is a highlight visible in this timeline
-  d3.selectAll(".backgroundTimelineG").each(function(d){//console.log(d)
-    if(d3.select(this).selectAll(".circles,.timelineLines").size()-d3.select(this).selectAll(".circles,.timelineLines").filter(".catFilteredOut").size() > 0)
-      {d3.select(this).select("text").style("display", "block")}else{d3.select(this).select("text").style("display", "none")}
-  })
+d3.selectAll(".backgroundTimelineG").each(function(d){//console.log(d)
+  if(d3.select(this).selectAll(".circles,.timelineLines").size()-d3.select(this).selectAll(".circles,.timelineLines").filter(".catFilteredOut").size() > 0)
+    {d3.select(this).select("text").style("display", "block")}else{d3.select(this).select("text").style("display", "none")}
+})
 
     d3.selectAll(".filter,.allfilter").style("font-weight", 400)
     d3.select("#closedhighlightbar").style("display", "block")
@@ -2978,6 +2978,7 @@ highlightbar
   } else {
     d3.selectAll(".backgroundTimelineG").selectAll("text").style("display", "block")
     d3.select(this).style("font-weight", 400)
+    d3.selectAll("text").style("display", "block")
     d3.selectAll("circle").classed("catFilteredOut", false)
     d3.selectAll(".timelineLines").classed("catFilteredOut", false)
     d3.select(".highlightbar").style("display", "none")
