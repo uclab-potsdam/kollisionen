@@ -1,5 +1,3 @@
-![Kollisionen logo](images/K_logo_cover.jpg raw=true)
-
 ![K_logo_cover](https://user-images.githubusercontent.com/77059785/168021080-43b38f00-462c-49df-801e-7625d3acfa5d.jpg)
 
 # Kollisionen
@@ -16,10 +14,9 @@ The data used for this visualization is primarily from the book Sergej M. Eisens
 - [tone.js](https://github.com/Tonejs/Tone.js "tone.js")
 - [shepherd.js](https://github.com/shipshapecode/shepherd "shepherd.js")
 
-# Credits
-The visualisations are created by members of Urban Complexity Lab as part of the data visualisation team of the project Eisenstein's House. 
-Sara Akhlaq, Mark-Jan Bludau, Arran Ridley and Marian Dörk.
+## Credits
+The visualisations are created by Sara Akhlaq, Mark-Jan Bludau, Arran Ridley and Marian Dörk. They are members of Urban Complexity Lab and contributed to the project as part of the data visualisation team of the Eisenstein's House. 
 
-# License
-The notebooks are released under the [Creative Commons Attribution license (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/ "Creative Commons Attribution license (CC BY 4.0)").
+## License
+This project is licensed under the terms of the MIT license. See the [LICENSE](https://github.com/uclab-potsdam/kollisionen/blob/main/LICENSE "LICENSE") file for license rights and limitations (MIT).
 
