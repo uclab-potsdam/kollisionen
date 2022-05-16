@@ -145,7 +145,7 @@ function zoomed(event, d) {
 // The path to draw the spiral needs data to inform it, points generates this, and is used in .datum(points) below
 
 var points = d3.range(start, end + 0.001, (end - start) / 1000)
-console.log(points);
+//console.log(points);
 
 // this is the spiral, utilising the theta and radius generated above
 
@@ -180,14 +180,22 @@ var endParse = d3.timeParse("%Y-%m-%d %I:%M%p");
 
 //define data
 
+//the dataset
 var urlMinimal = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvSLkjHvHlPjWLy3ec4UT9AsFsyTy2rbsjKquZgmhCqbsTZ4TLAnWv28Y3PnR/pub?gid=1387341329&single=true&output=csv'
 
+//local copy of the dataset
 var url = './data/minimal_120522.csv' //local backup
 
-var itemsUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTpZlBfSa0sBkPXXCdHykUFi5N2zPcclrda8iaYlbWoyzaWxDj7q3WEtmP7m8hrzk5ejAgjk-Id_zk9/pub?gid=1626158426&single=true&output=csv'
+//not used
+// var itemsUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTpZlBfSa0sBkPXXCdHykUFi5N2zPcclrda8iaYlbWoyzaWxDj7q3WEtmP7m8hrzk5ejAgjk-Id_zk9/pub?gid=1626158426&single=true&output=csv'
 
+//this is a temporary dummy dataset (keep until the real dataset is ready)
 var urlHighlights = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT3XiwLUS9uF0SIvV0QOOTGJv5FY077vEEIiShwtJkEcxDC-Dghp9JEycZxNDAplPetp73-ssUqZ8dv/pub?gid=0&single=true&output=csv'
 
+//this is the highlights dataset for 'Esisenstein's Universe'
+var highlights = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrU4i2RLTCar30bFgnvSLkjHvHlPjWLy3ec4UT9AsFsyTy2rbsjKquZgmhCqbsTZ4TLAnWv28Y3PnR/pub?gid=1718305265&single=true&output=csv'
+
+// local copy of urlHighlights
 // var urlHighlights = './data/highlights.csv'
 
 ///load data and preprocessing- metadataschema
@@ -195,7 +203,7 @@ Promise.all([
   d3.csv(url), //data
 ])
   .then(([spiralData]) => {
-    console.log(spiralData);
+    //console.log(spiralData);
 
 
 spiralData = spiralData.filter(function(d){return d.start < '1948-12-31' && d.end < '1948-12-31' })
@@ -325,7 +333,7 @@ spiralData = spiralData.filter(function(d){return d.start < '1948-12-31' && d.en
         // highlights
 
         Promise.all([
-          d3.csv(urlHighlights), //data
+          d3.csv(highlights), //data
         ])
           .then(([highlightsData]) => {
 
@@ -334,15 +342,26 @@ spiralData = spiralData.filter(function(d){return d.start < '1948-12-31' && d.en
 
             //create a p class for each of the 'identifier's and insert into into the div class="highlights" in index.html
             for (let i = 0; i < highlightsData.length; i++) {
-              let identifier = highlightsData[i]["identifier"];
-              let text = highlightsData[i]["name"];
+              let identifier = highlightsData[i]["Object ID"];
+              let text = highlightsData[i]["Title"];
               let p = document.createElement("p");
               p.className = identifier;
               p.innerHTML = text;
               document.getElementsByClassName("highlights")[0].appendChild(p);
             }
 
-            console.log(highlightsData);
+            //console.log(highlightsData);
+
+            highlightsData.forEach(function (d,i) {
+
+              d.events = highlightsData[i]["Related Events"]
+              d.Object_ID = highlightsData[i]["Object ID"]
+              d.Link_3D = highlightsData[i]["Link to WEB-3D"]
+              d.Link_VR = highlightsData[i]["Link to VR"]
+              d.Link_Archive = highlightsData[i]["Link to Archival Area"]
+
+            });
+
 
             // });
 
@@ -1331,10 +1350,10 @@ console.log(dateRangeLength); //number of years
                   let selectedIdentifier = d3.select(this).attr("class") // get the class of the p tag that was clicked on
 
                   d3.selectAll(".circles,.pathGs").filter(function (X, Y) {
-                    return highlightsData.filter(function (D) { return D.identifier == selectedIdentifier })[0].events.includes(X.Event_ID) == true
+                    return highlightsData.filter(function (D) { return D.Object_ID == selectedIdentifier })[0].events.includes(X.Event_ID) == true
                   }).classed("catFilteredOut", false)
                   d3.selectAll(".circles,.pathGs").filter(function (X, Y) {
-                    return highlightsData.filter(function (D) { return D.identifier == selectedIdentifier })[0].events.includes(X.Event_ID) == false
+                    return highlightsData.filter(function (D) { return D.Object_ID == selectedIdentifier })[0].events.includes(X.Event_ID) == false
                   }).classed("catFilteredOut", true)
 
                   d3.selectAll(".filter,.allfilter").style("font-weight", 400)
@@ -1344,13 +1363,13 @@ console.log(dateRangeLength); //number of years
                   /// sidebar for spans
                   highlightbar
                     .html(`
-<h1 class="highlightsName">${highlightsData.filter(function (D) { return D.identifier == selectedIdentifier })[0].name}</h1>
-<p class="highlightsImage"><img src="images/objects/${highlightsData.filter(function (D) { return D.identifier == selectedIdentifier })[0].identifier}.png" alt="${highlightsData.filter(function (D) { return D.identifier == selectedIdentifier })[0].identifier}" width = "50%" height = "auto" class="image"></p>
-<p class="highlightsSubtitle">${highlightsData.filter(function (D) { return D.identifier == selectedIdentifier })[0].subtitle}</p>
-<p class="highlightsDescription">${highlightsData.filter(function (D) { return D.identifier == selectedIdentifier })[0].description}</p>
-<p class="highlightsDate">${highlightsData.filter(function (D) { return D.identifier == selectedIdentifier })[0].date}</p>
-<p class="highlightsLink"><a href="${highlightsData.filter(function (D) { return D.identifier == selectedIdentifier })[0].links}" target="_blank">${highlightsData.filter(function (D) { return D.identifier == selectedIdentifier })[0].links}</a></p>
-
+<h1 class="title">${highlightsData.filter(function (D) { return D.Object_ID == selectedIdentifier })[0].Title}</h1>
+<p class="highlightsImage"><img src="images/objects/${highlightsData.filter(function (D) { return D.Object_ID == selectedIdentifier })[0].Object_ID}.png" alt="${highlightsData.filter(function (D) { return D.Object_ID == selectedIdentifier })[0].Object_ID}" width = "50%" height = "auto" class="image"></p>
+<h2 class="title">${highlightsData.filter(function (D) { return D.Object_ID == selectedIdentifier })[0].Subtitle}</h2>
+<p class="highlightsDescription"><b>Description: </b>${highlightsData.filter(function (D) { return D.Object_ID == selectedIdentifier })[0].Description}</p>
+<p class="highlightsLinkVR"><b>Object in VR: </b><a href="${highlightsData.filter(function (D) { return D.Object_ID == selectedIdentifier })[0].Link_VR}" target="_blank">${highlightsData.filter(function (D) { return D.Object_ID == selectedIdentifier })[0].Link_VR}</a></p>
+<p class="highlightsLink3D"><b>Object in 3D: </b><a href="${highlightsData.filter(function (D) { return D.Object_ID == selectedIdentifier })[0].Link_3D}" target="_blank">${highlightsData.filter(function (D) { return D.Object_ID == selectedIdentifier })[0].Link_3D}</a></p>
+<p class="highlightsLinkArchive"><b>Object in Archive: </b><a href="${highlightsData.filter(function (D) { return D.Object_ID == selectedIdentifier })[0].Link_Archive}" target="_blank">${highlightsData.filter(function (D) { return D.Object_ID == selectedIdentifier })[0].Link_Archive}</a></p>
 `)
                     .style('display', 'block')
                     .attr('sidebarType', 'highlights')
