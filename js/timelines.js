@@ -1763,13 +1763,14 @@ d3.selectAll(".keyword").style("font-weight", 400)
 
 //sound
 
-d3.select("#soundcheckbox").on('change', function () {
+d3.select("#soundbutton").on('click', function() {
   if (soundtoggle) {
     soundtoggle = !soundtoggle;
+    d3.select("#soundbutton").attr("src", "images/sound-off.svg")
     Tone.Transport.stop();
-  }
-  else if (!soundtoggle) {
+  } else if (!soundtoggle) {
     soundtoggle = !soundtoggle;
+    d3.select("#soundbutton").attr("src", "images/sound-on.svg")
     Tone.Transport.start();
   }
 });
@@ -2772,7 +2773,7 @@ d3.select(".triangle").on("click", function() {
   $(function() {
     $('#search').select2('data', null)
   })
-  
+
   if (d3.select(this).style("font-weight") != "bold") {
     d3.selectAll(".filter").style("font-weight", 400)
     d3.selectAll(".highlights p").style("font-weight", 400)

@@ -2097,16 +2097,18 @@ Promise.all([
     })
 
 
-    d3.select("#soundcheckbox").on('change', function() {
-      if (soundtoggle) {
-        soundtoggle = !soundtoggle;
-        Tone.Transport.stop();
-      } else if (!soundtoggle) {
-        soundtoggle = !soundtoggle;
-        Tone.Transport.start();
-      }
-    });
 
+d3.select("#soundbutton").on('click', function() {
+  if (soundtoggle) {
+    soundtoggle = !soundtoggle;
+    d3.select("#soundbutton").attr("src", "images/sound-off.svg")
+    Tone.Transport.stop();
+  } else if (!soundtoggle) {
+    soundtoggle = !soundtoggle;
+    d3.select("#soundbutton").attr("src", "images/sound-on.svg")
+    Tone.Transport.start();
+  }
+});
 
     function ticked(d) {
       if (simulation.alpha() < 0.15) {

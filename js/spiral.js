@@ -1281,13 +1281,14 @@ console.log(dateRangeLength); //number of years
 
             ///filters
 
-            d3.select("#soundcheckbox").on('change', function () {
+            d3.select("#soundbutton").on('click', function() {
               if (soundtoggle) {
                 soundtoggle = !soundtoggle;
+                d3.select("#soundbutton").attr("src", "images/sound-off.svg")
                 Tone.Transport.stop();
-              }
-              else if (!soundtoggle) {
+              } else if (!soundtoggle) {
                 soundtoggle = !soundtoggle;
+                d3.select("#soundbutton").attr("src", "images/sound-on.svg")
                 Tone.Transport.start();
               }
             });
