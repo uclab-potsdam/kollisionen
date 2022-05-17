@@ -1300,7 +1300,7 @@ Promise.all([
           .html(`
         ${replaceTemporal(d, (vdateStart) => `<p class="date">${formatTime(d.vdateStart)}</p>`)}
         ${conditionalReturn(d.displayTemporal, (displayTemporal) => `<p class="displayTemporal"><b>${displayTemporal}</b></p>`)}
-        ${conditionalReturn(d.title, (title) => `<h2 class="title">${title}</p>`)}
+        ${conditionalReturn(d.title, (title) => `<h2 class="title">${title}</h2>`)}
         ${compareDescription(d, (description) => `<p class="description"><b>Description: </b>${description}</p>`)}
         ${stringSplit(d.people, (people) => `<p class="people"><b>People: </b>${people}</p>`)}
         ${stringSplit(d.places, (places) => `<p class="places"><b>Places: </b>${places}</p>`)}
