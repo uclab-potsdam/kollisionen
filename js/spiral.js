@@ -1342,7 +1342,10 @@ console.log(dateRangeLength); //number of years
 
             d3.selectAll(".highlights p")
               .on("click", function (d, i) {
-                //d3.selectAll(".circles,.pathGs").classed("catFilteredOut", false)
+                d3.selectAll(".circles,.pathGs").classed("catFilteredOut", false).classed("notSelected", false).classed("selected", false)
+                d3.select("#closedsidebar").style("display", "none")
+                d3.select(".sidebar").style("display", "none")
+
                 if (d3.select(this).style("font-weight") != "bold") {
                   $('#search').select2('data', null)
 
