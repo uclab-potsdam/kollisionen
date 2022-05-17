@@ -2945,6 +2945,9 @@ d3.select(".plus").on("click", function() {
 
 d3.selectAll(".highlights p")
 .on("click", function(d,i) {
+  d3.selectAll(".circles,.pathGs").classed("catFilteredOut", false).classed("notSelected", false).classed("selected", false)
+  d3.select("#closedsidebar").style("display", "none")
+  d3.select(".sidebar").style("display", "none")
   $(function() {
     $('#search').select2('data', null)
   })
@@ -2977,7 +2980,6 @@ d3.selectAll(".backgroundTimelineG").each(function(d){//console.log(d)
   if(d3.select(this).selectAll(".circles,.timelineLines").size()-d3.select(this).selectAll(".circles,.timelineLines").filter(".catFilteredOut").size() > 0)
     {d3.select(this).select("text").style("display", "block")}else{d3.select(this).select("text").style("display", "none")}
 })
-
     d3.selectAll(".filter,.allfilter").style("font-weight", 400)
     d3.select("#closedhighlightbar").style("display", "block")
 
@@ -3015,7 +3017,7 @@ d3.selectAll("#closedhighlightbar")
 
                 d3.selectAll(".circle").classed("catFilteredOut", false)
                 d3.selectAll(".timelineLines").classed("catFilteredOut", false)
-
+                d3.selectAll("text").style("display", "block")
                 d3.selectAll(".highlights p").style("font-weight", 400)
                 d3.select("#closedhighlightbar").style("display", "none")
 
