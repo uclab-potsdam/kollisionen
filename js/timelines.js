@@ -2993,9 +2993,7 @@ highlightbar
 <p class="highlightsImage"><img src="images/objects/${highlightsData.filter(function (D) { return D.Object_ID == selectedIdentifier })[0].Object_ID}.png" alt="${highlightsData.filter(function (D) { return D.Object_ID == selectedIdentifier })[0].Object_ID}" width = "50%" height = "auto" class="image"></p>
 <h2 class="title">${highlightsData.filter(function (D) { return D.Object_ID == selectedIdentifier })[0].Subtitle}</h2>
 <p class="highlightsDescription"><b>Description: </b>${highlightsData.filter(function (D) { return D.Object_ID == selectedIdentifier })[0].Description}</p>
-<p class="highlightsLinkVR"><b>Object in VR: </b><a href="${highlightsData.filter(function (D) { return D.Object_ID == selectedIdentifier })[0].Link_VR}" target="_blank">${highlightsData.filter(function (D) { return D.Object_ID == selectedIdentifier })[0].Link_VR}</a></p>
-<p class="highlightsLink3D"><b>Object in 3D: </b><a href="${highlightsData.filter(function (D) { return D.Object_ID == selectedIdentifier })[0].Link_3D}" target="_blank">${highlightsData.filter(function (D) { return D.Object_ID == selectedIdentifier })[0].Link_3D}</a></p>
-<p class="highlightsLinkArchive"><b>Object in Archive: </b><a href="${highlightsData.filter(function (D) { return D.Object_ID == selectedIdentifier })[0].Link_Archive}" target="_blank">${highlightsData.filter(function (D) { return D.Object_ID == selectedIdentifier })[0].Link_Archive}</a></p>
+<p class="highlightsLinks"><b>Links: </b>You can explore more aspects of this object and its story in our <a href="${highlightsData.filter(function (D) { return D.Object_ID == selectedIdentifier })[0].Link_VR}">VR Experience</a>, in <a href="${highlightsData.filter(function (D) { return D.Object_ID == selectedIdentifier })[0].Link_VR}">Web3D</a> and on our <a href="${highlightsData.filter(function (D) { return D.Object_ID == selectedIdentifier })[0].Link_Archive}">Archival Page</a>.</p>
 `)
           .style('display', 'block')
           .attr('sidebarType', 'highlights')
